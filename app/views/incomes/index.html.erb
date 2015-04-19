@@ -70,12 +70,13 @@
 
 	</div>
 
-
-	<div class="col-xs-12" align="left">
-		<p></p>
-		<%= link_to new_income_path do %>
-			<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Ingreso</button>
-		<% end %>
-	</div>
+	<% if current_user.manage? or current_user.manage_analist? %>
+		<div class="col-xs-12" align="left">
+			<p></p>
+			<%= link_to new_income_path do %>
+				<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Ingreso</button>
+			<% end %>
+		</div>
+	<% end %>
 
 </div>

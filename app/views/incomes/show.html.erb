@@ -4,7 +4,14 @@
 			<li><%= link_to 'Inicio', controller: 'statics' %></li>
 			<li><%= link_to 'Administración', administration_path %></li>
 			<li><%= link_to 'Presupuesto', budget_path %></li>
-			<li><%= link_to 'Ingresos', incomes_path %></li>
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.manage? or current_user.manage_analist? or current_user.quality? %>
+				<li><%= link_to 'Ingresos', incomes_path %></li>
+			<% else %>
+			    <!-- falta obtener lab -->
+				<% if current_user.labBoss? or current_user.labassistant? %>
+					<li><%= link_to 'Ingresos', controller: 'incomes', action: 'list_lab', id: current_user.lab %></li>
+				<% end %>
+			<% end %>				
 			<li class="active"><%= @income.id%></li>
 		</ol>
 	</div>
@@ -72,12 +79,14 @@
 			</tr>
 		</table>
 	</div>
-	<div class="col-xs-12">
-		<%= link_to edit_income_path do %>
-			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ingreso</button>
-		<% end %>
-		<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-search"></i> Consultar Planilla de Modificación Presupuestaria </button>'.html_safe, income_path(@income, :format => 'pdf') %>
-	</div>
+	<% if current_user.manage? or current_user.manage_analist? %>	
+		<div class="col-xs-12">
+			<%= link_to edit_income_path do %>
+				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ingreso</button>
+			<% end %>
+			<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-search"></i> Consultar Planilla de Modificación Presupuestaria </button>'.html_safe, income_path(@income, :format => 'pdf') %>
+		</div>
+	<% end %>
 </div>
 
 <style>

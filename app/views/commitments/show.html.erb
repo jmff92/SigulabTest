@@ -4,7 +4,14 @@
 			<li><%= link_to 'Inicio', controller: 'statics' %></li>
 			<li><%= link_to 'Administración', administration_path %></li>
 			<li><%= link_to 'Presupuesto', budget_path %></li>
-			<li><%= link_to 'Compromisos', commitments_path %></li>
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.manage? or current_user.manage_analist? or current_user.quality? %>
+				<li><%= link_to 'Compromisos', commitments_path %></li>
+			<% else %>
+			    <!-- falta obtener lab -->
+				<% if current_user.labBoss? or current_user.labassistant? %>
+					<li><%= link_to 'Compromisos', controller: 'commitments', action: 'list_lab', id: current_user.lab %></li>
+				<% end %>
+			<% end %>			
 			<li class="active"><%= @commitment.id%></li>
 		</ol>
 	</div>
@@ -67,18 +74,22 @@
 		</table>
 	</div>
 	<div class="col-xs-12">
-		<%= link_to edit_commitment_path do %>
-			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Compromiso</button>
+		<% if current_user.acquisition? or current_user.manage? or current_user.manage_analist? %>
+			<%= link_to edit_commitment_path do %>
+				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Compromiso</button>
+			<% end %>
 		<% end %>
-        <% if @sum < @commitment.amount %>
-		<%= link_to controller: :executions, action: 'new', cid: @commitment.id do %>
-			<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Ejecución</button>
-		<% end %>
-		<% end %>
+		<% if current_user.manage? or current_user.manage_analist? %>			
+	        <% if @sum < @commitment.amount %>
+				<%= link_to controller: :executions, action: 'new', cid: @commitment.id do %>
+					<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Ejecución</button>
+				<% end %>
+			<% end %>
+		<% end %>			
         <% if @size > 0 %>
-		<%= link_to controller: :executions, action: 'list', cid: @commitment.id do %>
-			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Listar Ejecuciones</button>
-		<% end %>
+			<%= link_to controller: :executions, action: 'list', cid: @commitment.id do %>
+				<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Listar Ejecuciones</button>
+			<% end %>
 		<% end %>
   
 	</div>

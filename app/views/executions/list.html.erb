@@ -60,11 +60,10 @@
 				 						<% else %>
                   							<% if i.check_sign_date.blank? %> 
                     							En espera de firma
-                  							<% else if i.check_delivery_date.blank? %> 
+                  							<% elsif i.check_delivery_date.blank? %> 
                     							En custodia
                   							<% else %> 
                     							Entregado
-                  							<% end %>
                   							<% end %>
 										<% end %>
 									</td>									
