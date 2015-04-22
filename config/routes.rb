@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :records
+
   resources :relation_loans
 
   resources :relation_services

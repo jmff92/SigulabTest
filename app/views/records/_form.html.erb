@@ -1,0 +1,45 @@
+<%= form_for(@record) do |f| %>
+  <% if @record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@record.errors.count, "error") %> prohibited this record from being saved:</h2>
+
+      <ul>
+      <% @record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :fecha %><br>
+    <%= f.text_field :fecha %>
+  </div>
+  <div class="field">
+    <%= f.label :nos %><br>
+    <%= f.text_field :nos %>
+  </div>
+  <div class="field">
+    <%= f.label :tipoServicio %><br>
+    <%= f.text_field :tipoServicio %>
+  </div>
+  <div class="field">
+    <%= f.label :descripcion %><br>
+    <%= f.text_field :descripcion %>
+  </div>
+  <div class="field">
+    <%= f.label :fechaini %><br>
+    <%= f.text_field :fechaini %>
+  </div>
+  <div class="field">
+    <%= f.label :fechafin %><br>
+    <%= f.text_field :fechafin %>
+  </div>
+  <div class="field">
+    <%= f.label :observaciones %><br>
+    <%= f.text_field :observaciones %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
