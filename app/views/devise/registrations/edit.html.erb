@@ -1,10 +1,24 @@
-<h2>Editar <%= resource_name.to_s.humanize %></h2>
+  <div class="col-xs-12" align="right">
+    <%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    <% end %>
+    </br>
+    </br>
+  </div>
+
+<h2>Editar <%= current_user.username %> </h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
+    <div><b><%= 'Nombre' %></b><br />
+  <%= f.text_field :name, autofocus: true %></div><br>
+
+  <div><b><%= 'Apellido' %></b><br />
+  <%= f.text_field :surname %></div><br>
+
   <div><b><%= 'Usuario' %></b><br />
-  <%= f.text_field :username, autofocus: true %></div>
+  <%= f.text_field :username %></div>
   <br>
 
   <div><b><%= 'Correo' %></b><br />
@@ -16,7 +30,7 @@
   <% end %>
 
   <div><b><%= 'Nueva Contraseña' %> </b><i><br>
-  <font size="2">(Dejelo en blanco si no quiere cambiarlo)</i></font><br />
+  <font size="2">(Déjelo en blanco si no quiere cambiarlo)</i></font><br />
     <%= f.password_field :password, autocomplete: "off" %></div>
 <br>
 
@@ -86,8 +100,5 @@
 <% end %>
 
 <br>
-<p><h3>Cancelar mi cuenta</h3>
 
-<%= button_to "Cancelarla", registration_path(resource_name), data: { confirm: "Estás seguro?" }, method: :delete %></p>
-
-<i class="fa fa-arrow-left"></i><%= link_to " Atrás", inventario_url %>
+<%= button_to "Anular mi cuenta", registration_path(resource_name), data: { confirm: "¿Está seguro de que desea anular su cuenta?" }, method: :delete %></p>

@@ -12,13 +12,12 @@
 	</div>
 
 	<div class="col-xs-12" align="right">
-		<%= link_to controller: 'projexecutions', id: @projexecution.proyecto do %>
-			<button type="button" class="btn btn-primary">
-			<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Volver</button>
-		<% end %>	
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
 		</br>
-		</br>
-	</div>
+		</br>    	
+	</div>   
 
 	<div class="col-xs-12">
 		<table class="table table-striped">

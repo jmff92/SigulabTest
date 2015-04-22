@@ -8,18 +8,59 @@
 	</div>
 	<div class="col-xs-8 col-xs-offset-2">
 		<ul class="administration-list">
-			<li><%= link_to action: :summary do %>
-				<h3></he><span class="glyphicon glyphicon-signal"></span>Resumen Presupuestario</h3>
-			<% end %></li>
-			<li><%= link_to controller: :incomes do %>
-				<h3><span class="glyphicon glyphicon-plus-sign"></span>Ingresos</h3>
-			<% end %></li>
-			<li><%= link_to controller: :commitments do %>
-				<h3><span class="glyphicon glyphicon-minus-sign"></span>Compromisos</h3>
-			<% end %></li>
-			<li><%= link_to controller: :executions do %>
-				<h3><span class="glyphicon glyphicon-check"></span>Ejecuciones</h3>
-			<% end %></li>
+
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.import_analist? or current_user.manage? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? %>
+				<li><%= link_to action: :summary do %>
+					<h3></he><span class="fa fa-signal"></span>Resumen Presupuestario</h3>
+				<% end %></li>
+			<% else %>				
+			    <!-- falta obtener lab -->
+				<% if current_user.labBoss? or current_user.labassistant? %>
+					<li><%= link_to controller: 'labs', action: 'show', id: current_user.lab do %>
+						<h3></he><span class="fa fa-signal"></span>Resumen Presupuestario del Laboratorio</h3>
+					<% end %></li>
+				<% end %>
+			<% end %>
+
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.manage? or current_user.manage_analist? or current_user.quality? %>
+				<li><%= link_to controller: :incomes do %>
+					<h3><span class="fa fa-plus-circle"></span>Ingresos</h3>
+				<% end %></li>
+			<% else %>				
+			    <!-- falta obtener lab -->
+				<% if current_user.labBoss? or current_user.labassistant? %>
+					<li><%= link_to controller: 'incomes', action: 'list_lab', id: current_user.lab do %>
+						<h3><span class="fa fa-plus-circle"></span>Ingresos del Laboratorio</h3>
+					<% end %></li>
+				<% end %>
+			<% end %>
+
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.manage? or current_user.manage_analist? or current_user.quality? %>
+				<li><%= link_to controller: :commitments do %>
+					<h3><span class="fa fa-minus-circle"></span>Compromisos</h3>
+				<% end %></li>
+			<% else %>				
+			    <!-- falta obtener lab -->
+				<% if current_user.labBoss? or current_user.labassistant? %>
+					<li><%= link_to controller: 'commitments', action: 'list_lab', id: current_user.lab do %>
+						<h3><span class="fa fa-minus-circle"></span>Compromisos del Laboratorio</h3>
+					<% end %></li>
+				<% end %>
+			<% end %>			
+
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.manage? or current_user.manage_analist? or current_user.quality? %>
+				<li><%= link_to controller: :executions do %>
+					<h3><span class="fa fa-check-circle"></span>Ejecuciones</h3>
+				<% end %></li>
+			<% else %>				
+			    <!-- falta obtener lab -->
+				<% if current_user.labBoss? or current_user.labassistant? %>
+					<li><%= link_to controller: 'executions', action: 'list_lab', id: current_user.lab do %>
+					<h3><span class="fa fa-check-circle"></span>Ejecuciones del Laboratorio</h3>
+					<% end %></li>
+				<% end %>
+			<% end %>					
+
 		</ul>
 	</div>
 </div>

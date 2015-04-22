@@ -15,12 +15,12 @@
 </div>
 
 	<div class="col-xs-12" align="right">
-		<%= link_to incomes_path, class: "btn btn-primary" do %>
-			<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
-		<% end %>
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
 		</br>
-		</br>
-	</div>
+		</br>    	
+	</div>   
 
 
 <p><h2><center>Proyecto N°: <%= @project.project_number %></center></h2></p>
@@ -90,7 +90,7 @@
 			</tr>
  		    </table></p>
  		<%= link_to edit_project_path do %>
-			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Distribución del Monto</button>
+			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Datos del Proyecto</button>
 		<% end %>
 	</div>
 	<div id="tabs-2">
@@ -192,9 +192,6 @@
 				<td class="col-xs-7"></td>
 			</tr>
 		</table></p>
-		<%= link_to edit_project_path do %>
-			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Proyecto</button>
-		<% end %>
 	</div>
 
 </div>

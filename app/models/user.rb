@@ -11,4 +11,7 @@ class User < ActiveRecord::Base
   has_many :acts
   has_many :specifications
 
+  validates :name, :presence => true
+  validates :surname, :presence => true
+
 end
