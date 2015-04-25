@@ -666,6 +666,8 @@ ActiveRecord::Schema.define(version: 20150417114321) do
     t.boolean  "section_boss"
     t.boolean  "proy_responsible"
     t.boolean  "external"
+    t.string   "name"
+    t.string   "surname"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
