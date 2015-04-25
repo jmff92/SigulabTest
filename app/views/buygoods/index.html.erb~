@@ -9,15 +9,13 @@
     <div class="col-xs-8 col-xs-offset-3">
 	<div class="grid_12 push_4">
 		<ul id="tittle">
-			<li><%= link_to specifications_url do %>
-				<li><h3><span class="glyphicon glyphicon-shopping-cart"></span> Solicitud de Compra</h3></li>
+			<li><%= link_to construccion_url do %>
+				<li><h3><span class="glyphicon glyphicon-shopping-cart"></span> Orden de Compra</h3></li>
 			<% end %></li>
-			<li><%= link_to buygoods_url do %>
-				<li><h3><span class="glyphicon glyphicon-credit-card"></span> Compra de Bienes</h3></li>
+						<li><%= link_to construccion_url do %>
+				<li><h3><span class="glyphicon glyphicon-chevron-down"></span> Informe de Recepcion</h3></li>
 			<% end %></li>
-			<li><%= link_to buyservices_url do %>
-				<li><h3><span class="glyphicon glyphicon-ok"></span> Compra de Servicios</h3></li>
-			<% end %></li>
+
 		</ul>
 	</div>
         </div>
@@ -48,6 +46,4 @@ h3 {
 
 
 </style>
-
- 
 
