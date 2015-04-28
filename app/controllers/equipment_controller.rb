@@ -17,6 +17,7 @@ class EquipmentController < ApplicationController
   # GET /equipment/1
   # GET /equipment/1.json
   def show
+    @ids = @equipment.id2
   end
 
   # GET /equipment/new

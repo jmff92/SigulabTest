@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306071126) do
+ActiveRecord::Schema.define(version: 20150417114321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -485,6 +485,19 @@ ActiveRecord::Schema.define(version: 20150306071126) do
     t.integer "cumplio_req"
   end
 
+  create_table "records", force: true do |t|
+    t.string   "fecha"
+    t.string   "nos"
+    t.string   "tipoServicio"
+    t.string   "descripcion"
+    t.string   "fechaini"
+    t.string   "fechafin"
+    t.string   "observaciones"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "idEquipo"
+  end
+
   create_table "relation_loans", force: true do |t|
     t.string   "prestamo"
     t.string   "item"
@@ -556,13 +569,6 @@ ActiveRecord::Schema.define(version: 20150306071126) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_id"
-  end
-
-  create_table "service_items", force: true do |t|
-    t.string   "servicio"
-    t.string   "item"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "services", force: true do |t|
@@ -660,6 +666,8 @@ ActiveRecord::Schema.define(version: 20150306071126) do
     t.boolean  "section_boss"
     t.boolean  "proy_responsible"
     t.boolean  "external"
+    t.string   "name"
+    t.string   "surname"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

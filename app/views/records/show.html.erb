@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @record.fecha %>
+</p>
+
+<p>
+  <strong>Nos:</strong>
+  <%= @record.nos %>
+</p>
+
+<p>
+  <strong>Tiposervicio:</strong>
+  <%= @record.tipoServicio %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @record.descripcion %>
+</p>
+
+<p>
+  <strong>Fechaini:</strong>
+  <%= @record.fechaini %>
+</p>
+
+<p>
+  <strong>Fechafin:</strong>
+  <%= @record.fechafin %>
+</p>
+
+<p>
+  <strong>Observaciones:</strong>
+  <%= @record.observaciones %>
+</p>
+
+<%= link_to 'Edit', edit_record_path(@record) %> |
+<%= link_to 'Back', records_path %>
