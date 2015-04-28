@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417114321) do
+ActiveRecord::Schema.define(version: 20150425235732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -368,6 +368,43 @@ ActiveRecord::Schema.define(version: 20150417114321) do
     t.string   "descripcion"
     t.string   "uso"
     t.boolean  "esprestado"
+    t.boolean  "docencia"
+    t.boolean  "investigacion"
+    t.boolean  "extension"
+    t.boolean  "apoyo"
+    t.boolean  "enemar"
+    t.boolean  "abrjul"
+    t.boolean  "verano"
+    t.boolean  "sepdic"
+    t.boolean  "sem1"
+    t.boolean  "sem2"
+    t.boolean  "sem3"
+    t.boolean  "sem4"
+    t.boolean  "sem5"
+    t.boolean  "sem6"
+    t.boolean  "sem7"
+    t.boolean  "sem8"
+    t.boolean  "sem9"
+    t.boolean  "sem10"
+    t.boolean  "sem11"
+    t.boolean  "sem12"
+    t.time     "horalunes"
+    t.time     "horaMartes"
+    t.time     "horaMiercoles"
+    t.time     "horaJueves"
+    t.time     "horaViernes"
+    t.boolean  "lunes"
+    t.boolean  "martes"
+    t.boolean  "miercoles"
+    t.boolean  "jueves"
+    t.boolean  "viernes"
+    t.string   "persona"
+    t.integer  "cedula"
+    t.boolean  "todoLun"
+    t.boolean  "todoMar"
+    t.boolean  "todoMie"
+    t.boolean  "todoJue"
+    t.boolean  "todoVie"
   end
 
   create_table "projcommitments", force: true do |t|
