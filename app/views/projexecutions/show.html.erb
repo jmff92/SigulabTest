@@ -81,11 +81,10 @@
 				 <% else %>
                   <% if @projexecution.check_sign_date.blank? %> 
                     En espera de firma
-                  <% else if @projexecution.check_delivery_date.blank? %> 
+                  <% elsif @projexecution.check_delivery_date.blank? %> 
                     En custodia
                   <% else %> 
                     Entregado
-                  <% end %>
                   <% end %>
 				<% end %>
                 </td>
@@ -102,11 +101,13 @@
 			</tr>
 		</table>
 	</div>
-	<div class="col-xs-12">
-    <%= link_to edit_projexecution_path do %>
-			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ejecución</button>
-		<% end %>
-	</div>
+	<% if current_user.manage? or current_user.manage_analist? %>	
+		<div class="col-xs-12">
+    		<%= link_to edit_projexecution_path do %>
+				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ejecución</button>
+			<% end %>
+		</div>
+	<% end %>
 </div>
 
 <style>
