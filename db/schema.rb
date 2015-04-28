@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150425235732) do
+ActiveRecord::Schema.define(version: 20150417114321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,11 +134,15 @@ ActiveRecord::Schema.define(version: 20150425235732) do
     t.string   "buy_order"
     t.date     "adquisition_date"
     t.text     "description"
-    t.boolean  "showable",         default: true
+    t.boolean  "showable",                default: true
     t.string   "dependency"
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "devolutions", force: true do |t|
@@ -222,12 +226,16 @@ ActiveRecord::Schema.define(version: 20150425235732) do
     t.string   "measurelength"
     t.string   "measuredepth"
     t.string   "measurewidth"
-    t.boolean  "showable",         default: true
+    t.boolean  "showable",                default: true
     t.string   "dependency"
     t.integer  "numSolicitud"
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "executions", force: true do |t|
@@ -296,11 +304,15 @@ ActiveRecord::Schema.define(version: 20150425235732) do
     t.string   "bill"
     t.string   "buy_order"
     t.date     "adquisition_date"
-    t.boolean  "showable",         default: true
+    t.boolean  "showable",                default: true
     t.string   "dependency"
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "invitations", force: true do |t|
@@ -670,6 +682,10 @@ ActiveRecord::Schema.define(version: 20150425235732) do
     t.string   "id2"
     t.string   "tipo"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "users", force: true do |t|

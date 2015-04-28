@@ -71,12 +71,14 @@
 			</tr>
 		</table>
 	</div>
-	<div class="col-xs-12">
-		<%= link_to edit_projincome_path do %>
-			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ingreso</button>
-		<% end %>
+	<% if current_user.manage? or current_user.manage_analist? %>	
+		<div class="col-xs-12">
+			<%= link_to edit_projincome_path do %>
+				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ingreso</button>
+			<% end %>
+		</div>
+	<% end %>
 	</div>
-</div>
 
 <style>
 	#span1 { width: 25px; float: left; height:100%; }
