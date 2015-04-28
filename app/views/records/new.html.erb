@@ -1,5 +1,5 @@
+
 <%= stylesheet_link_tag 'demo_table_jui.css'%>
-<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
 <%= javascript_include_tag 'jquery.dataTables.js' %>
 <%= javascript_include_tag 'tabla.js' %>
 
@@ -77,6 +77,7 @@
 					<td class="col-xs-7"><%= f.text_area :observaciones %><span class="red">*</span></td>
 				</tr>
 				<%= f.hidden_field :idEquipo, :value => @id %>
+				<%= hidden_field_tag "format", params[:format] %>
 			</table>
 		</div>
 
@@ -107,3 +108,18 @@
 }
 
 </style>
+
+<script type="text/javascript">
+
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem( 'firstLoad' ) )
+    {
+      localStorage[ 'firstLoad' ] = true;
+      window.location.reload();
+    }
+    else
+      localStorage.removeItem( 'firstLoad' );
+  }
+;
+</script>

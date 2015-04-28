@@ -3,8 +3,6 @@ class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
-  respond_to :html
-
   def index
     if params[:format]
       @records = Record.where(idEquipo: params[:format])
@@ -14,7 +12,8 @@ class RecordsController < ApplicationController
   end
 
   def show
-    respond_with(@record)
+    @id = params[:format]
+    @item = Equipment.where(id2: params[:format])
   end
 
   def new
@@ -32,8 +31,11 @@ class RecordsController < ApplicationController
 
   def create
     @record = Record.new(record_params)
-    flash[:notice] = 'Record was successfully created.' if @record.save
-    respond_with(@record)
+    if @record.save
+      redirect_to action: 'show', id: @record.id, format: @record.idEquipo
+    else
+      redirect_to action: 'new', format: @record.idEquipo
+    end
   end
 
   def update
@@ -52,6 +54,6 @@ class RecordsController < ApplicationController
     end
 
     def record_params
-      params.require(:record).permit(:fecha, :nos, :tipoServicio, :descripcion, :fechaini, :fechafin, :observaciones)
+      params.require(:record).permit(:fecha, :nos, :tipoServicio, :descripcion, :fechaini, :fechafin, :observaciones, :idEquipo)
     end
 end

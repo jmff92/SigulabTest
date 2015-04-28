@@ -30,9 +30,13 @@ Rails.application.routes.draw do
 
   get 'ofertas/index'
 
+  get 'records/show'
+
   get 'informe_recomendacion/index'
 
   post 'loans/new'
+
+  post 'records/new'
 
   resources :invitations
   resources :services
