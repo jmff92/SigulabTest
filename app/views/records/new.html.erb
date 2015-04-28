@@ -1,5 +1,109 @@
-<h1>New record</h1>
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
+<%= javascript_include_tag 'tabla.js' %>
 
-<%= render 'form' %>
+<ol class="breadcrumb">
+  <li> <%=link_to 'Inicio', controller: 'statics'%></li>
+  <li> <%=link_to 'Inventario', inventario_url %></li>
+  <li> <%=link_to 'Equipos', equipment_index_path %></li>
+  <li class="active"> Registros </li>
+</ol>
 
-<%= link_to 'Back', records_path %>
+<!-- ARREGLAR BREADCRUMB -->
+
+<div class="col-xs-12">
+	<h1><i class="fa fa-bar-chart"></i> Nuevo Registro</h1>
+</div>
+
+<div class="col-xs-12">
+	<div class="well">
+	  <table cellpadding="0" cellspacing="0" border="0" class="display">
+	  		<tbody>
+	    		<tr>
+			      <% @item.each do |item| %>
+			        <td class="text-left"><%= 'Ítem:  ' %><span class="mayus"><%= item.name %></span></td>
+			      <% end %>
+	    		</tr>
+	  		</tbody>
+		</table>
+	</div>
+</div>
+
+<%= form_for(@record) do |f| %>
+	<% if @record.errors.any? %>
+		<div class="col-xs-12" role="alert">
+			<div class="alert alert-danger">
+				<ul>
+					<% @record.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	<% end %>
+
+	<div class ="Informacion">
+
+		<div class="col-xs-12">
+			<table class="table table-striped">
+				<tr>
+					<td class="col-xs-5 text-right"><strong>Fecha:</strong></td>
+					<td class="col-xs-7"><%= f.text_field :fecha, :class => "bootlayout-date" %>
+					<span class="red">*</span></td>
+				</tr>
+				<tr>
+					<td class="col-xs-5 text-right"><strong>No. O/S:</strong></td>
+					<td class="col-xs-7"><%= f.number_field :nos, :min => 0 %><span class="red">*</span></td>
+				</tr>
+				<tr>
+					<td class="col-xs-5 text-right"><strong>Tipo de Servicio:</strong></td>
+					<td class="col-xs-7"><%= f.text_field :tipoServicio %><span class="red">*</span></td>
+				</tr>
+				<tr>
+					<td class="col-xs-5 text-right"><strong>Descripción:</strong></td>
+					<td class="col-xs-7"><%= f.text_field :descripcion %><span class="red">*</span></td>
+				</tr>
+				<tr>
+					<td class="col-xs-5 text-right"><strong>Fecha de Inicio:</strong></td>
+					<td class="col-xs-7"><%= f.text_field :fechaini, :class => "bootlayout-date" %><span class="red">*</span></td>
+				</tr>
+				<tr>
+					<td class="col-xs-5 text-right"><strong>Fecha de Culminación:</strong></td>
+					<td class="col-xs-7"><%= f.text_field :fechafin, :class => "bootlayout-date" %><span class="red">*</span></td>
+				</tr>
+				<tr>
+					<td class="col-xs-5 text-right"><strong>Observaciones:</strong></td>
+					<td class="col-xs-7"><%= f.text_area :observaciones %><span class="red">*</span></td>
+				</tr>
+				<%= f.hidden_field :idEquipo, :value => @id %>
+			</table>
+		</div>
+
+		<div class="col-xs-12 text-center">
+			<div class="actions">
+				<button type="submit" data-btnOkClass="confirmation" class="btn btn-default btn-success" ><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Crear</button>
+				<%= link_to equipment_index_path(@id) do %>
+					<button type="button" class="btn btn-primary"><span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Atrás</button><br><br><br><br>
+				<% end %>
+			</div>
+		</div>
+<% end %>
+
+<style>
+
+.red {
+    font-size               : 22px;
+    color                   : red;
+}
+
+.Informacion {
+    line-height             :1.6em;
+}
+
+.mayus {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+</style>

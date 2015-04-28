@@ -24,6 +24,7 @@ class RecordsController < ApplicationController
     else
       @id = params[:formato]
     end
+    @item = Equipment.where(id2: params[:format])
   end
 
   def edit
