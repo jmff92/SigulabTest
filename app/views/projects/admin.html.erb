@@ -14,6 +14,15 @@
 		</ol>
 	</div>
 	
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
+		</br>
+		</br>    	
+	</div>   	
+
+
 	<div class="col-xs-12">
 
 	</div>
@@ -86,15 +95,17 @@
 			</div>
 <div class="col-xs-12" align="center">
 	<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Descargar Resumen Presupuestario de Proyectos</button>'.html_safe, projects_admin_path("projects", :format => 'pdf') %>	
-	<%= link_to controller: 'projincomes', action: 'all' do %>
-		<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp; Ingresos </button>
-	<% end %>
-	<%= link_to controller: 'projcommitments', action: 'all' do %>
-		<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;&nbsp; Compromisos </button>
-	<% end %>
-	<%= link_to controller: 'projexecutions', action: 'all' do %>
-		<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Ejecuciones </button>
-	<% end %>
+	<% if current_user.director? or current_user.directorate? or current_user.gsmp? or  current_user.manage? or current_user.manage_analist? %>	
+		<%= link_to controller: 'projincomes', action: 'all' do %>
+			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp; Ingresos </button>
+		<% end %>
+		<%= link_to controller: 'projcommitments', action: 'all' do %>
+			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;&nbsp; Compromisos </button>
+		<% end %>
+		<%= link_to controller: 'projexecutions', action: 'all' do %>
+			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Ejecuciones </button>
+		<% end %>
+	<% end %>	
 </div>
 	</div>
 </div>

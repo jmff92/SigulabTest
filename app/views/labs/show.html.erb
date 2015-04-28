@@ -4,19 +4,20 @@
 			<li><%= link_to 'Inicio', controller: 'statics' %></li>
 			<li><%= link_to 'Administración', administration_path %></li>
 			<li><%= link_to 'Presupuesto', budget_path %></li>
-			<li><%= link_to 'Resumen Presupuestario', controller: 'budget', action: 'summary' %></li>
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.import_analist? or current_user.manage? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? %>
+				<li><%= link_to 'Resumen Presupuestario', controller: 'budget', action: 'summary' %></li>
+			<% end %>
 			<li class="active"> <%= @lab.sae_name %> </li>
 		</ol>
 	</div>
 
 	<div class="col-xs-12" align="right">
-		<%= link_to controller: 'budget', action: 'summary' do %>
-			<button type="button" class="btn btn-primary">
-			<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Volver</button>
-		<% end %>	
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
 		</br>
-		</br>
-	</div>
+		</br>    	
+	</div>   
 
 	<div class="col-xs-12">
 		<table class="table table-striped">

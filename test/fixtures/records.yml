@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fecha: MyString
+  nos: MyString
+  tipoServicio: MyString
+  descripcion: MyString
+  fechaini: MyString
+  fechafin: MyString
+  observaciones: MyString
+
+two:
+  fecha: MyString
+  nos: MyString
+  tipoServicio: MyString
+  descripcion: MyString
+  fechaini: MyString
+  fechafin: MyString
+  observaciones: MyString

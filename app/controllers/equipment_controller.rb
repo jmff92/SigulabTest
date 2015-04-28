@@ -6,17 +6,19 @@ class EquipmentController < ApplicationController
   # GET /equipment.json
   def index
     @equipments = Equipment.all
-  if params[:search]
-    @equipments = Equipment.search(params[:search])
-  else
-    @equipments = Equipment.all.order('created_at DESC')
-  end
-  @sum = Equipment.count
+    if params[:search]
+      @equipments = Equipment.search(params[:search])
+    else
+      @equipments = Equipment.all.order('created_at DESC')
+    end
+    @sum = Equipment.count
   end
 
   # GET /equipment/1
   # GET /equipment/1.json
   def show
+    @ids = @equipment.id2
+    @records = Record.where(idEquipo: @ids)
   end
 
   # GET /equipment/new

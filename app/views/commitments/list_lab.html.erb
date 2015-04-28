@@ -10,11 +10,19 @@
 			<li><%= link_to 'Inicio', controller: 'statics' %></li>
 			<li><%= link_to 'Administración', administration_path %></li>
 			<li><%= link_to 'Presupuesto', budget_path %></li>
-			<li><%= link_to 'Resumen Presupuestario', controller: 'budget', action: 'summary' %></li>
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.manage? or current_user.manage_analist? or current_user.quality? %>
+				<li><%= link_to 'Resumen Presupuestario', controller: 'budget', action: 'summary' %></li>
+			<% end %>
 			<li><%= link_to @lab.sae_name, controller: 'labs', action: 'show', id: @lab.id %></li>				
 			<li class="active">Compromisos</li>
 		</ol>
 	</div>
+
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
+	</div>   	
 
 	<div class="col-xs-12">
 		<h2><center>Compromisos de <%= @lab.sae_name %> </center></h2>

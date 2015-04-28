@@ -12,13 +12,12 @@
 	</div>
 
 	<div class="col-xs-12" align="right">
-		<%= link_to controller: 'projcommitments', id: @commitment.proj_id do %>
-			<button type="button" class="btn btn-primary">
-			<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Volver</button>
-		<% end %>	
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
 		</br>
-		</br>
-	</div>
+		</br>    	
+	</div>   
 
 	<div class="col-xs-12">
 		<table class="table table-striped">
@@ -66,19 +65,25 @@
 		</table>
 	</div>
 	<div class="col-xs-12">
-		<%= link_to edit_projcommitment_path do %>
-			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Compromiso</button>
+		<% if current_user.manage? or current_user.manage_analist? or current_user.acquisition? or current_user.acquisition_analist? %>	
+			<%= link_to edit_projcommitment_path do %>
+				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Compromiso</button>
+			<% end %>
 		<% end %>
-        <% if @sum < @commitment.amount %>
-		<%= link_to controller: :projexecutions, action: 'new', cid: @commitment.id do %>
-			<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Ejecución</button>
+		<% if current_user.manage? or current_user.manage_analist? %>						
+        	<% if @sum < @commitment.amount %>
+				<%= link_to controller: :projexecutions, action: 'new', cid: @commitment.id do %>
+					<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Ejecución</button>
+				<% end %>
+			<% end %>
 		<% end %>
-		<% end %>
-        <% if @size > 0 %>
-		<%= link_to controller: :projexecutions, action: 'list', cid: @commitment.id do %>
-			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Listar Ejecuciones</button>
-		<% end %>
-  <% end %>
+		<% if current_user.manage? or current_user.manage_analist? or current_user.acquisition? or current_user.acquisition_analist? or current_user.proy_responsible? %>						
+        	<% if @size > 0 %>
+				<%= link_to controller: :projexecutions, action: 'list', cid: @commitment.id do %>
+					<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Listar Ejecuciones</button>
+				<% end %>
+  			<% end %>
+  		<% end %>
 	</div>
 </div>
 

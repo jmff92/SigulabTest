@@ -51,7 +51,7 @@
     <ul>
       <li><a href="#tabs-1" class="show">Características</a></li>
       <li><a href="#tabs-2" class="hidex">Ubicación</a></li>
-      <li><a href="#tabs-3" class="hidex">Datos de Adqusición</a></li>
+      <li><a href="#tabs-3" class="hidex">Datos de Adquisición</a></li>
     </ul>
 
 
@@ -107,31 +107,6 @@
             <td class="col-xs-7"><%=f.select(:status, [['Vigente'], ['Vencido'], ['Indeterminado']] )%></td>
           </tr>
 
-
-        </table>
-      </div>
-    </div>
-
-    <div id="tabs-2">
-      <div class="form-group">
-        <table class="table table-striped">
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Responsable:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :responsible %><span class="red">*</span></td>
-          </tr>
-
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Dependencia:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :dependency %>
-            <span class="red">*</span> </td>
-          </tr>
-
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Ubicación Física:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :location %>
-            <span class="red">*</span> </td>
-          </tr>
-
           <tr>
             <td class="col-xs-5 text-right"><strong>Fecha Expiración:</strong></td>
             <td class="col-xs-7"><%= f.text_field :expiration_date, :class => "bootlayout-date" %></td>
@@ -169,6 +144,32 @@
             <%= f.check_box :extention %>
             <%= 'Extensión' %></div></td>
           </tr>
+
+
+        </table>
+      </div>
+    </div>
+
+    <div id="tabs-2">
+      <div class="form-group">
+        <table class="table table-striped">
+          <tr>
+            <td class="col-xs-5 text-right"><strong>Responsable:</strong></td>
+            <td class="col-xs-7"><%= f.text_field :responsible %><span class="red">*</span></td>
+          </tr>
+
+          <tr>
+            <td class="col-xs-5 text-right"><strong>Dependencia:</strong></td>
+            <td class="col-xs-7"><%= f.text_field :dependency %>
+            <span class="red">*</span> </td>
+          </tr>
+
+          <tr>
+            <td class="col-xs-5 text-right"><strong>Ubicación Física:</strong></td>
+            <td class="col-xs-7"><%= f.text_field :location %>
+            <span class="red">*</span> </td>
+          </tr>
+
 
         </table>
       </div>

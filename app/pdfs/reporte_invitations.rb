@@ -50,9 +50,10 @@ class ReporteInvitations < Prawn::Document
     else
   	text "#{@invitation.nombre}"
     end
-
-    text "#{@invitation.direccion}"
-    text "Presente.-"
+    bounding_box([bounds.left,cursor], :width => 400, :height => 30) do
+      text "#{@invitation.direccion}", :size => 8
+      text "Presente.-"
+    end
   end
 
   def texto
@@ -80,7 +81,7 @@ class ReporteInvitations < Prawn::Document
       
     end
 
-    move_down 80
+    move_down 100
     text " La oferta deberá ser enviada por fax al número: #{@invitation.telefono} o correo electrónico #{@invitation.correo} sellado y 				firmado por la empresa participante. De igual manera, le informamos que se recibirán ofertas hasta el día #{time.strftime("%d-%m-%Y")}", :align => :justify, :indent_paragraphs => 40
 
    move_down 5
@@ -106,7 +107,7 @@ class ReporteInvitations < Prawn::Document
 		horizontal_line 395, 525, :at => 25
    end
 
-   draw_text "#{@invitation.responsable}", :at => [235,32]
+   draw_text "#{@invitation.responsable}", :at => [220,32]
    draw_text "Recibido por", :at => [435,60], :size => 8
    draw_text "Cod. Doc.: UL01-M01F03     Fecha: 03/01/2014", :size => 6, :at => [10,20]
    

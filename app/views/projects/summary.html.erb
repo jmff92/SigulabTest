@@ -12,6 +12,15 @@
 			<li class="active"><%= @project.project_number%></li>
 		</ol>
 	</div>
+
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
+		</br>
+		</br>    	
+	</div>   
+
 	<div class="col-xs-12">
 		<table class="table table-striped">
 			<tr>
@@ -40,19 +49,23 @@
 			</tr>
 		</table>
 	</div>
-	<div class="col-xs-12" align="center">
 
-		<%= link_to controller: 'projincomes', id: @project.id do %>
-			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Consultar Ingresos </button>
-		<% end %>
+	<% if current_user.director? or current_user.directorate? or current_user.gsmp? or  current_user.manage? or current_user.manage_analist? %>	
+		<div class="col-xs-12" align="center">
 
-		<%= link_to controller: 'projcommitments', id: @project.id do %>
-			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;&nbsp;Consultar Compromisos </button>
-		<% end %>
+			<%= link_to controller: 'projincomes', id: @project.id do %>
+				<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Consultar Ingresos </button>
+			<% end %>
 
-		<%= link_to controller: 'projexecutions', id: @project.id do %>
-			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Consultar Ejecuciones </button>
-		<% end %>
+			<%= link_to controller: 'projcommitments', id: @project.id do %>
+				<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;&nbsp;Consultar Compromisos </button>
+			<% end %>
 
-	</div>	
+			<%= link_to controller: 'projexecutions', id: @project.id do %>
+				<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Consultar Ejecuciones </button>
+			<% end %>
+
+		</div>	
+	<% end %>
+			
 </div>

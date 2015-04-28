@@ -17,6 +17,12 @@
 		</ol>
 	</div>
 
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>    	
+	</div>   
+
 	<div class="col-xs-12">
 		<h2><center> Ejecuciones asociadas al compromiso <%= @commitments.description %> </center></h2> 
 		<h2><center> del Proyecto No. <%= Project.find(@commitments.proj_id).project_number %> </center></h2>
@@ -56,11 +62,10 @@
 				 						<% else %>
                   							<% if i.check_sign_date.blank? %> 
                     							En espera de firma
-                  							<% else if i.check_delivery_date.blank? %> 
+                  							<% elsif i.check_delivery_date.blank? %> 
                     							En custodia
                   							<% else %> 
                     							Entregado
-                  							<% end %>
                   							<% end %>
 										<% end %>
 									</td>									

@@ -12,13 +12,12 @@
 	</div>
 
 	<div class="col-xs-12" align="right">
-		<%= link_to controller: 'projincomes', id: @projincome.proyecto do %>
-			<button type="button" class="btn btn-primary">
-			<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Volver</button>
-		<% end %>	
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
 		</br>
-		</br>
-	</div>
+		</br>    	
+	</div>   
 
 	<div class="col-xs-12">
 		<table class="table table-striped">
@@ -72,12 +71,14 @@
 			</tr>
 		</table>
 	</div>
-	<div class="col-xs-12">
-		<%= link_to edit_projincome_path do %>
-			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ingreso</button>
-		<% end %>
+	<% if current_user.manage? or current_user.manage_analist? %>	
+		<div class="col-xs-12">
+			<%= link_to edit_projincome_path do %>
+				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ingreso</button>
+			<% end %>
+		</div>
+	<% end %>
 	</div>
-</div>
 
 <style>
 	#span1 { width: 25px; float: left; height:100%; }

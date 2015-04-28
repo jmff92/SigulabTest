@@ -35,9 +35,8 @@
 								<li><%= link_to 'Inicio', compras_url %></li>
 								<li class="divider"></li>
 								<li><%= link_to 'Solicitud de Compra', specifications_url %></li>
-								<li><%= link_to 'Compra', construccion_url %></li>
-								<li><%= link_to 'Recepcion de Bienes', construccion_url %></li>
-								<li><%= link_to 'Conformidad de Servicio', construccion_url %></li>
+								<li><%= link_to 'Compra de Bienes', buygoods_url %></li>
+								<li><%= link_to 'Compra de Servicios', buyservices_url %></li>
 							</ul>
 						</li>
 						<li class="dropdown">
@@ -46,10 +45,14 @@
 								<li><%= link_to 'Inicio', administration_path %></li>
 								<li class="divider"></li>
 								<li><a href="#">Anteproyecto de POA</a></li>
-								<li class="divider"></li>
-								<li><%= link_to 'Presupuesto', budget_path %></li>
-								<li class="divider"></li>
-								<li><%= link_to 'Proyectos', projects_path %></li>
+								<% if current_user.director? or current_user.directorate? or current_user.gsmp? or 	current_user.acquisition? or current_user.acquisition_analist? or 				current_user.import? or current_user.import_analist? or current_user.manage? or current_user.manage_analist? or current_user.quality? or              current_user.quality_analist? or current_user.labBoss? or						current_user.labassistant? %>
+									<li class="divider"></li>
+									<li><%= link_to 'Presupuesto', budget_path %></li>
+									<li class="divider"></li>
+								<% end %>
+								<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.import_analist? or current_user.manage? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? or current_user.labBoss? or current_user.labassistant? or current_user.section_boss? or current_user.proy_responsible? or current_user.technician? %>	
+									<li><%= link_to 'Proyectos', projects_path %></li>
+								<% end %>
 							</ul>
 						</li>
 					</ul>

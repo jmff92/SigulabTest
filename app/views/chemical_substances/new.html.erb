@@ -45,7 +45,7 @@
     <ul>
       <li><a href="#tabs-1" class="show">Características</a></li>
       <li><a href="#tabs-2" class="hidex">Ubicación</a></li>
-      <li><a href="#tabs-3" class="hidex">Datos de Adqusición</a></li>
+      <li><a href="#tabs-3" class="hidex">Datos de Adquisición</a></li>
     </ul>
 
 
@@ -101,31 +101,6 @@
             <td class="col-xs-7"><%=f.select(:status, [['Vigente'], ['Vencido'], ['Indeterminado']] )%></td>
           </tr>
 
-
-        </table>
-      </div>
-    </div>
-
-    <div id="tabs-2">
-      <div class="form-group">
-        <table class="table table-striped">
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Responsable:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :responsible %><span class="red">*</span></td>
-          </tr>
-
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Dependencia:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :dependency %>
-            <span class="red">*</span> </td>
-          </tr>
-
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Ubicación Física:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :location %>
-            <span class="red">*</span> </td>
-          </tr>
-
           <tr>
             <td class="col-xs-5 text-right"><strong>Fecha Expiración:</strong></td>
             <td class="col-xs-7"><%= f.text_field :expiration_date, :class => "bootlayout-date" %></td>
@@ -164,6 +139,33 @@
             <%= 'Extensión' %></div></td>
           </tr>
 
+
+
+        </table>
+      </div>
+    </div>
+
+    <div id="tabs-2">
+      <div class="form-group">
+        <table class="table table-striped">
+          <tr>
+            <td class="col-xs-5 text-right"><strong>Responsable:</strong></td>
+            <td class="col-xs-7"><%= f.text_field :responsible %><span class="red">*</span></td>
+          </tr>
+
+          <tr>
+            <td class="col-xs-5 text-right"><strong>Dependencia:</strong></td>
+            <td class="col-xs-7"><%= f.text_field :dependency %>
+            <span class="red">*</span> </td>
+          </tr>
+
+          <tr>
+            <td class="col-xs-5 text-right"><strong>Ubicación Física:</strong></td>
+            <td class="col-xs-7"><%= f.text_field :location %>
+            <span class="red">*</span> </td>
+          </tr>
+
+
         </table>
       </div>
     </div>
@@ -171,30 +173,33 @@
     <div id="tabs-3">
       <div class="form-group">
         <table class="table table-striped">
-
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Factura:</strong></td>
-            <td class="col-xs-7"><%=  f.text_field :bill %></td>
-          </tr>
-
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Costo:</strong></td>
-            <td class="col-xs-7"><%= f.number_field(:cost, min: 0, :step => 'any') %>&nbsp;Bs.</td>
-          </tr>
-
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
-            <td class="col-xs-7"><%=  f.text_field :buy_order %></td>
-          </tr>
-
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :adquisition_date, class: "bootlayout-date" %></td>
-          </tr>
-
           <tr>
             <td class="col-xs-5 text-right"><strong>Origen:</strong></td>
-            <td class="col-xs-7"><%=f.select(:origen, [['Comprado'], ['Donado']] )%></td>
+            <td class="col-xs-7"><%= f.select(:origen, options_for_select([['Comprado'],['Donado']]), {:include_blank => true}, {:onchange => "changeType();"} ) %>
+            </td>
+          </tr>
+          <tr class="hidden_option1">
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura:</strong></td>
+            <td class="hidden_option1 col-xs-7"><%=  f.text_field :bill%></td>
+          </tr>
+
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo:</strong></td>
+            <td class="hidden_option1 col-xs-7"><%= f.number_field(:cost, min: 0, :step => 'any') %>&nbsp;Bs.</td> 
+          </tr>
+
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
+            <td class="hidden_option1 col-xs-7"><%=  f.text_field :buy_order %></td>
+
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
+            <td class="hidden_option1 col-xs-7"><%= f.text_field :adquisition_date, class: "bootlayout-date" %></td>
+          </tr>
+
+
+          <tr class="hidden_option2">
+            <td class="hidden_option2 col-xs-5 text-right"><strong class="hidden_option2">La USB no autoriza donaciones de sustancias quimicas</strong></td>
           </tr>
 
         </table>
@@ -246,19 +251,21 @@
 
 </style>
 
-<script type="text/javascript">
+<script>
+  function changeType() {
 
-  if( window.localStorage )
-  {
-    if( !localStorage.getItem( 'firstLoad' ) )
-    {
-      localStorage[ 'firstLoad' ] = true;
-      window.location.reload();
-    }  
-    else
-      localStorage.removeItem( 'firstLoad' );
+    if ($('#binnacle_tipo').val()== "Comprado") {
+      $(".hidden_option2").fadeIn('fast');
+    } else {
+      $(".hidden_option2").fadeOut('fast');   
+    }
+
+    if ($('#binnacle_tipo').val()== "Donado") {
+      $(".hidden_option1").fadeIn('fast');
+    } else {
+      $(".hidden_option1").fadeOut('fast');   
+    }
+
   }
-;
-  //]]>
-  </script>
+</script>
 
