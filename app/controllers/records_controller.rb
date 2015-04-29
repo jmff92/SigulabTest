@@ -8,10 +8,10 @@ class RecordsController < ApplicationController
       @records = Record.where(idEquipo: params[:format])
     end
     @equipos = Equipment.where(id2: params[:format])
-    if @equipos == nil
+    if @equipos == []
       @equipos = Instrument.where(id2: params[:format])
     end
-    if @equipos == nil
+    if @equipos == []
       @equipos = Tool.where(id2: params[:format])
     end
     @id = params[:format]
@@ -20,11 +20,11 @@ class RecordsController < ApplicationController
   def show
     @id = @record.idEquipo
     @item = Equipment.where(id2: @id)
-    if @item == nil
-      @item = Instrument.where(id2: params[:format])
+    if @item == []
+      @item = Instrument.where(id2: @id)
     end
-    if @item == nil
-      @item = Tool.where(id2: params[:format])
+    if @item == []
+      @item = Tool.where(id2: @id)
     end
   end
 
@@ -35,22 +35,22 @@ class RecordsController < ApplicationController
     else
       @id = params[:formato]
     end
-    @item = Equipment.where(id2: params[:format])
-    if @item == nil
-      @item = Instrument.where(id2: params[:format])
+    @item = Equipment.where(id2: @id)
+    if @item == []
+      @item = Instrument.where(id2: @id)
     end
-    if @item == nil
-      @item = Tool.where(id2: params[:format])
+    if @item == []
+      @item = Tool.where(id2: @id)
     end
   end
 
   def edit
     @id = @record.idEquipo
     @item = Equipment.where(id2: @id)
-    if @item == nil
+    if @item == []
       @item = Instrument.where(id2: @id)
     end
-    if @item == nil
+    if @item == []
       @item = Tool.where(id2: @id)
     end
   end
@@ -65,8 +65,12 @@ class RecordsController < ApplicationController
   end
 
   def update
-    flash[:notice] = 'Record was successfully updated.' if @record.update(record_params)
-    respond_with(@record)
+    if @record.update(record_params)
+      flash[:notice] = 'El registro se ha actualizado exitosamente.'
+      redirect_to action: 'show', id: @record.id, format: @record.idEquipo
+    else
+      redirect_to action: 'edit', format: @record.idEquipo, record: @record
+    end
   end
 
   def destroy

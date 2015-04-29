@@ -37,6 +37,7 @@ es:
       projincome: "Ingreso de Proyecto"
       projcommitment: "Compromiso de Proyecto"
       projexecution: "Ejecución de Proyecto"
+      record: "Bitácora"
     attributes:
       binnacle:
         fecha: "Fecha"
@@ -171,6 +172,14 @@ es:
         email: "Correo"
         name: "Nombre"
         surname: "Apellido"
+      record:
+        fecha: "Fecha"
+        nos: "No. O/S"
+        tipoServicio: "Tipo de Servicio"
+        descripcion: "Descripción"
+        fechaini: "Fecha de Inicio"
+        fechafin: "Fecha de Culminación"
+        observaciones: "Observaciones"
     errors:
       models:
         income:

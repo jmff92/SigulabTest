@@ -6,17 +6,19 @@ class ToolsController < ApplicationController
   # GET /tools.json
   def index
     @tools = Tool.all
-	if params[:search]
-		@tools = Tool.search(params[:search])
-	else
-		@tools = Tool.all.order('created_at DESC')
-	end
-  @sum = Tool.count
+  	if params[:search]
+  		@tools = Tool.search(params[:search])
+  	else
+  		@tools = Tool.all.order('created_at DESC')
+  	end
+    @sum = Tool.count
   end
 
   # GET /tools/1
   # GET /tools/1.json
   def show
+    @ids = @tool.id2
+    @records = Record.where(idEquipo: @ids)
   end
 
   # GET /tools/new
