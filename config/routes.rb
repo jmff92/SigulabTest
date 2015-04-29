@@ -96,6 +96,7 @@ end
   get "/executions/list_lab", to: "executions#list_lab", :as => "executions/list_lab"
 
   resources :incomes
+  resources :paymentauths
   resources :commitments
   resources :executions do 
     get 'annul', on: :member

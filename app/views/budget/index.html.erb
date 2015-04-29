@@ -36,6 +36,14 @@
 			<% end %>
 
 			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.manage? or current_user.manage_analist? or current_user.quality? %>
+				<li><%= link_to controller: :paymentauths do %>
+					<h3><span class="fa fa-money"></span>Autorizaciones de Pago</h3>
+				<% end %></li>
+			<% else %>				
+			    <!-- falta obtener lab -->
+			<% end %>
+
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.manage? or current_user.manage_analist? or current_user.quality? %>
 				<li><%= link_to controller: :commitments do %>
 					<h3><span class="fa fa-minus-circle"></span>Compromisos</h3>
 				<% end %></li>
