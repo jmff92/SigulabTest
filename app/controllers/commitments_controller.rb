@@ -16,8 +16,8 @@ class CommitmentsController < ApplicationController
 
   def show
     @commitment = Commitment.find(params[:id])
-    @executions = Execution.where("commitment_id=?",params[:id])
-    @sum = @executions.where("check_annulled=false").sum(:check_amount)
+    @executions = Execution.where("commitment_id=?",params[:id]).where("valid_adm=? AND valid_dir=?", true, false)
+    @sum = @executions.where("check_annulled=false").sum(:check_amount).where("valid_adm=? AND valid_dir=?", true, false)
     @dif = @commitment.amount - @sum
     @size = @executions.count
   end

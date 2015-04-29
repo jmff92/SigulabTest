@@ -78,6 +78,7 @@ end
   # Rutas del Subsistema de Administracion
   get 'administration/budget/(:action)', to: 'budget', as: :budget
   get 'administration/(:action)', to: 'administration', as: :administration
+  get "/administration/notifications", to: "notifications#administration", :as => "notifications/administration"
   get "/executions/list", to: "executions#list", :as => "executions/list"
   get "/projects/list", to: "projects#list", :as => "projects/list"
   get "/projects/admin", to: "projects#admin", :as => "projects/admin"
@@ -91,17 +92,34 @@ end
   get "/commitments/list_lab", to: "commitments#list_lab", :as => "commitments/list_lab"
   get "/executions/list_lab", to: "executions#list_lab", :as => "executions/list_lab"
 
-  resources :incomes
+  resources :incomes do
+    get 'valid_adm', on: :member
+    get 'valid_dir', on: :member
+    get 'delete', on: :member
+  end
   resources :commitments
   resources :executions do 
     get 'annul', on: :member
+    get 'delete', on: :member
+    get 'valid_adm', on: :member
+    get 'valid_dir', on: :member
   end
-  resources :projects
-  resources :projcommitments
+  resources :projects do
+    get 'valid_resp', on: :member
+    get 'delete', on: :member
+  end
+  resources :projcommitments do
+    get 'valid', on: :member
+    get 'delete', on: :member
+  end
   resources :projincomes
   resources :projexecutions do
     get 'annul', on: :member
+    get 'valid', on: :member
+    get 'delete', on: :member
   end
+
+
 
 
   # Example of regular route:

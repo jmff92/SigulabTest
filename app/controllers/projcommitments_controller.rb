@@ -7,23 +7,23 @@ class ProjcommitmentsController < ApplicationController
     if params[:id]
       @project = Project.find(params[:id])
     end       
-    @commitments = Projcommitment.order("date ASC").where("proj_id=?",params[:id])
+    @commitments = Projcommitment.order("date ASC").where("proj_id=?",params[:id]).where("valid=?", true)
     @sum = @commitments.sum(:amount)
     @suma = Projcommitment.all
   end
 
   def all
-    @projcommitments = Projcommitment.all.order("date ASC")
+    @projcommitments = Projcommitment.all.order("date ASC").where("valid=?", true)
     @sum = @projcommitments.sum(:amount)
   end
 
   def show
-    @commitment = Projcommitment.find(params[:id])
-    @executions = Projexecution.all.where("commitment_id=?",params[:id])
-    @sum = @executions.where("check_annulled=false").sum(:check_amount)
+    @commitment = Projcommitment.find(params[:id]).where("valid=?", true)
+    @executions = Projexecution.all.where("commitment_id=?",params[:id]).where("valid=?", true)
+    @sum = @executions.where("check_annulled=false").sum(:check_amount).where("valid=?", true)
     @dif = @commitment.amount - @sum
     @size = @executions.count
-    @project = Project.find(@commitment.proj_id)
+    @project = Project.find(@commitment.proj_id).where("valid=?", true)
   end
 
   def new
@@ -79,10 +79,22 @@ class ProjcommitmentsController < ApplicationController
     end
   end  
 
+  def valid
+    @projcommitment = Projcommitment.find(params[:id])
+    @projcommitment.update_attribute(:valid, true)
+    redirect_to :back
+  end     
+
+  def delete
+    @projcommitment = Projcommitment.find params[:id]
+    @projcommitment.destroy
+    redirect_to :back    
+  end    
+
   private
   
     def projcommitment_params
-      params.require(:projcommitment).permit(:proj_id, :recipient, :amount, :description, :date, :code, :observations, :document)
+      params.require(:projcommitment).permit(:proj_id, :recipient, :amount, :description, :date, :code, :observations, :document, :valid)
     end
   
 end  

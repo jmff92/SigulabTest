@@ -4,13 +4,13 @@ class IncomesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @incomes = Income.all.order("date ASC")
+    @incomes = Income.all.order("date ASC").where("valid_adm=? AND valid_dir=?", true, true)
     @sum = @incomes.sum(:amount)
   end
 
   def list_lab
     @lab = Lab.find(params[:id])
-    @incomes = Income.all.order("date ASC").where("lab_id=?", params[:id])
+    @incomes = Income.all.order("date ASC").where("lab_id=?", params[:id]).where("valid_adm=? AND valid_dir=?", true, true)
     @sum = @incomes.sum(:amount)
   end
 
@@ -125,11 +125,29 @@ class IncomesController < ApplicationController
       render 'edit'
     end
   end
+
+  def delete
+    @income = Income.find params[:id]
+    @income.destroy
+    redirect_to :back    
+  end    
+
+  def valid_adm
+    @income = Income.find(params[:id])
+    @income.update_attribute(:valid_adm, true)
+    redirect_to :back
+  end  
+
+  def valid_dir
+    @income = Income.find(params[:id])
+    @income.update_attribute(:valid_dir, true)
+    redirect_to :back
+  end     
   
   private
   
     def income_params
-      params.require(:income).permit(:lab_id, :sae_code, :origin, :amount, :description, :date, :organism, :document, :financing, :doc_code, :doc_date, :unit, :variation, :resource, :resource_description)
+      params.require(:income).permit(:lab_id, :sae_code, :origin, :amount, :description, :date, :organism, :document, :financing, :doc_code, :doc_date, :unit, :variation, :resource, :resource_description, :valid_adm, :valid_dir)
     end
   
 end

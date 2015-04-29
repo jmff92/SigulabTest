@@ -39,8 +39,8 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @incomes_total = Projincome.all.where(proyecto: @project.id).sum(:amount) 
-    @commitments_total = Projcommitment.all.where(proj_id: @project.id).sum(:amount)  
-    @executions_total = Projexecution.all.where(proyecto: @project.id).where("check_annulled=false").sum(:check_amount)    
+    @commitments_total = Projcommitment.all.where(proj_id: @project.id).sum(:amount).where("valid_adm=?", true)
+    @executions_total = Projexecution.all.where(proyecto: @project.id).where("check_annulled=false")..where("valid_adm=?", true).sum(:check_amount)    
   end    
 
     def edit
@@ -87,16 +87,16 @@ class ProjectsController < ApplicationController
       end
 
 def list
-  @projects = Project.all.order("project_number ASC")
+  @projects = Project.all.order("project_number ASC").where("valid_adm=?", true)
   @sum = @projects.where("NOT(status=3) AND NOT(status=4)").sum(:amount)  
 end
 
 def admin
-  @projects = Project.all.order("project_number ASC")
+  @projects = Project.all.order("project_number ASC").where("valid_adm=?", true)
 
   @incomes = Projincome.all
-  @commitments = Projcommitment.all
-  @executions = Projexecution.all
+  @commitments = Projcommitment.all.where("valid_adm=?", true)
+  @executions = Projexecution.all.where("valid_adm=?", true)
 
   @incomes_proj = []
   @commitments_proj = []
@@ -129,9 +129,22 @@ end
 def summary
   @project = Project.find(params[:id]) 
   @incomes_total = Projincome.all.where(proyecto: @project.id).sum(:amount) 
-  @commitments_total = Projcommitment.all.where(proj_id: @project.id).sum(:amount)  
-  @executions_total = Projexecution.all.where(proyecto: @project.id).where("check_annulled=false").sum(:check_amount)
+  @commitments_total = Projcommitment.all.where(proj_id: @project.id).where("valid_adm=?", true).sum(:amount)  
+  @executions_total = Projexecution.all.where(proyecto: @project.id).where("check_annulled=false").where("valid_adm=?", true).sum(:check_amount)
 end
+
+  def valid_resp
+    @project = Project.find(params[:id])
+    @project.update_attribute(:valid, true)
+    redirect_to :back
+  end  
+
+  def delete
+    @project = Project.find params[:id]
+    @project.destroy
+    redirect_to :back    
+  end      
+
 
   private
   
@@ -140,7 +153,7 @@ end
       	                              :admin, :sae_code, :amount, :equipments, :services, 
       	                              :infrastructure, :hhrr, :consumables, :furniture, 
                                       :incoming_date, :status, :other_desc, :other_amount, 
-                                      :annulled_date, :observation, :num_cuenta, :banco, :substitute, :observation)
+                                      :annulled_date, :observation, :num_cuenta, :banco, :substitute, :observation, :valid)
     end
 
 end

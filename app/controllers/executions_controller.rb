@@ -4,24 +4,24 @@ class ExecutionsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @executions = Execution.all
+    @executions = Execution.all.where("valid_adm=? AND valid_dir=?", true, true)
     @sum = @executions.where("check_annulled=false").sum(:check_amount)
   end
 
   def list_lab
     @lab = Lab.find(params[:id])
-    @executions = Execution.joins(commitment: :lab).where("lab_id=?", params[:id])
+    @executions = Execution.joins(commitment: :lab).where("lab_id=?", params[:id]).where("valid_adm=? AND valid_dir=?", true, true)
     @sum = @executions.where("check_annulled=false").sum(:check_amount)
   end
 
   def show
     @execution = Execution.find(params[:id])
-    @executions = Execution.where("commitment_id=?",params[:cid])
+    @executions = Execution.where("commitment_id=?",params[:cid]).where("valid_adm=? AND valid_dir=?", true, true)
     @sum = @executions.where("check_annulled=false").sum(:check_amount)
   end
 
   def list
-    @executions = Execution.where("commitment_id=?",params[:cid])
+    @executions = Execution.where("commitment_id=?",params[:cid]).where("valid_adm=? AND valid_dir=?", true, true)
     @sum = @executions.where("check_annulled=false").sum(:check_amount)
     @commitments = Commitment.find(params[:cid])
     @sum_commitment = @commitments.amount
@@ -32,7 +32,7 @@ class ExecutionsController < ApplicationController
     if params[:cid]
       @commitment = Commitment.find(params[:cid])
       @execution.commitment_id = params[:cid]
-      @executed = Execution.where("commitment_id=?",params[:cid]).where("check_annulled=false").sum(:check_amount)
+      @executed = Execution.where("commitment_id=?",params[:cid]).where("check_annulled=false").sum(:check_amount).where("valid_adm=? AND valid_dir=?", true, false)
     end
   end
   
@@ -92,7 +92,7 @@ class ExecutionsController < ApplicationController
     @commitment = Commitment.find(Execution.find(params[:id]).commitment_id)    
 
     @oldamount = @execution.check_amount    
-    @executions = Execution.where("commitment_id=?",@execution.commitment_id)
+    @executions = Execution.where("commitment_id=?",@execution.commitment_id).where("valid_adm=? AND valid_dir=?", true, false)
     @executed = @executions.where("check_annulled=false").sum(:check_amount) - @oldamount
 
     if params[:execution][:check_amount].to_i > @commitment.amount - @executed
@@ -113,11 +113,29 @@ class ExecutionsController < ApplicationController
     @execution.update_attribute(:check_annulled, true)
     redirect_to :back
   end
+
+  def delete
+    @execution = Execution.find params[:id]
+    @execution.destroy
+    redirect_to :back    
+  end      
+
+  def valid_adm
+    @execution = Execution.find(params[:id])
+    @execution.update_attribute(:valid_adm, true)
+    redirect_to :back
+  end  
+
+  def valid_dir
+    @execution = Execution.find(params[:id])
+    @execution.update_attribute(:valid_dir, true)
+    redirect_to :back
+  end    
   
   private
   
     def execution_params
-      params.require(:execution).permit(:code, :commitment_id, :check_amount, :check_number, :check_elaboration_date, :document, :document_name, :check_sign_date, :check_delivery_date, :remarks, :document_date, :invoice_number, :invoice_date)
+      params.require(:execution).permit(:code, :commitment_id, :check_amount, :check_number, :check_elaboration_date, :document, :document_name, :check_sign_date, :check_delivery_date, :remarks, :document_date, :invoice_number, :invoice_date, :valid_adm, :valid_dir)
     end
     
     def purge_date(date)

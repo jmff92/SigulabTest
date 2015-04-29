@@ -1,0 +1,146 @@
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
+<%= javascript_include_tag 'tabla.js' %>
+
+<div class="row">
+	<div class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><%= link_to 'Inicio', controller: 'statics' %></li>
+			<li><%= link_to 'Administración', controller: 'administration' %></li>			
+			<li class="active">Notificaciones</li>
+		</ol>
+	</div>
+
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
+	</div>  
+
+	<div class="col-xs-12">
+		<h2><center>Validaciones pendientes</center></h2>
+	</div>
+
+	<div class="col-xs-12">
+
+		<body id="dt_example" class="ex_highlight_row">
+
+			<div id="container">
+				<div id="demo">
+					<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+						<thead>
+							<tr>
+								<th class="text-center">Fecha</th>
+								<th class="text-center">Transacción</th>
+								<th class="text-center">Descripción</th>
+								<th class="text-center">Monto</th>
+								<th class="text-center"> </th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @incomes.each do |i| %>
+								<tr>
+									<td class="text-center"><%= i.date.strftime('%d/%m/%Y') unless i.date.blank? %></td>
+									<td class="text-center"><%= link_to "Ingreso", i %></td>
+									<td class="text-center"><%= i.lab.sae_name %></td>
+									<td class="text-right"><%= number_to_currency(i.amount, format: "%n", delimiter: ".", separator: ",", precision: 2) %></td>
+									<td class="text-center">
+										<% if current_user.manage? %>
+											<%= link_to valid_adm_income_path(i), class: "btn btn-success", title: "Validar ingreso", data: {confirm: "¿Está seguro de validar el ingreso?"} do %>
+												<span class="glyphicon glyphicon-check"></span>
+											<% end %>										
+										<% end %>
+										<% if current_user.director? %>
+											<%= link_to valid_dir_income_path(i), class: "btn btn-success", title: "Validar ingreso", data: {confirm: "¿Está seguro de validar el ingreso?"} do %>
+												<span class="glyphicon glyphicon-check"></span>
+											<% end %>										
+										<% end %>										
+										 &nbsp;
+										 <%= link_to delete_income_path(i), class: "btn btn-danger", title: "Rechazar ingreso", data: {confirm: "¿Está seguro de rechazar el ingreso?"} do %>
+     										<span class="glyphicon glyphicon-remove"></span>
+     									<% end %> </td>   									
+								</tr>
+							<% end %>
+				      		<% @executions.each do |e| %>
+								<tr>
+									<td class="text-center"><%= e.document_date %></td>									
+									<td class="text-center"><%= link_to "Ejecución", e %></td>													
+									<td class="text-center"><%= e.commitment.lab.sae_name %></td>
+									<td class="text-right"><%= number_to_currency(e.check_amount, format: "%n", delimiter: ".", separator: ",") %></td>
+									<td class="text-center">
+										<% if current_user.manage? %>										
+											<%= link_to valid_adm_execution_path(e), class: "btn btn-success", title: "Validar ejecución", data: {confirm: "¿Está seguro de validar la ejecución?" } do %>
+												<span class="glyphicon glyphicon-check"></span>
+											<% end %>	
+										<% end %>
+										<% if current_user.director? %>										
+											<%= link_to valid_dir_execution_path(e), class: "btn btn-success", title: "Validar ejecución", data: {confirm: "¿Está seguro de validar la ejecución?" } do %>
+												<span class="glyphicon glyphicon-check"></span>
+											<% end %>	
+										<% end %>										
+     									&nbsp;
+										 <%= link_to delete_execution_path(e), class: "btn btn-danger", title: "Rechazar ejecución", data: {confirm: "¿Está seguro de rechazar la ejecución?"} do %>
+     										<span class="glyphicon glyphicon-remove"></span>
+     									<% end %> </td>     							
+								</tr>
+							<% end %>	
+							<% @projects.each do |i| %>
+								<tr>
+									<td class="text-center"><%= i.incoming_date %></td>
+									<td class="text-center"><%= link_to "Proyecto", i %></td>
+									<td class="text-center"><%= i.title %></td>
+									<td class="text-right"><%= number_to_currency(i.amount, format: "%n", delimiter: ".", separator: ",") %></td>
+									<td class="text-center">
+										<% if current_user.proy_responsible? %>										
+											<%= link_to valid_resp_project_path(i), class: "btn btn-success", title: "Validar proyecto", data: {confirm: "¿Está seguro de validar el proyecto?" } do %>
+												<span class="glyphicon glyphicon-check"></span>
+											<% end %>	
+	     									
+											<%= link_to delete_project_path(i), class: "btn btn-danger", title: "Rechazar proyecto", data: {confirm: "¿Está seguro de rechazar el proyecto?"} do %>
+     											<span class="glyphicon glyphicon-remove"></span>
+     										<% end %>
+     									<% end %> </td>     
+								</tr>
+							<% end %>
+							<% @projcommitments.each do |c| %>
+								<tr>
+									<td class="text-center"><%= c.date %></td>
+									<td><%= link_to "Compromiso", c %></td>
+									<td class="text-center"><%= c.description %></td>									
+									<td class="text-right"><%= number_to_currency(c.amount, format: "%n", delimiter: ".", separator: ",") %></td>
+									<td class="text-center">									
+											<%= link_to valid_projcommitment_path(c), class: "btn btn-success", title: "Validar compromiso", data: {confirm: "¿Está seguro de validar el compromiso?" } do %>
+												<span class="glyphicon glyphicon-check"></span>
+											<% end %>		     									
+											<%= link_to delete_projcommitment_path(c), class: "btn btn-danger", title: "Rechazar compromiso", data: {confirm: "¿Está seguro de rechazar el compromiso?"} do %>
+     											<span class="glyphicon glyphicon-remove"></span>
+     										<% end %>									
+									</td>									     										
+								</tr>
+							<% end %>
+				      		<% @projexecutions.each do |e| %>
+								<tr>
+									<td class="text-center"><%= e.document_date %></td>									
+									<td class="text-center"><%= link_to "Ejecución", e %></td>													
+									<td class="text-center"><%= link_to Projcommitment.find(e.commitment_id).description, Projcommitment.find(e.commitment_id) %></td>
+									<td class="text-right"><%= number_to_currency(e.check_amount, format: "%n", delimiter: ".", separator: ",") %></td>
+									<td class="text-center">
+										<%= link_to valid_projexecution_path(e), class: "btn btn-success", title: "Validar ejecución", data: {confirm: "¿Está seguro de validar la ejecución?" } do %>
+												<span class="glyphicon glyphicon-check"></span>
+											<% end %>	
+										 <%= link_to delete_projexecution_path(e), class: "btn btn-danger", title: "Rechazar ejecución", data: {confirm: "¿Está seguro de rechazar la ejecución?"} do %>
+     										<span class="glyphicon glyphicon-remove"></span>
+     									<% end %> </td>     							
+								</tr>
+							<% end %>							
+						</tbody>
+					</table>
+					<div class="spacer"></div>
+				</div>
+			</div>
+		</body>
+
+	</div>
+
+</div>
