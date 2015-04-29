@@ -34,7 +34,7 @@ class LoansController < ApplicationController
   def new
     if params[:item_ids] == nil
       flash[:notice] = "No ha seleccionado ningun item para ser prestado"
-      redirect_to :back
+      redirect_to :back, format: "Error"
     else
       if params[:commit]
         redirect_to :controller => "applications", :action => "new", :item_ids => params[:item_ids]
