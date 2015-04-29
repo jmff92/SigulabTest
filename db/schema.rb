@@ -456,6 +456,7 @@ ActiveRecord::Schema.define(version: 20150427145149) do
     t.date     "annulled_date"
     t.string   "substitute"
     t.text     "observation"
+    t.integer  "banco"
   end
 
   create_table "projexecutions", force: true do |t|
