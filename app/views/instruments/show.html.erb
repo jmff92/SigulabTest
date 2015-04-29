@@ -1,10 +1,14 @@
 <%= javascript_include_tag 'jquery-1.10.2.js'%>
 <%= javascript_include_tag 'jquery-ui.js' %>
 <%= stylesheet_link_tag 'jquery-ui.css'%>
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
 <%= javascript_include_tag 'tabs.js' %>
 <%= stylesheet_link_tag 'demo_table_jui.css'%>
 <%= javascript_include_tag 'jquery.dataTables.js' %>
 <%= javascript_include_tag 'tabla.js' %>
+
 
 <div class="row">
 
@@ -38,6 +42,8 @@
     <li><a href="#tabs-2" class="hidex">Ubicación</a></li>
     <li><a href="#tabs-3" class="show">Datos de Adquisición</a></li>
     <li><a href="#tabs-4" class="hidex">Bitácora</a></li>
+    <li><a href="#tabs-6" class="show">Servicios</a></li>
+
   </ul>
 
   <div id="tabs-1">
@@ -146,8 +152,6 @@
             <td class="col-xs-7"><%= @instrument.adquisition_date %></td>
           </tr>
 
-    </table></p>
-  </div>
   <div id="tabs-4">
     <body id="dt_example" class="ex_highlight_row">
 
@@ -185,7 +189,43 @@
         </div>
       </body>
   </div>
-</div>
+  
+    <div id="tabs-6">
+      <p><table class="table table-striped">
+
+                <thead>
+                  <tr>
+                    <% if @sum > 0 %>
+                    <th></th>
+                    <% end %>
+                    <th class="tg-093g">N° de O/S</th>
+                    <th class="tg-093g">Fecha</th>
+                    <th class="tg-093g">Servicio</th>
+                    <th class="tg-hgcj">Prestado a</th>
+                    <th class="tg-hgcj">Empresa/Dependencia</th>
+                    <th class="tg-hgcj">Telefono</th>
+                   
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <% @applications.each do |s| %>
+                    <tr>
+                      <td class="tg-s6z2"><span class="mayus"><%= link_to s.id, s %></span></td>
+                      <td class="tg-s6z2"><span class="mayus"><%= s.fechaRequerida %></span></td>
+                      <td class="tg-s6z2"><span class="mayus"><%= s.descripcion %></span></td>
+                      <td class="tg-qpa3"><span class="mayus"><%= s.personaContactoUnidadS %></span></td>
+                      <td class="tg-qpa3"><span class="mayus"><%= s.companiaDepencia %></span></td>
+                      <td class="tg-qpa3"><span class="mayus"><%= s.telefono3 %></span></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+            </table>
+      </div>
+  <br>
+    </table></p>
+  </div>
+
 
 
 
@@ -280,4 +320,7 @@
   }
 ;
   </script>
+<<<<<<< HEAD
+=======
 
+>>>>>>> 11980cf5b83da4e2a1bd7a2960357703e47fbe88
