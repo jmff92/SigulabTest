@@ -10,7 +10,7 @@
   <li class="active"> Sustancias Químicas </li>
 </ol>  
 
-  <% if flash[:notice] = "No ha seleccionado ningun item para ser prestado" %>
+  <% if flash[:notice] %>
     <div class="alert alert-danger"><%= flash[:notice] %></div>
   <% end %>
 

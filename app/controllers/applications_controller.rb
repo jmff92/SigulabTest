@@ -46,12 +46,11 @@ class ApplicationsController < ApplicationController
 
   # GET /applications/1/edit
   def edit
-    @id = params[:item_ids]
+    @id = RelationService.select(:item).where(servicio: @application.id.to_s).pluck(:item)
 
-    @equipment = Equipment.where(id2: params[:item_ids])
-    @instruments = Instrument.where(id2: params[:item_ids])
-    @tools = Tool.where(id2: params[:item_ids])
-
+    @equipment = Equipment.where(id2: @id)
+    @instruments = Instrument.where(id2: @id)
+    @tools = Tool.where(id2: @id)
   end
 
   # POST /applications

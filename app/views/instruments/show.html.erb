@@ -151,6 +151,8 @@
             <td class="col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
             <td class="col-xs-7"><%= @instrument.adquisition_date %></td>
           </tr>
+        </table></p>
+  </div>
 
   <div id="tabs-4">
     <body id="dt_example" class="ex_highlight_row">
@@ -195,9 +197,6 @@
 
                 <thead>
                   <tr>
-                    <% if @sum > 0 %>
-                    <th></th>
-                    <% end %>
                     <th class="tg-093g">N° de O/S</th>
                     <th class="tg-093g">Fecha</th>
                     <th class="tg-093g">Servicio</th>
@@ -220,10 +219,9 @@
                     </tr>
                   <% end %>
                 </tbody>
-            </table>
+            </table></p>
       </div>
   <br>
-    </table></p>
   </div>
 
 
@@ -320,7 +318,3 @@
   }
 ;
   </script>
-<<<<<<< HEAD
-=======
-
->>>>>>> 11980cf5b83da4e2a1bd7a2960357703e47fbe88

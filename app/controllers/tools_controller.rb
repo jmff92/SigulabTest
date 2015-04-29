@@ -18,12 +18,13 @@ class ToolsController < ApplicationController
   # GET /tools/1.json
   def show
 
-   @sum = Tool.count
+    @sum = Tool.count
     @id = @tool.id2
     @relation_service = RelationService.where(item: @id).pluck(:servicio)
     @applications = Application.where(id: @relation_service)
 
-    @records = Record.where(idEquipo: @id)
+    @ids = @tool.id2
+    @records = Record.where(idEquipo: @ids)
 
   end
 

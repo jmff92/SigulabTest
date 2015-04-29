@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428040516) do
+ActiveRecord::Schema.define(version: 20150429073825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -272,6 +272,8 @@ ActiveRecord::Schema.define(version: 20150428040516) do
     t.date     "document_date"
     t.string   "invoice_number"
     t.date     "invoice_date"
+    t.boolean  "valid_adm",              default: false
+    t.boolean  "valid_dir",              default: false
   end
 
   add_index "executions", ["commitment_id"], name: "index_executions_on_commitment_id", using: :btree
@@ -295,6 +297,8 @@ ActiveRecord::Schema.define(version: 20150428040516) do
     t.string   "doccode"
     t.string   "doc_code"
     t.date     "doc_date"
+    t.boolean  "valid_adm",            default: false
+    t.boolean  "valid_dir",            default: false
   end
 
   create_table "instruments", force: true do |t|
@@ -434,6 +438,22 @@ ActiveRecord::Schema.define(version: 20150428040516) do
     t.boolean  "todoVie"
   end
 
+  create_table "paymentauths", force: true do |t|
+    t.string   "recipient"
+    t.string   "registry"
+    t.string   "from"
+    t.date     "elaboration_date"
+    t.date     "delivery_date"
+    t.string   "delivered_id"
+    t.string   "concept"
+    t.float    "amount"
+    t.string   "observations"
+    t.string   "recieved_by"
+    t.boolean  "is_valid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "projcommitments", force: true do |t|
     t.integer  "proj_id"
     t.string   "code"
@@ -445,6 +465,7 @@ ActiveRecord::Schema.define(version: 20150428040516) do
     t.integer  "document"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "valid",        default: false
   end
 
   create_table "projects", force: true do |t|
@@ -472,6 +493,7 @@ ActiveRecord::Schema.define(version: 20150428040516) do
     t.string   "substitute"
     t.text     "observation"
     t.integer  "banco"
+    t.boolean  "valid",          default: false
   end
 
   create_table "projexecutions", force: true do |t|
@@ -493,6 +515,7 @@ ActiveRecord::Schema.define(version: 20150428040516) do
     t.date     "document_date"
     t.string   "invoice_number"
     t.date     "invoice_date"
+    t.boolean  "valid",                  default: false
   end
 
   create_table "projincomes", force: true do |t|
@@ -511,6 +534,23 @@ ActiveRecord::Schema.define(version: 20150428040516) do
     t.date     "doc_date"
     t.string   "unit"
     t.string   "observations"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "projpaymentauths", force: true do |t|
+    t.integer  "proyect"
+    t.string   "recipient"
+    t.string   "registry"
+    t.string   "from"
+    t.date     "elaboration_date"
+    t.date     "delivery_date"
+    t.string   "delivered_id"
+    t.string   "concept"
+    t.float    "amount"
+    t.string   "observations"
+    t.string   "recieved_by"
+    t.boolean  "is_valid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
