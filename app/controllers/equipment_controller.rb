@@ -23,7 +23,7 @@ class EquipmentController < ApplicationController
     @relation_service = RelationService.where(item: @id).pluck(:servicio)
     @applications = Application.where(id: @relation_service)
 
-    @id = @equipment.id2
+    @ids = @equipment.id2
     @records = Record.where(idEquipo: @ids)
 
   end
