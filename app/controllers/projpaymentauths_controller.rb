@@ -9,8 +9,15 @@ class ProjpaymentauthsController < ApplicationController
   end
 
   def show
-    @pay = Projpaymentauth.find(params[:id])
-    @project = Project.find(@pay.proyect)
+    @pay = Paymentauth.find(params[:id])
+    @project = Project.find(@pay.proyect)    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = AutorizacionPago.new(@pay)
+        send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
+      end
+    end
   end
 
   def all

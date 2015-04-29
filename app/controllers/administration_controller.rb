@@ -25,9 +25,9 @@ class AdministrationController < ApplicationController
     if current_user.proy_responsible?
       @incomes = {}
       @executions = {}
-      @projects = Project.all
-      @projcommitments = Projcommitment.all
-      @projexecutions = Projexecution.all
+      @projects = Project.all.order("incoming_date ASC").where("valid_res=?", false)
+      @projcommitments = Projcommitment.all.order("date ASC").where("valid_res=?", false)
+      @projexecutions = Projexecution.all.order("date ASC").where("valid_res=?", false)
     end
   end
 

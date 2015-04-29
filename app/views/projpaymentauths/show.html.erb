@@ -74,6 +74,8 @@
 				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Autorización de Pago</button>
 			<% end %>
 		<% end %>  
+		<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Generar Autorización de Pago </button>'.html_safe, paymentauth_path(@pay, :format => 'pdf') %>
+		<% end %>  		
 	</div>
 </div>
 

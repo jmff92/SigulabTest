@@ -122,7 +122,7 @@ class ProjexecutionsController < ApplicationController
 
   def valid
     @projexecution = Projexecution.find(params[:id])
-    @projexecution.update_attribute(:valid, true)
+    @projexecution.update_attribute(:valid_res, true)
     redirect_to :back
   end     
 
