@@ -1,0 +1,79 @@
+<div class="row">
+	<div class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><%= link_to 'Inicio', controller: 'statics' %></li>
+			<li><%= link_to 'Administración', administration_path %></li>
+			<li><%= link_to 'Presupuesto', budget_path %></li>
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.manage? or current_user.manage_analist? or current_user.quality? %>
+				<li><%= link_to 'Autorizaciones de Pago', paymentauths_path %></li>
+			<% else %>
+			<% end %>			
+			<li class="active"><%= @pay.id%></li>
+		</ol>
+	</div>
+
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
+		</br>
+		</br>    	
+	</div>   
+
+	<div class="col-xs-12">
+		<table class="table table-striped">
+			<tr>
+				<td class="col-xs-5 text-right">Registro:</td>
+				<td class="col-xs-7"><%= @pay.registry %></td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">De:</td>
+				<td class="col-xs-7"><%= @pay.from %></td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">Fecha:</td>
+				<td class="col-xs-7"><%= @pay.elaboration_date.strftime('%d/%m/%Y') %></td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">Beneficiario:</td>
+				<td class="col-xs-7"><%= @pay.recipient %></td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">C.I. o RIF:</td>
+				<td class="col-xs-7"><%= @pay.delivered_id %></td>
+			</tr>
+		 <tr>
+			 <td class="col-xs-5 text-right">Concepto:</td>
+    <td class="col-xs-7"><%= @pay.concept %></td>
+		 </tr>
+			<% if !@pay.delivery_date.blank? -%>
+		      <tr>
+			    <td class="col-xs-5 text-right">Observaciones:</td>
+                <td class="col-xs-7"><%= @pay.observations %></td>
+			  </tr>
+			<% end %>
+			<% if !@pay.observations.blank? -%>
+		      <tr>
+			    <td class="col-xs-5 text-right">Observaciones:</td>
+                <td class="col-xs-7"><%= @pay.observations %></td>
+			  </tr>
+			<% end %>
+			<tr class="success">
+				<td class="col-xs-5 text-right"><font size=3.6> Monto: </font></td>
+				<td class="col-xs-7"> <div id="span1"> <font size=3.6> Bs. </div> <div id="span2" align="right"> <font size=3.6> <%= number_to_currency(@pay.amount, format: "%n", delimiter: ".", separator: ",") %> </font> </div> </td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-xs-12">
+		<% if current_user.acquisition? or current_user.manage? or current_user.manage_analist? %>
+			<%= link_to edit_paymentauth_path do %>
+				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Autorización de Pago</button>
+			<% end %>
+		<% end %>  
+	</div>
+</div>
+
+<style>
+	#span1 { width: 25px; float: left; height:100%; }
+    #span2 { width: 110px; float: left; height:50%;}
+</style>

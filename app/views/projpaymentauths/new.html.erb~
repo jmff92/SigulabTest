@@ -3,8 +3,10 @@
 		<ol class="breadcrumb">
 			<li><%= link_to 'Inicio', controller: 'statics' %></li>
 			<li><%= link_to 'Administración', administration_path %></li>
-			<li><%= link_to 'Presupuesto', budget_path %></li>
-			<li><%= link_to 'Autorizaciones de Pago', paymentauths_path %></li>
+			<li><%= link_to 'Proyectos', projects_path %></li>
+			<li><%= link_to 'Gestionar proyectos', controller: 'projects', action: 'list' %></li>
+			<li><%= link_to Project.find(params[:id]).project_number, Project.find(params[:id]) %></li>
+			<li><%= link_to 'Autorizaciones de Pago', controller: 'projpaymentauths', id: params[:id] %></li>
 			<li class="active">Nueva Autorización de Pago</li>
 		</ol>
 	</div>
@@ -22,49 +24,49 @@
 	<div class="col-xs-12">
 		<%= form_for @pay, url: {action: 'create'}, html: { class: 'form-horizontal' } do |i| %>				
 			<div class="form-group">
-				<label for='paymentauth_registry' class="col-xs-3 control-label text-right">Registro <span style="color:#FF0000">*</span></label>
+				<label for='projpaymentauth_registry' class="col-xs-3 control-label text-right">Registro <span style="color:#FF0000">*</span></label>
 				<div class='col-xs-4'>
 					<%= i.text_field :registry, class: 'form-control' %>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for='paymentauth_from' class="col-xs-3 control-label text-right">De <span style="color:#FF0000">*</span></label>
+				<label for='projpaymentauth_from' class="col-xs-3 control-label text-right">De <span style="color:#FF0000">*</span></label>
 				<div class='col-xs-4'>
 					<%= i.text_field :from, class: 'form-control' %>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for='paymentauth_elaboration_date' class="col-xs-3 control-label text-right">Fecha <span style="color:#FF0000">*</span></label>
+				<label for='projpaymentauth_elaboration_date' class="col-xs-3 control-label text-right">Fecha <span style="color:#FF0000">*</span></label>
 				<div class='col-xs-4'>
 					<%= i.text_field :elaboration_date, class: 'bootlayout-date form-control', placeholder: 'Fecha de Elaboración' %>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for='paymentauth_recipient' class="col-xs-3 control-label text-right">Páguese a <span style="color:#FF0000">*</span></label>
+				<label for='projpaymentauth_recipient' class="col-xs-3 control-label text-right">Páguese a <span style="color:#FF0000">*</span></label>
 				<div class='col-xs-4'>
 					<%= i.text_field :recipient, class: 'form-control' %>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for='paymentauth_delivered_id' class="col-xs-3 control-label text-right">C.I. o RIF <span style="color:#FF0000">*</span></label>
+				<label for='projpaymentauth_delivered_id' class="col-xs-3 control-label text-right">C.I. o RIF <span style="color:#FF0000">*</span></label>
 				<div class='col-xs-4'>
 					<%= i.text_field :delivered_id, class: 'form-control' %>
 				</div>
 			</div>
     
    <div class="form-group">
-				<label for='paymentauth_concept' class="col-xs-3 control-label text-right">Concepto <span style="color:#FF0000">*</span> </label>
+				<label for='projpaymentauth_concept' class="col-xs-3 control-label text-right">Concepto <span style="color:#FF0000">*</span> </label>
 				<div class='col-xs-4'>
 					<%= i.text_area :concept, class: 'form-control' %>
 				</div>
 			</div>
 						
 			<div class="form-group">
-				<label for='paymentauth_amount' class="col-xs-3 control-label text-right">Cantidad <span style="color:#FF0000">*</span></label>
+				<label for='projpaymentauth_amount' class="col-xs-3 control-label text-right">Cantidad <span style="color:#FF0000">*</span></label>
 				<div class='col-xs-4'>
 					<div class="input-group">
       <span class="input-group-addon">Bs.</span>
@@ -75,21 +77,21 @@
 			</div>
 
    <div class="form-group">
-				<label for='paymentauth_concept' class="col-xs-3 control-label text-right">Observaciones/Exposición de motivos </label>
+				<label for='projpaymentauth_concept' class="col-xs-3 control-label text-right">Observaciones/Exposición de motivos </label>
 				<div class='col-xs-4'>
 					<%= i.text_area :observations, class: 'form-control' %>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for='paymentauth_elaboration_date' class="col-xs-3 control-label text-right">Fecha de Recepción </label>
+				<label for='projpaymentauth_elaboration_date' class="col-xs-3 control-label text-right">Fecha de Recepción </label>
 				<div class='col-xs-4'>
 					<%= i.text_field :elaboration_date, class: 'bootlayout-date form-control', placeholder: 'Fecha de Recepción', disabled: true %>
 				</div>
 			</div>
 
    <div class="form-group">
-				<label for='paymentauth_recieved_by' class="col-xs-3 control-label text-right">Recibido por </label>
+				<label for='projpaymentauth_recieved_by' class="col-xs-3 control-label text-right">Recibido por </label>
 				<div class='col-xs-4'>
 					<%= i.text_field :recieved_by, class: 'form-control', disabled: true %>
 				</div>
@@ -98,8 +100,8 @@
 			<div class="form-group">
 				<div class="col-xs-offset-3 col-xs-9">
 					<button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Agregar Autorización de Pago</button>
-					<%= link_to paymentauths_path, class: "btn btn-default btn-danger" do %>
-						<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Cancelar Operación
+					<%= link_to controller: 'projpaymentauths', id: params[:id] do %>					
+						<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Cancelar</button>					
 					<% end %>
 				</div>
 			</div>

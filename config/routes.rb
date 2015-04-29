@@ -87,7 +87,9 @@ end
   get "/projects/admin", to: "projects#admin", :as => "projects/admin"
   get "/projcommitments/list", to: "projcommitments#list", :as => "projcommitments/list"
   get "/projexecutions/list", to: "projexecutions#list", :as => "projexecutions/list"
+  get "projpaymentauths/list", to: "projpaymentauths#list", :as => "projpaymentauths/list"
   get "/projincomes/all", to: "projincomes#all", :as => "projincomes/all"
+  get "projpaymentauths/all", to: "projpaymentauths#all", :as => "projpaymentauths/all"
   get "/projcommitments/all", to: "projcommitments#all", :as => "projcommitments/all"
   get "/projexecutions/all", to: "projexecutions#all", :as => "projexecutions/all"
 
@@ -103,6 +105,7 @@ end
   end
   resources :projects
   resources :projcommitments
+  resources :projpaymentauths
   resources :projincomes
   resources :projexecutions do
     get 'annul', on: :member

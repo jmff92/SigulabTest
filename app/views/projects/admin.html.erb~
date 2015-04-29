@@ -99,9 +99,6 @@
 		<%= link_to controller: 'projincomes', action: 'all' do %>
 			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp; Ingresos </button>
 		<% end %>
-		<%= link_to controller: 'projpaymentauths', action: 'all' do %>
-			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;&nbsp; Autorizaciones de Pago </button>
-		<% end %>
 		<%= link_to controller: 'projcommitments', action: 'all' do %>
 			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;&nbsp; Compromisos </button>
 		<% end %>
