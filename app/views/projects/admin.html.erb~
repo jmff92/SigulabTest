@@ -1,0 +1,111 @@
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
+<%= javascript_include_tag 'tabla.js' %>
+
+
+<div class="row">	
+	<div class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><%= link_to 'Inicio', controller: 'statics' %></li>
+			<li><%= link_to 'Administración', administration_path %></li>
+			<li><%= link_to 'Proyectos', controller: 'projects' %></li>		
+			<li class="active">Resumen presupuestario de proyectos</li>
+		</ol>
+	</div>
+	
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
+		</br>
+		</br>    	
+	</div>   	
+
+
+	<div class="col-xs-12">
+
+	</div>
+	<div class="col-xs-12">
+		<div class="well">
+			Todos los montos están expresados en bolívares.
+		</div>
+	</div>
+
+	<div class="col-xs-12">
+
+		<body id="dt_example" class="ex_highlight_row">
+
+			<div id="container">
+				<div id="demo">
+					<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+						<thead>
+							<tr>
+								<th class="text-center">Proyecto</th>
+								<th class="text-center">Monto Asignado</th>
+								<th class="text-center">Monto Comprometido</th>
+								<th class="text-center">Monto Ejecutado</th>
+								<th class="text-center">Saldo Disponible</th> 
+							</tr>
+						</thead>
+
+						<tbody>
+							<% @projects.each do |p| %>
+								<tr>
+
+									<!-- service_path(:account_id => acct.id) -->
+									<td class="text-center"> <%= link_to p.project_number, project_path({id: p.id, cid: p.id})+"#tabs-4"  %> </td>
+ 									<td class="text-center"><%= number_to_currency(@incomes_proj[p.id], format: "%n", delimiter: ".", separator: ",") %></td>
+									<td class="text-center"><%= number_to_currency(@commitments_proj[p.id], format: "%n", delimiter: ".", separator: ",") %></td>									
+									<td class="text-center"><%= number_to_currency(@executions_commitement[p.id], format: "%n", delimiter: ".", separator: ",") %></td>	
+									<td class="text-center"><%= number_to_currency(@incomes_proj[p.id] - @commitments_proj[p.id], format: "%n", delimiter: ".", separator: ",") %></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+					<div class="spacer"></div>
+				</div>
+			</div>
+		</body>
+		
+		<br></br>
+					
+			<div class="well">
+				<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+					<tbody>
+						<thead>
+							<tr>
+								<th class="text-center"></th>
+								<th class="text-center">Monto Asignado</th>
+								<th class="text-center">Monto Comprometido</th>
+								<th class="text-center">Monto Ejecutado</th>
+								<th class="text-center">Saldo Disponible</th>
+							</tr>
+						</thead>
+
+						<tr>
+							<td class="text-center">TOTALES</td>
+							<td class="text-center"><%= number_to_currency(@incomes_total, format: "%n", delimiter: ".", separator: ",") %></td> 
+							<td class="text-center"><%= number_to_currency(@commitments_total, format: "%n", delimiter: ".", separator: ",") %></td>
+							<td class="text-center"><%= number_to_currency(@executions_total, format: "%n", delimiter: ".", separator: ",") %></td>
+							<td class="text-center"><%= number_to_currency(@incomes_total - @commitments_total, format: "%n", delimiter: ".", separator: ",") %></td> 
+						</tr>
+					</tbody>
+				</table>
+			</div>
+<div class="col-xs-12" align="center">
+	<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Descargar Resumen Presupuestario de Proyectos</button>'.html_safe, projects_admin_path("projects", :format => 'pdf') %>	
+	<% if current_user.director? or current_user.directorate? or current_user.gsmp? or  current_user.manage? or current_user.manage_analist? %>	
+		<%= link_to controller: 'projincomes', action: 'all' do %>
+			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp; Ingresos </button>
+		<% end %>
+		<%= link_to controller: 'projcommitments', action: 'all' do %>
+			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;&nbsp; Compromisos </button>
+		<% end %>
+		<%= link_to controller: 'projexecutions', action: 'all' do %>
+			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Ejecuciones </button>
+		<% end %>
+	<% end %>	
+</div>
+	</div>
+</div>

@@ -9,7 +9,7 @@
   <li class="active"> Herramientas </li>
 </ol>
 
-  <% if flash[:notice] %>
+  <% if flash[:notice] = "No ha seleccionado ningun item para ser prestado" %>
     <div class="alert alert-danger"><%= flash[:notice] %></div>
   <% end %>
 

@@ -1,39 +1,83 @@
+
 <p id="notice"><%= notice %></p>
+<ol class="breadcrumb">
+  <li> <%=link_to 'Inicio', controller: 'statics'%></li>
+  <li> <%=link_to 'Inventario', inventario_url %></li>
+  <% @item.each do |item| %>
+    <li> <%=link_to 'Ítem', item %></li>
+  <% end %>
+  <li class="active"> Registro de Bitácora </li>
+</ol>
 
-<p>
-  <strong>Fecha:</strong>
-  <%= @record.fecha %>
-</p>
+<div class="col-xs-12">
+    <div class="well">
+      <table cellpadding="0" cellspacing="0" border="0" class="display">
+            <tbody>
+                <tr>
+                  <% @item.each do |item| %>
+                    <td class="text-left"><%= 'Ítem:  ' %><span class="mayus"><strong><%= item.name %></strong></span></td>
+                  <% end %>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<p>
-  <strong>Nos:</strong>
-  <%= @record.nos %>
-</p>
+<div class="col-xs-12">
+    <table class="table table-striped">
+        <tr>
+            <td class="col-xs-5 text-right"><strong>Fecha:</strong></td>
+            <td class="col-xs-7"><%= @record.fecha %></td>
+        </tr>
+        <tr>
+            <td class="col-xs-5 text-right"><strong>No. O/S:</strong></td>
+            <td class="col-xs-7"><%= @record.nos %></td>
+        </tr>
+        <tr>
+            <td class="col-xs-5 text-right"><strong>Tipo de Servicio:</strong></td>
+            <td class="col-xs-7"><%= @record.tipoServicio %></td>
+        </tr>
+        <tr>
+            <td class="col-xs-5 text-right"><strong>Descripción:</strong></td>
+            <td class="col-xs-7"><%= @record.descripcion %></td>
+        </tr>
+        <tr>
+            <td class="col-xs-5 text-right"><strong>Fecha de Inicio:</strong></td>
+            <td class="col-xs-7"><%= @record.fechaini %></td>
+        </tr>
+        <tr>
+            <td class="col-xs-5 text-right"><strong>Fecha de Culminación:</strong></td>
+            <td class="col-xs-7"><%= @record.fechafin %></td>
+        </tr>
+        <tr>
+            <td class="col-xs-5 text-right"><strong>Observaciones:</strong></td>
+            <td class="col-xs-7"><%= @record.observaciones %></td>
+        </tr>
+    </table>
+</div>
 
-<p>
-  <strong>Tiposervicio:</strong>
-  <%= @record.tipoServicio %>
-</p>
+<div class="col-xs-12">
+  <%= link_to edit_record_path(@record) do %>
+    <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Registro</button>
+  <% end %>
+  <% @item.each do |item| %>
+      <%= link_to item do %>
+        <button type="button" class="btn btn-primary"><span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Atrás</button>
+      <% end %>
+  <% end %>
+</div>
 
-<p>
-  <strong>Descripcion:</strong>
-  <%= @record.descripcion %>
-</p>
+<script type="text/javascript">
 
-<p>
-  <strong>Fechaini:</strong>
-  <%= @record.fechaini %>
-</p>
-
-<p>
-  <strong>Fechafin:</strong>
-  <%= @record.fechafin %>
-</p>
-
-<p>
-  <strong>Observaciones:</strong>
-  <%= @record.observaciones %>
-</p>
-
-<%= link_to 'Edit', edit_record_path(@record) %> |
-<%= link_to 'Back', records_path %>
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem( 'firstLoad' ) )
+    {
+      localStorage[ 'firstLoad' ] = true;
+      window.location.reload();
+    }
+    else
+      localStorage.removeItem( 'firstLoad' );
+  }
+;
+  </script>

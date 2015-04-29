@@ -1,0 +1,116 @@
+<div class="row">
+	<div class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><%= link_to 'Inicio', controller: 'statics' %></li>
+			<li><%= link_to 'Administración', administration_path %></li>
+			<li><%= link_to 'Proyectos', projects_path %></li>
+			<li><%= link_to 'Gestionar proyectos', controller: 'projects', action: 'list' %></li>
+			<li><%= link_to Project.find(params[:id]).project_number, Project.find(params[:id]) %></li>
+			<li><%= link_to 'Autorizaciones de Pago', paymentauth_path %></li>
+			<li class="active">Editar Autorización de Pago</li>
+		</ol>
+	</div>
+	<% if @pay.errors.any? %>
+		<div class="col-xs-12" role="alert">
+			<div class="alert alert-danger">
+				<ul>
+					<% @pay.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					<% end %>
+				</ul>	
+			</div>
+		</div>
+	<% end %>
+	<div class="col-xs-12">
+		<%= form_for @pay, url: {action: 'update'}, id: @pay.id, html: {class: 'form-horizontal'} do |i| %>
+
+			<div class="form-group">
+				<label for='projpaymentauth_registry' class="col-xs-3 control-label text-right">Registro <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :registry, class: 'form-control' %>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for='projpaymentauth_from' class="col-xs-3 control-label text-right">De <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :from, class: 'form-control' %>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for='projpaymentauth_elaboration_date' class="col-xs-3 control-label text-right">Fecha <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :elaboration_date, class: 'bootlayout-date form-control', placeholder: 'Fecha de Elaboración' %>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for='projpaymentauth_recipient' class="col-xs-3 control-label text-right">Páguese a <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :recipient, class: 'form-control' %>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for='projpaymentauth_delivered_id' class="col-xs-3 control-label text-right">C.I. o RIF <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :delivered_id, class: 'form-control' %>
+				</div>
+			</div>
+    
+   <div class="form-group">
+				<label for='projpaymentauth_concept' class="col-xs-3 control-label text-right">Concepto </label>
+				<div class='col-xs-4'>
+					<%= i.text_area :concept, class: 'form-control' %>
+				</div>
+			</div>
+						
+			<div class="form-group">
+				<label for='projpaymentauth_amount' class="col-xs-3 control-label text-right">Cantidad <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<div class="input-group">
+      <span class="input-group-addon">Bs.</span>
+						<%= i.text_field :amount, class: 'form-control', value: number_to_currency(i.object.amount, format: "%n", 
+						delimiter: ".", separator: ",", precision: 2), :onblur => "setCommitmentAmount();", placeholder: '0.000,00' %>
+					</div>
+				</div>
+			</div>
+
+   <div class="form-group">
+				<label for='projpaymentauth_concept' class="col-xs-3 control-label text-right">Observaciones/Exposición de motivos </label>
+				<div class='col-xs-4'>
+					<%= i.text_area :observations, class: 'form-control' %>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for='projpaymentauth_delivery_date' class="col-xs-3 control-label text-right">Fecha de Recepción <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :delivery_date, class: 'bootlayout-date form-control', placeholder: 'Fecha de Recepción' %>
+				</div>
+			</div>
+
+   <div class="form-group">
+				<label for='projpaymentauth_recieved_by' class="col-xs-3 control-label text-right">Recibido por </label>
+				<div class='col-xs-4'>
+					<%= i.text_field :recieved_by, class: 'form-control' %>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-xs-offset-3 col-xs-9">
+					<button type="submit" class="btn btn-default btn-primary" onclick="return confirm('¿Está seguro de modificar la autorización de pago?')"><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Actualizar Autorización de Pago</button>
+					<%= link_to @pay, class: "btn btn-default btn-danger" do %>
+						<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Cancelar Operación
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+	<div class="col-xs-12">
+		<div class="well">
+			<span style="color:#FF0000">*</span> Los campos son obligatorios.
+		</div>
+	</div>
+</div>

@@ -9,10 +9,9 @@
   <li class="active"> Equipos y mobiliarios </li>
 </ol>
 
-  <% if flash[:notice] %>
+  <% if flash[:notice] = "No ha seleccionado ningun item para ser prestado" %>
     <div class="alert alert-danger"><%= flash[:notice] %></div>
   <% end %>
-
 
 <div class="col-xs-12">
   <div class="col-xs-6 text-left">

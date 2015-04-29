@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417114321) do
+ActiveRecord::Schema.define(version: 20150428040516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,21 @@ ActiveRecord::Schema.define(version: 20150417114321) do
     t.string   "uso"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "de"
+    t.string   "personaContactoUnidadS"
+    t.string   "telefono1"
+    t.string   "telefono2"
+    t.string   "companiaDepencia"
+    t.string   "rif"
+    t.string   "personaContactoCompania"
+    t.string   "email1"
+    t.string   "email2"
+    t.string   "telefono3"
+    t.string   "telefono4"
+    t.time     "fechaCotizacion"
+    t.integer  "noCotizacion"
+    t.integer  "montoTotalServicio"
+    t.string   "observacionesFinales"
   end
 
   create_table "binnacles", force: true do |t|
@@ -134,11 +149,15 @@ ActiveRecord::Schema.define(version: 20150417114321) do
     t.string   "buy_order"
     t.date     "adquisition_date"
     t.text     "description"
-    t.boolean  "showable",         default: true
+    t.boolean  "showable",                default: true
     t.string   "dependency"
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "devolutions", force: true do |t|
@@ -222,12 +241,16 @@ ActiveRecord::Schema.define(version: 20150417114321) do
     t.string   "measurelength"
     t.string   "measuredepth"
     t.string   "measurewidth"
-    t.boolean  "showable",         default: true
+    t.boolean  "showable",                default: true
     t.string   "dependency"
     t.integer  "numSolicitud"
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "executions", force: true do |t|
@@ -296,11 +319,15 @@ ActiveRecord::Schema.define(version: 20150417114321) do
     t.string   "bill"
     t.string   "buy_order"
     t.date     "adquisition_date"
-    t.boolean  "showable",         default: true
+    t.boolean  "showable",                default: true
     t.string   "dependency"
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "invitations", force: true do |t|
@@ -368,6 +395,43 @@ ActiveRecord::Schema.define(version: 20150417114321) do
     t.string   "descripcion"
     t.string   "uso"
     t.boolean  "esprestado"
+    t.boolean  "docencia"
+    t.boolean  "investigacion"
+    t.boolean  "extension"
+    t.boolean  "apoyo"
+    t.boolean  "enemar"
+    t.boolean  "abrjul"
+    t.boolean  "verano"
+    t.boolean  "sepdic"
+    t.boolean  "sem1"
+    t.boolean  "sem2"
+    t.boolean  "sem3"
+    t.boolean  "sem4"
+    t.boolean  "sem5"
+    t.boolean  "sem6"
+    t.boolean  "sem7"
+    t.boolean  "sem8"
+    t.boolean  "sem9"
+    t.boolean  "sem10"
+    t.boolean  "sem11"
+    t.boolean  "sem12"
+    t.time     "horalunes"
+    t.time     "horaMartes"
+    t.time     "horaMiercoles"
+    t.time     "horaJueves"
+    t.time     "horaViernes"
+    t.boolean  "lunes"
+    t.boolean  "martes"
+    t.boolean  "miercoles"
+    t.boolean  "jueves"
+    t.boolean  "viernes"
+    t.string   "persona"
+    t.integer  "cedula"
+    t.boolean  "todoLun"
+    t.boolean  "todoMar"
+    t.boolean  "todoMie"
+    t.boolean  "todoJue"
+    t.boolean  "todoVie"
   end
 
   create_table "projcommitments", force: true do |t|
@@ -407,6 +471,7 @@ ActiveRecord::Schema.define(version: 20150417114321) do
     t.date     "annulled_date"
     t.string   "substitute"
     t.text     "observation"
+    t.integer  "banco"
   end
 
   create_table "projexecutions", force: true do |t|
@@ -633,6 +698,10 @@ ActiveRecord::Schema.define(version: 20150417114321) do
     t.string   "id2"
     t.string   "tipo"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "users", force: true do |t|

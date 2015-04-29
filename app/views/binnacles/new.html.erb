@@ -47,53 +47,52 @@
 
   <div class ="Informacion">
 
-<div class="col-xs-12">
-        <table class="table table-striped">
+    <div class="col-xs-12">
+          <table class="table table-striped">
+            <tr>
+              <td class="col-xs-5 text-right"><strong>Fecha de Registro:</strong></td>
+              <td class="col-xs-7"><%= f.text_field :fecha, :class => "bootlayout-date" %>
+              <span class="red">*</span></td>
+            </tr>
+            <tr>
+              <td class="col-xs-5 text-right"><strong>Tipo de Registro:</strong></td>
+              <td class="col-xs-7"><%= f.select(:tipo, options_for_select([['Ingreso'],['Consumo']]), {:include_blank => true}, {:onchange => "changeType();"} ) %>
+              <span class="red">*</span></td>
+            </tr>
+            <tr class="hidden_option1">
+              <td class="hidden_option1 col-xs-5 text-right"><strong>Cantidad Consumida:</strong></td>
+              <td class="hidden_option1 col-xs-7"> <%= f.number_field :consumo, :value => number_to_currency(f.object.ingreso, format: "%n", delimiter: " ", separator: "."), :class => 'hidden_option1' %><span class="hidden_option1 red">*</span><%= @unidad %></td>
+            </tr>
 
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Fecha de Registro:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :fecha, :class => "bootlayout-date" %>
-            <span class="red">*</span></td>
-          </tr>
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Tipo de Registro:</strong></td>
-            <td class="col-xs-7"><%= f.select(:tipo, options_for_select([['Ingreso'],['Consumo']]), {:include_blank => true}, {:onchange => "changeType();"} ) %>
-            <span class="red">*</span></td>
-          </tr>
-          <tr class="hidden_option1">
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Cantidad Consumida:</strong></td>
-            <td class="hidden_option1 col-xs-7"> <%= f.number_field :consumo, :value => number_to_currency(f.object.ingreso, format: "%n", delimiter: " ", separator: "."), :class => 'hidden_option1' %><span class="hidden_option1 red">*</span><%= @unidad %></td>
-          </tr>
+            <tr class="hidden_option2">
+              <td class="hidden_option2 col-xs-5 text-right"><strong class="hidden_option2">Cantidad Ingresada:</strong></td>
+              <td class="hidden_option2 col-xs-7"><%= f.number_field :ingreso, :value => number_to_currency(f.object.ingreso, format: "%n", delimiter: " ", separator: "."), class: 'hidden_option2' %><span class="hidden_option2 red">*</span>&nbsp;<%= @unidad %></td>
+            </tr>
+            <tr>
+              <td class="col-xs-5 text-right"><strong>Descripción:</strong></td>
+              <td class="col-xs-7"><%= f.text_area :descripcion, :placeholder => "Introduzca el No. de factura" %><span class="red">*</span></td>
+            </tr>
+            
+            <%= f.hidden_field :idSustancia, :value => @id %>
+            <%= hidden_field_tag "formato", params[:format] %>
 
-          <tr class="hidden_option2">
-            <td class="hidden_option2 col-xs-5 text-right"><strong class="hidden_option2">Cantidad Ingresada:</strong></td>
-            <td class="hidden_option2 col-xs-7"><%= f.number_field :ingreso, :value => number_to_currency(f.object.ingreso, format: "%n", delimiter: " ", separator: "."), class: 'hidden_option2' %><span class="hidden_option2 red">*</span>&nbsp;<%= @unidad %></td>
-          </tr>
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Descripción:</strong></td>
-            <td class="col-xs-7"><%= f.text_area :descripcion, :placeholder => "Introduzca el No. de factura" %><span class="red">*</span></td>
-          </tr>
-          
-          <%= f.hidden_field :idSustancia, :value => @id %>
-          <%= hidden_field_tag "formato", params[:format] %>
+          </table>
 
-        </table>
-
-    </div>
-
-    <div class="col-xs-12 text-center">
-      <div class="actions">
-        <button type="submit" data-btnOkClass="confirmation" class="btn btn-default btn-success" ><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Crear</button>
-        <%= link_to binnacles_path(@id) do %>
-          <button type="button" class="btn btn-primary"><span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Atrás</button>
-        <% end %>
       </div>
-    </div>
+
+      <div class="col-xs-12 text-center">
+        <div class="actions">
+          <button type="submit" data-btnOkClass="confirmation" class="btn btn-default btn-success" ><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Crear</button>
+          <%= link_to binnacles_path(@id) do %>
+            <button type="button" class="btn btn-primary"><span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Atrás</button>
+          <% end %>
+        </div>
+      </div>
 
 
-    <br>
+      <br>
 
-    <br><br>
+      <br><br>
   </div>
 <% end %>
 

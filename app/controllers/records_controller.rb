@@ -3,18 +3,29 @@ class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
-  respond_to :html
-
   def index
     if params[:format]
       @records = Record.where(idEquipo: params[:format])
     end
     @equipos = Equipment.where(id2: params[:format])
+    if @equipos == []
+      @equipos = Instrument.where(id2: params[:format])
+    end
+    if @equipos == []
+      @equipos = Tool.where(id2: params[:format])
+    end
     @id = params[:format]
   end
 
   def show
-    respond_with(@record)
+    @id = @record.idEquipo
+    @item = Equipment.where(id2: @id)
+    if @item == []
+      @item = Instrument.where(id2: @id)
+    end
+    if @item == []
+      @item = Tool.where(id2: @id)
+    end
   end
 
   def new
@@ -24,20 +35,42 @@ class RecordsController < ApplicationController
     else
       @id = params[:formato]
     end
+    @item = Equipment.where(id2: @id)
+    if @item == []
+      @item = Instrument.where(id2: @id)
+    end
+    if @item == []
+      @item = Tool.where(id2: @id)
+    end
   end
 
   def edit
+    @id = @record.idEquipo
+    @item = Equipment.where(id2: @id)
+    if @item == []
+      @item = Instrument.where(id2: @id)
+    end
+    if @item == []
+      @item = Tool.where(id2: @id)
+    end
   end
 
   def create
     @record = Record.new(record_params)
-    flash[:notice] = 'Record was successfully created.' if @record.save
-    respond_with(@record)
+    if @record.save
+      redirect_to action: 'show', id: @record.id, format: @record.idEquipo
+    else
+      redirect_to action: 'new', format: @record.idEquipo, record: @record
+    end
   end
 
   def update
-    flash[:notice] = 'Record was successfully updated.' if @record.update(record_params)
-    respond_with(@record)
+    if @record.update(record_params)
+      flash[:notice] = 'El registro se ha actualizado exitosamente.'
+      redirect_to action: 'show', id: @record.id, format: @record.idEquipo
+    else
+      redirect_to action: 'edit', format: @record.idEquipo, record: @record
+    end
   end
 
   def destroy
@@ -51,6 +84,6 @@ class RecordsController < ApplicationController
     end
 
     def record_params
-      params.require(:record).permit(:fecha, :nos, :tipoServicio, :descripcion, :fechaini, :fechafin, :observaciones)
+      params.require(:record).permit(:fecha, :nos, :tipoServicio, :descripcion, :fechaini, :fechafin, :observaciones, :idEquipo)
     end
 end

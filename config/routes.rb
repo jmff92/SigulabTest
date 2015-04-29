@@ -30,9 +30,13 @@ Rails.application.routes.draw do
 
   get 'ofertas/index'
 
+  get 'records/show'
+
   get 'informe_recomendacion/index'
 
   post 'loans/new'
+
+  post 'records/new'
 
   resources :invitations
   resources :services
@@ -84,7 +88,9 @@ end
   get "/projects/admin", to: "projects#admin", :as => "projects/admin"
   get "/projcommitments/list", to: "projcommitments#list", :as => "projcommitments/list"
   get "/projexecutions/list", to: "projexecutions#list", :as => "projexecutions/list"
+  get "projpaymentauths/list", to: "projpaymentauths#list", :as => "projpaymentauths/list"
   get "/projincomes/all", to: "projincomes#all", :as => "projincomes/all"
+  get "projpaymentauths/all", to: "projpaymentauths#all", :as => "projpaymentauths/all"
   get "/projcommitments/all", to: "projcommitments#all", :as => "projcommitments/all"
   get "/projexecutions/all", to: "projexecutions#all", :as => "projexecutions/all"
 
@@ -97,6 +103,7 @@ end
     get 'valid_dir', on: :member
     get 'delete', on: :member
   end
+  resources :paymentauths
   resources :commitments
   resources :executions do 
     get 'annul', on: :member
@@ -112,6 +119,7 @@ end
     get 'valid', on: :member
     get 'delete', on: :member
   end
+  resources :projpaymentauths
   resources :projincomes
   resources :projexecutions do
     get 'annul', on: :member

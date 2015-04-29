@@ -1,0 +1,253 @@
+<%= javascript_include_tag 'jquery-1.10.2.js'%>
+<%= javascript_include_tag 'jquery-ui.js' %>
+<%= stylesheet_link_tag 'jquery-ui.css'%>
+<%= javascript_include_tag 'tabs.js' %>
+
+<div class="row">
+	<div class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><%= link_to 'Inicio', controller: 'statics' %></li>
+			<li><%= link_to 'Proyectos', controller: 'projects' %></li>	
+			<li><%= link_to 'Gestionar proyectos', controller: 'projects', action: 'list' %></li>				
+			<li class="active"><%= @project.project_number%></li>
+		</ol>
+	</div>
+</div>
+
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
+		</br>
+		</br>    	
+	</div>   
+
+
+<p><h2><center>Proyecto N°: <%= @project.project_number %></center></h2></p>
+
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1" class="hidex">Datos del Proyecto</a></li>
+		<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or  current_user.manage? or current_user.manage_analist? or current_user.proy_responsible? %>	
+			<li><a href="#tabs-2" class="hidex">Distribución del Monto</a></li>
+			<li><a href="#tabs-3" class="hidex">Cuenta Bancaria</a></li>
+			<li><a href="#tabs-4" class="show">Resumen Presupuestario</a></li>
+		<% end %>
+	</ul>
+	<div id="tabs-1">
+		<p><table class="table table-striped">
+			<tr>
+				<td class="col-xs-5 text-right">Número de Contrato:</td>
+				<td class="col-xs-7"><%= @project.contract %></td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">Título del Proyecto:</td>
+				<td class="col-xs-7"><%= @project.title %></td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">Responsable Técnico:</td>
+				<td class="col-xs-7"><%= @project.responsible %></td>
+			</tr>
+			<% if !@project.substitute.blank? -%>
+			<tr>
+				<td class="col-xs-5 text-right">Suplente:</td>
+				<td class="col-xs-7"><%= @project.substitute %></td>
+			</tr>
+			<% end %> 
+			<tr>
+				<td class="col-xs-5 text-right">Administrador del Proyecto:</td>
+				<td class="col-xs-7"><%= Project.admin_str[Project.admins[@project.admin]] %></td>
+			</tr>
+			<tr>
+			    <td class="col-xs-5 text-right">Código SAE:</td>
+				<td class="col-xs-7"><%= @project.sae_code %></td>
+ 		    </tr>
+ 		    <% if !@project.incoming_date.blank? -%>						
+ 		    <tr>
+				<td class="col-xs-5 text-right">Fecha de Ingreso de los Recursos:</td>
+				<td class="col-xs-7"><%= @project.incoming_date %></td>
+  			</tr>  			  	
+  			<% end %>  			  					
+ 		    <tr>
+				<td class="col-xs-5 text-right">Estatus:</td>
+				<td class="col-xs-7"><%= Project.status_str[Project.statuses[@project.status]] %></td>
+  			</tr>  			  			
+  			<% if @project.status=="annulled" %> 
+ 		    <tr>
+				<td class="col-xs-5 text-right">Fecha de Anulación:</td>
+				<td class="col-xs-7"><%= @project.annulled_date %></td>
+  			</tr>  	  			
+  			<% end %>
+
+  			</tr>
+  			<% if !@project.observation.blank? -%>
+		      <tr>
+			    <td class="col-xs-5 text-right">Observaciones:</td>
+                <td class="col-xs-7"><%= @project.observation %></td>
+			  </tr>
+			<% end %>
+			<tr>
+				<td class="col-xs-5 text-right"></td>
+				<td class="col-xs-7"></td>
+			</tr>
+ 		    </table></p>
+		<% if current_user.manage? or current_user.manage_analist? %>	 		    
+ 			<%= link_to edit_project_path do %>
+				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Datos del Proyecto</button>
+			<% end %>
+		<% end %>
+	</div>
+	<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or  current_user.manage? or current_user.manage_analist? or current_user.proy_responsible? %>	
+	<div id="tabs-2">
+		<p><table class="table table-striped">
+  			<% if @project.equipments>0 %> 	
+ 		    <tr>
+				<td class="col-xs-5 text-right">Equipos:</td>
+				<td class="col-xs-7" ><div id="span1">Bs. </div> <div id="span2" align="right">  <%= number_to_currency(@project.equipments, format: "%n", delimiter: ".", separator: ",") %> </div> </td>
+  			</tr>
+  			<% end %>  			    			
+  			<% if @project.services>0 %>  		  			  			  			
+ 		    <tr>
+				<td class="col-xs-5 text-right">Servicios:</td>
+				<td class="col-xs-7" ><div id="span1">Bs. </div> <div id="span2" align="right">  <%= number_to_currency(@project.services, format: "%n", delimiter: ".", separator: ",") %> </div> </td>
+  			</tr>  	
+  			<% end %>  					
+  			<% if @project.infrastructure>0 %>  		  			  			
+ 		    <tr>
+				<td class="col-xs-5 text-right">Infraestructura:</td>
+				<td class="col-xs-7" ><div id="span1">Bs. </div> <div id="span2" align="right">  <%= number_to_currency(@project.infrastructure, format: "%n", delimiter: ".", separator: ",") %> </div> </td>
+  			</tr>  			
+  			<% end %>  			  			
+  			<% if @project.hhrr>0 %>  		  			
+ 		    <tr>
+				<td class="col-xs-5 text-right">Personal:</td>
+				<td class="col-xs-7" ><div id="span1">Bs. </div> <div id="span2" align="right">  <%= number_to_currency(@project.hhrr, format: "%n", delimiter: ".", separator: ",") %> </div> </td>
+  			</tr>  			
+  			<% end %>  			  			
+  			<% if @project.consumables>0 %>  			
+ 		    <tr>
+				<td class="col-xs-5 text-right">Consumibles:</td>
+				<td class="col-xs-7" ><div id="span1">Bs. </div> <div id="span2" align="right">  <%= number_to_currency(@project.consumables, format: "%n", delimiter: ".", separator: ",") %> </div> </td>
+  			</tr>  			
+  			<% end %>  			
+  			<% if @project.furniture>0 %>
+ 		    <tr>
+				<td class="col-xs-5 text-right">Mobiliario:</td>
+				<td class="col-xs-7" ><div id="span1">Bs. </div> <div id="span2" align="right">  <%= number_to_currency(@project.furniture, format: "%n", delimiter: ".", separator: ",") %> </div> </td>
+  			</tr>  			
+  			<% end %>
+  			<% if !@project.other_desc.blank? %>
+  			<tr>
+				<td class="col-xs-5 text-right"> <%= @project.other_desc%>: </td>
+				<td class="col-xs-7" ><div id="span1">Bs. </div> <div id="span2" align="right">  <%= number_to_currency(@project.other_amount, format: "%n", delimiter: ".", separator: ",") %> </div> </td>
+  			</tr>  			
+  			<% end %>  			
+			<tr class="success">
+				<td class="col-xs-5 text-right"> <font size=3.6> Monto asignado: </font> </td>
+				<td class="col-xs-7" ><div id="span1"> <font size=3.6> Bs. </div> </font><div id="span2" align="right"> <font size=3.6> <%= number_to_currency(@project.amount, format: "%n", delimiter: ".", separator: ",") %> </font> </div> </td>	
+			</tr>  
+		</table></p>
+		<% if current_user.manage? or current_user.manage_analist? %>	 
+			<%= link_to edit_project_path + "#tabs-2" do %>
+				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Distribución del Monto</button>
+			<% end %>
+		<% end %>
+	</div>
+	<div id="tabs-3">
+		<p><table class="table table-striped">
+			<tr>
+				<td class="col-xs-5 text-right">Banco:</td>
+				<td class="col-xs-7"><%= Project.banco_str[Project.bancos[@project.banco]] %></td>
+  			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">Número de cuenta:</td>
+				<td class="col-xs-7"><%= @project.num_cuenta %></td>
+  			</tr>  			
+  			<tr>
+				<td class="col-xs-5 text-right"></td>
+				<td class="col-xs-7"></td>
+			</tr>
+		</table></p>
+		<% if current_user.manage? or current_user.manage_analist? %>	 
+			<%= link_to edit_project_path + "#tabs-3" do %>
+				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Cuenta Bancaria</button>
+			<% end %>
+		<% end %>
+	</div>
+	<div id="tabs-4">
+		<p><table class="table table-striped">
+			<tr>
+				<td class="col-xs-5 text-right">Monto asignado:</td>
+				<td class="col-xs-7" ><div id="span1">Bs. </div> <div id="span2" align="right">  <%= number_to_currency(@incomes_total,
+				format: "%n", delimiter: ".", separator: ",") %> </div> </td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">Monto comprometido:</td>
+				<td class="col-xs-7" ><div id="span1">Bs. </div> <div id="span2" align="right">  <%= number_to_currency(@commitments_total,
+				format: "%n", delimiter: ".", separator: ",") %> </div> </td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">Monto ejecutado:</td>
+				<td class="col-xs-7" ><div id="span1">Bs. </div> <div id="span2" align="right">  <%= number_to_currency(@executions_total,
+				format: "%n", delimiter: ".", separator: ",") %> </div> </td>
+			</tr>			
+			<tr>
+				<td class="col-xs-5 text-right">Saldo disponible:</td>
+				<td class="col-xs-7" ><div id="span1">Bs. </div> <div id="span2" align="right">  <%= number_to_currency(@incomes_total-@commitments_total, format: "%n", delimiter: ".", separator: ",") %> </div> </td>
+			</tr>
+  			<tr>
+				<td class="col-xs-5 text-right"></td>
+				<td class="col-xs-7"></td>
+			</tr>
+		</table></p>
+	</div>
+	<% end %>
+
+</div>
+
+</br>
+<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.manage? or current_user.manage_analist? or current_user.proy_responsible? %>	
+	<div class="col-xs-12">
+		<%= link_to controller: 'projincomes', id: @project.id do %>
+			<button type="button" class="btn btn-primary hidden_option"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp; Ingresos </button>
+		<% end %>
+		<%= link_to controller: 'projcommitments', id: @project.id do %>
+			<button type="button" class="btn btn-primary hidden_option"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;&nbsp; Compromisos </button>
+		<% end %>
+<% end %>
+<% if current_user.manage? or current_user.manage_analist? or current_user.proy_responsible? or current_user.acquisition? %>
+		<%= link_to controller: 'projexecutions', id: @project.id do %>
+			<button type="button" class="btn btn-primary hidden_option"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Ejecuciones </button>
+		<% end %>
+<% end %>		
+	</div>
+
+
+<style>
+	#span1 { width: 25px; float: left; height:100%; }
+    #span2 { width: 110px; float: left; height:50%;}
+
+    .hidden_option{
+    	display: none;
+  	}
+</style>
+
+<% if params[:cid] %>
+	<script type="text/javascript">
+	//<![CDATA[
+		showButtons();
+
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem( 'firstLoad' ) )
+    {
+      localStorage[ 'firstLoad' ] = true;
+      window.location.reload();
+    }  
+    else
+      localStorage.removeItem( 'firstLoad' );
+  }
+;
+	//]]>
+	</script>
+<% end %>	

@@ -1,7 +1,13 @@
 <%= javascript_include_tag 'jquery-1.10.2.js'%>
 <%= javascript_include_tag 'jquery-ui.js' %>
 <%= stylesheet_link_tag 'jquery-ui.css'%>
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
 <%= javascript_include_tag 'tabs.js' %>
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
+<%= javascript_include_tag 'tabla.js' %>
 
 <div class="row">
 
@@ -30,9 +36,14 @@
 
 <div id="tabs">
   <ul>
-    <li><a href="#tabs-1" class="hidex">Características</a></li>
+    <li><a href="#tabs-1" class="show">Características</a></li>
     <li><a href="#tabs-2" class="hidex">Ubicación</a></li>
-    <li><a href="#tabs-3" class="show">Datos de Adquisición</a></li>
+    <li><a href="#tabs-3" class="hidex">Datos de Adquisición</a></li>
+    <li><a href="#tabs-4" class="hidex">Bitácora</a></li>
+    <li><a href="#tabs-6" class="show">Servicios</a></li>
+
+
+
   </ul>
 
   <div id="tabs-1">
@@ -125,7 +136,7 @@
   </div>
 
   <div id="tabs-3">
-    <table class="table table-striped">
+    <p><table class="table table-striped">
       <tr>
           <td class="col-xs-5 text-right"><strong>Fecha Adquisición::</strong></td>
           <td class="col-xs-7"><%= @equipment.adquisition_date %>
@@ -150,7 +161,83 @@
 
     </table></p>
   </div>
-</div>
+
+  <div id="tabs-4">
+    <body id="dt_example" class="ex_highlight_row">
+
+        <div id="container">
+          <div id="demo">
+            <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+              <thead>
+                <tr>
+                  <th class="text-center">Fecha</th>
+                  <th class="text-center">No. O/S</th>
+                  <th class="text-center">Tipo de Servicio</th>
+                  <th class="text-center">Descripción</th>
+                  <th class="text-center">Fecha de inicio</th>
+                  <th class="text-center">Fecha de Culminación</th>
+                  <th class="text-center">Observaciones</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @records.each do |record| %>
+                  <tr>
+                    <td class="text-center"><%= link_to record.fecha, record, format: @id2 %></td>
+                    <td class="text-center"><%= record.nos %></td>
+                    <td class="text-center"><%= record.tipoServicio %></td>
+                    <td class="text-center"><%= record.descripcion %></td>
+                    <td class="text-center"><%= record.fechaini %></td>
+                    <td class="text-center"><%= record.fechafin %></td>
+                    <td class="text-center"><%= record.observaciones %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <div class="spacer"></div>
+          </div>
+        </div>
+      </body>
+  </div>
+  
+    <div id="tabs-6">
+      <p><table class="table table-striped">
+
+                <thead>
+                  <tr>
+                    <% if @sum > 0 %>
+                    <th></th>
+                    <% end %>
+                    <th class="tg-093g">N° de O/S</th>
+                    <th class="tg-093g">Fecha</th>
+                    <th class="tg-093g">Servicio</th>
+                    <th class="tg-hgcj">Prestado a</th>
+                    <th class="tg-hgcj">Empresa/Dependencia</th>
+                    <th class="tg-hgcj">Telefono</th>
+                   
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <% @applications.each do |s| %>
+                    <tr>
+                      <td class="tg-s6z2"><span class="mayus"><%= link_to s.id, s %></span></td>
+                      <td class="tg-s6z2"><span class="mayus"><%= s.fechaRequerida %></span></td>
+                      <td class="tg-s6z2"><span class="mayus"><%= s.descripcion %></span></td>
+                      <td class="tg-qpa3"><span class="mayus"><%= s.personaContactoUnidadS %></span></td>
+                      <td class="tg-qpa3"><span class="mayus"><%= s.companiaDepencia %></span></td>
+                      <td class="tg-qpa3"><span class="mayus"><%= s.telefono3 %></span></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+            </table>
+      </div>
+  <br>
+
+    </table></p>
+  </div>
+
+
 
 
 <br><br>
@@ -175,8 +262,8 @@
   </div>
 
   <div class="col-xs-6 text-right">
-    <%= link_to records_path(@ids) do %>
-      <button type="button" class="btn btn-info" id="letra"><span class="fa fa-bar-chart"></span>&nbsp;&nbsp;Bitácora</button>
+    <%= link_to new_record_path(@ids) do %>
+      <button type="button" class="btn btn-info" id="letra"><span class="fa fa-bar-chart"></span>&nbsp;&nbsp;Añadir a Bitácora</button>
     <% end %>
   </div>
 </div>
@@ -231,7 +318,6 @@
 </style>
 
   <script type="text/javascript">
-  //<![CDATA[
     showButtons();
 
   if( window.localStorage )
@@ -245,5 +331,4 @@
       localStorage.removeItem( 'firstLoad' );
   }
 ;
-  //]]>
   </script>
