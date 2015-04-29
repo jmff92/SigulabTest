@@ -19,6 +19,10 @@ class InstrumentsController < ApplicationController
   # GET /instruments/1
   # GET /instruments/1.json
   def show
+    @sum = Instrument.count
+    @id = @instrument.id2
+    @relation_service = RelationService.where(item: @id).pluck(:servicio)
+    @applications = Application.where(id: @relation_service)
   end
 
   # GET /instruments/new

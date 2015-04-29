@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417114321) do
+ActiveRecord::Schema.define(version: 20150428040516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,21 @@ ActiveRecord::Schema.define(version: 20150417114321) do
     t.string   "uso"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "de"
+    t.string   "personaContactoUnidadS"
+    t.string   "telefono1"
+    t.string   "telefono2"
+    t.string   "companiaDepencia"
+    t.string   "rif"
+    t.string   "personaContactoCompania"
+    t.string   "email1"
+    t.string   "email2"
+    t.string   "telefono3"
+    t.string   "telefono4"
+    t.time     "fechaCotizacion"
+    t.integer  "noCotizacion"
+    t.integer  "montoTotalServicio"
+    t.string   "observacionesFinales"
   end
 
   create_table "binnacles", force: true do |t|

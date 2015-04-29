@@ -46,6 +46,12 @@ class ApplicationsController < ApplicationController
 
   # GET /applications/1/edit
   def edit
+    @id = params[:item_ids]
+
+    @equipment = Equipment.where(id2: params[:item_ids])
+    @instruments = Instrument.where(id2: params[:item_ids])
+    @tools = Tool.where(id2: params[:item_ids])
+
   end
 
   # POST /applications
@@ -80,8 +86,8 @@ class ApplicationsController < ApplicationController
           @relation_service.item = tool.id2
           @relation_service.save
         end
-
-        format.html { redirect_to @application, :item_ids => params[:item_ids] }
+        format.html { redirect_to @application, :equipment => @equipment, :instrument => @instruments, :tools => @tools}
+        #format.html { redirect_to @application, :item_ids => params[:item_ids] }
         format.json { render :show, status: :created, location: @application }
       else
         format.html { render :new }

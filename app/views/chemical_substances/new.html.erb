@@ -199,7 +199,7 @@
 
 
           <tr class="hidden_option2">
-            <td class="hidden_option2 col-xs-5 text-right"><strong class="hidden_option2">La USB no autoriza donaciones de sustancias quimicas</strong></td>
+            <td class="hidden_option2 col-xs-7 text-right"><strong class="hidden_option2">La USB no autoriza donaciones de sustancias quimicas</strong></td>
           </tr>
 
         </table>
@@ -254,13 +254,13 @@
 <script>
   function changeType() {
 
-    if ($('#binnacle_tipo').val()== "Comprado") {
+    if ($('#chemical_substances_tipo').val()== "Comprado") {
       $(".hidden_option2").fadeIn('fast');
     } else {
       $(".hidden_option2").fadeOut('fast');   
     }
 
-    if ($('#binnacle_tipo').val()== "Donado") {
+    if ($('#chemical_substances_tipo').val()== "Donado") {
       $(".hidden_option1").fadeIn('fast');
     } else {
       $(".hidden_option1").fadeOut('fast');   

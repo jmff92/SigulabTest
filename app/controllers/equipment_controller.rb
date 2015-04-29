@@ -17,7 +17,10 @@ class EquipmentController < ApplicationController
   # GET /equipment/1
   # GET /equipment/1.json
   def show
-    @ids = @equipment.id2
+    @sum = Equipment.count
+    @id = @equipment.id2
+    @relation_service = RelationService.where(item: @id).pluck(:servicio)
+    @applications = Application.where(id: @relation_service)
   end
 
   # GET /equipment/new
