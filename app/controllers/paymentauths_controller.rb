@@ -9,6 +9,13 @@ class PaymentauthsController < ApplicationController
 
   def show
     @pay = Paymentauth.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = AutorizacionPago.new(@pay)
+        send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
+      end
+    end
   end
   
   def new
