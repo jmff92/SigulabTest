@@ -1,0 +1,13 @@
+sigulab@Sigulab:~/RailsProjects/SigulabTest$ ^C
+sigulab@Sigulab:~/RailsProjects/SigulabTest$ cd
+sigulab@Sigulab:~$ cd RailsProjects/
+sigulab@Sigulab:~/RailsProjects$ ls
+[0m[34;42mSigulabTest[0m  insertChemicals.txt  insertConsumables.txt  insertEquipment.sql  insertInstruments.sql  insertTools.txt
+sigulab@Sigulab:~/RailsProjects$ cd SigulabTest/
+sigulab@Sigulab:~/RailsProjects/SigulabTest$ screes[Kn -list
+There are screens on:
+	14526.pts-1.Sigulab	(03/06/15 08:39:52)	(Attached)
+	19698.Sigulab	(02/06/15 08:18:11)	(Detached)
+2 Sockets in /var/run/screen/S-sigulab.
+
+sigulab@Sigulab:~/RailsProjects/SigulabTest$ exit

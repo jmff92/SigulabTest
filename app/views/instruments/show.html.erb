@@ -5,6 +5,9 @@
 <%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
 <%= javascript_include_tag 'jquery.dataTables.js' %>
 <%= javascript_include_tag 'tabs.js' %>
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
+<%= javascript_include_tag 'tabla.js' %>
 
 
 <div class="row">
@@ -38,7 +41,9 @@
     <li><a href="#tabs-1" class="hidex">Características</a></li>
     <li><a href="#tabs-2" class="hidex">Ubicación</a></li>
     <li><a href="#tabs-3" class="show">Datos de Adquisición</a></li>
+    <li><a href="#tabs-4" class="hidex">Bitácora</a></li>
     <li><a href="#tabs-6" class="show">Servicios</a></li>
+
   </ul>
 
   <div id="tabs-1">
@@ -125,7 +130,7 @@
   </div>
 
   <div id="tabs-3">
-    <table class="table table-striped">
+    <p><table class="table table-striped">
 
           <tr>
             <td class="col-xs-5 text-right"><strong>Factura:</strong></td>
@@ -146,6 +151,45 @@
             <td class="col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
             <td class="col-xs-7"><%= @instrument.adquisition_date %></td>
           </tr>
+
+  <div id="tabs-4">
+    <body id="dt_example" class="ex_highlight_row">
+
+        <div id="container">
+          <div id="demo">
+            <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+              <thead>
+                <tr>
+                  <th class="text-center">Fecha</th>
+                  <th class="text-center">No. O/S</th>
+                  <th class="text-center">Tipo de Servicio</th>
+                  <th class="text-center">Descripción</th>
+                  <th class="text-center">Fecha de inicio</th>
+                  <th class="text-center">Fecha de Culminación</th>
+                  <th class="text-center">Observaciones</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @records.each do |record| %>
+                  <tr>
+                    <td class="text-center"><%= link_to record.fecha, record, format: @id2 %></td>
+                    <td class="text-center"><%= record.nos %></td>
+                    <td class="text-center"><%= record.tipoServicio %></td>
+                    <td class="text-center"><%= record.descripcion %></td>
+                    <td class="text-center"><%= record.fechaini %></td>
+                    <td class="text-center"><%= record.fechafin %></td>
+                    <td class="text-center"><%= record.observaciones %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <div class="spacer"></div>
+          </div>
+        </div>
+      </body>
+  </div>
+  
     <div id="tabs-6">
       <p><table class="table table-striped">
 
@@ -204,6 +248,11 @@
             <button type="button" class="btn btn-danger"><span class="fa fa-times fa-1x"></span>&nbsp;&nbsp;Eliminar</button>
           <% end %>
     <%end%>
+  </div>
+  <div class="col-xs-6 text-right">
+    <%= link_to new_record_path(@ids) do %>
+      <button type="button" class="btn btn-info" id="letra"><span class="fa fa-bar-chart"></span>&nbsp;&nbsp;Añadir a Bitácora</button>
+    <% end %>
   </div>
 </div>
 <br><br><br><br>
@@ -270,5 +319,8 @@
       localStorage.removeItem( 'firstLoad' );
   }
 ;
-  //]]>
   </script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 11980cf5b83da4e2a1bd7a2960357703e47fbe88

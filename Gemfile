@@ -41,6 +41,9 @@ gem 'pry', '~> 0.10.1'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# User responders
+gem 'responders', '~> 1.1.2'
+
 # Use devise
 gem 'devise'
 
