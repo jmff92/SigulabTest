@@ -176,7 +176,7 @@
               <tbody>
                 <% @records.each do |record| %>
                   <tr>
-                    <td class="text-center"><%= link_to record.fecha, record %></td>
+                    <td class="text-center"><%= link_to record.fecha, record, format: @id2 %></td>
                     <td class="text-center"><%= record.nos %></td>
                     <td class="text-center"><%= record.tipoServicio %></td>
                     <td class="text-center"><%= record.descripcion %></td>

@@ -8,12 +8,24 @@ class RecordsController < ApplicationController
       @records = Record.where(idEquipo: params[:format])
     end
     @equipos = Equipment.where(id2: params[:format])
+    if @equipos == nil
+      @equipos = Instrument.where(id2: params[:format])
+    end
+    if @equipos == nil
+      @equipos = Tool.where(id2: params[:format])
+    end
     @id = params[:format]
   end
 
   def show
-    @id = params[:format]
-    @item = Equipment.where(id2: params[:format])
+    @id = @record.idEquipo
+    @item = Equipment.where(id2: @id)
+    if @item == nil
+      @item = Instrument.where(id2: params[:format])
+    end
+    if @item == nil
+      @item = Tool.where(id2: params[:format])
+    end
   end
 
   def new
@@ -24,9 +36,23 @@ class RecordsController < ApplicationController
       @id = params[:formato]
     end
     @item = Equipment.where(id2: params[:format])
+    if @item == nil
+      @item = Instrument.where(id2: params[:format])
+    end
+    if @item == nil
+      @item = Tool.where(id2: params[:format])
+    end
   end
 
   def edit
+    @id = @record.idEquipo
+    @item = Equipment.where(id2: @id)
+    if @item == nil
+      @item = Instrument.where(id2: @id)
+    end
+    if @item == nil
+      @item = Tool.where(id2: @id)
+    end
   end
 
   def create
@@ -34,7 +60,7 @@ class RecordsController < ApplicationController
     if @record.save
       redirect_to action: 'show', id: @record.id, format: @record.idEquipo
     else
-      redirect_to action: 'new', format: @record.idEquipo
+      redirect_to action: 'new', format: @record.idEquipo, record: @record
     end
   end
 

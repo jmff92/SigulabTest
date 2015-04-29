@@ -3,9 +3,10 @@
 <ol class="breadcrumb">
   <li> <%=link_to 'Inicio', controller: 'statics'%></li>
   <li> <%=link_to 'Inventario', inventario_url %></li>
-  <li> <%=link_to 'Sustancias Químicas', chemical_substances_path %></li>
-  <li> </li>
-  <li class="active"> Detalle </li>
+  <% @item.each do |item| %>
+    <li> <%=link_to 'Ítem', item %></li>
+  <% end %>
+  <li class="active"> Registro de Bitácora </li>
 </ol>
 
 <div class="col-xs-12">
@@ -14,7 +15,7 @@
             <tbody>
                 <tr>
                   <% @item.each do |item| %>
-                    <td class="text-left"><%= 'Ítem:  ' %><span class="mayus"><%= item.name %></span></td>
+                    <td class="text-left"><%= 'Ítem:  ' %><span class="mayus"><strong><%= item.name %></strong></span></td>
                   <% end %>
                 </tr>
             </tbody>
@@ -55,8 +56,28 @@
     </table>
 </div>
 
+<div class="col-xs-12">
+  <%= link_to edit_record_path(@record) do %>
+    <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Registro</button>
+  <% end %>
+  <% @item.each do |item| %>
+      <%= link_to item do %>
+        <button type="button" class="btn btn-primary"><span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Atrás</button>
+      <% end %>
+  <% end %>
+</div>
 
+<script type="text/javascript">
 
-
-<%= link_to 'Edit', edit_record_path(@record) %> |
-<%= link_to 'Back', records_path() %>
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem( 'firstLoad' ) )
+    {
+      localStorage[ 'firstLoad' ] = true;
+      window.location.reload();
+    }
+    else
+      localStorage.removeItem( 'firstLoad' );
+  }
+;
+  </script>
