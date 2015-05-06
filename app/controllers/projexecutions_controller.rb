@@ -7,28 +7,28 @@ class ProjexecutionsController < ApplicationController
     if params[:id]
       @project = Project.find(params[:id])
     end           
-    @projexecutions = Projexecution.order("date ASC").where("proyecto=?",params[:id]).where("valid_adm=?", true)
+    @projexecutions = Projexecution.order("date ASC").where("proyecto=?",params[:id]).where("valid_res=?", true)
     @sum = @projexecutions.where("check_annulled=false").where("proyecto=?",params[:id]).sum(:check_amount)
   end
 
   def all
-    @projexecutions = Projexecution.all.order("date ASC").where("valid_adm=?", true)
+    @projexecutions = Projexecution.all.order("date ASC").where("valid_res=?", true)
     @sum = @projexecutions.where("check_annulled=false").sum(:check_amount)
   end
 
    def show
-     @projexecution = Projexecution.find(params[:id]).where("valid_adm=?", true)
-     @projcommitment = Projcommitment.find(@projexecution.commitment_id).where("valid_adm=?", true)
-     @project = Project.find(@projcommitment.proj_id).where("valid_adm=?", true)
-     @projexecutions = Projexecution.where("commitment_id=?",params[:id]).where("valid_adm=?", true)
+     @projexecution = Projexecution.find(params[:id]).where("valid_res=?", true)
+     @projcommitment = Projcommitment.find(@projexecution.commitment_id).where("valid_res=?", true)
+     @project = Project.find(@projcommitment.proj_id).where("valid_res=?", true)
+     @projexecutions = Projexecution.where("commitment_id=?",params[:id]).where("valid_res=?", true)
      @sum = @projexecutions.where("check_annulled=false").sum(:check_amount)
    end
 
    def list
-     @projexecutions = Projexecution.where("commitment_id=?",params[:cid]).where("valid_adm=?", true)
+     @projexecutions = Projexecution.where("commitment_id=?",params[:cid]).where("valid_res=?", true)
      @sum = @projexecutions.where("check_annulled=false").sum(:check_amount)
-     @commitments = Projcommitment.find(params[:cid]).where("valid_adm=?", true)
-     @project = Project.find(@commitments.proj_id).where("valid_adm=?", true)
+     @commitments = Projcommitment.find(params[:cid]).where("valid_res=?", true)
+     @project = Project.find(@commitments.proj_id).where("valid_res=?", true)
      @sum_commitment = @commitments.amount
    end
   
@@ -94,11 +94,11 @@ class ProjexecutionsController < ApplicationController
          end
        end
      end
-     @projexecution = Projexecution.find(params[:id]).where("valid_adm=?", true)
-     @commitment = Projcommitment.find(Projexecution.find(params[:id]).commitment_id).where("valid_adm=?", true)    
+     @projexecution = Projexecution.find(params[:id]).where("valid_res=?", true)
+     @commitment = Projcommitment.find(Projexecution.find(params[:id]).commitment_id).where("valid_res=?", true)    
 
      @oldamount = @projexecution.check_amount    
-     @projexecutions = Projexecution.where("commitment_id=?", @projexecution.commitment_id).where("valid_adm=?", true)
+     @projexecutions = Projexecution.where("commitment_id=?", @projexecution.commitment_id).where("valid_res=?", true)
      @projexecuted = @projexecutions.where("check_annulled=false").sum(:check_amount) - @oldamount
 
      if params[:projexecution][:check_amount].to_i > @commitment.amount - @projexecuted

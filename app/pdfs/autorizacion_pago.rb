@@ -174,7 +174,7 @@ class AutorizacionPago < Prawn::Document
     end
 
     data = [ ["Fecha de Recepción:", "Recibido por:", " "],
-            ["#{@pay.delivery_date}", "#{@pay.recieved_by}", " \n Firma "]
+            [" ", " ", " \n Firma "]
            ]
     table (data) do
       cells.valign = :center
