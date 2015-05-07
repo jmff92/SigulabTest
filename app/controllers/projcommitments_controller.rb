@@ -18,12 +18,12 @@ class ProjcommitmentsController < ApplicationController
   end
 
   def show
-    @commitment = Projcommitment.find(params[:id]).where("valid_res=?", true)
+    @commitment = Projcommitment.find(params[:id])
     @executions = Projexecution.all.where("commitment_id=?",params[:id]).where("valid_res=?", true)
-    @sum = @executions.where("check_annulled=false").sum(:check_amount).where("valid_res=?", true)
+    @sum = @executions.where("check_annulled=false").sum(:check_amount)
     @dif = @commitment.amount - @sum
     @size = @executions.count
-    @project = Project.find(@commitment.proj_id).where("valid_res=?", true)
+    @project = Project.all.find(@commitment.proj_id)
   end
 
   def new
