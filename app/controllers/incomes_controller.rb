@@ -4,7 +4,7 @@ class IncomesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @incomes = Income.all.order("date ASC").where("valid_adm=? AND valid_dir=?", true, true)
+    @incomes = Income.all.where("valid_adm=? AND valid_dir=?", true, true).order("date ASC")
     @sum = @incomes.sum(:amount)
   end
 
