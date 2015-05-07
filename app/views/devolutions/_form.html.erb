@@ -6,16 +6,13 @@
       <% end %>
 
       <div class="field"><br/>
-        <table><tr><td style="padding-left:65px;padding-right:10px;"><span class="red">*</span>
-                <%= f.label 'Número de Registro', :align => :middle %></td>
-                <td><%= f.text_field :numRegistro, :align => :middle, :style => "width:150px;" %></td><td style="padding-left:100px;padding-right:10px;">
+        
+	<table><tr><td style="padding-right:80px;padding-bottom:5px;"><span class="red">*</span>
+                <%= f.label 'Unidad Solicitante', :align => :middle %></td>
+                <td><%= f.text_field :unidadSolicitante, :align => :left, :style => "width:150px;" %></td><td style="padding-bottom:100px;padding-right:10px;">
 
-            <span class="red">*</span>
-                <%= f.label 'Unidad Solicitante', :align => :middle %>
-                
                 </td><td>
             
-                <%= f.text_field :unidadSolicitante, :align => :middle, :style => "width:150px;margin-bottom:10px;"  %>
             
                 </td></tr>
         </table>

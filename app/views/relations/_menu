@@ -99,20 +99,26 @@
 		   <% end %></li>
 		   <% end %>
 
-		    <% if session['specification_p6'] == 0 %>
-			<li style="text-align:left" class="deshabilitado"><% if session['specification_p5'] == 2 %>
-<a href="javascript:void(0)" onclick="alert('Consultar Acto Motivado.');" >
-<% else %>
-<a href="javascript:void(0)" onclick="alert('Para un informe de recomendación es necesario una oferta.');" >
-<% end %>
-	 
+		    <% if session['specification_sel_link'] == "/items/" %>
+		      <% if session['specification_p6'] == 0 %>
+			<li style="text-align:left" class="deshabilitado"><a href="javascript:void(0)" onclick="alert('Para una requisición es necesario un acto motivado o un informe de recomendación.');" >
 		       <i class="fa fa-files-o"> Requisición </i>
 		   </a></li>
 		   <% else %>
 			<li style="text-align:left" <% if session['specification_p6'] == 1 %> class='select' <% else %> class='habilitado' <% end %>><%= link_to requisitions_url do %><i class="fa fa-files-o"> Requisición </i>
 		   <% end %></li>
 		   <% end %>
+<% else %>
 
+<% if session['specification_p6'] == 0 %>
+			<li style="text-align:left" class="deshabilitado"><a href="javascript:void(0)" onclick="alert('Para una solicitud de servicio es necesario un acto motivado o un informe de recomendación.');" >
+		       <i class="fa fa-files-o"> Solicitud de Servicio </i>
+		   </a></li>
+		   <% else %>
+			<li style="text-align:left" <% if session['specification_p6'] == 1 %> class='select' <% else %> class='habilitado' <% end %>><%= link_to servicerequests_url do %><i class="fa fa-files-o"> Solicitud de Servicio </i>
+		   <% end %></li>
+		   <% end %>
+<% end %>
 <% if session['specification_sel_nacional'] == "Internacional" %>
 	<% if session['specification_p8'] == 0 %>
 			<li id="bt8" style="text-align:left; " class="deshabilitado"><a href="javascript:void(0)" onclick="alert('Para una relación debe la requisición.');" >
@@ -132,7 +138,9 @@
 		   <% end %></li>
 		   <% end %>
 <% end %>
-
+<li style="text-align:left" <% if session['specification_p7'] != 1 %> class='select' <% else %> class='habilitado' <% end %>><%= link_to devolutions_url do %>
+		       <i class="fa fa-file-text-o"> &nbsp Nota de Devolución </i>
+		   <% end %></li>
 		   
 </ul>
 <div style="font-size:10px; text-align:right">

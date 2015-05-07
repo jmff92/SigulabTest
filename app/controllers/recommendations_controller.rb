@@ -19,7 +19,8 @@ class RecommendationsController < ApplicationController
 		@invt = Invitation.where(:specification_id => session[:specification_sel_id]).order('nombre ASC')
 		@recoEmp = RecommendationsEmpresa.where(:id_informe => @reco.id).order('empresa ASC')
 		@itemsq = Itemsquote.where(:specification_id => session[:specification_sel_id]).all
-		pdf = ReporteRecommendations.new(@reco, @recoEmp, @invt, @itemsq)
+    @fecha = Invitation.where(:specification_id => session[:specification_sel_id]).order('created_at DESC').first
+		pdf = ReporteRecommendations.new(@reco, @recoEmp, @invt, @itemsq, @fecha)
 		nombre = "Especificacion_#{session[:specification_sel_id]}_Informe_Recomendacion.pdf"
 		send_data pdf.render, filename: nombre, type: 'application/pdf'
 	      end

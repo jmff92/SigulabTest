@@ -103,12 +103,13 @@ class ReporteInvitations < Prawn::Document
    text " Atentamente,", :align => :center
 
    stroke do
-   	horizontal_line 210, 340, :at => 45
-		horizontal_line 395, 525, :at => 25
+   	horizontal_line 210, 340, :at => 30
+		horizontal_line 395, 525, :at => 30
    end
 
-   draw_text "#{@invitation.responsable}", :at => [220,32]
-   draw_text "Recibido por", :at => [435,60], :size => 8
+   move_down 25
+   text "#{@invitation.responsable}", :align => :center
+   draw_text "Recibido por", :at => [425,60]
    draw_text "Cod. Doc.: UL01-M01F03     Fecha: 03/01/2014", :size => 6, :at => [10,20]
    
  

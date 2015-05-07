@@ -43,6 +43,7 @@ class SpecificationsController < ApplicationController
     @specification.p7 = 0
     @specification.p8 = 0
     @specification.p9 = 0
+    
     session[:specification_sel_nacional] = "Nacional"
     @specification.nacional = "Nacional"
 
@@ -56,6 +57,7 @@ class SpecificationsController < ApplicationController
       session[:specification_p7] = @specification.p7
       session[:specification_p8] = @specification.p8
       session[:specification_p9] = @specification.p9
+    
       session[:recom_id] = -1      
       session[:specification_sel_tipo] = @specification.tipo
       if @specification.tipo == "Servicios"

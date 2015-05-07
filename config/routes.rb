@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   resources :loans
 
   resources :specifications
-
+  
+  resources :servicerequests
+   
   resources :requisitions
 
   resources :quotes
