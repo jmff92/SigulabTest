@@ -82,7 +82,7 @@ class ReporteRecommendations < Prawn::Document
        empresas_all = ""
        @empresas.each do |emp|
 	        if emp.cumplio_req == 1
-		        empresas_all = empresas_all + "\n" + emp.empresa
+		        empresas_all = empresas_all + ", " + emp.empresa
           end
        end
        empresas_all = empresas_all[1..-1]
