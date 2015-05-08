@@ -26,8 +26,9 @@
 			<div class="form-group">
 				<label for='income_lab_id' class="col-xs-3 control-label text-right">De: <span style="color:#FF0000">*</span></label>
 				<div class="col-xs-4">
-					<%= i.select(:seccion, options_for_select([ "Coordinación de Adquisiciones", "Coordinación de Importaciones", "Coordinación de la Calidad", "Unidad Administrativa", "Dirección ULAB", "Laboratorio A", "Laboratorio B","Laboratorio C", "Laboratorio D", "Laboratorio E", "Laboratorio F", "Laboratorio G" ])) %>
-				</div>
+					<%= i.collection_select :seccion, Servicerequest::DeOpc, :to_s, :to_s, 
+          :include_blank => false %>
+					</div>
 			</div>	
 
 
