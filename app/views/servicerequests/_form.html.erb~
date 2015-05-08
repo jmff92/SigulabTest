@@ -17,24 +17,16 @@
         
 
 </script>
-<br/>
+
 <div class="col-xs-12">
 		<%= form_for @servicerequest, html: { class: 'form-horizontal' } do |i| %>
 
-	
+<br/>	
 <div style="margin-left:200px;">
 			<div class="form-group">
 				<label for='income_lab_id' class="col-xs-3 control-label text-right">De: <span style="color:#FF0000">*</span></label>
 				<div class="col-xs-4">
-					<%= i.select(:seccion, options_for_select([ "Director", "Asistente del Director", "Gestora de SMyDP","Coordinaciones de Adquisiciones e Importaciones", "Coordinacion de la Calidad y U Admn", "Jefatura de Laboratorio", "Sección/área de Laboratorio", "Dirección ULAB", "Laboratorio A", "Laboratorio B","Laboratorio C", "Laboratorio D", "Laboratorio E", "Laboratorio F", "Laboratorio G-Administración" ])) %>
-				</div>
-			</div>	
-
-
-			<div class="form-group">
-				<label for='income_unit' class="col-xs-3 control-label text-right">Fecha</label>
-				<div class='col-xs-4'>
-					<%= i.text_field :fecha, class: 'bootlayout-date form-control' %>
+					<%= i.select(:seccion, options_for_select([ "Coordinación de Adquisiciones", "Coordinación de Importaciones", "Coordinación de la Calidad", "Unidad Administrativa", "Dirección ULAB", "Laboratorio A", "Laboratorio B","Laboratorio C", "Laboratorio D", "Laboratorio E", "Laboratorio F", "Laboratorio G" ])) %>
 				</div>
 			</div>	
 
@@ -76,7 +68,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for='income_description' class="col-xs-3 control-label text-right">Observaciones <span style="color:#FF0000">*</span></label>
+				<label for='income_description' class="col-xs-3 control-label text-right">Observaciones</label>
 				<div class='col-xs-4'>
 					<%= i.text_area :observacion, class: 'form-control' %>
 				</div>

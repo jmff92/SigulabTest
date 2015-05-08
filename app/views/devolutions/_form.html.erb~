@@ -1,0 +1,312 @@
+<div class="grid_12 push_1">
+    <%= form_for(@devolution) do |f| %>
+      <% if @devolution.errors.any? %>
+        <h2>Rellene todos los campos obligatorios</h2>
+        <br>
+      <% end %>
+
+
+
+
+<input type="checkbox" name="devolutions" value="0" style="margin-right: 5px; margin-bottom: 5px;"  /> Aceptar<br>
+     <input type="checkbox" name="devolutions<%= ind %>" value="1" style="margin-right: 5px; margin-bottom: 5px;" onClick="if (this.checked) $('#seleccion<%= ind %>').slideDown(); else $('#seleccion<%= ind %>').slideUp();" /> Rechazar<br><br>      
+    <div id="seleccion<%= ind %>" style='display:none'>
+
+      <div class="field"><br/>
+        
+	<table><tr><td style="padding-right:80px;padding-bottom:5px;"><span class="red">*</span>
+                <%= f.label 'Unidad Solicitante', :align => :middle %></td>
+                <td><%= f.text_field :unidadSolicitante, :align => :left, :style => "width:150px;" %></td><td style="padding-bottom:100px;padding-right:10px;">
+
+                </td><td>
+            
+            
+                </td></tr>
+        </table>
+           
+            <table><tr><td>
+                <%= f.check_box :requisicion, :align => :texttop %>
+                <%= f.label 'Requisición' %>
+            </td><td style="padding-right:10px;">
+            
+                <%= f.label 'Nro:', :align => :botton %>
+            </td><td style="padding-right:20px;">
+            
+                <%= f.text_field :numRequisicion, :style => "width:150px;margin-bottom:10px;"  %>
+            </td><td style="padding-right:30px;">
+            
+            
+                <%= f.check_box :autorizacion, :align => :texttop %>
+                <%= f.label 'Autorización de Pago' %>
+            </td><td style="padding-right:10px;">
+            
+                <%= f.label 'Nro:', :align => :botton %>
+            </td><td>
+            
+                <%= f.text_field :numAutorizacion, :style => "width:150px;margin-bottom:10px;"  %>
+            </td></tr><tr><td>
+            
+        
+
+ 
+            
+                <%= f.check_box :certificacion, :align => :texttop %>
+                <%= f.label 'Certificación' %>
+            </td><td>
+            
+                <%= f.label 'Nro:', :align => :botton %>
+            </td><td>
+            
+                <%= f.text_field :numCertificacion, :style => "width:150px;margin-bottom:10px;"  %>
+            </td><td>
+            
+            
+                <%= f.check_box :solicitud, :align => :texttop %>
+                <%= f.label 'Solicitud de Servicio' %>
+            </td><td>
+            
+                <%= f.label 'Nro:', :align => :botton %>
+            </td><td>
+            
+                <%= f.text_field :numSolicitud, :style => "width:150px;margin-bottom:10px;"  %>
+            </td></tr><tr><td style="padding-right:20px;">
+
+        
+
+
+            
+                <%= f.check_box :informe, :align => :texttop %>
+                <%= f.label 'Informe de Recepción' %>
+            </td><td>
+            
+                <%= f.label 'Nro:', :align => :botton %>
+            </td><td>
+            
+                <%= f.text_field :numInforme, :style => "width:150px;margin-bottom:10px;"  %>
+            </td><td>
+            
+            
+                <%= f.check_box :otro, :align => :texttop %>
+                <%= f.label 'Otro' %>
+            </td><td>
+            
+                <%= f.label 'Nro:', :align => :botton %>
+            </td><td>
+            
+                <%= f.text_field :numOtro, :style => "width:150px;margin-bottom:10px;"  %>
+            </td></tr></table>
+        <br/>
+        
+           <h4>Causa de la devolución</h4> <br>
+        
+        
+        <table style="width:750px;"><tr><td style="padding-right:20px;">
+                <%= f.check_box :disponibilidad, :align => :texttop %>
+                <%= f.label 'Disponibilidad presupuestaria insuficiente' %>
+            </td><td>
+
+                          <%= f.check_box :idioma, :align => :texttop %>
+                <%= f.label 'Registro en idioma distinto al español' %>
+</td></tr><tr><td>      
+
+                <%= f.check_box :discriminado, :align => :texttop %>
+                <%= f.label 'Registro no discriminado por ítems' %>
+                
+</td><td>                      
+                      
+                <%= f.check_box :firma, :align => :texttop %>
+                <%= f.label 'Registro sin la firma y/o sello de la' %>
+                <%= f.label 'Unidad Responsable' %>
+        </td></tr></table>
+    
+    <br/><br/>
+    
+    
+    
+                <%= f.label 'Carencia de Documentos:' %> 
+            
+<table style="width:700px; margin-left: 35px;"><tr><td>
+ 
+
+                <%= f.check_box :contacto, :align => :texttop %>
+                <%= f.label 'Contrato Fonacit (si aplica)' %>
+   </td><td>   
+                <%= f.check_box :copia, :align => :texttop %>
+                <b>Copia del Acta del Consejo Directo que autorice
+               <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;la Contratación Pública (Compras mayores de
+              <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2500 UT - si aplica)</b>
+   </td></tr><tr><td style="padding-right:30px;">
+                <%= f.check_box :factura, :align => :texttop %>
+                <b>Factura, Proforma o Cotización a nombre<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;de la
+                USB, indicando  la condición de entrega</b>
+            </td><td>
+  <%= f.check_box :foto, :align => :texttop %>
+                <%= f.label 'Foto Referencial del Material y/o Equipo' %>
+                <%= f.label ' solicitado' %>
+
+            </td></tr></table>
+         <br/>       <br/><br/>
+                
+                <%= f.label "Carencia de información indispensable del" %>
+                <%= f.label " proveedor del bien o servicio:" %>
+                    
+<br/><br/>
+
+<table style="width:700px;margin-left: 100px;"><tr><td>
+                <%= f.check_box :nombre, :align => :texttop %>
+                <%= f.label 'Nombre' %>
+        </td><td>
+                <%= f.check_box :rif, :align => :texttop %>
+                <%= f.label 'RIF' %>
+            
+  </td><td>
+  <%= f.check_box :direccion, :align => :texttop, :style => "margin-left:-300px;" %>
+                <%= f.label 'Dirección Fiscal' %>
+          </td></tr><tr><td>      <%= f.check_box :telefonos, :align => :texttop %>
+<%= f.label 'Teléfonos' %></td><td style="margin-left:-30px;">
+
+  
+  <%= f.check_box :datos, :align => :texttop %>
+                <%= f.label 'Datos Bancarios' %>
+        </td><td>              <%= f.check_box :persona, :align => :texttop, :style => "margin-left:-300px;" %>
+                <%= f.label 'Persona Contacto' %>
+          </td></tr><tr><td>
+                <%= f.check_box :otroCarencia, :align => :texttop %>
+                <%= f.label 'Otro' %>
+                
+                
+        </td><td><%= f.text_field :otro_especifico %></td></tr><tr><td>
+                <%= f.label 'Observaciones', :align => :middle %></td><td>
+                <%= f.text_area :observaciones, :align => :middle, :style => "width:410px; height:80px; margin-top:10px; margin-bottom:20px;", :placeholder => "Indique en caso de que exista alguna" %>
+</td></tr></table>
+
+
+    </div>
+
+
+
+
+
+
+
+
+      <div class="grid_4 push_3 text-center">
+      <div class="actions">
+         <%= f.submit "Aceptar", :style => "float:left; margin-right:10px;", data: { confirm: '¿Está seguro de la informacion que acaba de suministrar?' }  %>
+      </div>
+    <% end %>
+    <br><%= link_to '<button type="button" class="btn btn-primary" style="margin-top:-52px;"> Volver </button>'.html_safe, controller: "devolutions" %>
+    </div>
+</div>
+
+
+<style>
+
+input[type="submit"] {
+
+display: inline-block;
+padding: 6px 12px;
+margin-bottom: 0;
+font-size: 14px;
+font-weight: 400;
+line-height: 1.42857143;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+color: #fff;
+background-color: #428bca;
+border-color: #357ebd;
+border: 1px solid transparent;
+border-radius: 4px;
+
+
+}
+
+.field {
+    font-size: 14px
+}
+
+#campos_pequenos input[type="text"], textarea, input[type="number"] {
+    display: block;
+    width: 100px;
+    height: 24px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: relative;
+    text-align: left;
+}
+
+#campos_grandes input[type="text"], textarea, input[type="number"] {
+    display: block;
+    width: 400px;
+    height: 54px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: relative;
+    text-align: left;
+}
+
+input[type="text"], textarea, input[type="number"] {
+
+display: block;
+width: 200px;
+height: 34px;
+padding: 6px 12px;
+font-size: 14px;
+line-height: 1.42857143;
+color: #555;
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+
+.red {
+
+font-size: 20px;
+color: red;
+
+}
+
+
+input[type="text"]:focus, textarea:focus, input[type="number"]:focus { 
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+
+.field_with_errors {
+    background-color: red;
+    border-radius: 4px;
+}
+
+h2 {
+
+position:relative;
+text-align: center;
+right: 60px;
+color:red;
+font-size: 20px;
+
+}
+
+h4 {
+    position: relative;
+}
+
+
+
+</style>
+
