@@ -4,7 +4,7 @@ class IncomesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @incomes = Income.all.where("valid_adm=? AND valid_dir=?", true, true).order("date ASC")
+    @incomes = Income.all.where("valid_adm=? AND valid_dir=?", true, true).order(:date)
     @sum = @incomes.sum(:amount)
   end
 
@@ -134,13 +134,13 @@ class IncomesController < ApplicationController
 
   def valid_adm
     @income = Income.find(params[:id])
-    @income.update_attribute(:valid_adm, true)
+    @income.update_column(:valid_adm, true)
     redirect_to :back
   end  
 
   def valid_dir
     @income = Income.find(params[:id])
-    @income.update_attribute(:valid_dir, true)
+    @income.update_column(:valid_dir, true)
     redirect_to :back
   end     
   

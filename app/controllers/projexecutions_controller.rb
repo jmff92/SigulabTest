@@ -116,13 +116,13 @@ class ProjexecutionsController < ApplicationController
 
    def annul
      @projexecution = Projexecution.find(params[:id])
-     @projexecution.update_attribute(:check_annulled, true)
+     @projexecution.update_column(:check_annulled, true)
      redirect_to :back
    end
 
   def valid
     @projexecution = Projexecution.find(params[:id])
-    @projexecution.update_attribute(:valid_res, true)
+    @projexecution.update_column(:valid_res, true)
     redirect_to :back
   end     
 
