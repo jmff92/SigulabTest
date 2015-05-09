@@ -161,6 +161,6 @@ select {
 
 </style>
 <script>
-document.getElementById('invitation_tipo').onchange = function () {if (this.value == 'Internacional') {document.getElementById('invitation_rif').readonly = true; document.getElementById('invitation_rif').value='N/A';document.getElementById('invitation_rif').style.backgroundColor = '#DFDFDF'}else{document.getElementById('invitation_rif').readonly = false; document.getElementById('invitation_rif').value='';document.getElementById('invitation_rif').style.backgroundColor = 'white'}};
+document.getElementById('invitation_tipo').onchange = function () {if (this.value == 'Internacional') {document.getElementById('invitation_rif').readOnly = true; document.getElementById('invitation_rif').value='N/A';document.getElementById('invitation_rif').style.backgroundColor = '#DFDFDF'}else{document.getElementById('invitation_rif').readOnly = false; document.getElementById('invitation_rif').value='';document.getElementById('invitation_rif').style.backgroundColor = 'white'}};
 </script>
 

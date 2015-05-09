@@ -1,0 +1,87 @@
+<div class="grid_12">
+
+	<table id="example" class="table table-hover">
+	  <thead>
+		 <tr>
+		   <th>Nro</th>
+		   <th>Nombre</th>
+		   <th></th>
+		 </tr>
+	  </thead>
+	  <tbody>
+		 <% @servicerequests.each_with_index do |quote,index| %>
+		   <tr>
+		     <td><%= index+1 %></td>
+		     <td><%= servicerequest.nombre %></td>
+<td style="text-decoration:none; color:black; text-align: right"><a href='uploads/quote/attachment/<%= quote.id %>/Especificacion_<%= session['specification_sel_id'] %>_Solicitud_de_Servicio_<%= servicerequest.nombre %>.pdf'><button type="button" class="btn btn-primary"> Descargar </button></a> <%= link_to '<button type="button" class="btn btn-warning"> Consultar </button>'.html_safe, servicerequest %></td> 
+		   </tr>
+		 <% end %>
+		 <% if @sumServicerequest == 0 %>
+		 	<tr class="warning">
+				<td class="text-center" colspan="5"><h4>No hay ninguna solicitud registrada</h4></td>
+			</tr>
+		 <% end %>
+	  </tbody>
+	</table>
+
+</div>
+<script>
+$(document).ready(function() {
+				$('#example').dataTable( {
+					"bJQueryUI": true,
+					"sPaginationType": "full_numbers"
+					
+				} );
+			} );
+$.fn.dataTableExt.sErrMode = 'throw';
+</script>
+<style>
+
+a:visited { 
+   color:black;
+   font-weight: bold;
+	font-size: 110%;
+}
+
+
+#quoteTable th {
+      background-color: #94E79E;
+      border-color:#7A7070;
+      font-size: 14px;
+  }
+
+#quoteTable th td tr{
+ border-color:black;
+ }
+
+
+.table-hover {
+
+border-color:#7A7070;
+
+}
+
+.table-hover>tbody>tr>td {
+
+border-color:#7A7070;
+
+}
+
+.table-hover>tbody>tr:hover {
+background-color: #ffff99;
+}
+
+#quoteTable tr:nth-child(even) {
+
+background-color: #F2F8F7;
+
+}
+
+input[type=submit] {
+-webkit-appearance: button;
+cursor: pointer;
+background-color:#F8F0BE;
+border-radius:px;
+}
+
+</style>

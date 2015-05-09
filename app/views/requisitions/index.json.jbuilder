@@ -1,4 +1,4 @@
-json.array!(@requisitions) do |requisition|
-  json.extract! requisition, :id, :solicitante, :consumidor, :partida, :autor, :observacion
-  json.url requisition_url(requisition, format: :json)
+json.array!(@quotes) do |quote|
+  json.extract! quote, :id, :nombre, :attachment
+  json.url quote_url(quote, format: :json)
 end
