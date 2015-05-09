@@ -40,7 +40,7 @@
     <li><a href="#tabs-2" class="hidex">Ubicación</a></li>
     <li><a href="#tabs-3" class="hidex">Datos de Adquisición</a></li>
     <li><a href="#tabs-4" class="hidex">Bitácora</a></li>
-    <li><a href="#tabs-6" class="show">Servicios</a></li>
+    <li><a href="#tabs-5" class="hidex">Servicios</a></li>
 
 
 
@@ -112,6 +112,23 @@
             <% end %></td>
           </tr>
     </table></p>
+
+
+    <% if can? :create, @equipment %>
+          <%= link_to new_equipment_path do %>
+            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Equipo</button>
+          <% end %> 
+    <%end%>
+    <% if can? :update, @equipment %>
+      <%= link_to edit_equipment_path(@equipment) do %>
+        <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
+      <% end %>
+    <% end %>
+    <% if can? :hide, @equipment %>
+          <%= link_to @equipment, method: :delete, data: { confirm: '¿Estás seguro?' } do%>
+            <button type="button" class="btn btn-danger"><span class="fa fa-times fa-1x"></span>&nbsp;&nbsp;Eliminar</button>
+          <% end %>
+    <%end%>
   </div>
 
   <div id="tabs-2">
@@ -133,6 +150,22 @@
           </tr>
 
     </table></p>
+
+    <% if can? :create, @equipment %>
+          <%= link_to new_equipment_path do %>
+            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Equipo</button>
+          <% end %> 
+    <%end%>
+    <% if can? :update, @equipment %>
+      <%= link_to edit_equipment_path(@equipment) do %>
+        <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
+      <% end %>
+    <% end %>
+    <% if can? :hide, @equipment %>
+          <%= link_to @equipment, method: :delete, data: { confirm: '¿Estás seguro?' } do%>
+            <button type="button" class="btn btn-danger"><span class="fa fa-times fa-1x"></span>&nbsp;&nbsp;Eliminar</button>
+          <% end %>
+    <%end%>
   </div>
 
   <div id="tabs-3">
@@ -160,6 +193,23 @@
 
 
     </table></p>
+
+    <% if can? :create, @equipment %>
+          <%= link_to new_equipment_path do %>
+            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Equipo</button>
+          <% end %> 
+    <%end%>
+    <% if can? :update, @equipment %>
+      <%= link_to edit_equipment_path(@equipment) do %>
+        <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
+      <% end %>
+    <% end %>
+    <% if can? :hide, @equipment %>
+          <%= link_to @equipment, method: :delete, data: { confirm: '¿Estás seguro?' } do%>
+            <button type="button" class="btn btn-danger"><span class="fa fa-times fa-1x"></span>&nbsp;&nbsp;Eliminar</button>
+          <% end %>
+    <%end%>
+
   </div>
 
   <div id="tabs-4">
@@ -198,13 +248,21 @@
           </div>
         </div>
       </body>
-  </div>
-  
-    <div id="tabs-6">
-      <p><table class="table table-striped">
+      <br><br>
+    <%= link_to new_record_path(@ids) do %>
+      <button type="button" class="btn btn-info" id="letra"><span class="fa fa-bar-chart"></span>&nbsp;&nbsp;Añadir a Bitácora</button>
+    <% end %>
 
-                <thead>
-                  <tr>
+</div>
+
+  <div id="tabs-5">
+    <body id="dt_example" class="ex_highlight_row">
+
+        <div id="container">
+          <div id="demo">
+            <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+              <thead>
+                <tr>
                     <th class="tg-093g">N° de O/S</th>
                     <th class="tg-093g">Fecha</th>
                     <th class="tg-093g">Servicio</th>
@@ -224,46 +282,27 @@
                       <td class="tg-qpa3"><span class="mayus"><%= s.personaContactoUnidadS %></span></td>
                       <td class="tg-qpa3"><span class="mayus"><%= s.companiaDepencia %></span></td>
                       <td class="tg-qpa3"><span class="mayus"><%= s.telefono3 %></span></td>
-                    </tr>
-                  <% end %>
-                </tbody>
+                  </tr>
+                <% end %>
+              </tbody>
             </table>
-      </div>
-  <br>
+            <div class="spacer"></div>
+          </div>
+        </div>
+      </body>
 
-    </table></p>
+</div>
+
+
   </div>
 
+  
 
 
 
 <br><br>
-<div class="col-xs-12">
-  <div class="col-xs-6 text-left">
 
-    <% if can? :create, @equipment %>
-          <%= link_to new_equipment_path do %>
-            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Equipo</button>
-          <% end %> 
-    <%end%>
-    <% if can? :update, @equipment %>
-      <%= link_to edit_equipment_path(@equipment) do %>
-        <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
-      <% end %>
-    <% end %>
-    <% if can? :hide, @equipment %>
-          <%= link_to @equipment, method: :delete, data: { confirm: '¿Estás seguro?' } do%>
-            <button type="button" class="btn btn-danger"><span class="fa fa-times fa-1x"></span>&nbsp;&nbsp;Eliminar</button>
-          <% end %>
-    <%end%>
-  </div>
 
-  <div class="col-xs-6 text-right">
-    <%= link_to new_record_path(@ids) do %>
-      <button type="button" class="btn btn-info" id="letra"><span class="fa fa-bar-chart"></span>&nbsp;&nbsp;Añadir a Bitácora</button>
-    <% end %>
-  </div>
-</div>
 <br><br><br><br>
 
 

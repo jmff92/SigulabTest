@@ -70,6 +70,23 @@
          </tr>
 
     </table></p>
+
+    <% if can? :create, @consumable %>
+          <%= link_to new_consumable_path do %>
+            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Consumible</button>
+          <% end %> 
+    <%end%>
+    <% if can? :update, @consumable %>
+      <%= link_to edit_consumable_path(@consumable) do %>
+        <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
+      <% end %>
+    <% end %>
+    <% if can? :hide, @consumable %>
+          <%= link_to @consumable, method: :delete, data: { confirm: '¿Estás seguro?' } do%>
+            <button type="button" class="btn btn-danger"><span class="fa fa-times fa-1x"></span>&nbsp;&nbsp;Eliminar</button>
+          <% end %>
+    <%end%>
+
   </div>
 
   <div id="tabs-2">
@@ -89,6 +106,23 @@
           </tr>
 
     </table></p>
+
+    <% if can? :create, @consumable %>
+          <%= link_to new_consumable_path do %>
+            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Consumible</button>
+          <% end %> 
+    <%end%>
+    <% if can? :update, @consumable %>
+      <%= link_to edit_consumable_path(@consumable) do %>
+        <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
+      <% end %>
+    <% end %>
+    <% if can? :hide, @consumable %>
+          <%= link_to @consumable, method: :delete, data: { confirm: '¿Estás seguro?' } do%>
+            <button type="button" class="btn btn-danger"><span class="fa fa-times fa-1x"></span>&nbsp;&nbsp;Eliminar</button>
+          <% end %>
+    <%end%>
+
   </div>
 
   <div id="tabs-3">
@@ -115,13 +149,6 @@
           </tr>
 
     </table></p>
-  </div>
-</div>
-
-
-<br>
-<div class="col-xs-12">
-  <div class="col-xs-6 text-left">
 
     <% if can? :create, @consumable %>
           <%= link_to new_consumable_path do %>
@@ -139,6 +166,13 @@
           <% end %>
     <%end%>
 
+  </div>
+</div>
+
+
+<br>
+<div class="col-xs-12">
+  <div class="col-xs-6 text-left">
 
   </div>
 </div>
