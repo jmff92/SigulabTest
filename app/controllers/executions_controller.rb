@@ -110,7 +110,7 @@ class ExecutionsController < ApplicationController
 
   def annul
     @execution = Execution.find(params[:id])
-    @execution.update_attribute(:check_annulled, true)
+    @execution.update_column(:check_annulled, true)
     redirect_to :back
   end
 
@@ -122,13 +122,13 @@ class ExecutionsController < ApplicationController
 
   def valid_adm
     @execution = Execution.find(params[:id])
-    @execution.update_attribute(:valid_adm, true)
+    @execution.update_column(:valid_adm, true)
     redirect_to :back
   end  
 
   def valid_dir
     @execution = Execution.find(params[:id])
-    @execution.update_attribute(:valid_dir, true)
+    @execution.update_column(:valid_dir, true)
     redirect_to :back
   end    
   

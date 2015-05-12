@@ -84,6 +84,20 @@
 			</div>
 
 			<div class="form-group">
+				<label for='paymentauth_delivery_date' class="col-xs-3 control-label text-right">Fecha de Recepción </label>
+				<div class='col-xs-4'>
+					<%= i.text_field :delivery_date, class: 'bootlayout-date form-control', placeholder: 'Fecha de Recepción' %>
+				</div>
+			</div>
+
+		   <div class="form-group">
+				<label for='paymentauth_recieved_by' class="col-xs-3 control-label text-right">Recibido por </label>
+				<div class='col-xs-4'>
+					<%= i.text_field :recieved_by, class: 'form-control' %>
+				</div>
+			</div>
+
+			<div class="form-group">				
 				<div class="col-xs-offset-3 col-xs-9">
 					<button type="submit" class="btn btn-default btn-primary" onclick="return confirm('¿Está seguro de modificar la autorización de pago?')"><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Actualizar Autorización de Pago</button>
 					<%= link_to @pay, class: "btn btn-default btn-danger" do %>
