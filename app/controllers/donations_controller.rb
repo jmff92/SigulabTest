@@ -12,6 +12,15 @@ class DonationsController < ApplicationController
   # GET /donations/1
   # GET /donations/1.json
   def show
+  @donations = Donation.find(params[:id])  
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = ReporteDonations.new(@donations)
+        send_data pdf.render, filename: 'MOD-01.pdf', type: 'application/pdf'
+      end
+    end
+
   end
 
   # GET /donations/new
@@ -37,6 +46,27 @@ class DonationsController < ApplicationController
         format.json { render json: @donation.errors, status: :unprocessable_entity }
       end
     end
+
+    if params[:donation][:document] != nil
+      archivo = params[:donation][:document];      
+      #Nombre original del archivo.
+      nombre = archivo.original_filename;
+      #Directorio donde se va a guardar.
+      directorio = "public/archivos/";
+      #Extensión del archivo.
+      extension = nombre.slice(nombre.rindex("."), nombre.length).downcase;
+      #Ruta del archivo.
+      path = File.join(directorio, nombre);
+      #Crear en el archivo en el directorio. Guardamos el resultado en una variable, será true si el archivo se ha guardado correctamente.
+      resultado = File.open(path, "wb") { |f| f.write(archivo.read) };
+      #Verifica si el archivo se subió correctamente.
+      if resultado
+        subir_archivo = "ok";
+      else
+        subir_archivo = "error";
+      end
+    end
+
   end
 
   # PATCH/PUT /donations/1
@@ -51,6 +81,27 @@ class DonationsController < ApplicationController
         format.json { render json: @donation.errors, status: :unprocessable_entity }
       end
     end
+
+    if (params[:donation][:document] != nil)
+      archivo = params[:donation][:document];
+      #Nombre original del archivo.
+      nombre = archivo.original_filename;
+      #Directorio donde se va a guardar.
+      directorio = "public/archivos/";
+      #Extensión del archivo.
+      extension = nombre.slice(nombre.rindex("."), nombre.length).downcase;
+      #Ruta del archivo.
+      path = File.join(directorio, nombre);
+      #Crear en el archivo en el directorio. Guardamos el resultado en una variable, será true si el archivo se ha guardado correctamente.
+      resultado = File.open(path, "wb") { |f| f.write(archivo.read) };
+      #Verifica si el archivo se subió correctamente.
+      if resultado
+        subir_archivo = "ok";
+      else
+        subir_archivo = "error";
+      end
+    end
+
   end
 
   # DELETE /donations/1

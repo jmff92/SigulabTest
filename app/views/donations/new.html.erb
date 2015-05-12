@@ -62,6 +62,12 @@
           </tr>
 
           <tr>
+            <td class="col-xs-5 text-right" for='income_document'><strong>Documento:</strong></td>
+            <td class="col-xs-7"> <%= f.file_field :document %>
+            <span class="red">*</span></td>
+          </tr>
+
+          <tr>
             <td class="col-xs-5 text-right"><strong>Fecha del Documento:</strong></td>
             <td class="col-xs-7"> <%= f.text_field :fechaDocumento, :class => "bootlayout-date" %></td>
           </tr>

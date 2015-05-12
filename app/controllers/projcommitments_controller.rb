@@ -81,7 +81,7 @@ class ProjcommitmentsController < ApplicationController
 
   def valid
     @projcommitment = Projcommitment.find(params[:id])
-    @projcommitment.update_attribute(:valid_res, true)
+    @projcommitment.update_column(:valid_res, true)
     redirect_to :back
   end     
 

@@ -135,7 +135,7 @@ end
 
   def valid_resp
     @project = Project.find(params[:id])
-    @project.update_attribute(:valid_res, true)
+    @project.update_column(:valid_res, true)
     redirect_to :back
   end  
 
