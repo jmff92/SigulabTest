@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429073825) do
+ActiveRecord::Schema.define(version: 20150429144856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -465,7 +465,7 @@ ActiveRecord::Schema.define(version: 20150429073825) do
     t.integer  "document"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "valid",        default: false
+    t.boolean  "valid_res",    default: false
   end
 
   create_table "projects", force: true do |t|
@@ -493,7 +493,7 @@ ActiveRecord::Schema.define(version: 20150429073825) do
     t.string   "substitute"
     t.text     "observation"
     t.integer  "banco"
-    t.boolean  "valid",          default: false
+    t.boolean  "valid_res",      default: false
   end
 
   create_table "projexecutions", force: true do |t|
@@ -515,7 +515,7 @@ ActiveRecord::Schema.define(version: 20150429073825) do
     t.date     "document_date"
     t.string   "invoice_number"
     t.date     "invoice_date"
-    t.boolean  "valid",                  default: false
+    t.boolean  "valid_res",              default: false
   end
 
   create_table "projincomes", force: true do |t|
@@ -674,6 +674,22 @@ ActiveRecord::Schema.define(version: 20150429073825) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_id"
+    t.string   "attachment"
+    t.integer  "specification_id"
+  end
+
+  create_table "servicerequests", force: true do |t|
+    t.string   "seccion"
+    t.string   "contacto_int"
+    t.string   "correo_int"
+    t.string   "extension"
+    t.string   "monto"
+    t.text     "observacion"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "user_id"
+    t.integer  "specification_id"
+    t.datetime "fecha"
   end
 
   create_table "services", force: true do |t|
