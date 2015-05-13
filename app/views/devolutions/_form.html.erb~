@@ -5,13 +5,6 @@
         <br>
       <% end %>
 
-
-
-
-<input type="checkbox" name="devolutions" value="0" style="margin-right: 5px; margin-bottom: 5px;"  /> Aceptar<br>
-     <input type="checkbox" name="devolutions<%= ind %>" value="1" style="margin-right: 5px; margin-bottom: 5px;" onClick="if (this.checked) $('#seleccion<%= ind %>').slideDown(); else $('#seleccion<%= ind %>').slideUp();" /> Rechazar<br><br>      
-    <div id="seleccion<%= ind %>" style='display:none'>
-
       <div class="field"><br/>
         
 	<table><tr><td style="padding-right:80px;padding-bottom:5px;"><span class="red">*</span>
@@ -179,16 +172,6 @@
                 <%= f.label 'Observaciones', :align => :middle %></td><td>
                 <%= f.text_area :observaciones, :align => :middle, :style => "width:410px; height:80px; margin-top:10px; margin-bottom:20px;", :placeholder => "Indique en caso de que exista alguna" %>
 </td></tr></table>
-
-
-    </div>
-
-
-
-
-
-
-
 
       <div class="grid_4 push_3 text-center">
       <div class="actions">

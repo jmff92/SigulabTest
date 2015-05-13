@@ -6,7 +6,7 @@
 <% if session['specification_p6'] != 2 %>
 	<%= link_to '<button type="button" class="btn btn-success"> <span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Requisición </button>'.html_safe,  new_requisition_path %><% end %>
 
- <div style='text-align: center'>No existe un informe de recomendación registrado.
+ <div style='text-align: center'>No existe requisición registrada.
                </div>
       
 

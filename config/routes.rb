@@ -100,6 +100,9 @@ end
   get "/commitments/list_lab", to: "commitments#list_lab", :as => "commitments/list_lab"
   get "/executions/list_lab", to: "executions#list_lab", :as => "executions/list_lab"
 
+  resources :poas do
+    get 'delete', on: :member
+	 end
   resources :incomes do
     get 'valid_adm', on: :member
     get 'valid_dir', on: :member

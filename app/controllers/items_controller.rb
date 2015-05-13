@@ -7,12 +7,15 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     if current_user
-   	 @items = Item.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).all
-     	@sumItem = Item.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
-	    @itemsAll= Item.where(:specification_id => session[:specification_sel_id]).all
-	@sumItemsAll= Item.all().count
+   	 @items = Item.where(:specification_id => session[:specification_sel_id]).all
+     	@sumItem = Item.where(:specification_id => session[:specification_sel_id]).count
     end
     specification = Specification.find(session[:specification_sel_id])
+    if specification.user_id == current_user.username
+		@propio = true
+	else
+		@propio = false
+	end
     respond_to do |format|
       format.html
       format.pdf do
@@ -35,6 +38,24 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+	specification = Specification.find(session[:specification_sel_id])
+    if specification.user_id == current_user.username
+		@propio = true
+	else
+		@propio = false
+	end
+	if current_user.quality? 
+		@user = User.where(:username => current_user.username).first
+		if @user.quality? || @user.quality_analist?
+			@propio = true
+		end
+	end
+	if current_user.manage? 
+		@user = User.where(:username => current_user.username).first
+		if @user.manage? || @user.manage_analist?
+			@propio = true
+		end
+	end
   end
 
   # GET /items/new

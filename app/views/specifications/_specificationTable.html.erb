@@ -10,18 +10,6 @@
 	  </thead>
 
 	  <tbody>
-<% if current_user.director? %>
-		 <% @specificationsAll.each_with_index do |specification,index| %>
-	  		<tr>
-		     <td><%= index+1 %></td>
-		     <td><%= specification.tipo %></td>
-		     <td style="width: 60%;"><%= specification.nombre %></td>
-		     <td style="text-align:right">
-
-		     <%= link_to '<button type="button" class="btn btn-primary">Completar</button>'.html_safe,  {:controller => "comprando", :action => "seleccionarEspecificacion", :specification => specification.id } %></td>
-		   </tr>
-		 <% end %>
-<% else %>
 		 <% @specifications.each_with_index do |specification,index| %>
 	  		<tr>
 		     <td><%= index+1 %></td>
@@ -32,13 +20,12 @@
 		     <%= link_to '<button type="button" class="btn btn-primary">Completar</button>'.html_safe,  {:controller => "comprando", :action => "seleccionarEspecificacion", :specification => specification.id } %></td>
 		   </tr>
 		 <% end %>
-
-<% end %>
-		 <% if @sumSpecifications == 0 %>
+<% if @sumSpecifications == 0 %>
 		 	<tr class="warning">
 				<td class="text-center" colspan="5"><h4>No hay especificaciones técnicas registradas</h4></td>
 			</tr>
 		 <% end %>
+		 
 	  </tbody>
 	</table>
 <script>
