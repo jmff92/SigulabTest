@@ -10,7 +10,8 @@ class PaymentauthsController < ApplicationController
       # Filtrar aca solo las de la coordinacion o laboratorio del current_user
       @pays = Paymentauth.all.order("elaboration_date ASC")
     else
-      @pays = Paymentauth.all.where("user=?", current_user.username).order("elaboration_date ASC")
+      # @pays = Paymentauth.all.where("user=?", current_user.username).order("elaboration_date ASC")
+      @pays = Paymentauth.all
     end
   end
 

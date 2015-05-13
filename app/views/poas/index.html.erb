@@ -32,13 +32,26 @@
 						<thead>
 							<tr>
 								<th class="text-center">Año</th>
+								<th class="text-center" style="width:120px"></th>
 							</tr>
 						</thead>
 
 						<tbody>
 							<% @poas.each do |i| %>
 								<tr>
-									<td class="text-center"><%= link_to i.year, i %></td>
+									<td class="text-center"><%= link_to i.year, i.document_url %></td>
+									<td class="text-center">
+										<% if current_user.directorate? or current_user.manage? %>
+ 											<%= link_to edit_poa_path(i), class: "btn btn-warning", title: "Editar Anteproyecto" do %>
+												<span class="glyphicon glyphicon-pencil"></span>		
+											<% end %>
+										<% end %>
+										<% if current_user.directorate? %>
+ 											<%= link_to delete_poa_path(i), class: "btn btn-danger", title: "Eliminar Anteproyecto", data: {confirm: "¿Está seguro de eliminar el anteproyecto?"} do %>
+												<span class="glyphicon glyphicon-remove"></span>		
+											<% end %>										
+										<% end %>
+									</td>
 								</tr>
 							<% end %>
 						</tbody>

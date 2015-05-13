@@ -42,10 +42,6 @@ class PoasController < ApplicationController
     end
   end
 
-  def show
-    @poa = Poa.find(params[:id])
-  end    
-
     def edit
 
       @poa = Poa.find(params[:id])
