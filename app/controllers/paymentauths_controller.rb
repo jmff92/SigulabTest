@@ -67,6 +67,18 @@ class PaymentauthsController < ApplicationController
       render 'edit'
     end
   end
+
+  def annul
+    @pay = Paymentauth.find(params[:id])
+    @pay.update_column(:status, "annulled")
+    redirect_to :back
+  end  
+
+  def delete
+    @pay = Paymentauth.find params[:id]
+   @pay.destroy
+    redirect_to action: 'index'
+  end  
   
   private
   
