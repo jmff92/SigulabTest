@@ -9,6 +9,8 @@ class InvitationsController < ApplicationController
     if current_user
     	@invitations = Invitation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).all
       @sumInvitation = Invitation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
+	@invitationsAll= Invitation.where(:specification_id => session[:specification_sel_id]).all
+	@invitationsItemsAll= Invitation.all().count
     end
   end
 

@@ -8,6 +8,8 @@ class QuotesController < ApplicationController
 	if current_user
     @quotes = Quote.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).all
     @sumQuotes = Quote.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
+    @quotesAll= Quote.where(:specification_id => session[:specification_sel_id]).all
+	@sumQuotesAll= Quote.all().count
    end
   end
 
