@@ -7,7 +7,7 @@ class RequisitionsController < ApplicationController
   # GET /requisitions.json
   def index
     if current_user
-if current_user.acquisition? || @user.import? 
+if current_user.acquisition? || current_user.import? 
     @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
     @user = User.where(:username => @especificacion.user_id).first 
         if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
@@ -44,7 +44,7 @@ if current_user.acquisition? || @user.import?
   # GET /requisitions/1
   # GET /requisitions/1.json
   def show
-if current_user.acquisition? || @user.import? 
+if current_user.acquisition? || current_user.import? 
     @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
     @user = User.where(:username => @especificacion.user_id).first 
         if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?

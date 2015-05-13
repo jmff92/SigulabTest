@@ -28,7 +28,7 @@ Seleccione si desea aceptar o rechazar la Especificación Técnica:<br/><br/>
 <div id="nota_devolucion" style="display:none">
 
 
-<%= link_to '<button type="button" class="btn btn-success" style="margin-left:780px;margin-bottom:-100px;"><span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar </button>'.html_safe, new_devolution_path %> 
+<%= link_to '<button type="button" class="btn btn-success" style="margin-left:750px;margin-bottom:-100px;"><span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar </button>'.html_safe, new_devolution_path %> 
     <a href='compras'><button type="button" class="btn btn-primary" style="margin-bottom:-100px;"> Volver </button></a>
 
 

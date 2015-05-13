@@ -4,7 +4,7 @@ class RecommendationsController < ApplicationController
 
   def index
     if current_user
-    if current_user.acquisition? || @user.import? 
+    if current_user.acquisition? || current_user.import? || current_user.acquisition_analist? || current_user.import_analist?
     @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
     @user = User.where(:username => @especificacion.user_id).first 
         if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
@@ -59,7 +59,7 @@ class RecommendationsController < ApplicationController
   # GET /quotes/1
   # GET /quotes/1.json
   def show
-     if current_user.acquisition? || @user.import? 
+     if current_user.acquisition? || current_user.import? 
     @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
     @user = User.where(:username => @especificacion.user_id).first 
         if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?

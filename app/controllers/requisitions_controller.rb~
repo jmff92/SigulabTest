@@ -7,8 +7,19 @@ class RequisitionsController < ApplicationController
   # GET /requisitions.json
   def index
     if current_user
-    	@requisitions = Requisition.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).first
-      @sumRequisition = Requisition.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
+if current_user.acquisition? || @user.import? 
+    @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
+    @user = User.where(:username => @especificacion.user_id).first 
+        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
+            @mostrar = true
+        else
+            @mostrar = false
+        end
+    else
+    @mostrar = true
+    end
+    	@requisitions = Requisition.where(:specification_id => session[:specification_sel_id]).first
+      @sumRequisition = Requisition.where(:specification_id => session[:specification_sel_id]).count
      respond_to do |format|
 	      format.html do
           if @sumRequisition != 0
@@ -33,6 +44,17 @@ class RequisitionsController < ApplicationController
   # GET /requisitions/1
   # GET /requisitions/1.json
   def show
+if current_user.acquisition? || @user.import? 
+    @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
+    @user = User.where(:username => @especificacion.user_id).first 
+        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
+            @mostrar = true
+        else
+            @mostrar = false
+        end
+    else
+    @mostrar = true
+    end
     @requisition = Requisition.find(params[:id])
 
   end
