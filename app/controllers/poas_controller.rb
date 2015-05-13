@@ -4,7 +4,7 @@ class PoasController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @poas = Poa.all
+    @poas = Poa.all.order("year DESC")
   end
 
   def new
