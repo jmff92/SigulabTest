@@ -1,0 +1,54 @@
+<%= javascript_include_tag 'jquery-1.10.2.js'%>
+<%= javascript_include_tag 'jquery-ui.js' %>
+<%= stylesheet_link_tag 'jquery-ui.css'%>
+<%= javascript_include_tag 'tabs.js' %>
+
+<div class="row">
+	<div class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><%= link_to 'Inicio', controller: 'statics' %></li>
+			<li><%= link_to 'Administración', administration_path %></li>
+			<li class="active">Anteproyecto de POA</li>
+		</ol>
+	</div>
+
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
+		</br>
+		</br>    	
+	</div>   
+
+
+<p><h2><center>Anteproyecto: <%= @poa.id %></center></h2></p>
+
+	<div class="col-xs-12">
+		<table class="table table-striped">
+			<tr>
+				<td class="col-xs-5 text-right">Año:</td>
+				<td class="col-xs-7"><%= @poa.year %>  </td>
+			</tr>
+
+			  <tr>
+				<td class="col-xs-5 text-right">Documento:</td>
+				<td class="col-xs-7"><%= link_to "Consultar", @poa.document_url %></td>
+  			  </tr>
+		</table>
+	</div>
+		<div class="col-xs-12">
+			<%= link_to edit_poa_path do %>
+				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Anteproyecto</button>
+			<% end %>
+			<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-search"></i> Consultar Documento </button>'.html_safe, poa_path(@poa, :format => 'pdf') %>
+
+			<%= link_to delete_poa_path, data: {confirm: "¿Está seguro de eliminar la autorización de pago?"} do %>
+				<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Eliminar Anteproyecto</button>
+			<% end %>
+		</div>
+</div>
+
+<style>
+	#span1 { width: 25px; float: left; height:100%; }
+    #span2 { width: 110px; float: left; height:50%;}
+</style>
