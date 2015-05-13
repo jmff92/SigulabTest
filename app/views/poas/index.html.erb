@@ -48,11 +48,13 @@
 			</div>
 		</body>
 
+	<% if current_user.directorate? or current_user.manage? %>
 		<div class="col-xs-12" align="left">
 			<p></p>
 			<%= link_to new_poa_path do %>
 				<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Anteproyecto</button>
 			<% end %>
 		</div>
+	<% end %>
 
 </div>
