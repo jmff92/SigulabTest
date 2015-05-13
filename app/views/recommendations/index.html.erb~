@@ -4,8 +4,7 @@
 <div style="margin-top: 30px;margin-bottom: -50px; margin-left: 10px;width:500px;"><h3>Informe de Recomendación</h3></div>
 <div style="text-align: right; height: 45px; margin-top: 12px;">
 <% if session['specification_p4'] != 2 && @sumRec == 0 %>
-<% if @mostrar %>
-  <%= link_to '<button type="button" class="btn btn-success"> <span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Crear informe de recomendación </button>'.html_safe, new_recommendation_path %><% end %><% end %> 
+  <%= link_to '<button type="button" class="btn btn-success"> <span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Crear informe de recomendación </button>'.html_safe, new_recommendation_path %><% end %> 
 </div><br>
            <div style='text-align: center'>No existe un informe de recomendación registrado.
                </div>
