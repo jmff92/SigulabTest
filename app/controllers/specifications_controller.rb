@@ -8,6 +8,27 @@ class SpecificationsController < ApplicationController
     if current_user.director? || current_user.acquisition?  || current_user.acquisition_analist?
       @specifications = Specification.all()
       @sumSpecifications = Specification.count
+    elsif current_user.quality? || current_user.quality_analist?
+	  @specifications2 = Specification.all()
+	  @specifications = Array.new
+	  @specifications2.each do |specification|
+			@user = User.where(:username=>specification.user_id).first
+			if @user.quality? || @user.quality_analist?
+				@specifications.push(specification)
+			end
+	   end
+      @sumSpecifications = @specifications.count
+    elsif current_user.manage_analist? || current_user.manage?
+	  @specifications2 = Specification.all()
+	  @specifications = Array.new
+	  @specifications2.each do |specification|
+			@user = User.where(:username=>specification.user_id).first
+			if @user.manage_analist? || @user.manage?
+				@specifications.push(specification)
+			end
+	   end
+      @sumSpecifications = @specifications.count
+    
     else
       @specifications = Specification.where(:user_id => current_user.username).all
       @sumSpecifications = Specification.where(:user_id => current_user.username).count

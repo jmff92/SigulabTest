@@ -13,26 +13,6 @@
 
 	  <tbody>
 
-
-	<% if current_user.director? %>
-		 <% @itemsAll.each_with_index do |item,index| %>
-	  		<tr>
-		     <td><%= index+1 %></td>
-		     <td><%= item.tipo %></td>
-                     <td><%= item.nombre %></td>
-		     <td><%= item.descripcion %></td>
-                     <td><%= item.cantidad %></td>
-
-		     <td style="text-decoration:none; color:black; text-align: right"><%= link_to '<button type="button" class="btn btn-warning"> Consultar </button>'.html_safe, item %></td>
-		   </tr>
-		 <% end %>
-
-	<% if @sumItemsAll == 0 %>
-		 	<tr class="warning">
-				<td class="text-center" colspan="5"><h4>No hay bienes/consumibles registrados</h4></td>
-			</tr>
-		 <% end %>
-<% else %>
 		 <% @items.each_with_index do |item, index| %>
 	  		<tr>
                      <td><%= index+1 %></td>
@@ -49,7 +29,6 @@
 				<td class="text-center" colspan="5"><h4>No hay bienes/consumibles registrados</h4></td>
 			</tr>
 		 <% end %>
-<% end %>
 		 
 	  </tbody>
 	</table>
