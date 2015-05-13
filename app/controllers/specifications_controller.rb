@@ -5,10 +5,12 @@ class SpecificationsController < ApplicationController
   # GET /specifications
   # GET /specifications.json
   def index
-    if current_user
+    if current_user.director? || current_user.acquisition?  || current_user.acquisition_analist?
+      @specifications = Specification.all()
+      @sumSpecifications = Specification.count
+    else
       @specifications = Specification.where(:user_id => current_user.username).all
       @sumSpecifications = Specification.where(:user_id => current_user.username).count
-      @specificationsAll= Specification.all()
     end
   end
 
