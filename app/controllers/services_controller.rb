@@ -7,8 +7,8 @@ class ServicesController < ApplicationController
   # GET /services/json
   def index
     if current_user
-    	@services = Service.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).all
-      @sumService = Service.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
+    	@services = Service.where(:specification_id => session[:specification_sel_id]).all
+      @sumService = Service.where(:specification_id => session[:specification_sel_id]).count
 	 end
 specification = Specification.find(session[:specification_sel_id])
     respond_to do |format|
@@ -29,7 +29,28 @@ specification = Specification.find(session[:specification_sel_id])
     end
   end
 
-
+  # GET /items/1.json
+  def show
+	specification = Specification.find(session[:specification_sel_id])
+    if specification.user_id == current_user.username
+		@propio = true
+	else
+		@propio = false
+	end
+	if current_user.quality? 
+		@user = User.where(:username => current_user.username).first
+		if @user.quality? || @user.quality_analist?
+			@propio = true
+		end
+	end
+	if current_user.manage? 
+		@user = User.where(:username => current_user.username).first
+		if @user.manage? || @user.manage_analist?
+			@propio = true
+		end
+	end
+  end
+  
   # GET /services/new
   def new
     @service = Service.new
