@@ -105,7 +105,10 @@ end
     get 'valid_dir', on: :member
     get 'delete', on: :member
   end
-  resources :paymentauths
+  resources :paymentauths do
+    get 'annul', on: :member
+    get 'delete', on: :member
+  end
   resources :commitments
   resources :executions do 
     get 'annul', on: :member
@@ -121,7 +124,10 @@ end
     get 'valid', on: :member
     get 'delete', on: :member
   end
-  resources :projpaymentauths
+  resources :projpaymentauths do
+    get 'annul', on: :member
+    get 'delete', on: :member
+  end
   resources :projincomes
   resources :projexecutions do
     get 'annul', on: :member

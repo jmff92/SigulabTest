@@ -48,7 +48,7 @@
 		 </tr>
 			<% if !@pay.delivery_date.blank? -%>
 		      <tr>
-			    <td class="col-xs-5 text-right">Fecha de recepión:</td>
+			    <td class="col-xs-5 text-right">Fecha de recepción:</td>
                 <td class="col-xs-7"><%= @pay.delivery_date %></td>
 			  </tr>
 		   <tr>
@@ -62,6 +62,16 @@
                 <td class="col-xs-7"><%= @pay.observations %></td>
 			  </tr>
 			<% end %>
+   	        <tr>
+			    <td class="col-xs-5 text-right">Status:</td>
+                <% if @pay.status=="annulled" %>
+                	<td class="col-xs-7"> Anulada </td>
+                <% elsif !@pay.delivery_date.blank? %>
+                	<td class="col-xs-7"> Recibida </td>
+                <% else %>	
+                	<td class="col-xs-7"> Sin recibir </td>                
+                <% end %>
+			</tr>			
 			<tr class="success">
 				<td class="col-xs-5 text-right"><font size=3.6> Monto: </font></td>
 				<td class="col-xs-7"> <div id="span1"> <font size=3.6> Bs. </div> <div id="span2" align="right"> <font size=3.6> <%= number_to_currency(@pay.amount, format: "%n", delimiter: ".", separator: ",") %> </font> </div> </td>
@@ -70,10 +80,22 @@
 	</div>
 	<div class="col-xs-12">
 		<% if current_user.acquisition? or current_user.manage? or current_user.manage_analist? %>
-			<%= link_to edit_paymentauth_path do %>
-				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Autorización de Pago</button>
+			<% if @pay.status!="annulled" %>
+				<%= link_to edit_paymentauth_path do %>
+					<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Autorización de Pago</button>
+				<% end %>
 			<% end %>
-		<% end %>  
+			<% if !@pay.delivery_date.blank? and @pay.status!="annulled" %>
+				<%= link_to delete_paymentauth_path, data: {confirm: "¿Está seguro de eliminar la autorización de pago?"} do %>
+					<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Eliminar Autorización de Pago</button>
+     			<% end %>
+			<% else %>     			
+				<% if @pay.status!="annulled" %>
+	     			<%= link_to annul_paymentauth_path, data: {confirm: "¿Está seguro de anular la autorización de pago?"} do %>
+						<button type="button" class="btn btn-danger"}><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Anular Autorización de Pago</button>
+	     			<% end %>
+				<% end %>	     			
+ 			<% end %>
 		<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Generar Autorización de Pago </button>'.html_safe, paymentauth_path(@pay, :format => 'pdf') %>
 		<% end %>  		
 	</div>
