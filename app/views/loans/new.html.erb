@@ -13,7 +13,39 @@
 </div>
 <br>
 
-<div class="col-xs-12 text-right">
+<div class="col-xs-12 btn-group text-right">
+  <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Ítems
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <% @sustancias.each do |sustancia| %>
+      <li>
+        <a><%= sustancia.id2 %> <%=  sustancia.name  %></a>
+      </li>
+    <% end %>
+    <% @equipment.each do |equipment| %>
+      <li>
+        <a><%= equipment.id2 %> <%=  equipment.name  %></a>
+      </li>
+    <% end %>
+    <% @tools.each do |tool| %>
+      <li>
+        <a><%= tool.id2 %> <%=  tool.name  %></a>
+      </li>
+    <% end %>
+    <% @consumables.each do |consumable| %>
+      <li>
+        <a><%= consumable.id2 %> <%=  consumable.name  %></a>
+      </li>
+    <% end %>
+    <% @instruments.each do |instrument| %>
+      <li>
+        <a><%= instrument.id2 %> <%=  instrument.name  %></a>
+      </li>
+    <% end %>
+  </ul>
+
   <%= link_to inventario_url do %>
     <button type="button" class="btn btn-primary"><span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Volver</button>
     <br><br>
@@ -22,111 +54,62 @@
 
 
 <div class="col-xs-12">
-
-  <div class="col-xs-8">
-
-    <%= form_for @loan, url: {action: 'create'}, html: { class: 'form-horizontal' } do |i| %> 
-      <% if @loan.errors.any? %>
-        <div class="col-xs-12" role="alert">
-          <div class="alert alert-danger">
-            <ul>
-              <% @loan.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      <% end %>
-
-      <div class="form-group">
-        <label for='income_lab_id' class="col-xs-4 control-label text-right">Fecha requerida: <span style="color:#FF0000">*</span></label>
-        <div class="col-xs-5">
-          <%= i.text_field :fechaEntrega, :class => "bootlayout-date" %>
+  <%= form_for @loan, url: {action: 'create'}, html: { class: 'form-horizontal' } do |i| %> 
+    <% if @loan.errors.any? %>
+      <div class="col-xs-12" role="alert">
+        <div class="alert alert-danger">
+          <ul>
+            <% @loan.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
         </div>
       </div>
-
-      <div class="form-group">
-        <label for='income_sae_code' class="col-xs-4 control-label text-right">Ubicación Destino: <span style="color:#FF0000">*</span></label>
-        <div class='col-xs-5'>
-          <%= i.text_field :ubicacion %>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for='income_lab_id' class="col-xs-4 control-label text-right">Fecha Tope de entrega: <span style="color:#FF0000">*</span></label>
-        <div class="col-xs-5">
-          <%= i.text_field :fechaTope, :class => "bootlayout-date" %>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for='income_lab_id' class="col-xs-4 control-label text-right">Condiciones del Préstamo: <span style="color:#FF0000">*</span></label>
-        <div class="col-xs-5">
-          <%= i.text_field :condiciones %>
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label for='income_origin' class="col-xs-4 control-label text-right">Cantidad: </label>
-        <div class="col-xs-5">    
-          <%= i.number_field(:medida, min: 0, :step => 'any') %><%= i.select(:unidadMedida, [['Un'], ['kg'], ['g'], ['mg'], ['l'], ['ml'] ] ) %>
-        </div>
-      </div>
-
-      <%= hidden_field_tag "item_ids", @id %>
-
-      <div class="form-group">
-        <div class="col-xs-offset-3 col-xs-9">
-          <button type="submit" class="btn btn-default btn-success"><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Crear</button>
-        </div>
-      </div>
-
     <% end %>
 
-  </div>
-  <div class="col-xs-4">
-    <table id="itemTable" class="table table-hover">
-      <thead>
-        <tr>
-          <th class="tg-hgcj"> Código del Bien</th>
-          <th class="tg-093g">Nombre</th>
-        </tr>
-      </thead>
+    <div class="form-group">
+      <label for='income_lab_id' class="col-xs-5 control-label text-right">Fecha requerida: <span style="color:#FF0000">*</span></label>
+      <div class="col-xs-7">
+        <%= i.text_field :fechaEntrega, :class => "bootlayout-date" %>
+      </div>
+    </div>
 
-      <tbody>
-        <% @sustancias.each do |sustancia| %>
-          <tr>
-            <td class="tg-s6z2"><%= sustancia.id2 %></td>
-            <td class="tg-s6z2"><%=  sustancia.name  %></td>
-          </tr>
-        <% end %>
-        <% @equipment.each do |equipment| %>
-          <tr>
-            <td class="tg-s6z2"><%= equipment.id2 %></td>
-            <td class="tg-s6z2"><%=  equipment.name  %></td>
-          </tr>
-        <% end %>
-        <% @tools.each do |tool| %>
-          <tr>
-            <td class="tg-s6z2"><%= tool.id2 %></td>
-            <td class="tg-s6z2"><%=  tool.name  %></td>
-          </tr>
-        <% end %>
-        <% @consumables.each do |consumable| %>
-          <tr>
-            <td class="tg-s6z2"><%= consumable.id2 %></td>
-            <td class="tg-s6z2"><%=  consumable.name  %></td>
-          </tr>
-        <% end %>
-        <% @instruments.each do |instrument| %>
-          <tr>
-            <td class="tg-s6z2"><%= instrument.id2 %></td>
-            <td class="tg-s6z2"><%=  instrument.name  %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+    <div class="form-group">
+      <label for='income_sae_code' class="col-xs-5 control-label text-right">Ubicación Destino: <span style="color:#FF0000">*</span></label>
+      <div class='col-xs-7'>
+        <%= i.text_field :ubicacion %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for='income_lab_id' class="col-xs-5 control-label text-right">Fecha Tope de entrega: <span style="color:#FF0000">*</span></label>
+      <div class="col-xs-7">
+        <%= i.text_field :fechaTope, :class => "bootlayout-date" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for='income_lab_id' class="col-xs-5 control-label text-right">Condiciones del Préstamo: <span style="color:#FF0000">*</span></label>
+      <div class="col-xs-7">
+        <%= i.text_field :condiciones %>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for='income_origin' class="col-xs-5 control-label text-right">Cantidad: </label>
+      <div class="col-xs-7">    
+        <%= i.number_field(:medida, min: 0, :step => 'any') %><%= i.select(:unidadMedida, [['Un'], ['kg'], ['g'], ['mg'], ['l'], ['ml'] ] ) %>
+      </div>
+    </div>
+
+    <%= hidden_field_tag "item_ids", @id %>
+
+    <div class="form-group">
+      <div class="col-xs-12 text-center">
+        <button type="submit" class="btn btn-default btn-success"><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Crear</button>
+      </div>
+    </div>
+  <% end %>
 </div>
   <br>
 <br><br>

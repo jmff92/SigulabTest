@@ -8,6 +8,8 @@ class QuotesController < ApplicationController
 	if current_user
     @quotes = Quote.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).all
     @sumQuotes = Quote.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
+    @quotesAll= Quote.where(:specification_id => session[:specification_sel_id]).all
+	@sumQuotesAll= Quote.all().count
    end
   end
 
@@ -78,7 +80,8 @@ class QuotesController < ApplicationController
     File.open("#{Rails.root}/public"+quotew.attachment_url) do |file|
   	File.rename(file, "#{Rails.root}/public"+quotew.ataname)
     end
-    
+   quotew.attachment = quotew.ataname
+    quotew.save
     invitation.quote_id = @quote.id;
     invitation.save
     cont = Invitation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id], :quote_id => -1).count

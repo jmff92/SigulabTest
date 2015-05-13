@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<%= render 'menu' %>
+<div style="margin-top: 30px;margin-bottom: -50px; margin-left: 10px;width:500px;"><h3>Informe de Recomendación</h3></div>
+<div style="text-align: right; height: 45px; margin-top: 12px;">
+<% if session['specification_p4'] != 2 && @sumRec == 0 %>
+  <%= link_to '<button type="button" class="btn btn-success"> <span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Crear informe de recomendación </button>'.html_safe, new_recommendation_path %><% end %> 
+</div><br>
+           <div style='text-align: center'>No existe un informe de recomendación registrado.
+               </div>
+
+
+
+<script>
+if (window.location.search.replace("?", "") == "pdf=1")
+{
+window.location.href = "recommendations.pdf";
+}
+</script>
+
+
+
+

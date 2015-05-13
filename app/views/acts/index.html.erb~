@@ -6,7 +6,8 @@
 <%= link_to '<button type="button" class="btn btn-success"> <span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Acto Motivado </button>'.html_safe,  new_act_path %><% end %><% if session['specification_p5'] == 2 %><%= link_to '<button type="button" class="btn btn-primary"> Descargar solicitud </button>'.html_safe, acts_path(@act, :format => 'pdf') %> <% else %> <% if @sumActs != 0 %><%= link_to '<button type="button" class="btn btn-primary"> Descargar solicitud </button>'.html_safe, acts_path(@act, :format => 'xml'), :onclick => "return confirm('¿Está seguro que desea generar la solicitud? Luego de hacerlo no podrá agregar ni modificar más elementos.')" %> <% end %><% end %>
 </div>
 
-      <%= render 'actTable' %>
+      <div style='text-align: center'>No existe un informe de recomendación registrado.
+               </div>
       
      
 </body>
@@ -24,10 +25,5 @@ h3 {
 
 </style>
 
-<script>
-if (window.location.search.replace("?", "") == "pdf=1")
-{
-window.location.href = "acts.pdf";
-}
-</script>
+
 

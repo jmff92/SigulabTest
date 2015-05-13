@@ -1,0 +1,194 @@
+# encoding: utf-8
+
+<script>
+
+	function HandleBrowseClick()
+	{
+		 var fileinput = document.getElementById("browse");
+		 fileinput.click();
+	}
+
+	function Handlechange()
+	{
+		 var fileinput = document.getElementById("browse");
+		 var textinput = document.getElementById("filename");
+		 textinput.value = fileinput.value;
+	}
+        
+
+</script>
+
+<div class="col-xs-12">
+		<%= form_for @servicerequest, html: { class: 'form-horizontal' } do |i| %>
+
+<br/>	
+<div style="margin-left:200px;">
+			<div class="form-group">
+				<label for='income_lab_id' class="col-xs-3 control-label text-right">De: <span style="color:#FF0000">*</span></label>
+				<div class="col-xs-4">
+					<%= i.select(:seccion, options_for_select([ "Coordinación de Adquisiciones", "Coordinación de Importaciones", "Coordinación de la Calidad", "Unidad Administrativa", "Dirección ULAB", "Laboratorio A", "Laboratorio B","Laboratorio C", "Laboratorio D", "Laboratorio E", "Laboratorio F", "Laboratorio G" ])) %>
+				</div>
+			</div>	
+
+
+			<br> <h4 style="margin-left:200px;"> Persona de Contacto </h4> <br>
+
+			
+			
+			<div class="form-group">
+				<label for='income_description' class="col-xs-3 control-label text-right">Nombre <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :contacto_int, class: 'form-control' %>
+				</div>
+			</div>
+			
+<div class="form-group">
+				<label for='income_description' class="col-xs-3 control-label text-right">E-mail <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :correo_int, class: 'form-control' %>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for='income_description' class="col-xs-3 control-label text-right">Teléfonos <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :extension, class: 'form-control' %>
+				</div>
+			</div>
+
+
+				<br> <h4 style="margin-left:200px;"> Referencia de cotización  </h4> <br>
+
+			
+   <div class="form-group">
+				<label for='income_resource_description' class="col-xs-3 control-label text-right">Monto Total del Servicio (Bs.): </label>
+				<div class='col-xs-4'>
+					<%= i.text_field :monto, class: 'form-control' %>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for='income_description' class="col-xs-3 control-label text-right">Observaciones</label>
+				<div class='col-xs-4'>
+					<%= i.text_area :observacion, class: 'form-control' %>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<div class="col-xs-offset-3 col-xs-9">
+					<div class="actions">
+    <%= i.submit "Aceptar", data: { confirm: '¿Está seguro de la informacion que acaba de suministrar?' }  %>
+<% end %>
+    <%= link_to '<button type="button" class="btn btn-primary" style="margin-top:0px; margin-left:15px;"> Cancelar </button>'.html_safe, controller: "servicerequests" %>  
+      </div>
+				</div>
+			</div>
+		
+	</div>
+<style>
+
+input[type="submit"]  {
+
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	color: #fff;
+	background-color: #428bca;
+	border-color: #357ebd;
+	border: 1px solid transparent;
+	border-radius: 4px;
+
+
+}
+
+#fakeBrowse {
+
+position:relative;
+left: 220px;
+bottom: 34px;
+}
+
+.red {
+
+	font-size: 20px;
+	color: red;
+
+}
+
+
+input[type="text"] {
+
+display: block;
+width: 200px;
+height: 34px;
+padding: 6px 12px;
+font-size: 14px;
+line-height: 1.42857143;
+color: #555;
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+maxlength:100;
+
+}
+
+input[type="text"]:focus { 
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+
+h2 {
+
+position:relative;
+right: 150px;
+color:red;
+font-size: 20px;
+right: 60px;
+}
+
+.field_with_errors {
+  	background-color: red;
+  	border-radius: 4px;
+}
+select {
+    padding:3px;
+    margin: 0;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    background: white;
+    outline:none;
+    display: inline-block;
+    cursor:pointer;
+    width: 200px;
+    height: 35px;
+    maxlength:100;
+    font-size: 14px;
+}
+
+</style>
+<script>
+$(document).ready(function() {
+    $('#selecctall').click(function(event) {  //on click 
+        if(this.checked) { // check select status
+            $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"               
+            });
+        }else{
+            $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+            });         
+        }
+    });
+    
+});
+</script>

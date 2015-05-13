@@ -14,12 +14,11 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<div class="btn-group">
-								<a href="<%= new_user_session_path %>"><button type="button" class="btn btn-default navbar-btn btn-primary">Iniciar Sesión</button></a>
-							</div>
-						</li>						
-					</ul>
-				</div><!-- end of collapsable sigulabmenu -->
+							<% if !user_signed_in? %>
+-								<div class="btn-group">
+-									<a href="<%= new_user_session_path %>"><button type="button" class="btn btn-default navbar-btn btn-primary">Iniciar Sesión</button></a>
+-								</div>
+-							<% end %>	
 			</div><!-- end of container-fluid -->
 		</nav><!-- end of navbar -->
 	</div><!-- end of container -->

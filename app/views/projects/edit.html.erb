@@ -389,6 +389,9 @@
 			<% end %>	
 
 		<br>
+
+		<%= i.hidden_field :valid_res, :value => false %>
+
 			<div class="form-group">
 				<div class="col-xs-offset-3 col-xs-9">
 					<button type="submit" class="btn btn-default btn-primary" onclick="return confirm('¿Está seguro de modificar el proyecto?')"><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Actualizar Proyecto</button>

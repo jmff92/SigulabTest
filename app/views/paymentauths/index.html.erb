@@ -1,0 +1,78 @@
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
+<%= javascript_include_tag 'tabla.js' %>
+
+
+<div class="row">
+	<div class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><%= link_to 'Inicio', controller: 'statics' %></li>
+			<li><%= link_to 'Administración', administration_path %></li>
+			<li><%= link_to 'Presupuesto', budget_path %></li>
+			<li class="active">Autorizaciones de Pago</li>
+		</ol>
+	</div>
+
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
+	</div>   
+
+	<div class="col-xs-12">
+		<h2><center>Autorizaciones de Pago</center></h2>
+	</div>
+
+	<div class="col-xs-12">
+		<div class="well">
+			El monto está expresado en bolívares.
+		</div>
+	</div>
+
+
+	<div class="col-xs-12">
+		<body id="dt_example" class="ex_highlight_row">
+
+			<div id="container">
+				<div id="demo">
+					<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+						<thead>
+							<tr>
+								<th class="text-center">Fecha</th>
+								<th class="text-center">Registro</th>
+								<th class="text-center">Beneficiario</th>
+								<th class="text-center">Monto</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<% @pays.each do |c| %>
+								<tr>
+									<td class="text-center"><%= c.elaboration_date.strftime('%d/%m/%Y') %></td>
+									<td><%= link_to c.registry, c %></td>
+									<td class="text-center"><%= c.recipient %></td>
+									<td class="text-right"><%= number_to_currency(c.amount, format: "%n", delimiter: ".", separator: ",", precision: 2) %></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+					<div class="spacer"></div>
+				</div>
+			</div>
+		</body>
+
+		<p></p>
+
+	</div>
+
+	<% if current_user.directorate? or current_user.gsmp? or current_user.acquisition_analist? or current_user.acquisition? or current_user.manage? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? or current_user.import? or current_user.import_analist? or current_user.labBoss? %>
+		<div class="col-xs-12" align="left">
+			<p></p>
+			<%= link_to new_paymentauth_path do %>
+				<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Autorización de Pago</button>
+			<% end %>
+		</div>
+	<% end %>
+
+</div>

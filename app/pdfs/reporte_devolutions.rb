@@ -36,11 +36,11 @@ class ReporteDevolutions < Prawn::Document
 
 	   header = [[{:content => "NOTA DE DEVOLUCIÓN", :rowspan => 2, :width => 450, :size => 20, :background_color => "DDDDDD", :align => :center, :height => 20, :font_style => :bold},
 			        {:content => "Registro No.", :background_color => "DDDDDD", :width => 90, :height => 18, :size => 9, :align => :center, :font_style => :bold}],
-			        [{:content => "UL01/14-#{@devolution.numRegistro}", :background_color => "FFFFFF", :width => 90,:height => 18, :size => 9, :align => :center}],
+			        [{:content => "UL01/14-#{@devolution.id}", :background_color => "FFFFFF", :width => 90,:height => 18, :size => 9, :align => :center}],
 			      	]
 
-			cuerpo1 = [[{:width => 180, :height => 20},{:width => 180, :height => 20},{:width => 180, :height => 20}],
-								 [{:width => 180, :height => 20},{:width => 180, :height => 20},{:width => 180, :height => 20}]
+			cuerpo1 = [[{:width => 180, :height => 25},{:width => 180, :height => 25},{:width => 180, :height => 25}],
+								 [{:width => 180, :height => 25},{:width => 180, :height => 25},{:width => 180, :height => 25}]
 								]
 
 			cuerpo2 = [[{:content => "UNIDAD SOLICITANTE", :align => :center, :size => 10, :height => 19, :font_style => :bold, :background_color => "959595", :width => 540}],
@@ -61,17 +61,17 @@ class ReporteDevolutions < Prawn::Document
 
 	def contenido
 
-		draw_text "Requisición                    No.  #{@devolution.numRequisicion}", :size => 9, :at => [27,552]
+		draw_text "Requisición                    No.  #{@devolution.numRequisicion}", :size => 9, :at => [27,560]
 
-		draw_text "Autorización de Pago     No.  #{@devolution.numAutorizacion}", :size => 9, :at => [207,552]
+		draw_text "Autorización de Pago     No.  #{@devolution.numAutorizacion}", :size => 9, :at => [207,560]
 
-		draw_text "Certificación de servicio No.  #{@devolution.numCertificacion}", :size => 9, :at => [387,552]
+		draw_text "Certificación de servicio No.  #{@devolution.numCertificacion}", :size => 9, :at => [387,560]
 
-		draw_text "Solicitud de servicio       No.  #{@devolution.numSolicitud}", :size => 9, :at => [27,534]
+		draw_text "Solicitud de servicio       No.  #{@devolution.numSolicitud}", :size => 9, :at => [27,536]
 
-		draw_text "Informe de recepción     No.  #{@devolution.numInforme}", :size => 9, :at => [207,534]
+		draw_text "Informe de recepción     No.  #{@devolution.numInforme}", :size => 9, :at => [207,536]
 
-		draw_text "Otro                                No.  #{@devolution.numOtro}", :size => 9, :at => [387,534]
+		draw_text "Otro                                No.  #{@devolution.numOtro}", :size => 9, :at => [387,536]
 
 		draw_text "Disponibilidad presupuestaria insuficiente", :size => 10, :at => [28,453]
 
@@ -118,38 +118,38 @@ class ReporteDevolutions < Prawn::Document
 		draw_text "Fecha: #{Time.now.strftime("%d-%m-%Y")}", :size => 9, :at => [423,200]
 
 		if @devolution.requisicion == true
-			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [8,564]	
+			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [8,570]	
 		else
-			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [8,564]
+			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [8,570]
 		end
 
 		if @devolution.autorizacion == true
-			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [188,564]	
+			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [188,570]	
 		else
-			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [188,564]
+			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [188,570]
 		end
 
 		if @devolution.certificacion == true
-			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [368,564]	
+			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [368,570]	
 		else
-			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [368,564]
+			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [368,570]
 		end
 		if @devolution.solicitud == true
-			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [8,544]	
+			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [8,546]	
 		else
-			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [8,544]
+			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [8,546]
 		end
 
 		if @devolution.informe == true
-			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [188,544]	
+			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [188,546]	
 		else
-			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [188,544]
+			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [188,546]
 		end
 
 		if @devolution.otro == true
-			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [368,544]	
+			image "#{Rails.root}/app/assets/images/marcado.png", :width => 15, :height => 15, :at => [368,546]	
 		else
-			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [368,544]
+			image "#{Rails.root}/app/assets/images/cuadrado.png", :width => 15, :height => 15, :at => [368,546]
 		end
 
 		##################################

@@ -15,10 +15,16 @@
         <h3>Especificaciones Técnicas</h3>
       <div style="text-align: right; height: 45px;">
           <%= link_to '<button type="button" class="btn btn-primary"> Volver </button>'.html_safe, compras_url %>
-	<%= link_to '<button type="button" class="btn btn-success"> <span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Crear Especificación Técnica </button>'.html_safe, new_specification_path %> 
+
+		<% if current_user.director? %>
+	
+	<% else %>
+<%= link_to '<button type="button" class="btn btn-success"> <span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Crear Especificación Técnica </button>'.html_safe, new_specification_path %>
+
+	<% end %>  
 	</div>
       </div>
-      
+		    
       <%= render 'specificationTable' %>
   </div>
 

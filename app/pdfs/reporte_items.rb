@@ -5,72 +5,79 @@ class ReporteItems < Prawn::Document
     super()
     @items = items
     @spec = spec
-    header
-    repeat :all do
-      pie_de_pagina
-    end
-    titulo
-    table_content
+      repeat :all do
+        header
+        pie_de_pagina
+      end
+      titulo
+      table_content
   end
  
   def header
-    #This inserts an image in the pdf file and sets the size of the image
-    image "#{Rails.root}/app/assets/images/coord.jpg", width: 180, height: 90, :position => 0
-    move_up 50
-    image "#{Rails.root}/app/assets/images/Logo_ULab.jpg", width: 50, height: 55, :position => 490
-    
-
+    bounding_box([bounds.left,bounds.top], :width => bounds.width) do
+      #This inserts an image in the pdf file and sets the size of the image
+      image "#{Rails.root}/app/assets/images/coord.jpg", width: 180, height: 90, :position => 0
+      move_up 50
+      image "#{Rails.root}/app/assets/images/Logo_ULab.jpg", width: 50, height: 55, :position => 490
+    end
   end
 
   def titulo
-   move_down 35
-   table tittle do
-      row(0).font_style = :bold
-      self.header = true
-      self.row_colors = ['DDDDDD','DDDDDD']
-      self.column_widths = [450,90]
+    bounding_box([bounds.left,bounds.top - 120], :width => bounds.width) do
+      table tittle do
+        row(0).font_style = :bold
+        self.header = true
+        self.row_colors = ['DDDDDD','DDDDDD']
+        self.column_widths = [450,90]
+      end
     end
   end
 
    def tittle 
-      [[{:content => "ESPECIFICACIONES TÉCNICAS DE BIENES", :rowspan => 2, :size => 20, :background_color => "DDDDDD" , :align => :center  },
+      [[{:content => "ESPECIFICACIONES TÉCNICAS DE BIENES", :rowspan => 2, :size => 20, :background_color => "DDDDDD" , :align => :center, :valign => :center  },
         {:content => "Registro No.", :background_color => "DDDDDD"}],
         [{:content => "#{@spec.id}", :background_color => "FFFFFF", :align => :center}]]
    end
 
 
-  def table_content 
-    move_down 25
-    # Then I set the table column widths
-    table items_rows do
-      row(0).font_style = :bold
-      columns(0..3).align = :center
-      self.header = true
-      self.row_colors = ['DDDDDD', 'FFFFFF']
-      self.column_widths = [80,120,240,100]
+  def table_content
+
+    bounding_box([bounds.left,bounds.top - 200], :width => bounds.width, :height => 450) do
+      # Creamos la tabla.
+      table (items_rows) do
+
+        header = true
+          row(0).font_style = :bold
+          columns(0..3).align = :center
+          columns(0..3).valign = :center
+          self.header = true
+          self.row_colors = ['DDDDDD', 'FFFFFF']
+          self.column_widths = [80,120,240,100]
+      end
+      text "\n\n\n______________________\nFirma de Autorizacion\ \ \ \ ", :align => :right
     end
-    move_down 45
-    text "______________________\n\nFirma de Autorizacion\ \ \ \ \n", :align => :right 
+
   end
  
   def items_rows
-    
-    [['Tipo','Nombre','Descripción','Cantidad']] +
+
+    [['Número de Item','Nombre','Descripción','Cantidad']] +
       @items.map do |item|
- 
-      [item.tipo, item.nombre, item.descripcion, item.cantidad]
+
+      [item.id, item.nombre.upcase, item.descripcion.upcase, item.cantidad]
     end
   end
 
   def pie_de_pagina
-    font("#{Prawn::DATADIR}/fonts/DejaVuSans.ttf") do 
-      font_size 8
-      text_box "Universidad Simón Bolívar, Edif. Energética, Planta Baja. Valle de Sartenejas, Baruta, " +
-                "Caracas, Edo. Miranda, Venezuela, 89000", :at => [20,11], :height => 8
-      font_size 7
-      text_box "Telef.: +58 212 906-3708 / 3709 / 3710 / 3711  Fax: +58 212 906-3712", :at => [150,0], :height => 7
+    bounding_box [bounds.left, bounds.bottom + 50], :width => bounds.width do
+      font("#{Prawn::DATADIR}/fonts/DejaVuSans.ttf") do
+        font_size 8
+        text "Universidad Simón Bolívar, Edif. Energética, Planta Baja. Valle de Sartenejas, Baruta,\n" +
+                "Caracas, Edo. Miranda, Venezuela, 89000", :height => 8, :align => :center
+        font_size 7
+        text "Telef.: +58 212 906-3708 / 3709 / 3710 / 3711  Fax: +58 212 906-3712", :height => 7, :align => :center
+      end
     end
-    
   end
 
 end

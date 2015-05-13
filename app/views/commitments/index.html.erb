@@ -14,6 +14,12 @@
 		</ol>
 	</div>
 
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
+	</div>   
+
 	<div class="col-xs-12">
 		<h2><center>Compromisos</center></h2>
 	</div>
@@ -64,11 +70,13 @@
 
 	</div>
 
-	<div class="col-xs-12" align="left">
-		<p></p>
-		<%= link_to new_commitment_path do %>
-			<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Compromiso</button>
-		<% end %>
-	</div>
+	<% if current_user.acquisition? or current_user.manage? or current_user.manage_analist? %>
+		<div class="col-xs-12" align="left">
+			<p></p>
+			<%= link_to new_commitment_path do %>
+				<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Compromiso</button>
+			<% end %>
+		</div>
+	<% end %>
 
 </div>

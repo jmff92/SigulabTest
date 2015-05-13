@@ -1,15 +1,343 @@
-<h1>Editar Solicitud de Servicio</h1>
+<%= stylesheet_link_tag 'chemical_substances.css.scss'%>
+<%= javascript_include_tag 'jquery-1.10.2.js'%>
+<%= javascript_include_tag 'jquery-ui.js' %>
+<%= stylesheet_link_tag 'jquery-ui.css'%>
+<%= javascript_include_tag 'tabs.js' %>
+
+<div class="row">
+
+
+<h1>Nueva Solicitud de Servicio</h1>
 <ol class="breadcrumb">
 	<li> <%=link_to 'Inicio', controller: 'statics'%></li>
 	<li> <%=link_to 'Inventario', inventario_url %></li>
 	<li class="active"> Solicitud de Servicio </li>
 </ol>
 
+
+
+<div class="col-xs-12 btn-group text-right">
+  <a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Ítems
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <% @equipment.each do |equipment| %>
+      <li>
+        <a><%= equipment.id2 %> <%=  equipment.name  %></a>
+      </li>
+    <% end %>
+    <% @tools.each do |tool| %>
+      <li>
+        <a><%= tool.id2 %> <%=  tool.name  %></a>
+      </li>
+    <% end %>
+    <% @instruments.each do |instrument| %>
+      <li>
+        <a><%= instrument.id2 %> <%=  instrument.name  %></a>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= link_to inventario_url do %>
+    <button type="button" class="btn btn-primary"><span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Volver</button>
+    <br><br>
+  <% end %>
+</div>
+
+
+    <%= form_for @application, url: {action: 'create'}, html: { class: 'form-horizontal' } do |i| %> 
+      <% if @application.errors.any? %>
+        <div class="col-xs-12" role="alert">
+          <div class="alert alert-danger">
+            <ul>
+              <% @application.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+
 <div id = "table2">
 </div>
 <br>
+</div>
 
-<%= render 'form' %>
 
-<i class="fa fa-arrow-left"></i><%= link_to ' Atrás', inventario_url %>
-<br><br><br><br>
+<div id="tabs">
+    <ul>
+      <li><a href="#tabs-1" class="show">Datos del Solicitante</a></li>
+      <li><a href="#tabs-2" class="hidex">Descripción Del Servicio</a></li>
+      <li><a href="#tabs-3" class="hidex">Datos del provedor de servicio</a></li>
+      <li><a href="#tabs-4" class="hidex">Datos del bien (Objeto de servicio)</a></li>
+    </ul>
+
+
+    <div id="tabs-1">
+      <div class="form-group">
+        <table class="table table-striped">
+
+
+      <tr>
+        <td class="col-xs-5 control-label text-right">Para:</td>
+        <td class="col-xs-7"> Coordinación de Adquisiciones ULab
+        </td>
+      </tr>
+
+    <tr>
+      <td  class="col-xs-5 control-label text-right">De: <span style="color:#FF0000">*</span></td>
+      <td class='col-xs-7'><%= i.text_field :de %></td>
+    </tr>
+
+    <tr>
+      <td class="col-xs-5 control-label text-right">Fecha: <span style="color:#FF0000">*</span></td>
+        <td class="col-xs-7">
+          <%= i.text_field :fechaRequerida, :class => "bootlayout-date" %>
+        </td>
+    </tr>
+
+    <tr>
+      <td class="col-xs-5 control-label text-right">Persona contacto de la Unidad Solictante: <span style="color:#FF0000">*</span></td>
+      <td class='col-xs-7'>
+        <%= i.text_field :personaContactoUnidadS %>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="col-xs-5 control-label text-right">Telefono: <span style="color:#FF0000">*</span></td>
+      <td class='col-xs-7'>
+        <%= i.text_field :telefono1 %>
+      </td>
+    </tr>
+
+    <tr>
+      <td for='income_sae_code' class="col-xs-5 control-label text-right">Telefono Adicional: </td>
+      <td class='col-xs-7'>
+        <%= i.text_field :telefono2 %>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="col-xs-5 control-label text-right">E-mail: </td>
+      <td class='col-xs-7'>
+        <%= i.text_field :email1 %>
+      </td>
+    </tr>
+
+
+      <tr>
+        <td class="col-xs-5 control-label text-right">Uso del Servicio: <span style="color:#FF0000">*</span></td>
+        <td class="col-xs-7">    
+          <%= i.select(:uso, [['DOCENTE'], ['INVESTIGACIÓN']] ) %>
+        </td>
+      </tr>
+
+        </table>
+      </div>
+    </div>
+
+    <div id="tabs-2">
+      <div class="form-group">
+        <table class="table table-striped">
+
+
+      <tr>
+        <td for='income_sae_code' class="col-xs-5 control-label text-right">Descripción detalla del Servicio: <span style="color:#FF0000">*</span></td>
+        <td class='col-xs-7'>
+          <%= i.text_area :descripcion %>
+        </td>
+      </tr>
+
+        </table>
+      </div>
+    </div>
+
+
+    <div id="tabs-3">
+      <div class="form-group">
+        <table class="table table-striped">
+
+
+        <tr>
+          <td class="col-xs-5 control-label text-right">Compañia/Depencia: </td>
+          <td class='col-xs-7'>
+            <%= i.text_field :companiaDepencia %>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="col-xs-5 control-label text-right">Rif: </td>
+          <td class='col-xs-7'>
+            <%= i.text_field :rif %>
+          </td>
+        </tr>
+
+        <tr>
+        <td class="col-xs-5 control-label text-right">Persona de contacto: </td>
+          <td class='col-xs-7'>
+            <%= i.text_field :personaContactoCompania %>
+          </td>
+        </tr>
+
+        <tr>
+        <td class="col-xs-5 control-label text-right">E-mail de contacto: </td>
+          <td class='col-xs-7'>
+            <%= i.text_field :email2 %>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="col-xs-5 control-label text-right">Telefono:</td>
+          <td class='col-xs-7'>
+            <%= i.text_field :telefono3 %>
+          </td>
+        </tr>
+
+        <tr>
+        <td class="col-xs-5 control-label text-right">Telefono Adicional: </td>
+          <td class='col-xs-7'>
+            <%= i.text_field :telefono4 %>
+          </td>
+        </tr>
+
+        <tr>
+        <td class="col-xs-5 control-label text-right">Fecha de cotización: <span style="color:#FF0000">*</span></td>
+            <td class="col-xs-7">
+              <%= i.text_field :fechaCotizacion, :class => "bootlayout-date" %>
+          </td>
+        </tr>
+
+        <tr>
+          <td  class="col-xs-5 control-label text-right">No de cotización: </td>
+          <td class='col-xs-7'>
+            <%= i.text_field :noCotizacion %>
+          </td>
+        </tr>
+
+        <tr>
+          <td  class="col-xs-5 control-label text-right">Monto Total del Servicio: </td>
+          <td class='col-xs-7'>
+            <%= i.text_field :montoTotalServicio %>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="col-xs-5 control-label text-right">Observaciones: <span style="color:#FF0000">*</span></td>
+          <td class='col-xs-7'>
+            <%= i.text_area :observacionesFinales %>
+          </td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+    <div id="tabs-4">
+      <div class="form-group">
+        <table class="table table-striped">
+
+      <% @equipment.each do |equipment| %>
+      <div class="form-group">
+        <table class="table table-striped">
+        <tr>
+          <td class="col-xs-5 text-right">Nombre</td>
+          <td class='col-xs-7'><%=  equipment.name  %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right">Numero de Bien Nacional</td>
+          <td class='col-xs-7'><%=  equipment.national_good  %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right">Ubicación</td>
+          <td class='col-xs-7'><%=  equipment.location  %></td>
+        </tr>
+        </table>
+      </div>
+    <% end %>
+
+    <% @tools.each do |tool| %>
+      <div class="form-group">
+        <table class="table table-striped">
+        <tr>
+          <td class="col-xs-5 control-label text-right">Nombre</td>
+          <td class='col-xs-7'><%=  tool.name  %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 control-label text-right">Numero de Bien Nacional</td>
+          <td class='col-xs-7'><%=  tool.national_good  %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 control-label text-right">Ubicación</td>
+          <td class='col-xs-7'><%=  tool.location  %></td>
+        </tr>
+        </table>
+      </div>
+    <% end %>
+
+    <% @instruments.each do |instrument| %>
+      <div class="form-group">
+        <table class="table table-striped">
+        <tr>
+          <td class="col-xs-5 control-label text-right">Nombre</td>
+          <td class='col-xs-7'><%= instrument.name %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 control-label text-right">Numero de Bien Nacional</td>
+          <td class='col-xs-7'><%=  instrument.national_good  %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 control-label text-right">Ubicación</td>
+          <td class='col-xs-7'><%=  instrument.location  %></td>
+        </tr>
+        </table>
+      </div>
+    <% end %>
+        </table>
+      </div>
+    </div>
+</div>
+<br><br>
+
+      <%= hidden_field_tag "item_ids", @id %>
+
+    <div class="form-group">
+      <div class="col-xs-12 text-center">
+        <button type="submit" class="btn btn-default btn-success"><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Actualizar</button>
+      </div>
+    </div>
+  <% end %>
+</div>
+  <br>
+<br><br>
+<br><br>
+
+  <style>
+
+    .red {
+        font-size               : 22px;
+        color                   : red;
+    }
+
+    .linkButton { 
+       text-decoration: none;
+       text-align: right;
+       color: #384157;
+       font-weight: bold;
+         background: none repeat scroll 0px 0px transparent;
+         border: none;
+    }
+
+    .linkButton:hover {
+        cursor: pointer;
+        color: #8ED6FF;
+        text-align: right;
+        background: none repeat scroll 0% 0% #FFF;
+        text-decoration: none;
+    }
+
+    .linkButton:focus {
+        outline: thin dotted;
+        outline-offset: -2px;
+    }
+
+  </style>

@@ -6,19 +6,28 @@ class InstrumentsController < ApplicationController
   # GET /instruments.json
   def index
     @instruments = Instrument.all
-	if params[:search]
-		@instruments = Instrument.where(:showable => true).search(params[:search])
-		@instruments_all = Instrument.search(params[:search])
-	else
-		@instruments = Instrument.where(:showable => true).all.order('created_at DESC')
-		@instruments_all = Instrument.all.order('created_at DESC')
-	end
-  @sum = Instrument.count
+  	if params[:search]
+  		@instruments = Instrument.where(:showable => true).search(params[:search])
+  		@instruments_all = Instrument.search(params[:search])
+  	else
+  		@instruments = Instrument.where(:showable => true).all.order('created_at DESC')
+  		@instruments_all = Instrument.all.order('created_at DESC')
+  	end
+    @sum = Instrument.count
   end
 
   # GET /instruments/1
   # GET /instruments/1.json
   def show
+
+    @sum = Instrument.count
+    @id = @instrument.id2
+    @relation_service = RelationService.where(item: @id).pluck(:servicio)
+    @applications = Application.where(id: @relation_service)
+
+    @ids = @instrument.id2
+    @records = Record.where(idEquipo: @ids)
+
   end
 
   # GET /instruments/new

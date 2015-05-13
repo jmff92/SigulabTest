@@ -1,0 +1,53 @@
+<div class="row">
+	<div class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><%= link_to 'Inicio', controller: 'statics' %></li>
+			<li><%= link_to 'Administración', administration_path %></li>
+			<li><%= link_to 'Anteproyecto de POA', poas_path %></li>
+			<li><%= link_to @poa.year, @poa %></li>
+			<li class="active">Editar Anteproyecto</li>
+		</ol>
+	</div>
+	<% if @poa.errors.any? %>
+		<div class="col-xs-12" role="alert">
+			<div class="alert alert-danger">
+				<ul>
+					<% @poa.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					<% end %>
+				</ul>	
+			</div>
+		</div>
+	<% end %>
+	<div class="col-xs-12">
+		<%= form_for @poa, url: {action: 'update'}, id: @poa.id, html: { class: 'form-horizontal' } do |i| %>	
+			<div class="form-group">
+				<label for='poa_document' class="col-xs-3 control-label text-right">Documento <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+    				<%= i.file_field :document %>
+				</div>
+			</div>		
+    		<div class="form-group">
+				<label for='poa_year' class="col-xs-3 control-label text-right">Año <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :year, placeholder: 'Año' %>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-xs-offset-3 col-xs-9">
+					<button type="submit" class="btn btn-default btn-primary" onclick="return confirm('¿Está seguro de modificar el anteproyecto?')"><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Actualizar Anteproyecto</button>
+
+					<%= link_to @poa, class: "btn btn-default btn-danger" do %>
+						<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Cancelar Operación
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+	<div class="col-xs-12">
+		<div class="well">
+			<span style="color:#FF0000">*</span> Los campos son obligatorios.
+		</div>
+	</div>
+</div>

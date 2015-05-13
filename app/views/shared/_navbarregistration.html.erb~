@@ -1,0 +1,25 @@
+	<div class="container">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<!-- TITLE AND BUTTON COLLAPSER -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sigulabmenu">
+						<span class="sr-only">Toggle navigation</span>
+					</button>
+					<%= link_to 'SIGULAB', root_path, class: 'navbar-brand' %>
+				</div>
+				<!-- COLLAPSABLE MENU -->
+				<div class="collapse navbar-collapse" id="sigulabmenu">
+					<ul class="nav navbar-nav">
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<div class="btn-group">
+								<a href="<%= new_user_session_path %>"><button type="button" class="btn btn-default navbar-btn btn-primary">Iniciar Sesión</button></a>
+							</div>
+						</li>						
+					</ul>
+				</div><!-- end of collapsable sigulabmenu -->
+			</div><!-- end of container-fluid -->
+		</nav><!-- end of navbar -->
+	</div><!-- end of container -->

@@ -16,31 +16,31 @@ function setSAECodeIncomes() {
 
 	saeCode = "";
 
-	if ($('#income_lab_id').val()==1)
+	if ($('#income_lab_id').val()==0)
 		saeCode = "01.05.03.01";
 
-	if ($('#income_lab_id').val()==2)
+	if ($('#income_lab_id').val()==1)
 		saeCode = "01.05.03.03";
 
-	if ($('#income_lab_id').val()==3)
+	if ($('#income_lab_id').val()==2)
 		saeCode = "01.05.03.04";
 
-	if ($('#income_lab_id').val()==4)
+	if ($('#income_lab_id').val()==3)
 		saeCode = "01.05.03.05";
 
-	if ($('#income_lab_id').val()==5)
+	if ($('#income_lab_id').val()==4)
 		saeCode = "01.05.03.06";
 
-	if ($('#income_lab_id').val()==6)
+	if ($('#income_lab_id').val()==5)
 		saeCode = "01.05.03.07";
 
-	if ($('#income_lab_id').val()==7)
+	if ($('#income_lab_id').val()==6)
 		saeCode = "01.05.03.08";
 
-	if ($('#income_lab_id').val()==8)
+	if ($('#income_lab_id').val()==7)
 		saeCode = "01.05.03.09";
 
-	if ($('#income_lab_id').val()==9)
+	if ($('#income_lab_id').val()==8)
 		saeCode = "01.05.03.02";
 
 	$('#income_sae_code').val(saeCode);
@@ -50,31 +50,32 @@ function setSAECodeIncomes() {
 function setSAECodeCommitments() {
 
 	saeCode = "";
-	if ($('#commitment_lab_id').val()==1)
+
+	if ($('#commitment_lab_id').val()==0)
 		saeCode = "01.05.03.01";
 
-	if ($('#commitment_lab_id').val()==2)
+	if ($('#commitment_lab_id').val()==1)
 		saeCode = "01.05.03.03";
 
-	if ($('#commitment_lab_id').val()==3)
+	if ($('#commitment_lab_id').val()==2)
 		saeCode = "01.05.03.04";
 
-	if ($('#commitment_lab_id').val()==4)
+	if ($('#commitment_lab_id').val()==3)
 		saeCode = "01.05.03.05";
 
-	if ($('#commitment_lab_id').val()==5)
+	if ($('#commitment_lab_id').val()==4)
 		saeCode = "01.05.03.06";
 
-	if ($('#commitment_lab_id').val()==6)
+	if ($('#commitment_lab_id').val()==5)
 		saeCode = "01.05.03.07";
 
-	if ($('#commitment_lab_id').val()==7)
+	if ($('#commitment_lab_id').val()==6)
 		saeCode = "01.05.03.08";
 
-	if ($('#commitment_lab_id').val()==8)
+	if ($('#commitment_lab_id').val()==7)
 		saeCode = "01.05.03.09";
 
-	if ($('#commitment_lab_id').val()==9)
+	if ($('#commitment_lab_id').val()==8)
 		saeCode = "01.05.03.02";
 
 	$('#commitment_sae_code').val(saeCode);

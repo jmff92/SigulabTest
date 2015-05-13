@@ -13,8 +13,9 @@ class ComprandoController < ApplicationController
       session[:specification_p5] = @specification.p5
       session[:specification_p6] = @specification.p6
       session[:specification_p7] = @specification.p7
-session[:specification_p8] = @specification.p8
+      session[:specification_p8] = @specification.p8
       session[:specification_p9] = @specification.p9
+      
       session[:specification_sel_nacional] = @specification.nacional
       session[:recom_id] = -1   
       if @specification.tipo == "Servicios"

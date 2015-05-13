@@ -7,13 +7,21 @@
 	</div>
 	<div class="col-xs-8 col-xs-offset-2">
 		<ul class="administration-list">
-			<li><h3><a href="#"><i class="fa fa-paint-brush"></i>Anteproyecto de POA</a></h3></li>
-			<li><%= link_to controller: :budget do %>
-				<h3><i class="fa fa-money"></i>Presupuesto</h3>
-			<% end %></li>
-			<li><%= link_to controller: :projects do %>
-				<li><h3><i class="fa fa-clipboard"></i>Proyectos</h3></li>
-			<% end %></li>
+			<% if current_user.director? or current_user.directorate? or current_user.acquisition? or  current_user.manage? or current_user.labBoss? or	current_user.labassistant? or current_user.acquisition_analist? %>
+    			<li><%= link_to controller: :poas do %>
+     				<h3><i class="fa fa-paint-brush"></i>Anteproyecto de POA</h3>
+				<% end %></li>
+			<% end %>					
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or 	current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.import_analist? or current_user.manage? or current_user.manage_analist? or current_user.quality? or  current_user.quality_analist? or current_user.labBoss? or current_user.labassistant? %>
+				<li><%= link_to controller: :budget do %>
+					<h3><i class="fa fa-money"></i>Presupuesto</h3>
+				<% end %></li>
+			<% end %>				
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.import_analist? or current_user.manage? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? or current_user.labBoss? or current_user.labassistant? or current_user.section_boss? or current_user.proy_responsible? or current_user.technician? %>			
+				<li><%= link_to controller: :projects do %>
+					<li><h3><i class="fa fa-clipboard"></i>Proyectos</h3></li>
+				<% end %></li>
+			<% end %>				
 		</ul>
 	</div>
 </div>

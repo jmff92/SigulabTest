@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  resources :records
   resources :relation_loans
 
   resources :relation_services
@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   resources :loans
 
   resources :specifications
-
+  
+  resources :servicerequests
+   
   resources :requisitions
 
   resources :quotes
@@ -30,9 +32,13 @@ Rails.application.routes.draw do
 
   get 'ofertas/index'
 
+  get 'records/show'
+
   get 'informe_recomendacion/index'
 
   post 'loans/new'
+
+  post 'records/new'
 
   resources :invitations
   resources :services
@@ -45,6 +51,8 @@ Rails.application.routes.draw do
   resources :recommendations
   resources :relations
   resources :requests
+  resources :buygoods
+  resources :buyservices
   resources :comprando do
     collection do
         get 'seleccionarEspecificacion', as: :seleccionarEspecificacion
@@ -76,12 +84,15 @@ end
   # Rutas del Subsistema de Administracion
   get 'administration/budget/(:action)', to: 'budget', as: :budget
   get 'administration/(:action)', to: 'administration', as: :administration
+  get "/administration/notifications", to: "notifications#administration", :as => "notifications/administration"
   get "/executions/list", to: "executions#list", :as => "executions/list"
   get "/projects/list", to: "projects#list", :as => "projects/list"
   get "/projects/admin", to: "projects#admin", :as => "projects/admin"
   get "/projcommitments/list", to: "projcommitments#list", :as => "projcommitments/list"
   get "/projexecutions/list", to: "projexecutions#list", :as => "projexecutions/list"
+  get "projpaymentauths/list", to: "projpaymentauths#list", :as => "projpaymentauths/list"
   get "/projincomes/all", to: "projincomes#all", :as => "projincomes/all"
+  get "projpaymentauths/all", to: "projpaymentauths#all", :as => "projpaymentauths/all"
   get "/projcommitments/all", to: "projcommitments#all", :as => "projcommitments/all"
   get "/projexecutions/all", to: "projexecutions#all", :as => "projexecutions/all"
 
@@ -89,17 +100,45 @@ end
   get "/commitments/list_lab", to: "commitments#list_lab", :as => "commitments/list_lab"
   get "/executions/list_lab", to: "executions#list_lab", :as => "executions/list_lab"
 
-  resources :incomes
+  resources :poas do
+    get 'delete', on: :member
+	 end
+  resources :incomes do
+    get 'valid_adm', on: :member
+    get 'valid_dir', on: :member
+    get 'delete', on: :member
+  end
+  resources :paymentauths do
+    get 'annul', on: :member
+    get 'delete', on: :member
+  end
   resources :commitments
   resources :executions do 
     get 'annul', on: :member
+    get 'delete', on: :member
+    get 'valid_adm', on: :member
+    get 'valid_dir', on: :member
   end
-  resources :projects
-  resources :projcommitments
+  resources :projects do
+    get 'valid_resp', on: :member
+    get 'delete', on: :member
+  end
+  resources :projcommitments do
+    get 'valid', on: :member
+    get 'delete', on: :member
+  end
+  resources :projpaymentauths do
+    get 'annul', on: :member
+    get 'delete', on: :member
+  end
   resources :projincomes
   resources :projexecutions do
     get 'annul', on: :member
+    get 'valid', on: :member
+    get 'delete', on: :member
   end
+
+
 
 
   # Example of regular route:

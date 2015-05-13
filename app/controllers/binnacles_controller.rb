@@ -2,7 +2,7 @@ class BinnaclesController < ApplicationController
   layout 'bootlayout'
   before_action :set_binnacle, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
-
+  responders :flash
   respond_to :html
 
   def index
@@ -68,7 +68,6 @@ class BinnaclesController < ApplicationController
         f.json { render json: @binnacle.errors, status: :unprocessable_entity }
       end
     end
-    
   end
 
   def update

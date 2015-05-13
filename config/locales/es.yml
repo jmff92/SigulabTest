@@ -37,6 +37,7 @@ es:
       projincome: "Ingreso de Proyecto"
       projcommitment: "Compromiso de Proyecto"
       projexecution: "Ejecución de Proyecto"
+      record: "Bitácora"
     attributes:
       binnacle:
         fecha: "Fecha"
@@ -166,6 +167,19 @@ es:
         document_date: "Fecha del Documento"
         invoice_number: "Número de la Factura"
         invoice_date: "Fecha de la Factura"
+      user:
+        password: "Contraseña"
+        email: "Correo"
+        name: "Nombre"
+        surname: "Apellido"
+      record:
+        fecha: "Fecha"
+        nos: "No. O/S"
+        tipoServicio: "Tipo de Servicio"
+        descripcion: "Descripción"
+        fechaini: "Fecha de Inicio"
+        fechafin: "Fecha de Culminación"
+        observaciones: "Observaciones"
     errors:
       models:
         income:
@@ -185,3 +199,4 @@ es:
   errors:
     messages:
       extension_white_list_error: "No está permitido subir archivos con extensión %{extension}, solo: %{allowed_types}"
+      not_saved: "No guardado"

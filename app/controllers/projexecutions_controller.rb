@@ -7,28 +7,28 @@ class ProjexecutionsController < ApplicationController
     if params[:id]
       @project = Project.find(params[:id])
     end           
-    @projexecutions = Projexecution.order("date ASC").where("proyecto=?",params[:id])
+    @projexecutions = Projexecution.order("date ASC").where("proyecto=?",params[:id]).where("valid_res=?", true)
     @sum = @projexecutions.where("check_annulled=false").where("proyecto=?",params[:id]).sum(:check_amount)
   end
 
   def all
-    @projexecutions = Projexecution.all.order("date ASC")
+    @projexecutions = Projexecution.all.order("date ASC").where("valid_res=?", true)
     @sum = @projexecutions.where("check_annulled=false").sum(:check_amount)
   end
 
    def show
-     @projexecution = Projexecution.find(params[:id])
-     @projcommitment = Projcommitment.find(@projexecution.commitment_id)
-     @project = Project.find(@projcommitment.proj_id)
-     @projexecutions = Projexecution.where("commitment_id=?",params[:id])
+     @projexecution = Projexecution.find(params[:id]).where("valid_res=?", true)
+     @projcommitment = Projcommitment.find(@projexecution.commitment_id).where("valid_res=?", true)
+     @project = Project.find(@projcommitment.proj_id).where("valid_res=?", true)
+     @projexecutions = Projexecution.where("commitment_id=?",params[:id]).where("valid_res=?", true)
      @sum = @projexecutions.where("check_annulled=false").sum(:check_amount)
    end
 
    def list
-     @projexecutions = Projexecution.where("commitment_id=?",params[:cid])
+     @projexecutions = Projexecution.where("commitment_id=?",params[:cid]).where("valid_res=?", true)
      @sum = @projexecutions.where("check_annulled=false").sum(:check_amount)
-     @commitments = Projcommitment.find(params[:cid])
-     @project = Project.find(@commitments.proj_id)
+     @commitments = Projcommitment.find(params[:cid]).where("valid_res=?", true)
+     @project = Project.find(@commitments.proj_id).where("valid_res=?", true)
      @sum_commitment = @commitments.amount
    end
   
@@ -94,11 +94,11 @@ class ProjexecutionsController < ApplicationController
          end
        end
      end
-     @projexecution = Projexecution.find(params[:id])
-     @commitment = Projcommitment.find(Projexecution.find(params[:id]).commitment_id)    
+     @projexecution = Projexecution.find(params[:id]).where("valid_res=?", true)
+     @commitment = Projcommitment.find(Projexecution.find(params[:id]).commitment_id).where("valid_res=?", true)    
 
      @oldamount = @projexecution.check_amount    
-     @projexecutions = Projexecution.where("commitment_id=?", @projexecution.commitment_id)
+     @projexecutions = Projexecution.where("commitment_id=?", @projexecution.commitment_id).where("valid_res=?", true)
      @projexecuted = @projexecutions.where("check_annulled=false").sum(:check_amount) - @oldamount
 
      if params[:projexecution][:check_amount].to_i > @commitment.amount - @projexecuted
@@ -116,13 +116,25 @@ class ProjexecutionsController < ApplicationController
 
    def annul
      @projexecution = Projexecution.find(params[:id])
-     @projexecution.update_attribute(:check_annulled, true)
+     @projexecution.update_column(:check_annulled, true)
      redirect_to :back
    end
+
+  def valid
+    @projexecution = Projexecution.find(params[:id])
+    @projexecution.update_column(:valid_res, true)
+    redirect_to :back
+  end     
+
+  def delete
+    @projexecution = Projexecution.find params[:id]
+    @projexecution.destroy
+    redirect_to :back    
+  end       
   
    private
        def execution_params
-         params.require(:projexecution).permit(:code, :commitment_id, :proyecto, :check_amount, :check_number, :check_elaboration_date, :document, :check_sign_date, :check_delivery_date, :remarks, :document_date, :invoice_number, :invoice_date)
+         params.require(:projexecution).permit(:code, :commitment_id, :proyecto, :check_amount, :check_number, :check_elaboration_date, :document, :check_sign_date, :check_delivery_date, :remarks, :document_date, :invoice_number, :invoice_date, :valid)
      end
     
      def purge_date(date)

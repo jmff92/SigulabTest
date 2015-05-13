@@ -63,10 +63,19 @@ class ReporteProjects < Prawn::Document
       @incomes_proj_pdf = number_to_currency(@incomes_proj, format: "%n", delimiter: ".", separator: ",")
       @commitments_proj_pdf = number_to_currency(@commitments_proj, format: "%n", delimiter: ".", separator: ",")      
       @executions_commitment_pdf = number_to_currency(@executions_commitment, format: "%n", delimiter: ".", separator: ",")      
-      @available = number_to_currency(@incomes_proj-@commitments_proj, format: "%n", delimiter: ".", separator: ",")            
+      @available = number_to_currency(@incomes_proj-@commitments_proj, format: "%n", delimiter: ".", separator: ",")
 
-  		[p.project_number,"Bs. #{@incomes_proj_pdf}","Bs. #{@commitments_proj_pdf}","Bs. #{@executions_commitment_pdf}","Bs. #{@available}"]
+      if @available.to_i >= 0
+  		  dato = [p.project_number,"Bs. #{@incomes_proj_pdf}","Bs. #{@commitments_proj_pdf}","Bs. #{@executions_commitment_pdf}","Bs. #{@available}"]
+        dato
+      else
+        # PENDIENTE Colocar columna 4 (@available) en rojo
+        dato = [p.project_number,"Bs. #{@incomes_proj_pdf}","Bs. #{@commitments_proj_pdf}","Bs. #{@executions_commitment_pdf}","Bs. #{@available}"]
+        dato
+      end
+
   	end
+
   end
 
   def table2
@@ -86,6 +95,7 @@ class ReporteProjects < Prawn::Document
 
   	[ ["", "Monto Asignado", "Monto Comprometido", "Monto Ejecutado", "Saldo Disponible"] ] + 
   	[ ["TOTALES","Bs. #{@incomes_total}","Bs. #{@commitments_total}","Bs. #{@executions_total}","Bs. #{@available_total}"] ]
+
   end
 
   def footer

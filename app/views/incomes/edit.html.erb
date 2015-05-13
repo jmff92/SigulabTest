@@ -134,6 +134,9 @@ meta física </label>
 					<%= i.text_area :resource_description, class: 'form-control' %>
 				</div>
 			</div>
+
+			<%= i.hidden_field :valid_adm, :value => false %>
+			<%= i.hidden_field :valid_dir, :value => false %>
 			
 			<div class="form-group">
 				<div class="col-xs-offset-3 col-xs-9">

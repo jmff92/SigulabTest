@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150306143627) do
+=======
+ActiveRecord::Schema.define(version: 20150509183221) do
+>>>>>>> 90d15feb3baa5a7f2d9dbfbfb8d8af65865d56b0
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +40,21 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.string   "uso"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "de"
+    t.string   "personaContactoUnidadS"
+    t.string   "telefono1"
+    t.string   "telefono2"
+    t.string   "companiaDepencia"
+    t.string   "rif"
+    t.string   "personaContactoCompania"
+    t.string   "email1"
+    t.string   "email2"
+    t.string   "telefono3"
+    t.string   "telefono4"
+    t.time     "fechaCotizacion"
+    t.integer  "noCotizacion"
+    t.integer  "montoTotalServicio"
+    t.string   "observacionesFinales"
   end
 
   create_table "binnacles", force: true do |t|
@@ -134,11 +153,15 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.string   "buy_order"
     t.date     "adquisition_date"
     t.text     "description"
-    t.boolean  "showable",         default: true
+    t.boolean  "showable",                default: true
     t.string   "dependency"
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "devolutions", force: true do |t|
@@ -193,6 +216,7 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.integer  "estimado"
     t.string   "numDocumento"
     t.date     "fechaDocumento"
+    t.string   "document"
   end
 
   create_table "equipment", force: true do |t|
@@ -222,12 +246,16 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.string   "measurelength"
     t.string   "measuredepth"
     t.string   "measurewidth"
-    t.boolean  "showable",         default: true
+    t.boolean  "showable",                default: true
     t.string   "dependency"
     t.integer  "numSolicitud"
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "executions", force: true do |t|
@@ -249,6 +277,8 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.date     "document_date"
     t.string   "invoice_number"
     t.date     "invoice_date"
+    t.boolean  "valid_adm",              default: false
+    t.boolean  "valid_dir",              default: false
   end
 
   add_index "executions", ["commitment_id"], name: "index_executions_on_commitment_id", using: :btree
@@ -272,6 +302,8 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.string   "doccode"
     t.string   "doc_code"
     t.date     "doc_date"
+    t.boolean  "valid_adm",            default: false
+    t.boolean  "valid_dir",            default: false
   end
 
   create_table "instruments", force: true do |t|
@@ -296,11 +328,15 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.string   "bill"
     t.string   "buy_order"
     t.date     "adquisition_date"
-    t.boolean  "showable",         default: true
+    t.boolean  "showable",                default: true
     t.string   "dependency"
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "invitations", force: true do |t|
@@ -368,6 +404,59 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.string   "descripcion"
     t.string   "uso"
     t.boolean  "esprestado"
+    t.boolean  "docencia"
+    t.boolean  "investigacion"
+    t.boolean  "extension"
+    t.boolean  "apoyo"
+    t.boolean  "enemar"
+    t.boolean  "abrjul"
+    t.boolean  "verano"
+    t.boolean  "sepdic"
+    t.boolean  "sem1"
+    t.boolean  "sem2"
+    t.boolean  "sem3"
+    t.boolean  "sem4"
+    t.boolean  "sem5"
+    t.boolean  "sem6"
+    t.boolean  "sem7"
+    t.boolean  "sem8"
+    t.boolean  "sem9"
+    t.boolean  "sem10"
+    t.boolean  "sem11"
+    t.boolean  "sem12"
+    t.time     "horalunes"
+    t.time     "horaMartes"
+    t.time     "horaMiercoles"
+    t.time     "horaJueves"
+    t.time     "horaViernes"
+    t.boolean  "lunes"
+    t.boolean  "martes"
+    t.boolean  "miercoles"
+    t.boolean  "jueves"
+    t.boolean  "viernes"
+    t.string   "persona"
+    t.integer  "cedula"
+    t.boolean  "todoLun"
+    t.boolean  "todoMar"
+    t.boolean  "todoMie"
+    t.boolean  "todoJue"
+    t.boolean  "todoVie"
+  end
+
+  create_table "paymentauths", force: true do |t|
+    t.string   "recipient"
+    t.string   "registry"
+    t.string   "from"
+    t.date     "elaboration_date"
+    t.date     "delivery_date"
+    t.string   "delivered_id"
+    t.string   "concept"
+    t.float    "amount"
+    t.string   "observations"
+    t.string   "recieved_by"
+    t.boolean  "is_valid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "projcommitments", force: true do |t|
@@ -381,6 +470,7 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.integer  "document"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "valid_res",    default: false
   end
 
   create_table "projects", force: true do |t|
@@ -408,6 +498,10 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.string   "substitute"
     t.text     "observation"
     t.integer  "banco"
+<<<<<<< HEAD
+=======
+    t.boolean  "valid_res",      default: false
+>>>>>>> 90d15feb3baa5a7f2d9dbfbfb8d8af65865d56b0
   end
 
   create_table "projexecutions", force: true do |t|
@@ -429,6 +523,7 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.date     "document_date"
     t.string   "invoice_number"
     t.date     "invoice_date"
+    t.boolean  "valid_res",              default: false
   end
 
   create_table "projincomes", force: true do |t|
@@ -447,6 +542,23 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.date     "doc_date"
     t.string   "unit"
     t.string   "observations"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "projpaymentauths", force: true do |t|
+    t.integer  "proyect"
+    t.string   "recipient"
+    t.string   "registry"
+    t.string   "from"
+    t.date     "elaboration_date"
+    t.date     "delivery_date"
+    t.string   "delivered_id"
+    t.string   "concept"
+    t.float    "amount"
+    t.string   "observations"
+    t.string   "recieved_by"
+    t.boolean  "is_valid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -484,6 +596,19 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.integer "precio"
     t.integer "tiempo"
     t.integer "cumplio_req"
+  end
+
+  create_table "records", force: true do |t|
+    t.string   "fecha"
+    t.string   "nos"
+    t.string   "tipoServicio"
+    t.string   "descripcion"
+    t.string   "fechaini"
+    t.string   "fechafin"
+    t.string   "observaciones"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "idEquipo"
   end
 
   create_table "relation_loans", force: true do |t|
@@ -557,8 +682,27 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_id"
+    t.string   "attachment"
+    t.integer  "specification_id"
   end
 
+<<<<<<< HEAD
+=======
+  create_table "servicerequests", force: true do |t|
+    t.string   "seccion"
+    t.string   "contacto_int"
+    t.string   "correo_int"
+    t.string   "extension"
+    t.string   "monto"
+    t.text     "observacion"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "user_id"
+    t.integer  "specification_id"
+    t.datetime "fecha"
+  end
+
+>>>>>>> 90d15feb3baa5a7f2d9dbfbfb8d8af65865d56b0
   create_table "services", force: true do |t|
     t.string   "nombre"
     t.string   "numero"
@@ -621,6 +765,10 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.string   "id2"
     t.string   "tipo"
     t.string   "origen"
+    t.string   "NumDonacion"
+    t.string   "FechaDonacion"
+    t.string   "PJDonacion"
+    t.string   "PersonaContactoDonacion"
   end
 
   create_table "users", force: true do |t|
@@ -654,6 +802,8 @@ ActiveRecord::Schema.define(version: 20150306143627) do
     t.boolean  "section_boss"
     t.boolean  "proy_responsible"
     t.boolean  "external"
+    t.string   "name"
+    t.string   "surname"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

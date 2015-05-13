@@ -1,0 +1,113 @@
+<div class="row">
+	<div class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><%= link_to 'Inicio', controller: 'statics' %></li>
+			<li><%= link_to 'Administración', administration_path %></li>
+			<li><%= link_to 'Presupuesto', budget_path %></li>
+			<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.manage? or current_user.manage_analist? or current_user.quality? %>
+				<li><%= link_to 'Autorizaciones de Pago', paymentauths_path %></li>
+			<% else %>
+			<% end %>			
+			<li class="active"><%= @pay.id%></li>
+		</ol>
+	</div>
+
+	<div class="col-xs-12" align="right">
+		<%= link_to 'javascript:history.go(-1);', class: "btn btn-primary" do %>
+     		<span class="glyphicon glyphicon-arrow-left"></span></span>&nbsp;&nbsp;Volver
+    	<% end %>
+		</br>
+		</br>    	
+	</div>   
+
+	<div class="col-xs-12">
+		<table class="table table-striped">
+			<tr>
+				<td class="col-xs-5 text-right">Registro:</td>
+				<td class="col-xs-7"><%= @pay.registry %></td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">De:</td>
+				<td class="col-xs-7"><%= @pay.from %></td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">Fecha:</td>
+				<td class="col-xs-7"><%= @pay.elaboration_date.strftime('%d/%m/%Y') %></td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">Beneficiario:</td>
+				<td class="col-xs-7"><%= @pay.recipient %></td>
+			</tr>
+			<tr>
+				<td class="col-xs-5 text-right">C.I. o RIF:</td>
+				<td class="col-xs-7"><%= @pay.delivered_id %></td>
+			</tr>
+		 <tr>
+			 <td class="col-xs-5 text-right">Concepto:</td>
+    <td class="col-xs-7"><%= @pay.concept %></td>
+		 </tr>
+			<% if !@pay.delivery_date.blank? -%>
+		      <tr>
+			    <td class="col-xs-5 text-right">Fecha de recepción:</td>
+                <td class="col-xs-7"><%= @pay.delivery_date %></td>
+			  </tr>
+		   <tr>
+			    <td class="col-xs-5 text-right">Recibido por:</td>
+                <td class="col-xs-7"><%= @pay.recieved_by %></td>
+			  </tr>
+			<% end %>
+			<% if !@pay.observations.blank? -%>
+		      <tr>
+			    <td class="col-xs-5 text-right">Observaciones:</td>
+                <td class="col-xs-7"><%= @pay.observations %></td>
+			  </tr>
+			<% end %>
+   	        <tr>
+			    <td class="col-xs-5 text-right">Status:</td>
+                <% if @pay.status=="annulled" %>
+                	<td class="col-xs-7"> Anulada </td>
+                <% elsif !@pay.delivery_date.blank? %>
+                	<td class="col-xs-7"> Recibida </td>
+                <% else %>	
+                	<td class="col-xs-7"> Sin recibir </td>                
+                <% end %>
+			</tr>		
+			<tr class="success">
+				<td class="col-xs-5 text-right"><font size=3.6> Monto: </font></td>
+				<td class="col-xs-7"> <div id="span1"> <font size=3.6> Bs. </div> <div id="span2" align="right"> <font size=3.6> <%= number_to_currency(@pay.amount, format: "%n", delimiter: ".", separator: ",") %> </font> </div> </td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-xs-12">
+		<% if current_user.directorate? or current_user.gsmp? or current_user.acquisition_analist? or current_user.acquisition? or current_user.manage? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? or current_user.import? or current_user.import_analist? or current_user.labBoss? %>
+		<!-- Pendiente que solo puedan editar propias autorizaciones de pago -->
+			<% if @pay.status!="annulled" %>
+				<%= link_to edit_paymentauth_path do %>
+					<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Autorización de Pago</button>
+				<% end %>
+			<% end %>
+		<% end %>			
+		<% if !@pay.delivery_date.blank? and @pay.status!="annulled" %>
+			<% if current_user.directorate? or current_user.gsmp? or current_user.acquisition_analist? or current_user.acquisition? or current_user.manage? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? or current_user.import? or current_user.import_analist? or current_user.labBoss? %>
+			<!-- Pendiente que solo puedan eliminar propias autorizaciones de pago -->
+				<%= link_to delete_paymentauth_path, data: {confirm: "¿Está seguro de eliminar la autorización de pago?"} do %>
+					<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Eliminar Autorización de Pago</button>
+     			<% end %>
+     		<% end %>
+		<% else %>
+		    <% if current_user.manage? %> 			
+				<% if @pay.status!="annulled" %>
+	    			<%= link_to annul_paymentauth_path, data: {confirm: "¿Está seguro de anular la autorización de pago?"} do %>
+						<button type="button" class="btn btn-danger"}><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Anular Autorización de Pago</button>
+	    			<% end %>
+				<% end %>
+			<% end %>
+ 		<% end %>	     		
+		<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Generar Autorización de Pago </button>'.html_safe, paymentauth_path(@pay, :format => 'pdf') %>	
+	</div>
+</div>
+
+<style>
+	#span1 { width: 25px; float: left; height:100%; }
+    #span2 { width: 110px; float: left; height:50%;}
+</style>

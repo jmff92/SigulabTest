@@ -1,91 +1,80 @@
+<%= render 'menu' %>
+<br/>
+<div style="text-align: right; height: 45px; margin-top: 12px;">
+      
+<% if session['specification_p6'] != 2 %>
+	<%= link_to '<button type="button" class="btn btn-warning"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar </button>'.html_safe, edit_requisition_path(@requisition) %>
+<% if @mostrar %>   <%= link_to '<button type="button" class="btn btn-danger"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, @requisition,method: :delete,
+       data: { confirm: '¿Está seguro que desea eliminar la requisición?' } %><% end %><% else %>Ya no puede editar porque se generó la requisición. <% end %>
+<% if session['specification_p6'] == 2 %><a href='?pdf=1' target="_blank"><button type="button" class="btn btn-primary"> Descargar </button></a><% else %> <% if @sumRec != 0 %><%= link_to '<button type="button" class="btn btn-primary"> Descargar </button>'.html_safe, requisitions_path(@requisition, :format => 'xml'), target: '_blank', :onclick => "return confirm('¿Está seguro que desea generar la requisición? Luego de hacerlo no podrá modificarla ni eliminarla.')" %> <% end %><% end %>
+	</div>
 
-<div class="grid_12">
-      <ol class="breadcrumb">
-          <li> <%=link_to 'Inicio', controller: 'statics'%></li>
-      <li> <%=link_to 'Compras', compras_url %></li>
-      <li> <%=link_to 'Especificaciones Técnicas', specifications_url %></li>
-          <li> <%=link_to 'Solicitud', solicitud_url %></li>
-          <li class="active"> Requisición </a></li>
-      </ol>
+  <table id="actTable" class="table table-striped">
+   <tr>
+				<th class="active text-center" colspan="2"><h2>Requisición</h2></th>
+			</tr>
+	  	 <tr>
+       	<td class="col-xs-5 text-right">Nro de requisición</td>
+       	<td class="col-xs-7"><%=@requisition.numero%></td>
+    	</tr>
+	  	 <tr>
+       	<td class="col-xs-5 text-right">Fecha</td>
+       	<td class="col-xs-7"><%=@requisition.observacion%></td>
+    	</tr>
+	  	 <tr>
+       	<td class="col-xs-5 text-right">Unidad solicitante</td>
+       	<td class="col-xs-7"><%=@requisition.solicitante%></td>
+    	</tr>
+
+     	 <tr>
+       	<td class="col-xs-5 text-right">Requisición</td>
+       	<td class="col-xs-7"><a href='<%= @requisition.archivo %>'>Ver Requisición</a></td>
+    	</tr>
+
+	</table>
+
+	</div>
 </div>
-
-<div class="grid_12">
-  <div id="tittle">
-  <table id="requisitionTable" class="table table-bordered">
-    <thead>
-       <tr>
-       <th>Número de registro</th>
-       <td><%= @requisition.id %></td>
-     </tr>
-     <tr>
-       <th>Unidad Solicitante</th>
-       <td><%= @requisition.solicitante %></td>
-     </tr>
-     <tr>
-       <th>Unidad Consumidora</th>
-       <td><%= @requisition.consumidor %></td>
-     </tr>
-       <tr>
-       <th>Cargado a la partida:</th>
-       <td><%= @requisition.partida %></td>
-     </tr>
-     <tr>
-       <th>Autor</th>
-       <td><%= @requisition.autor %></td>
-     </tr>
-     <tr>
-       <th>Observaciones</th>
-       <td><%= @requisition.observacion %></td>
-     </tr>
-    </thead>
-   </table>
-   <%= link_to '<button type="button" class="btn btn-primary"> Agregar otra Requisición </button>'.html_safe, new_requisition_path(@requisition) %><br><br>
-   <%= link_to '<button type="button" class="btn btn-primary"> Descargar Requisición  </button>'.html_safe,
-                                             requisition_path(@requisition, :format => 'pdf') %> <br><br>
-   <%= link_to '<button type="button" class="btn btn-primary"> Modificar </button>'.html_safe, edit_requisition_path(@requisition) %><br><br>
-   <%= link_to '<button type="button" class="btn btn-primary"> Eliminar </button>'.html_safe, @requisition,method: :delete,
-       data: { confirm: '¿Está seguro que desea eliminar el Acto Motivado?' } %></td><br><br>
-   <%= link_to '<button type="button" class="btn btn-primary"> Finalizar </button>'.html_safe, requisitions_path %><br>
-  </div>
-</div>
-
-
 
 <style>
 
-
-
-#requisitionTable th, td, tr{
-  border-color:#7A7070;
-  font-size: 14px;
+#quoteTable th, td, tr{
+	border-color:#7A7070;
+   font-size: 14px;
  
 }
 
-#requisitionTable th {
+#quoteTable th {
 background-color: #F2F8F7;
 }
 
 
+
 .table-bordered {
 
-  border-color:#7A7070;
+	border-color:#7A7070;
 
 }
 
 .table-bordered>tbody>tr>td {
 
-  border-color:#7A7070;
-  background-color: #F2F8F7;
+	border-color:#7A7070;
+
 
 }
 
 
-#requisitionTable td:nth-child(even) {
+#quoteTable td:nth-child(even) {
 
 border-color:#7A7070;
 
 }
 
 </style>
-
+<script>
+if (window.location.search.replace("?", "") == "pdf=1")
+{
+window.location.href = "<%= @requisition.archivo %>";
+}
+</script>
 
