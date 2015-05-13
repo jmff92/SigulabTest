@@ -79,7 +79,8 @@
 		</table>
 	</div>
 	<div class="col-xs-12">
-		<% if current_user.acquisition? or current_user.manage? or current_user.manage_analist? %>
+		<% if current_user.proy_responsible? %>
+		<!-- Solo disponible para responsable del proy -->
 			<% if @pay.status!="annulled" %>
 				<%= link_to edit_paymentauth_path do %>
 					<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Autorización de Pago</button>
@@ -90,10 +91,12 @@
 					<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Eliminar Autorización de Pago</button>
      			<% end %>
 			<% else %>     			
-				<% if @pay.status!="annulled" %>
-	     			<%= link_to annul_paymentauth_path, data: {confirm: "¿Está seguro de anular la autorización de pago?"} do %>
-						<button type="button" class="btn btn-danger"}><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Anular Autorización de Pago</button>
-	     			<% end %>
+				<% if current_user.manage? or current_user.manage_analist? %>
+					<% if @pay.status!="annulled" %>
+	     				<%= link_to annul_paymentauth_path, data: {confirm: "¿Está seguro de anular la autorización de pago?"} do %>
+							<button type="button" class="btn btn-danger"}><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Anular Autorización de Pago</button>
+	     				<% end %>
+					<% end %>	     			
 				<% end %>	     			
  			<% end %>
 		<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Generar Autorización de Pago </button>'.html_safe, paymentauth_path(@pay, :format => 'pdf') %>

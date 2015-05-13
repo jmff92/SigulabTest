@@ -206,11 +206,13 @@
 </div>
 
 </br>
-<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.manage? or current_user.manage_analist? or current_user.proy_responsible? %>	
+
+<% if current_user.director? or current_user.directorate? or current_user.manage? or current_user.manage_analist? or current_user.proy_responsible? %>	
 	<div class="col-xs-12">
 		<%= link_to controller: 'projincomes', id: @project.id do %>
 			<button type="button" class="btn btn-primary hidden_option"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp; Ingresos </button>
 		<% end %>
+		<!-- Info solo disponible para responsable del proy -->
 		<%= link_to controller: 'projpaymentauths', id: @project.id do %>
 			<button type="button" class="btn btn-primary hidden_option"><span class="fa fa-money"></span>&nbsp;&nbsp; Autorizaciones de Pago </button>
 		<% end %>

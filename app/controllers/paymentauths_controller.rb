@@ -4,7 +4,14 @@ class PaymentauthsController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @pays = Paymentauth.all.order("elaboration_date ASC")
+    if current_user.gsmp?
+      @pays = Paymentauth.all.order("elaboration_date ASC")
+    elsif current_user.quality? or current_user.quality_analist? or current_user.import? or current_user.import_analist? or current_user.labBoss?
+      # Filtrar aca solo las de la coordinacion o laboratorio del current_user
+      @pays = Paymentauth.all.order("elaboration_date ASC")
+    else
+      @pays = Paymentauth.all.where("user=?", current_user.username).order("elaboration_date ASC")
+    end
   end
 
   def show
@@ -83,7 +90,7 @@ class PaymentauthsController < ApplicationController
   private
   
     def paymentauth_params
-      params.require(:paymentauth).permit(:registry, :recipient, :from, :elaboration_date, :delivery_date, :delivered_id, :concept, :amount, :observations, :recieved_by, :is_valid)
+      params.require(:paymentauth).permit(:registry, :recipient, :from, :elaboration_date, :delivery_date, :delivered_id, :concept, :amount, :observations, :recieved_by, :is_valid, :user)
     end
   
 end
