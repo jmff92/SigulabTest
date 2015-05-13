@@ -11,6 +11,23 @@
 	  </thead>
 
 	  <tbody>
+
+	<% if current_user.director? %>
+				<% @invitationsAll.each_with_index do |invitation,index| %>
+	  		<tr>
+		     <td><%= index+1 %></td>
+		     <td><%= invitation.nombre %></td>
+		     <td><%= invitation.contacto %></td>
+		     <td><%= invitation.correo_contacto %></td>
+<td style="text-decoration:none; color:black; text-align: right"><a href="/invitations/<%= invitation.id %>.pdf"><button type="button" class="btn btn-primary"> Descargar </button></a> <%= link_to '<button type="button" class="btn btn-warning"> Consultar </button>'.html_safe, invitation %></td>     
+		   </tr>
+		 <% end %>
+		 <% if @sumInvitationsAll == 0 %>
+		 	<tr class="warning">
+				<td class="text-center" colspan="5"><h4>No hay invitaciones registradas</h4></td>
+			</tr>
+		 <% end %>
+<% else %>
 		 <% @invitations.each_with_index do |invitation,index| %>
 	  		<tr>
 		     <td><%= index+1 %></td>
@@ -25,6 +42,7 @@
 				<td class="text-center" colspan="5"><h4>No hay invitaciones registradas</h4></td>
 			</tr>
 		 <% end %>
+<% end %>
 	  </tbody>
 	</table>
 <script>

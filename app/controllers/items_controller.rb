@@ -8,7 +8,9 @@ class ItemsController < ApplicationController
   def index
     if current_user
    	 @items = Item.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).all
-     @sumItem = Item.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
+     	@sumItem = Item.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
+	    @itemsAll= Item.where(:specification_id => session[:specification_sel_id]).all
+	@sumItemsAll= Item.all().count
     end
     specification = Specification.find(session[:specification_sel_id])
     respond_to do |format|

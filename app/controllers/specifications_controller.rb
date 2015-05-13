@@ -8,6 +8,7 @@ class SpecificationsController < ApplicationController
     if current_user
       @specifications = Specification.where(:user_id => current_user.username).all
       @sumSpecifications = Specification.where(:user_id => current_user.username).count
+      @specificationsAll= Specification.all()
     end
   end
 
