@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20150306143627) do
+=======
 ActiveRecord::Schema.define(version: 20150509183221) do
+>>>>>>> 90d15feb3baa5a7f2d9dbfbfb8d8af65865d56b0
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -494,7 +498,10 @@ ActiveRecord::Schema.define(version: 20150509183221) do
     t.string   "substitute"
     t.text     "observation"
     t.integer  "banco"
+<<<<<<< HEAD
+=======
     t.boolean  "valid_res",      default: false
+>>>>>>> 90d15feb3baa5a7f2d9dbfbfb8d8af65865d56b0
   end
 
   create_table "projexecutions", force: true do |t|
@@ -679,6 +686,8 @@ ActiveRecord::Schema.define(version: 20150509183221) do
     t.integer  "specification_id"
   end
 
+<<<<<<< HEAD
+=======
   create_table "servicerequests", force: true do |t|
     t.string   "seccion"
     t.string   "contacto_int"
@@ -693,6 +702,7 @@ ActiveRecord::Schema.define(version: 20150509183221) do
     t.datetime "fecha"
   end
 
+>>>>>>> 90d15feb3baa5a7f2d9dbfbfb8d8af65865d56b0
   create_table "services", force: true do |t|
     t.string   "nombre"
     t.string   "numero"
