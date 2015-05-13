@@ -15,14 +15,15 @@
 					<%= link_to '<button type="button" class="btn btn-primary"> <br> &nbsp; &nbsp; &nbsp; <i class="fa fa-eyedropper fa-2x"> </i> <br> <br> &nbsp; &nbsp; INVENTARIO &nbsp; &nbsp; <br> &nbsp; </button>'.html_safe, inventario_url %> &nbsp; &nbsp; &nbsp; &nbsp;
 					<% if current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.import_analist? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? or current_user.labBoss? or current_user.labassistant? or current_user.section_boss? or current_user.technician? %>	
 						<%= link_to '<button type="button" class="btn btn-primary"> <br> &nbsp; &nbsp; &nbsp; <i class="fa fa-calculator fa-2x"></i> <br> <br> ADMINISTRACIÓN <br> &nbsp; </button>'.html_safe, administration_url %><br><br>
-					<% end %>
-					<% if current_user.director? or current_user.manage? or current_user.proy_responsible? %>	
-						<% if @notifications>0 %>
-							<%= link_to '<button type="button" class="btn btn-primary"> <br> &nbsp; &nbsp; &nbsp; <i class="fa fa-calculator fa-2x"></i> <br> <br> ADMINISTRACIÓN <br> &nbsp; </button>'.html_safe, controller: 'administration', action: 'notifications' %><br><br>
-						<% else %>	
-							<%= link_to '<button type="button" class="btn btn-primary"> <br> &nbsp; &nbsp; &nbsp; <i class="fa fa-calculator fa-2x"></i> <br> <br> ADMINISTRACIÓN <br> &nbsp; </button>'.html_safe, administration_url %><br><br>
-						<% end %>		
-					<% end %>
+					<% else %>
+						<% if current_user.director? or current_user.manage? or current_user.proy_responsible? %>	
+							<% if @notifications>0 %>
+								<%= link_to '<button type="button" class="btn btn-primary"> <br> &nbsp; &nbsp; &nbsp; <i class="fa fa-calculator fa-2x"></i> <br> <br> ADMINISTRACIÓN <br> &nbsp; </button>'.html_safe, controller: 'administration', action: 'notifications' %><br><br>
+							<% else %>	
+								<%= link_to '<button type="button" class="btn btn-primary"> <br> &nbsp; &nbsp; &nbsp; <i class="fa fa-calculator fa-2x"></i> <br> <br> ADMINISTRACIÓN <br> &nbsp; </button>'.html_safe, administration_url %><br><br>
+							<% end %>		
+						<% end %>
+					<% end %>						
 				</div>
 			</ul>
 		</div>
