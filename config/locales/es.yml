@@ -34,9 +34,12 @@ es:
       instrument: "Instrumento"
       tool: "Herramienta"
       loan: "Solicitud de Préstamo"
+      paymentauth: "Autorización de Pago"
+      projpaymentauth: "Autorización de Pago de Proyecto"
       projincome: "Ingreso de Proyecto"
       projcommitment: "Compromiso de Proyecto"
       projexecution: "Ejecución de Proyecto"
+      poa: "Anteproyecto de POA"
       record: "Bitácora"
     attributes:
       binnacle:
@@ -167,6 +170,19 @@ es:
         document_date: "Fecha del Documento"
         invoice_number: "Número de la Factura"
         invoice_date: "Fecha de la Factura"
+      paymentauth:
+        registry: "Registro"
+        from: "De"
+        recipient: "Beneficiario"
+        delivered_id: "C.I. o RIF"
+        concept: "Concepto"
+        amount: "Monto"
+        elaboration_date: "Fecha de elaboración"
+        delivery_date: "Fecha de entrega"
+        observations: "Observaciones"
+      poa:
+        document: "Documento"
+        year: "Año"
       user:
         password: "Contraseña"
         email: "Correo"
