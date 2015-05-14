@@ -180,6 +180,16 @@ es:
         elaboration_date: "Fecha de elaboración"
         delivery_date: "Fecha de entrega"
         observations: "Observaciones"
+      projpaymentauth:
+        registry: "Registro"
+        from: "De"
+        recipient: "Beneficiario"
+        delivered_id: "C.I. o RIF"
+        concept: "Concepto"
+        amount: "Monto"
+        elaboration_date: "Fecha de elaboración"
+        delivery_date: "Fecha de entrega"
+        observations: "Observaciones"
       poa:
         document: "Documento"
         year: "Año"
