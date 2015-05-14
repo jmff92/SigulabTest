@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429073825) do
+ActiveRecord::Schema.define(version: 20150513233500) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -449,7 +450,6 @@ ActiveRecord::Schema.define(version: 20150429073825) do
   create_table "paymentauths", force: true do |t|
     t.string   "recipient"
     t.string   "registry"
-    t.string   "from"
     t.date     "elaboration_date"
     t.date     "delivery_date"
     t.string   "delivered_id"
@@ -460,6 +460,14 @@ ActiveRecord::Schema.define(version: 20150429073825) do
     t.boolean  "is_valid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
+    t.string   "user"
+    t.integer  "from"
+  end
+
+  create_table "poas", force: true do |t|
+    t.string  "document"
+    t.integer "year"
   end
 
   create_table "projcommitments", force: true do |t|
@@ -501,9 +509,8 @@ ActiveRecord::Schema.define(version: 20150429073825) do
     t.string   "substitute"
     t.text     "observation"
     t.integer  "banco"
-    t.boolean  "valid_res",      default: false  
-    
-    end
+    t.boolean  "valid_res",      default: false
+  end
 
   create_table "projexecutions", force: true do |t|
     t.integer  "proyecto"
@@ -562,6 +569,8 @@ ActiveRecord::Schema.define(version: 20150429073825) do
     t.boolean  "is_valid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
+    t.string   "user"
   end
 
   create_table "quotes", force: true do |t|
@@ -686,7 +695,6 @@ ActiveRecord::Schema.define(version: 20150429073825) do
     t.string   "attachment"
     t.integer  "specification_id"
   end
-
 
   create_table "servicerequests", force: true do |t|
     t.string   "seccion"

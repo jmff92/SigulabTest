@@ -26,8 +26,6 @@
   <% end %>
 </div>
 
-<div class="col-xs-12">
-<div id="tabs">
   <%= form_for (@loan) do |f| %> 
     <% if @loan.errors.any? %>
       <div class="col-xs-12" role="alert">
@@ -41,6 +39,8 @@
       </div>
     <% end %>
 
+<div class="col-xs-12">
+<div id="tabs">
   <ul>
     <li><a href="#tabs-1" class="show">Cantidad y Uso</a></li>
     <li><a href="#tabs-2" class="hidex">Período y Horario</a></li>
@@ -130,7 +130,7 @@
           <td class="col-xs-7"></td>
         </tr>
         <tr>
-          <td class="col-xs-2 text-right"><%= f.check_box :lunes %>
+          <td class="col-xs-3 text-right"><%= f.check_box :lunes %>
                                           <%= f.label 'Lunes:' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
                                           <%= f.check_box :martes %>
                                           <%= f.label 'Martes:' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
@@ -140,36 +140,37 @@
                                           <%= f.label 'Jueves:' %>&nbsp;&nbsp;&nbsp;&nbsp;<br>
                                           <%= f.check_box :viernes %>
                                           <%= f.label 'Viernes:' %>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <td class="col-xs-2 text-left"><%= f.check_box :todoLun %>
-                                          <%= f.label 'Todo El Día' %><br>
+          <td class="col-xs-9 text-left"><%= f.check_box :todoLun %>
+                                          <%= f.label 'Todo El Día' %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <%= f.label 'De' %>
+                                          <%= f.time_select :horalunes, :ampm => true %>
+                                          <%= f.label 'a' %>
+                                          <%= f.time_select :finLunes, :ampm =>true %><br>
                                           <%= f.check_box :todoMar %>
-                                          <%= f.label 'Todo El Día' %><br>
+                                          <%= f.label 'Todo El Día' %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <%= f.label 'De' %>
+                                          <%= f.time_select :horaMartes, :ampm => true %>
+                                          <%= f.label 'a' %>
+                                          <%= f.time_select :finMartes, :ampm => true %><br>
                                           <%= f.check_box :todoMie %>
-                                          <%= f.label 'Todo El Día' %><br>
+                                          <%= f.label 'Todo El Día' %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <%= f.label 'De' %>
+                                          <%= f.time_select :horaMiercoles, :ampm => true %>
+                                          <%= f.label 'a' %>
+                                          <%= f.time_select :finMiercoles, :ampm => true %><br>
                                           <%= f.check_box :todoJue %>
-                                          <%= f.label 'Todo El Día' %><br>
+                                          <%= f.label 'Todo El Día' %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <%= f.label 'De' %>
+                                          <%= f.time_select :horaJueves, :ampm => true %>
+                                          <%= f.label 'a' %>
+                                          <%= f.time_select :finJueves, :ampm => true %><br>
                                           <%= f.check_box :todoVie %>
-                                          <%= f.label 'Todo El Día' %></td>
-          <td class="col-xs-8"><%= f.label 'De' %>
-                                         <%= f.text_field :horalunes, :size=>"10" %>
-                                         <%= f.label 'a' %>
-                                         <%= f.text_field :finLunes, :size=>"10" %><br>
-                                         <%= f.label 'De' %>
-                                         <%= f.text_field :horaMartes, :size=>"10" %>
-                                         <%= f.label 'a' %>
-                                         <%= f.text_field :finMartes, :size=>"10" %><br>
-                                         <%= f.label 'De' %>
-                                         <%= f.text_field :horaMiercoles, :size=>"10" %>
-                                         <%= f.label 'a' %>
-                                         <%= f.text_field :finMiercoles, :size=>"10" %><br>
-                                         <%= f.label 'De' %>
-                                         <%= f.text_field :horaJueves, :size=>"10" %>
-                                         <%= f.label 'a' %>
-                                         <%= f.text_field :finJueves, :size=>"10" %><br>
-                                         <%= f.label 'De' %>
-                                         <%= f.text_field :horaViernes, :size=>"10" %>
-                                         <%= f.label 'a' %>
-                                         <%= f.text_field :finViernes, :size=>"10" %></td>
+                                          <%= f.label 'Todo El Día' %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <%= f.label 'De' %>
+                                          <%= f.time_select :horaViernes, :ampm => true %>
+                                          <%= f.label 'a' %>
+                                          <%= f.time_select :finViernes, :ampm => true %>
+                                          </td>
         </tr>
       </table>
     </div>
@@ -184,7 +185,7 @@
         </tr>
         <tr>
           <td class="col-xs-5 text-right"><strong>Fecha Máxima de Devolución:</strong><span class="red">*</span></td>
-          <td class="col-xs-7"><%= f.text_field :maxDevolucion %></td>
+          <td class="col-xs-7"><%= f.text_field :maxDevolucion, class: 'bootlayout-date' %></td>
         </tr>
         <tr>
           <td class="col-xs-5 text-right"><strong>Observaciones:</strong><span class="red">*</span></td>
