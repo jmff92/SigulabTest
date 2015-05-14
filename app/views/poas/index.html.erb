@@ -47,7 +47,7 @@
 											<% end %>
 										<% end %>
 										<% if current_user.directorate? %>
- 											<%= link_to delete_poa_path(i), class: "btn btn-danger", title: "Eliminar Anteproyecto", data: {confirm: "¿Está seguro de eliminar el anteproyecto?"} do %>
+ 											<%= link_to delete_poa_path(i), class: "btn btn-danger", title: "Eliminar Anteproyecto", data: {confirm: "¿Está seguro de eliminar el anteproyecto? \n El director deberá validar esta eliminación."} do %>
 												<span class="glyphicon glyphicon-remove"></span>		
 											<% end %>										
 										<% end %>

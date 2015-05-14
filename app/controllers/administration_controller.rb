@@ -14,13 +14,15 @@ class AdministrationController < ApplicationController
       @projects = {}
       @projcommitments = {}
       @projexecutions = {}
+      @poas = {}
     end
     if current_user.director?
       @incomes = Income.all.order("date ASC").where("valid_adm=? AND valid_dir=?", true, false)
       @executions = Execution.all.order("check_elaboration_date ASC").where("valid_adm=? AND valid_dir=?", true, false)
       @projects = {}
       @projcommitments = {}
-      @projexecutions = {}      
+      @projexecutions = {}
+      @poas = Poa.all.order("year ASC").where("del=?", true)
     end
     if current_user.proy_responsible?
       @incomes = {}
@@ -28,6 +30,7 @@ class AdministrationController < ApplicationController
       @projects = Project.all.order("incoming_date ASC").where("valid_res=?", false)
       @projcommitments = Projcommitment.all.order("date ASC").where("valid_res=?", false)
       @projexecutions = Projexecution.all.order("check_elaboration_date ASC").where("valid_res=?", false)
+      @poas = {}
     end
   end
 

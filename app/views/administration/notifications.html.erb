@@ -35,7 +35,7 @@
 								<th class="text-center">Transacción</th>
 								<th class="text-center">Descripción</th>
 								<th class="text-center">Monto</th>
-								<th class="text-center" style="width:120px"> </th>
+								<th class="text-center" style="width:150px"> </th>
 							</tr>
 						</thead>
 						<tbody>
@@ -64,7 +64,7 @@
 							<% end %>
 				      		<% @executions.each do |e| %>
 								<tr>
-									<td class="text-center"><%= e.document_date %></td>									
+									<td class="text-center"><%= e.check_elaboration_date %></td>								
 									<td class="text-center"><%= link_to "Ejecución", e %></td>													
 									<td class="text-center"><%= e.commitment.lab.sae_name %></td>
 									<td class="text-right"><%= number_to_currency(e.check_amount, format: "%n", delimiter: ".", separator: ",") %></td>
@@ -96,7 +96,7 @@
 											<%= link_to valid_resp_project_path(i), class: "btn btn-success", title: "Validar proyecto", data: {confirm: "¿Está seguro de validar el proyecto?" } do %>
 												<span class="glyphicon glyphicon-check"></span>
 											<% end %>	
-	     									
+	     									&nbsp;
 											<%= link_to delete_project_path(i), class: "btn btn-danger", title: "Rechazar proyecto", data: {confirm: "¿Está seguro de rechazar el proyecto?"} do %>
      											<span class="glyphicon glyphicon-remove"></span>
      										<% end %>
@@ -106,13 +106,14 @@
 							<% @projcommitments.each do |c| %>
 								<tr>
 									<td class="text-center"><%= c.date %></td>
-									<td><%= link_to "Compromiso", c %></td>
+									<td class="text-center"><%= link_to "Compromiso", c %></td>
 									<td class="text-center"><%= c.description %></td>									
 									<td class="text-right"><%= number_to_currency(c.amount, format: "%n", delimiter: ".", separator: ",") %></td>
 									<td class="text-center">									
 											<%= link_to valid_projcommitment_path(c), class: "btn btn-success", title: "Validar compromiso", data: {confirm: "¿Está seguro de validar el compromiso?" } do %>
 												<span class="glyphicon glyphicon-check"></span>
-											<% end %>		     									
+											<% end %>		     			
+											&nbsp;						
 											<%= link_to delete_projcommitment_path(c), class: "btn btn-danger", title: "Rechazar compromiso", data: {confirm: "¿Está seguro de rechazar el compromiso?"} do %>
      											<span class="glyphicon glyphicon-remove"></span>
      										<% end %>									
@@ -121,7 +122,7 @@
 							<% end %>
 				      		<% @projexecutions.each do |e| %>
 								<tr>
-									<td class="text-center"><%= e.document_date %></td>									
+									<td class="text-center"><%= e.check_elaboration_date %></td>								
 									<td class="text-center"><%= link_to "Ejecución", e %></td>													
 									<td class="text-center"><%= link_to Projcommitment.find(e.commitment_id).description, Projcommitment.find(e.commitment_id) %></td>
 									<td class="text-right"><%= number_to_currency(e.check_amount, format: "%n", delimiter: ".", separator: ",") %></td>
@@ -129,11 +130,28 @@
 										<%= link_to valid_projexecution_path(e), class: "btn btn-success", title: "Validar ejecución", data: {confirm: "¿Está seguro de validar la ejecución?" } do %>
 												<span class="glyphicon glyphicon-check"></span>
 											<% end %>	
+											&nbsp;
 										 <%= link_to delete_projexecution_path(e), class: "btn btn-danger", title: "Rechazar ejecución", data: {confirm: "¿Está seguro de rechazar la ejecución?"} do %>
      										<span class="glyphicon glyphicon-remove"></span>
      									<% end %> </td>     							
 								</tr>
-							<% end %>							
+							<% end %>	
+							<% @poas.each do |o| %>
+								<tr>
+									<td class="text-center"><%= o.year %></td>								
+									<td class="text-center"><%= "Eliminación de Anteproyecto de POA" %></td>	
+									<td class="text-center"><%= link_to "Consultar", o.document_url %></td>
+									<td class="text-right"> </td>
+									<td class="text-center">
+										<%= link_to valid_dir_poa_path(o), class: "btn btn-success", title: "Validar eliminación de anteproyecto", data: {confirm: "¿Está seguro de validar la eliminación del anteproyecto?" } do %>
+												<span class="glyphicon glyphicon-check"></span>
+											<% end %>	
+											&nbsp;
+										 <%= link_to no_valid_dir_poa_path(o), class: "btn btn-danger", title: "Rechazar eliminación de anteproyecto", data: {confirm: "¿Está seguro de rechazar la eliminación del anteproyecto?"} do %>
+     										<span class="glyphicon glyphicon-remove"></span>
+     									<% end %> </td>     							
+								</tr>
+							<% end %>
 						</tbody>
 					</table>
 					<div class="spacer"></div>
