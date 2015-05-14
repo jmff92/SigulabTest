@@ -30,8 +30,8 @@
 
 			<div class="form-group">
 				<label for='paymentauth_from' class="col-xs-3 control-label text-right">De <span style="color:#FF0000">*</span></label>
-				<div class='col-xs-4'>
-					<%= i.text_field :from, class: 'form-control' %>
+				<div class="col-xs-4">		
+					<%= i.select(:from, options_for_select(Paymentauth.origin_str.zip(Paymentauth.froms.keys), @pay.from), {:include_blank => true}, {class: "form-control"} ) %>
 				</div>
 			</div>
 

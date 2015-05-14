@@ -28,7 +28,7 @@
 			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">De:</td>
-				<td class="col-xs-7"><%= @pay.from %></td>
+				<td class="col-xs-7"><%= Paymentauth.origin_str[Paymentauth.froms[@pay.from]] %></td>
 			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">Fecha:</td>

@@ -15,7 +15,7 @@ class PaymentauthsController < ApplicationController
     end
   end
 
-  def show
+  def show  
     @pay = Paymentauth.find(params[:id])
     respond_to do |format|
       format.html
@@ -23,7 +23,7 @@ class PaymentauthsController < ApplicationController
         pdf = AutorizacionPago.new(@pay)
         send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
       end
-    end
+    end    
   end
   
   def new
@@ -56,18 +56,8 @@ class PaymentauthsController < ApplicationController
     @labs = Lab.all
   end
   
-  def update
-    # Check Date
-    unless params[:paymentauth].nil?
-      begin
-        params[:paymentauth][:elaboration_date] = Date.parse(params[:paymentauth][:elaboration_date])
-      rescue ArgumentError
-        params[:paymentauth][:elaboration_date] = nil
-      end
-    end
-    
-    @pay = Paymentauth.find(params[:id])
-    
+  def update   
+    @pay = Paymentauth.find(params[:id])    
     if @pay.update_attributes(paymentauth_params)
       redirect_to action: 'index'
     else
