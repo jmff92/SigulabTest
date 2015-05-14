@@ -51,8 +51,12 @@
 									<td class="text-center"><%= link_to l.sae_name, controller: 'labs', action: 'show', id: l.id %> </td>
 									<td class="text-center"><%= number_to_currency(@incomes_lab[l.id], format: "%n", delimiter: ".", separator: ",") %></td>
 									<td class="text-center"><%= number_to_currency(@commitments_lab[l.id], format: "%n", delimiter: ".", separator: ",") %></td>									
-									<td class="text-center"><%= number_to_currency(@executions_commitement[l.id], format: "%n", delimiter: ".", separator: ",") %></td>									
-									<td class="text-center"><%= number_to_currency(@incomes_lab[l.id] - @commitments_lab[l.id], format: "%n", delimiter: ".", separator: ",") %></td>
+									<td class="text-center"><%= number_to_currency(@executions_commitement[l.id], format: "%n", delimiter: ".", separator: ",") %></td>		
+									<% if @incomes_lab[l.id] - @commitments_lab[l.id] >= 0 %>							
+										<td class="text-center"><%= number_to_currency(@incomes_lab[l.id] - @commitments_lab[l.id], format: "%n", delimiter: ".", separator: ",") %></td>
+									<% else %>
+										<td class="text-center" style="color:#FF0000"><%= number_to_currency(@incomes_lab[l.id] - @commitments_lab[l.id], format: "%n", delimiter: ".", separator: ",") %></td>
+									<% end %>
 								</tr>
 							<% end %>
 						</tbody>

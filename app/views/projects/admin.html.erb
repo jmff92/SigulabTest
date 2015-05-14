@@ -58,7 +58,12 @@
  									<td class="text-center"><%= number_to_currency(@incomes_proj[p.id], format: "%n", delimiter: ".", separator: ",") %></td>
 									<td class="text-center"><%= number_to_currency(@commitments_proj[p.id], format: "%n", delimiter: ".", separator: ",") %></td>									
 									<td class="text-center"><%= number_to_currency(@executions_commitement[p.id], format: "%n", delimiter: ".", separator: ",") %></td>	
-									<td class="text-center"><%= number_to_currency(@incomes_proj[p.id] - @commitments_proj[p.id], format: "%n", delimiter: ".", separator: ",") %></td>
+									<% @available = @incomes_proj[p.id] - @commitments_proj[p.id] %>
+									<% if @available >= 0 %>							
+										<td class="text-center"><%= number_to_currency(@available, format: "%n", delimiter: ".", separator: ",") %></td>
+									<% else %>
+										<td class="text-center" style="color:#FF0000"><%= number_to_currency(@available, format: "%n", delimiter: ".", separator: ",") %></td>
+									<% end %>	
 								</tr>
 							<% end %>
 						</tbody>
