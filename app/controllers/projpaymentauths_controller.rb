@@ -9,8 +9,15 @@ class ProjpaymentauthsController < ApplicationController
   end
 
   def show
-    @pay = Projpaymentauth.find(params[:id])
-    @project = Project.find(@pay.proyect)
+    @pay = Paymentauth.find(params[:id])
+    @project = Project.find(@pay.proyect)    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = AutorizacionPago.new(@pay)
+        send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
+      end
+    end
   end
 
   def all
@@ -68,6 +75,18 @@ class ProjpaymentauthsController < ApplicationController
       render 'edit'
     end
   end
+
+  def annul
+    @pay = Paymentauth.find(params[:id])
+    @pay.update_column(:status, "annulled")
+    redirect_to :back
+  end  
+
+  def delete
+    @pay = Paymentauth.find params[:id]
+   @pay.destroy
+    redirect_to action: 'index'
+  end  
   
   private
   

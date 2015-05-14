@@ -1,0 +1,62 @@
+<%= render 'menu' %>
+<script>
+function myFunction() {
+    var x = document.getElementById("aceptacion").value;
+    if (x == "rechazado") {
+        document.getElementById("nota_devolucion").style.display = "inline";
+        document.getElementById("seleccion").style.display = "none";
+    }
+    if (x == "aceptado") {
+        document.getElementById("nota_devolucion").style.display = "none";
+        document.getElementById("seleccion").style.display = "none";
+    }
+}
+</script>
+
+
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<div> </div>
+<div id="seleccion" style="display:inline;width:100%"><center><br/><br/>
+Seleccione si desea aceptar o rechazar la Especificación Técnica:<br/><br/>
+<select id="aceptacion" onchange="myFunction();">
+<option value="aceptado">Aceptar</option>
+<option value="rechazado">Devolver</option>
+</select></center>
+</div>
+
+<div id="nota_devolucion" style="display:none">
+
+
+<%= link_to '<button type="button" class="btn btn-success" style="margin-left:750px;margin-bottom:-100px;"><span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar </button>'.html_safe, new_devolution_path %> 
+    <a href='compras'><button type="button" class="btn btn-primary" style="margin-bottom:-100px;"> Volver </button></a>
+
+
+  <div class="grid_12">
+    
+    <div class="grid_5">
+      <h3>Notas de Devolución</h3><br>
+    </div>
+
+    <%= render 'devolutiontable' %>
+    
+  </div>
+
+
+</div>
+</body>
+</html>
+
+
+<style>
+  
+#agregar {
+  font-size: 14px;
+}
+
+h3 {
+  position: relative;
+  
+}
+
+</style>

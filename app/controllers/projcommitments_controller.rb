@@ -7,23 +7,23 @@ class ProjcommitmentsController < ApplicationController
     if params[:id]
       @project = Project.find(params[:id])
     end       
-    @commitments = Projcommitment.order("date ASC").where("proj_id=?",params[:id]).where("valid=?", true)
+    @commitments = Projcommitment.order("date ASC").where("proj_id=?",params[:id]).where("valid_res=?", true)
     @sum = @commitments.sum(:amount)
     @suma = Projcommitment.all
   end
 
   def all
-    @projcommitments = Projcommitment.all.order("date ASC").where("valid=?", true)
+    @projcommitments = Projcommitment.all.order("date ASC").where("valid_res=?", true)
     @sum = @projcommitments.sum(:amount)
   end
 
   def show
-    @commitment = Projcommitment.find(params[:id]).where("valid=?", true)
-    @executions = Projexecution.all.where("commitment_id=?",params[:id]).where("valid=?", true)
-    @sum = @executions.where("check_annulled=false").sum(:check_amount).where("valid=?", true)
+    @commitment = Projcommitment.find(params[:id])
+    @executions = Projexecution.all.where("commitment_id=?",params[:id]).where("valid_res=?", true)
+    @sum = @executions.where("check_annulled=false").sum(:check_amount)
     @dif = @commitment.amount - @sum
     @size = @executions.count
-    @project = Project.find(@commitment.proj_id).where("valid=?", true)
+    @project = Project.all.find(@commitment.proj_id)
   end
 
   def new
@@ -81,7 +81,7 @@ class ProjcommitmentsController < ApplicationController
 
   def valid
     @projcommitment = Projcommitment.find(params[:id])
-    @projcommitment.update_attribute(:valid, true)
+    @projcommitment.update_column(:valid_res, true)
     redirect_to :back
   end     
 

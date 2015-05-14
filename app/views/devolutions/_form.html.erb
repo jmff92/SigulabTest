@@ -1,3 +1,14 @@
+<script>
+function myFunction() {
+    var x = document.getElementById("aceptacion").value;
+    if (x == "rechazado")
+        document.getElementById("nota_devolucion").style.display = "inline";
+    if (x == "aceptado")
+        document.getElementById("nota_devolucion").style.display = "none";
+}
+</script>
+
+
 <div class="grid_12 push_1">
     <%= form_for(@devolution) do |f| %>
       <% if @devolution.errors.any? %>
@@ -5,17 +16,20 @@
         <br>
       <% end %>
 
-      <div class="field"><br/>
-        <table><tr><td style="padding-left:65px;padding-right:10px;"><span class="red">*</span>
-                <%= f.label 'Número de Registro', :align => :middle %></td>
-                <td><%= f.text_field :numRegistro, :align => :middle, :style => "width:150px;" %></td><td style="padding-left:100px;padding-right:10px;">
+<select id="aceptacion" onchange="myFunction();">
+<option value="aceptado">Aceptar</option>
+<option value="rechazado">Devolver</option>
+</select>
 
-            <span class="red">*</span>
-                <%= f.label 'Unidad Solicitante', :align => :middle %>
-                
+<div id="nota_devolucion" style="display:none">
+      <div class="field"><br/>
+        
+	<table><tr><td style="padding-right:80px;padding-bottom:5px;"><span class="red">*</span>
+                <%= f.label 'Unidad Solicitante', :align => :middle %></td>
+                <td><%= f.text_field :unidadSolicitante, :align => :left, :style => "width:150px;" %></td><td style="padding-bottom:100px;padding-right:10px;">
+
                 </td><td>
             
-                <%= f.text_field :unidadSolicitante, :align => :middle, :style => "width:150px;margin-bottom:10px;"  %>
             
                 </td></tr>
         </table>
@@ -175,7 +189,7 @@
                 <%= f.label 'Observaciones', :align => :middle %></td><td>
                 <%= f.text_area :observaciones, :align => :middle, :style => "width:410px; height:80px; margin-top:10px; margin-bottom:20px;", :placeholder => "Indique en caso de que exista alguna" %>
 </td></tr></table>
-
+</div>
       <div class="grid_4 push_3 text-center">
       <div class="actions">
          <%= f.submit "Aceptar", :style => "float:left; margin-right:10px;", data: { confirm: '¿Está seguro de la informacion que acaba de suministrar?' }  %>

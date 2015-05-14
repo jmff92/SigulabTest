@@ -65,7 +65,15 @@ class ReporteBudget < Prawn::Document
       @executions_commitement_pdf = number_to_currency(@executions_commitement, format: "%n", delimiter: ".", separator: ",")      
       @available = number_to_currency(@incomes_lab-@commitments_lab, format: "%n", delimiter: ".", separator: ",")            
 
-  		[lab.sae_name,"Bs. #{@incomes_lab_pdf}","Bs. #{@commitments_lab_pdf}","Bs. #{@executions_commitement_pdf}","Bs. #{@available}"]
+      if @available.to_i >= 0
+        dato = [lab.sae_name,"Bs. #{@incomes_lab_pdf}","Bs. #{@commitments_lab_pdf}","Bs. #{@executions_commitement_pdf}","Bs. #{@available}"]
+        dato
+      else
+        # PENDIENTE Colocar columna 4 (@available) en rojo
+        dato = [lab.sae_name,"Bs. #{@incomes_lab_pdf}","Bs. #{@commitments_lab_pdf}","Bs. #{@executions_commitement_pdf}","Bs. #{@available}"]
+        dato
+      end
+
   	end
   end
 

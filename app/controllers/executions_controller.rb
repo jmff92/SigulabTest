@@ -32,7 +32,7 @@ class ExecutionsController < ApplicationController
     if params[:cid]
       @commitment = Commitment.find(params[:cid])
       @execution.commitment_id = params[:cid]
-      @executed = Execution.where("commitment_id=?",params[:cid]).where("check_annulled=false").sum(:check_amount).where("valid_adm=? AND valid_dir=?", true, false)
+      @executed = Execution.where("commitment_id=?",params[:cid]).where("check_annulled=false").where("valid_adm=? AND valid_dir=?", true, true).sum(:check_amount)
     end
   end
   
@@ -110,7 +110,7 @@ class ExecutionsController < ApplicationController
 
   def annul
     @execution = Execution.find(params[:id])
-    @execution.update_attribute(:check_annulled, true)
+    @execution.update_column(:check_annulled, true)
     redirect_to :back
   end
 
@@ -122,13 +122,13 @@ class ExecutionsController < ApplicationController
 
   def valid_adm
     @execution = Execution.find(params[:id])
-    @execution.update_attribute(:valid_adm, true)
+    @execution.update_column(:valid_adm, true)
     redirect_to :back
   end  
 
   def valid_dir
     @execution = Execution.find(params[:id])
-    @execution.update_attribute(:valid_dir, true)
+    @execution.update_column(:valid_dir, true)
     redirect_to :back
   end    
   

@@ -3,7 +3,7 @@
 <%= render 'menu' %>
 <div style="margin-top: 30px;margin-bottom: -50px; margin-left: 10px;width:500px;"><h3>Cartas de Invitación</h3></div>
 <div style="text-align: right; height: 45px; margin-top: 12px;">
-<% if session['specification_p2'] != 2 %>
+<% if session['specification_p2'] != 2 && !current_user.director? %>
 	<%= link_to '<button type="button" class="btn btn-success"> <span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Carta de Invitación </button>'.html_safe,  new_invitation_path %><% end %>
 	</div>
             <%= render 'invitationtable' %>

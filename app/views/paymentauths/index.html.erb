@@ -66,7 +66,7 @@
 
 	</div>
 
-	<% if current_user.acquisition? or current_user.manage? or current_user.manage_analist? %>
+	<% if current_user.directorate? or current_user.gsmp? or current_user.acquisition_analist? or current_user.acquisition? or current_user.manage? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? or current_user.import? or current_user.import_analist? or current_user.labBoss? %>
 		<div class="col-xs-12" align="left">
 			<p></p>
 			<%= link_to new_paymentauth_path do %>

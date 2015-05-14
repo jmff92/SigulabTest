@@ -4,9 +4,20 @@ class RecommendationsController < ApplicationController
 
   def index
     if current_user
-    @recommendations = Recommendation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).all
-    @sumRec = Recommendation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
-    @reco = Recommendation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).first
+    if current_user.acquisition? || current_user.import? || current_user.acquisition_analist? || current_user.import_analist?
+    @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
+    @user = User.where(:username => @especificacion.user_id).first 
+        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
+            @mostrar = true
+        else
+            @mostrar = false
+        end
+    else
+    @mostrar = true
+    end
+    @recommendations = Recommendation.where(:specification_id => session[:specification_sel_id]).all
+    @sumRec = Recommendation.where(:specification_id => session[:specification_sel_id]).count
+    @reco = Recommendation.where(:specification_id => session[:specification_sel_id]).first
     end
     respond_to do |format|
 	      format.html do
@@ -19,7 +30,8 @@ class RecommendationsController < ApplicationController
 		@invt = Invitation.where(:specification_id => session[:specification_sel_id]).order('nombre ASC')
 		@recoEmp = RecommendationsEmpresa.where(:id_informe => @reco.id).order('empresa ASC')
 		@itemsq = Itemsquote.where(:specification_id => session[:specification_sel_id]).all
-		pdf = ReporteRecommendations.new(@reco, @recoEmp, @invt, @itemsq)
+    @fecha = Invitation.where(:specification_id => session[:specification_sel_id]).order('created_at DESC').first
+		pdf = ReporteRecommendations.new(@reco, @recoEmp, @invt, @itemsq, @fecha)
 		nombre = "Especificacion_#{session[:specification_sel_id]}_Informe_Recomendacion.pdf"
 		send_data pdf.render, filename: nombre, type: 'application/pdf'
 	      end
@@ -47,7 +59,18 @@ class RecommendationsController < ApplicationController
   # GET /quotes/1
   # GET /quotes/1.json
   def show
-     @recommendation = Recommendation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).first
+     if current_user.acquisition? || current_user.import? 
+    @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
+    @user = User.where(:username => @especificacion.user_id).first 
+        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
+            @mostrar = true
+        else
+            @mostrar = false
+        end
+    else
+    @mostrar = true
+    end
+     @recommendation = Recommendation.where(:specification_id => session[:specification_sel_id]).first
      @empresas_todas = Invitation.where(:specification_id => session[:specification_sel_id]).all
      @empresas = RecommendationsEmpresa.where(:id_informe => @recommendation.id).all
      @itemsquote = Itemsquote.where(:specification_id => session[:specification_sel_id]).all
@@ -55,13 +78,13 @@ class RecommendationsController < ApplicationController
 
   # GET /quotes/new
   def new
-        num = Recommendation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
+        num = Recommendation.where(:specification_id => session[:specification_sel_id]).count
 	if num != 0
-	@recommendation = Recommendation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).first
+	@recommendation = Recommendation.where(:specification_id => session[:specification_sel_id]).first
         else
     	@recommendation = Recommendation.new
         end
-    @quotes = Quote.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).order('nombre ASC')
+    @quotes = Quote.where(:specification_id => session[:specification_sel_id]).order('nombre ASC')
     @itemsquotes = Itemsquote.where(:specification_id => session[:specification_sel_id]).all
   end
 
@@ -72,9 +95,9 @@ class RecommendationsController < ApplicationController
   # POST /quotes
   # POST /quotes.json
   def create
-        num = Recommendation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
+        num = Recommendation.where(:specification_id => session[:specification_sel_id]).count
 	if num != 0
-		@recommendation = Recommendation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).first
+		@recommendation = Recommendation.where(:specification_id => session[:specification_sel_id]).first
 		@recommendation.destroy
         end
     @recommendation = Recommendation.new(recommendation_params)
@@ -136,7 +159,7 @@ class RecommendationsController < ApplicationController
   # DELETE /quotes/1
   # DELETE /quotes/1.json
   def destroy
-    @recommendation = Recommendation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).first
+    @recommendation = Recommendation.where(:specification_id => session[:specification_sel_id]).first
     @recommendation.destroy
     respond_to do |format|
       format.html { redirect_to recommendations_url, notice: 'Recommendation was successfully destroyed.' }

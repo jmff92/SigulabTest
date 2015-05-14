@@ -54,7 +54,7 @@ class AutorizacionPago < Prawn::Document
 
   def info
     data = [ ["PARA:", "DE:", "FECHA:"],
-           ["UNIDAD DE LABORATORIOS", "#{@pay.from}", "#{@pay.elaboration_date}"],  # Obtener mes de sistema
+           ["UNIDAD DE LABORATORIOS", "#{@pay.from}", "#{Date.today.strftime("%d/%m/%Y")}"],
            ]
     table (data) do
       cells.valign = :center
@@ -174,7 +174,7 @@ class AutorizacionPago < Prawn::Document
     end
 
     data = [ ["Fecha de Recepción:", "Recibido por:", " "],
-            ["#{@pay.delivery_date}", "#{@pay.recieved_by}", " \n Firma "]
+            [" ", " ", " \n Firma "]
            ]
     table (data) do
       cells.valign = :center

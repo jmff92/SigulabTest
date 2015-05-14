@@ -18,7 +18,7 @@
     	</tr>
      	 <tr>
        	<td class="col-xs-5 text-right">Oferta</td>
-       	<td class="col-xs-7"><a href='../uploads/quote/attachment/<%= @quote.id %>/Especificacion_<%= session['specification_sel_id'] %>_Oferta_Empresa_<%= @quote.nombre %>.pdf'>Ver Oferta</a></td>
+       	<td class="col-xs-7"><a href='<%= @quote.attachment_url.gsub("nca","Especificacion_"+session['specification_sel_id'].to_s+"_Oferta_Empresa_"+@quote.nombre)  %>'>Ver Oferta</a></td>
     	</tr>
 <tr>
        	<td class="col-xs-5 text-right">Items o servicios relacionados</td>

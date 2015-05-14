@@ -7,24 +7,56 @@ class RequisitionsController < ApplicationController
   # GET /requisitions.json
   def index
     if current_user
-    	@requisitions = Requisition.where(:user_id => current_user.username).all
-      @sumRequisition = Requisition.where(:user_id => current_user.username).count
+if current_user.acquisition? || current_user.import? 
+    @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
+    @user = User.where(:username => @especificacion.user_id).first 
+        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
+            @mostrar = true
+        else
+            @mostrar = false
+        end
+    else
+    @mostrar = true
+    end
+    	@requisitions = Requisition.where(:specification_id => session[:specification_sel_id]).first
+      @sumRequisition = Requisition.where(:specification_id => session[:specification_sel_id]).count
+     respond_to do |format|
+	      format.html do
+          if @sumRequisition != 0
+            redirect_to @requisitions
+          end
+        end
+        format.pdf do
+		
+		redirect_to @requisitions.attachment
+	      end
+	      format.xml do
+              specification = Specification.find(session[:specification_sel_id])
+	       specification.p6 = 2
+	    session[:specification_p6] = specification.p6
+	    specification.save
+              redirect_to "/requisitions/#{@requisitions.id}?pdf=1"
+      end
+      end
     end
   end
 
   # GET /requisitions/1
   # GET /requisitions/1.json
   def show
-    @requisition = Requisition.find(params[:id])
-	  @items = Item.where(:user_id => current_user.username).all
-    @services = Service.where(:user_id => current_user.username).all
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = ReporteRequisitions.new(@requisition, @items, @services)
-        send_data pdf.render, filename: 'Requisicion.pdf', type: 'application/pdf'
-      end
+if current_user.acquisition? || current_user.import? 
+    @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
+    @user = User.where(:username => @especificacion.user_id).first 
+        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
+            @mostrar = true
+        else
+            @mostrar = false
+        end
+    else
+    @mostrar = true
     end
+    @requisition = Requisition.find(params[:id])
+
   end
 
   # GET /requisitions/new
@@ -41,7 +73,7 @@ class RequisitionsController < ApplicationController
   def create
     @requisition = Requisition.new(requisition_params)
     @requisition.user_id = current_user.username
-
+    @requisition.specification_id = session[:specification_sel_id]
     respond_to do |format|
       if @requisition.save
         format.html { redirect_to @requisition, notice: 'Requisition was successfully created.' }
@@ -85,6 +117,6 @@ class RequisitionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def requisition_params
-      params.require(:requisition).permit(:solicitante, :consumidor, :partida, :autor, :observacion)
+      params.require(:requisition).permit(:solicitante, :consumidor, :partida, :numero, :observacion, :archivo)
     end
 end

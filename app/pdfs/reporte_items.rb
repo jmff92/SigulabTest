@@ -34,7 +34,7 @@ class ReporteItems < Prawn::Document
   end
 
    def tittle 
-      [[{:content => "ESPECIFICACIONES TÉCNICAS DE BIENES", :rowspan => 2, :size => 20, :background_color => "DDDDDD" , :align => :center  },
+      [[{:content => "ESPECIFICACIONES TÉCNICAS DE BIENES", :rowspan => 2, :size => 20, :background_color => "DDDDDD" , :align => :center, :valign => :center  },
         {:content => "Registro No.", :background_color => "DDDDDD"}],
         [{:content => "#{@spec.id}", :background_color => "FFFFFF", :align => :center}]]
    end
@@ -61,7 +61,7 @@ class ReporteItems < Prawn::Document
  
   def items_rows
 
-    [['Numero de Item','Nombre','Descripción','Cantidad']] +
+    [['Número de Item','Nombre','Descripción','Cantidad']] +
       @items.map do |item|
 
       [item.id, item.nombre.upcase, item.descripcion.upcase, item.cantidad]

@@ -6,10 +6,21 @@ class ActsController < ApplicationController
   # GET /acts.json
   def index
     if current_user
-    	@acts = Act.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).all
-      @sumActs = Act.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
-	@act= Act.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).first
-  	 end
+    if current_user.acquisition? || @user.import? 
+    @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
+    @user = User.where(:username => @especificacion.user_id).first 
+        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
+            @mostrar = true
+        else
+            @mostrar = false
+        end
+    else
+    @mostrar = true
+    end
+    	@acts = Act.where(:specification_id => session[:specification_sel_id]).all
+        @sumActs = Act.where(:specification_id => session[:specification_sel_id]).count
+	@act= Act.where(:specification_id => session[:specification_sel_id]).first
+    end
 	respond_to do |format|
       format.html do
           if @sumActs != 0
@@ -43,6 +54,17 @@ class ActsController < ApplicationController
   # GET /acts/1
   # GET /acts/1.json
   def show
+     if current_user.acquisition? || @user.import? 
+    @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
+    @user = User.where(:username => @especificacion.user_id).first 
+        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
+            @mostrar = true
+        else
+            @mostrar = false
+        end
+    else
+    @mostrar = true
+    end
     @acts = Act.find(params[:id])
     
   end
@@ -74,7 +96,7 @@ class ActsController < ApplicationController
     @quotes.each do |quot|
 	@bienSer = @bienSer + quot.nombre_item + ", "
       end
-    @bienSer = @bienSer[0..-2]
+    @bienSer = @bienSer[0..-3]
     @act.specification_id = session[:specification_sel_id]
     @act.bienServicio = @bienSer
     @numin = Invitation.where(:specification_id => session[:specification_sel_id], :nombre => @act.proveedor, :tipo => "Internacional").count
