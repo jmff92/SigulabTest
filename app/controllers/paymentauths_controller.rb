@@ -11,7 +11,7 @@ class PaymentauthsController < ApplicationController
       @pays = Paymentauth.all.order("elaboration_date ASC")
     else
       # @pays = Paymentauth.all.where("user=?", current_user.username).order("elaboration_date ASC")
-      @pays = Paymentauth.all
+      @pays = Paymentauth.all.order("elaboration_date ASC")
     end
   end
 
@@ -57,15 +57,21 @@ class PaymentauthsController < ApplicationController
   end
   
   def update   
-    @pay = Paymentauth.find(params[:id])    
+    @pay = Paymentauth.find(params[:id])       
+    # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
+#    if (@pay.delivery_date == nil) and (paymentauth_params[:delivery_date] != "")
+#      @commitment = Commitment.new(paymentauth_params[:from], paymentauth_params[:registry], paymentauth_params[:amount], paymentauth_params[:concept], paymentauth_params[:recipient], paymentauth_params[:elaboration_date], paymentauth_params[:created_at], paymentauth_params[:updated_at], " ", paymentauth_params[:observations], 2)
+#    end    
     if @pay.update_attributes(paymentauth_params)
+#      @commitment.save
       redirect_to action: 'index'
     else
       @labs = Lab.all
       render 'edit'
     end
-  end
 
+  end
+ 
   def annul
     @pay = Paymentauth.find(params[:id])
     @pay.update_column(:status, "annulled")

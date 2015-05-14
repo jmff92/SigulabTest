@@ -4,13 +4,13 @@ class ExecutionsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @executions = Execution.all.where("valid_adm=? AND valid_dir=?", true, true)
+    @executions = Execution.all.where("valid_adm=? AND valid_dir=?", true, true).order("code ASC")
     @sum = @executions.where("check_annulled=false").sum(:check_amount)
   end
 
   def list_lab
     @lab = Lab.find(params[:id])
-    @executions = Execution.joins(commitment: :lab).where("lab_id=?", params[:id]).where("valid_adm=? AND valid_dir=?", true, true)
+    @executions = Execution.joins(commitment: :lab).where("lab_id=?", params[:id]).where("valid_adm=? AND valid_dir=?", true, true).order("code ASC")
     @sum = @executions.where("check_annulled=false").sum(:check_amount)
   end
 
@@ -21,7 +21,7 @@ class ExecutionsController < ApplicationController
   end
 
   def list
-    @executions = Execution.where("commitment_id=?",params[:cid]).where("valid_adm=? AND valid_dir=?", true, true)
+    @executions = Execution.where("commitment_id=?",params[:cid]).where("valid_adm=? AND valid_dir=?", true, true).order("code ASC")
     @sum = @executions.where("check_annulled=false").sum(:check_amount)
     @commitments = Commitment.find(params[:cid])
     @sum_commitment = @commitments.amount
