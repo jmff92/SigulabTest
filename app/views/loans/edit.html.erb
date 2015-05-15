@@ -1,3 +1,15 @@
+<%= stylesheet_link_tag 'chemical_substances.css.scss'%>
+<%= javascript_include_tag 'jquery-1.10.2.js'%>
+<%= javascript_include_tag 'jquery-ui.js' %>
+<%= stylesheet_link_tag 'jquery-ui.css'%>
+<%= javascript_include_tag 'tabs.js' %>
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
+<%= javascript_include_tag 'tabla.js' %>
+<%= javascript_include_tag 'bootstrap-datepicker.js' %>
+<%= javascript_include_tag 'bootstrap-datepicker.es.js' %>
+
 <h1>Editar Solicitud de Préstamo</h1>
 <ol class="breadcrumb">
 	<li> <%=link_to 'Inicio', controller: 'statics'%></li>
@@ -9,7 +21,295 @@
 </div>
 <br>
 
-<%= render 'form' %>
+<div class="col-xs-12 btn-group text-right">
+  <%= link_to inventario_url do %>
+    <button type="button" class="btn btn-primary"><span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Volver</button>
+    <br><br>
+  <% end %>
+</div>
 
-<i class="fa fa-arrow-left"></i><%= link_to ' Atrás', inventario_url %>
-<br><br><br><br>
+  <%= form_for (@loan) do |f| %> 
+    <% if @loan.errors.any? %>
+      <div class="col-xs-12" role="alert">
+        <div class="alert alert-danger">
+          <ul>
+            <% @loan.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
+<div class="col-xs-12">
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1" class="show">Cantidad y Uso</a></li>
+    <li><a href="#tabs-2" class="hidex">Período y Horario</a></li>
+    <li><a href="#tabs-3" class="hidex">Datos y Observaciones</a></li>
+    <li><a href="#tabs-4" class="hidex">Ítems Solicitados</a></li>
+  </ul>
+
+  <div id="tabs-1">
+    <div class="form-group">
+      <table class="table table-striped">
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Cantidad:</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><%= f.number_field(:medida, min: 0, :step => 'any') %><%= f.select(:unidadMedida, [['Un'], ['kg'], ['g'], ['mg'], ['l'], ['ml'] ] ) %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Uso:</strong></td>
+          <td class="col-xs-7"><%= f.check_box :docencia %>
+                               <%= f.label :Docencia %>&nbsp;&nbsp;
+                               <%= f.check_box :investigacion %>
+                               <%= f.label :Investigación %>&nbsp;&nbsp;
+                               <br>
+                               <%= f.check_box :extension %>
+                               <%= f.label :Extensión %>&nbsp;&nbsp;
+                               <%= f.check_box :apoyo %>
+                               <%= f.label :Apoyo %>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Condiciones:</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><%= f.text_field :condiciones %></td>
+        </tr> 
+      </table>
+    </div>
+  </div>
+
+  <div id="tabs-2">
+    <div class="form-group">
+      <table class="table table-striped">
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Período:</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><%= f.radio_button :periodo, 'Enero-Marzo' %>
+                               <%= f.label 'Enero-Marzo' %>
+                               <%= f.radio_button :periodo, 'Abril-Julio' %>
+                               <%= f.label 'Abril-Julio' %><br>
+                               <%= f.radio_button :periodo, 'Verano' %>
+                               <%= f.label 'Verano' %>
+                               <%= f.radio_button :periodo, 'Septiembre-Diciembre' %>
+                               <%= f.label 'Septiembre-Diciembre' %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Semana(s):</strong></td>
+          <td class="col-xs-7"><%= f.check_box :sem1 %>
+                               <%= f.label 'Semana 1' %>
+                               <%= f.check_box :sem2 %>
+                               <%= f.label 'Semana 2' %>
+                               <%= f.check_box :sem3 %>
+                               <%= f.label 'Semana 3' %>
+                               <%= f.check_box :sem4 %>
+                               <%= f.label 'Semana 4' %><br>
+                               <%= f.check_box :sem5 %>
+                               <%= f.label 'Semana 5' %>
+                               <%= f.check_box :sem6 %>
+                               <%= f.label 'Semana 6' %>
+                               <%= f.check_box :sem7 %>
+                               <%= f.label 'Semana 7' %>
+                               <%= f.check_box :sem8 %>
+                               <%= f.label 'Semana 8' %><br>
+                               <%= f.check_box :sem9 %>
+                               <%= f.label 'Semana 9' %>
+                               <%= f.check_box :sem10 %>
+                               <%= f.label 'Semana 10' %>
+                               <%= f.check_box :sem11 %>
+                               <%= f.label 'Semana 11' %>
+                               <%= f.check_box :sem12 %>
+                               <%= f.label 'Semana 12' %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Desde:</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><%= f.text_field :inicio, class: 'bootlayout-date' %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Hasta:</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><%= f.text_field :hasta, class: 'bootlayout-date' %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Horario:</strong></td>
+          <td class="col-xs-7"></td>
+        </tr>
+        <tr>
+          <td class="col-xs-3 text-right"><%= f.check_box :lunes %>
+                                          <%= f.label 'Lunes:' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                                          <%= f.check_box :martes %>
+                                          <%= f.label 'Martes:' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                                          <%= f.check_box :miercoles %>
+                                          <%= f.label 'Miércoles:' %><br>
+                                          <%= f.check_box :jueves %>
+                                          <%= f.label 'Jueves:' %>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                                          <%= f.check_box :viernes %>
+                                          <%= f.label 'Viernes:' %>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td class="col-xs-9 text-left"><%= f.check_box :todoLun %>
+                                          <%= f.label 'Todo El Día' %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <%= f.label 'De' %>
+                                          <%= f.time_select :horalunes, :ampm => true %>
+                                          <%= f.label 'a' %>
+                                          <%= f.time_select :finLunes, :ampm =>true %><br>
+                                          <%= f.check_box :todoMar %>
+                                          <%= f.label 'Todo El Día' %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <%= f.label 'De' %>
+                                          <%= f.time_select :horaMartes, :ampm => true %>
+                                          <%= f.label 'a' %>
+                                          <%= f.time_select :finMartes, :ampm => true %><br>
+                                          <%= f.check_box :todoMie %>
+                                          <%= f.label 'Todo El Día' %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <%= f.label 'De' %>
+                                          <%= f.time_select :horaMiercoles, :ampm => true %>
+                                          <%= f.label 'a' %>
+                                          <%= f.time_select :finMiercoles, :ampm => true %><br>
+                                          <%= f.check_box :todoJue %>
+                                          <%= f.label 'Todo El Día' %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <%= f.label 'De' %>
+                                          <%= f.time_select :horaJueves, :ampm => true %>
+                                          <%= f.label 'a' %>
+                                          <%= f.time_select :finJueves, :ampm => true %><br>
+                                          <%= f.check_box :todoVie %>
+                                          <%= f.label 'Todo El Día' %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <%= f.label 'De' %>
+                                          <%= f.time_select :horaViernes, :ampm => true %>
+                                          <%= f.label 'a' %>
+                                          <%= f.time_select :finViernes, :ampm => true %>
+                                          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="tabs-3">
+    <div class="form-group">
+      <table class="table table-striped">
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Lugar de Destino:</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><%= f.text_field :ubicacion %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Fecha Máxima de Devolución:</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><%= f.text_field :maxDevolucion, class: 'bootlayout-date bootstrap' %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Observaciones:</strong></td>
+          <td class="col-xs-7"><%= f.text_area :descripcion %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Persona autorizada a retirar el Ítem:</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><%= f.text_field :persona %>
+                               <strong><%= 'CI:' %></strong><span class="red">*</span>
+                               <%= f.number_field(:cedula, min: 1, :step => 'any') %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="tabs-4">
+    <body id="dt_example" class="ex_highlight_row">
+
+        <div id="container">
+          <div id="demo">
+            <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+              <thead>
+                <tr>
+                  <th class="text-center">Identificador</th>
+                  <th class="text-center">Nombre</th>
+                  <th class="text-center">Ubicación</th>
+                  <th class="text-center">Responsable</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @sustancias.each do |sustancia| %>
+                  <tr>
+                    <td class="text-center"><span class="mayus"><%= sustancia.id2 %></span></td>
+                    <td class="text-center"><span class="mayus"><%= sustancia.name %></span></td>
+                    <td class="text-center"><span class="mayus"><%= sustancia.location %></span></td>
+                    <td class="text-center"><span class="mayus"><%= sustancia.responsible %></span></td>
+                  </tr>
+                <% end %>
+                <% @equipment.each do |equipment| %>
+                  <tr>
+                    <td class="text-center"><span class="mayus"><%= equipment.id2 %></span></td>
+                    <td class="text-center"><span class="mayus"><%= equipment.name %></span></td>
+                    <td class="text-center"><span class="mayus"><%= equipment.location %></span></td>
+                    <td class="text-center"><span class="mayus"><%= equipment.responsible %></span></td>
+                  </tr>
+                <% end %>
+                <% @consumables.each do |consumable| %>
+                  <tr>
+                    <td class="text-center"><span class="mayus"><%= consumable.id2 %></span></td>
+                    <td class="text-center"><span class="mayus"><%= consumable.name %></span></td>
+                    <td class="text-center"><span class="mayus"><%= consumable.location %></span></td>
+                    <td class="text-center"><span class="mayus"><%= consumable.responsible %></span></td>
+                  </tr>
+                <% end %>
+                <% @tools.each do |tool| %>
+                  <tr>
+                    <td class="text-center"><span class="mayus"><%= tool.id2 %></span></td>
+                    <td class="text-center"><span class="mayus"><%= tool.name %></span></td>
+                    <td class="text-center"><span class="mayus"><%= tool.location %></span></td>
+                    <td class="text-center"><span class="mayus"><%= tool.responsible %></span></td>
+                  </tr>
+                <% end %>
+                <% @instruments.each do |instrument| %>
+                  <tr>
+                    <td class="text-center"><span class="mayus"><%= instrument.id2 %></span></td>
+                    <td class="text-center"><span class="mayus"><%= instrument.name %></span></td>
+                    <td class="text-center"><span class="mayus"><%= instrument.location %></span></td>
+                    <td class="text-center"><span class="mayus"><%= instrument.responsible %></span></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <div class="spacer"></div>
+          </div>
+        </div>
+      </body>
+      <p></p>
+  </div>
+
+</div><br><br>
+</div>
+<br><br>
+
+<%= hidden_field_tag "item_ids", @id %>
+
+<div class="col-xs-12 text-center">
+  <div class="actions">
+    <button type="submit" class="btn btn-default btn-success"><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Actualizar</button>
+  </div>
+</div>
+<% end %>
+<br>
+
+
+  <style>
+
+    .red {
+        font-size               : 22px;
+        color                   : red;
+    }
+
+    .linkButton { 
+       text-decoration: none;
+       text-align: right;
+       color: #384157;
+       font-weight: bold;
+         background: none repeat scroll 0px 0px transparent;
+         border: none;
+    }
+
+    .linkButton:hover {
+        cursor: pointer;
+        color: #8ED6FF;
+        text-align: right;
+        background: none repeat scroll 0% 0% #FFF;
+        text-decoration: none;
+    }
+
+    .linkButton:focus {
+        outline: thin dotted;
+        outline-offset: -2px;
+    }
+
+  </style>

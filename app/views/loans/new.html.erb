@@ -7,6 +7,8 @@
 <%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
 <%= javascript_include_tag 'jquery.dataTables.js' %>
 <%= javascript_include_tag 'tabla.js' %>
+<%= javascript_include_tag 'bootstrap-datepicker.js' %>
+<%= javascript_include_tag 'bootstrap-datepicker.es.js' %>
 
 <h1>Nueva Solicitud</h1>
 <ol class="breadcrumb">
@@ -52,11 +54,11 @@
     <div class="form-group">
       <table class="table table-striped">
         <tr>
-          <td class="col-xs-5 text-right"><strong>Cantidad:</strong></td>
+          <td class="col-xs-5 text-right"><strong>Cantidad:</strong><span class="red">*</span></td>
           <td class="col-xs-7"><%= f.number_field(:medida, min: 0, :step => 'any') %><%= f.select(:unidadMedida, [['Un'], ['kg'], ['g'], ['mg'], ['l'], ['ml'] ] ) %></td>
         </tr>
         <tr>
-          <td class="col-xs-5 text-right"><strong>Uso:</strong><span class="red">*</span></td>
+          <td class="col-xs-5 text-right"><strong>Uso:</strong></td>
           <td class="col-xs-7"><%= f.check_box :docencia %>
                                <%= f.label :Docencia %>&nbsp;&nbsp;
                                <%= f.check_box :investigacion %>
@@ -69,7 +71,7 @@
           </td>
         </tr>
         <tr>
-          <td class="col-xs-5 text-right"><strong>Condiciones:</strong></td>
+          <td class="col-xs-5 text-right"><strong>Condiciones:</strong><span class="red">*</span></td>
           <td class="col-xs-7"><%= f.text_field :condiciones %></td>
         </tr> 
       </table>
@@ -91,7 +93,7 @@
                                <%= f.label 'Septiembre-Diciembre' %></td>
         </tr>
         <tr>
-          <td class="col-xs-5 text-right"><strong>Semana(s):</strong><span class="red">*</span></td>
+          <td class="col-xs-5 text-right"><strong>Semana(s):</strong></td>
           <td class="col-xs-7"><%= f.check_box :sem1 %>
                                <%= f.label 'Semana 1' %>
                                <%= f.check_box :sem2 %>
@@ -119,14 +121,14 @@
         </tr>
         <tr>
           <td class="col-xs-5 text-right"><strong>Desde:</strong><span class="red">*</span></td>
-          <td class="col-xs-7"><%= f.text_field :desde, :class => 'bootlayout-date' %></td>
+          <td class="col-xs-7"><%= f.text_field :inicio, class: 'bootlayout-date' %></td>
         </tr>
         <tr>
           <td class="col-xs-5 text-right"><strong>Hasta:</strong><span class="red">*</span></td>
-          <td class="col-xs-7"><%= f.text_field :fechaEntrega, :class => 'bootlayout-date' %></td>
+          <td class="col-xs-7"><%= f.text_field :hasta, class: 'bootlayout-date' %></td>
         </tr>
         <tr>
-          <td class="col-xs-5 text-right"><strong>Horario:</strong><span class="red">*</span></td>
+          <td class="col-xs-5 text-right"><strong>Horario:</strong></td>
           <td class="col-xs-7"></td>
         </tr>
         <tr>
@@ -185,17 +187,17 @@
         </tr>
         <tr>
           <td class="col-xs-5 text-right"><strong>Fecha Máxima de Devolución:</strong><span class="red">*</span></td>
-          <td class="col-xs-7"><%= f.text_field :maxDevolucion, class: 'bootlayout-date' %></td>
+          <td class="col-xs-7"><%= f.text_field :maxDevolucion, class: 'bootlayout-date bootstrap' %></td>
         </tr>
         <tr>
-          <td class="col-xs-5 text-right"><strong>Observaciones:</strong><span class="red">*</span></td>
+          <td class="col-xs-5 text-right"><strong>Observaciones:</strong></td>
           <td class="col-xs-7"><%= f.text_area :descripcion %></td>
         </tr>
         <tr>
           <td class="col-xs-5 text-right"><strong>Persona autorizada a retirar el Ítem:</strong><span class="red">*</span></td>
           <td class="col-xs-7"><%= f.text_field :persona %>
-                               <strong><%= 'CI:' %></strong>
-                               <%= f.number_field(:cedula, min: 0, :step => 'any') %></td>
+                               <strong><%= 'CI:' %></strong><span class="red">*</span>
+                               <%= f.number_field(:cedula, min: 1, :step => 'any') %></td>
         </tr>
       </table>
     </div>
