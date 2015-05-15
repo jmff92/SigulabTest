@@ -16,7 +16,7 @@
    margin-top:-4px;
          }
 .nav-tabs > li.habilitado > a,
-   .nav-tabs > li.habilitado > a:hover <% if session['specification_p1'] == 2 %>, .nav-tabs > li.active > a <% end %> {
+   .nav-tabs > li.habilitado > a:hover <% if session['specification_p6'] == 2 %>, .nav-tabs > li.active > a <% end %> {
     color: #000 !important;
     background-color: transparent !important;
     text-decoration: none;
@@ -31,7 +31,7 @@
     border-radius:0px;
      }
 .nav-tabs > li.select > a,
-   .nav-tabs > li.select > a:hover <% if session['specification_p1'] == 1 %>, .nav-tabs > li.active > a <% end %> {
+   .nav-tabs > li.select > a:hover <% if session['specification_p6'] == 1 %>, .nav-tabs > li.active > a <% end %> {
     color: #000 !important;
     background-color: transparent !important;
     text-decoration: none;
@@ -48,7 +48,7 @@
  </style>
 <ul class="nav nav-tabs"  >
 
-			<li class="active" style="text-align:left"><a href="<%= session[:specification_sel_link] %>">
+			<li style="text-align:left" <% if session['specification_p1'] == 1 %> class='select' <% else %> class='habilitado' <% end %>><a href="<%= session[:specification_sel_link] %>">
 		       <i class="fa fa-clipboard fa-1"> <%= session['specification_sel_tipo'] %> </i>
 		        </a></li>
 
@@ -68,18 +68,14 @@
 		   </a></li>
 		   <% else %>
 			<li style="text-align:left" <% if session['specification_p3'] == 1 %> class='select' <% else %> class='habilitado' <% end %>><%= link_to quotes_url do %>
+
 		       <i class="fa fa-tag"> &nbsp Ofertas </i>
 		   <% end %></li>
 		   <% end %>
 
 
 <% if session['specification_p4'] == 0 %>
-			<li style="text-align:left" class='deshabilitado'>
-<% if session['specification_p5'] == 2 %>
-<a href="javascript:void(0)" onclick="alert('Consultar Acto Motivado.');" >
-<% else %>
-<a href="javascript:void(0)" onclick="alert('Para un informe de recomendación es necesario una oferta.');" >
-<% end %>
+			<li style="text-align:left" class='deshabilitado'><a href="javascript:void(0)" onclick="alert('Para un informe de recomendación es necesario una oferta.');" >
 		       <i class="fa fa-file-text-o"> Informe de recomendación</i>
 		   </a></li>
 		   <% else %>
@@ -91,8 +87,7 @@
 
 
                    <% if session['specification_p5'] == 0 %>
-			<li style="text-align:left" class='deshabilitado'>
-<% if session['specification_p4'] != 2 && session['specification_p4'] != 1 %>
+			<li style="text-align:left" class='deshabilitado'><% if session['specification_p4'] != 2 && session['specification_p4'] != 1 %>
 <a href="javascript:void(0)" onclick="alert('Para un acto motivado es necesario una oferta.');" >
 <% else %>
 <a href="javascript:void(0)" onclick="alert('Consultar Informe de Recomendación');" >
@@ -105,23 +100,24 @@
 		   <% end %></li>
 		   <% end %>
 
-		   <% if session['specification_sel_link'] == "/items/" %>
-		      <% if session['specification_p6'] == 0 %>
+		    <% if session['specification_sel_link'] == "/items/" %>
+		       <% if session['specification_p6'] == 0 %>
 			<li style="text-align:left" class="deshabilitado"><a href="javascript:void(0)" onclick="alert('Para una requisición es necesario un acto motivado o un informe de recomendación.');" >
 		       <i class="fa fa-files-o"> Requisición </i>
 		   </a></li>
 		   <% else %>
-			<li style="text-align:left" <% if session['specification_p6'] == 1 %> class='select' <% else %> class='habilitado' <% end %>><%= link_to requisitions_url do %><i class="fa fa-files-o"> Requisición </i>
+			<li class="active" style="text-align:left"><%= link_to requisitions_url do %>
+		       <i class="fa fa-tag"> Requisición </i>
 		   <% end %></li>
 		   <% end %>
 <% else %>
-
-<% if session['specification_p6'] == 0 %>
+ <% if session['specification_p6'] == 0 %>
 			<li style="text-align:left" class="deshabilitado"><a href="javascript:void(0)" onclick="alert('Para una solicitud de servicio es necesario un acto motivado o un informe de recomendación.');" >
 		       <i class="fa fa-files-o"> Solicitud de Servicio </i>
 		   </a></li>
 		   <% else %>
-			<li style="text-align:left" <% if session['specification_p6'] == 1 %> class='select' <% else %> class='habilitado' <% end %>><%= link_to servicerequests_url do %><i class="fa fa-files-o"> Solicitud de Servicio </i>
+			<li class="active" style="text-align:left"><%= link_to requisitions_url do %>
+		       <i class="fa fa-tag"> Solicitud de Servicio </i>
 		   <% end %></li>
 		   <% end %>
 <% end %>
@@ -145,9 +141,11 @@
 		   <% end %></li>
 		   <% end %>
 <% end %>
+
 <li style="text-align:left" <% if session['specification_p7'] != 1 %> class='select' <% else %> class='habilitado' <% end %>><%= link_to devolutions_url do %>
-		       <i class="fa fa-file-text-o"> &nbsp Aceptar/Devolver </i>
+		       <i class="fa fa-file-text-o"> &nbsp Nota de Devolución </i>
 		   <% end %></li>
+		   
 		   
 </ul>
 <div style="font-size:10px; text-align:right">

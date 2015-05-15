@@ -4,8 +4,8 @@ class SpecificationsController < ApplicationController
 
   # GET /specifications
   # GET /specifications.json
-  def index
-    if current_user.director? || current_user.acquisition?  || current_user.acquisition_analist?
+  def index 
+    if current_user.director? || current_user.acquisition?  || current_user.acquisition_analist?  || current_user.import?  || current_user.import_analist? || current_user.gsmp? || current_user.directorate?
       @specifications = Specification.all()
       @sumSpecifications = Specification.count
     elsif current_user.quality? || current_user.quality_analist?

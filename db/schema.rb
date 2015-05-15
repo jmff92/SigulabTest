@@ -636,6 +636,13 @@ ActiveRecord::Schema.define(version: 20150515021919) do
     t.string   "idEquipo"
   end
 
+  create_table "rejects", force: true do |t|
+    t.string   "estado"
+    t.integer  "specification_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "relation_loans", force: true do |t|
     t.string   "prestamo"
     t.string   "item"

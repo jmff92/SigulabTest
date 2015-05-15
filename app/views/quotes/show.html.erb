@@ -2,10 +2,10 @@
 <br/>
 <div style="text-align: right; height: 45px; margin-top: 12px;">
 <%= link_to '<button type="button" class="btn btn-primary"> Volver </button>'.html_safe, quotes_url %>       
-<% if session['specification_p3'] != 2 %>
+<% if session['specification_p2'] != 2 && !current_user.director? && !current_user.quality && !current_user.quality_analist && !current_user.manage? && !current_user.manage_analist && !current_user.gsmp? && !current_user.directorate?  && !current_user.director %>
 	<%= link_to '<button type="button" class="btn btn-warning"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar </button>'.html_safe, edit_quote_path(@quote) %>
-   <%= link_to '<button type="button" class="btn btn-danger"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, @quote,method: :delete,
-       data: { confirm: '¿Está seguro que desea eliminar el servicio?' } %><% else %>Ya no puede editar porque se generó la solicitud. <% end %>
+    <% if @puedeEliminar%><%= link_to '<button type="button" class="btn btn-danger"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, @quote,method: :delete,
+       data: { confirm: '¿Está seguro que desea eliminar el servicio?' } %><% end %><% else %>Ya no puede editar porque se generó la solicitud. <% end %>
 	</div>
 
   <table id="actTable" class="table table-striped">
