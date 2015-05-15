@@ -28,9 +28,7 @@ class ChemicalSubstancesController < ApplicationController
     @binnacle.total = @chemical_substance.quantity
     @binnacle.tipo = "Ingreso"
     @binnacle.descripcion = " "
-    binding.pry
     @binnacle.save
-    binding.pry
   end
 
   # GET /chemical_substances/new

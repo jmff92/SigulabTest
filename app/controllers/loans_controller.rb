@@ -85,7 +85,7 @@ class LoansController < ApplicationController
           @relation_loan.item = equipment.id2
           @relation_loan.save
           @user = equipment.correo
-          LoanMailer.loan_email(@user).deliver
+          LoanMailer.loan_email(@user,equipment.id2).deliver
         end
 
         @instruments.each do |instrument|
@@ -94,7 +94,7 @@ class LoansController < ApplicationController
           @relation_loan.item = instrument.id2
           @relation_loan.save
           @user = instrument.correo
-          LoanMailer.loan_email(@user).deliver
+          LoanMailer.loan_email(@user,instrument.id2).deliver
         end
 
         @tools.each do |tool|
@@ -103,7 +103,7 @@ class LoansController < ApplicationController
           @relation_loan.item = tool.id2
           @relation_loan.save
           @user = tool.correo
-          LoanMailer.loan_email(@user).deliver
+          LoanMailer.loan_email(@user,tool.id2).deliver
         end
 
         @consumables.each do |consumable|
@@ -112,7 +112,7 @@ class LoansController < ApplicationController
           @relation_loan.item = consumable.id2
           @relation_loan.save
           @user = consumable.correo
-          LoanMailer.loan_email(@user).deliver
+          LoanMailer.loan_email(@user,consumable.id2).deliver
         end
 
         @sustancias.each do |sustancia|
@@ -121,7 +121,7 @@ class LoansController < ApplicationController
           @relation_loan.item = sustancia.id2
           @relation_loan.save
           @user = sustancia.correo
-          LoanMailer.loan_email(@user).deliver
+          LoanMailer.loan_email(@user,sustancia.id2).deliver
         end
 
         format.html { redirect_to @loan, :item_ids => params[:item_ids] }
