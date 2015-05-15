@@ -7,14 +7,16 @@ class RequisitionsController < ApplicationController
   # GET /requisitions.json
   def index
     if current_user
-if current_user.acquisition? || current_user.import? 
     @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
-    @user = User.where(:username => @especificacion.user_id).first 
-        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
+    @user = User.where(:username => @especificacion.user_id).first
+    if current_user.acquisition? || current_user.import? || current_user.acquisition_analist? || current_user.import_analist?  
+        if @user.director? || @user.directorate? || @user.gsmp? || @user.acquisition? || @user.import? || @user.quality? || @user.manage? || @user.acquisition_analist? || @user.import_analist? || @user.quality_analist? || @user.manage_analist? 
             @mostrar = true
         else
             @mostrar = false
         end
+    elsif current_user.director? || current_user.directorate? || current_user.gsmp? || current_user.quality? || current_user.quality_analist? || current_user.manage? || current_user.manage_analist? || current_user.section_boss? || current_user.proy_responsible?
+	@mostrar = false
     else
     @mostrar = true
     end
@@ -44,17 +46,27 @@ if current_user.acquisition? || current_user.import?
   # GET /requisitions/1
   # GET /requisitions/1.json
   def show
-if current_user.acquisition? || current_user.import? 
     @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
     @user = User.where(:username => @especificacion.user_id).first 
-        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
-            @mostrar = true
-        else
-            @mostrar = false
-        end
+
+if current_user.acquisition? || current_user.import? || current_user.acquisition_analist? || current_user.import_analist?   
+    @mostrar_editar = true
+    if @user.director? || @user.directorate? || @user.gsmp? || @user.acquisition? || @user.import? || @user.quality? || @user.manage? || @user.acquisition_analist? || @user.import_analist? || @user.quality_analist? || @user.manage_analist? 
+	@mostrar_eliminar = true
     else
-    @mostrar = true
+	@mostrar_eliminar = false
     end
+    else
+    @mostrar_eliminar = false
+    @mostrar_editar = false
+    end
+
+    if current_user.gsmp? || current_user.quality? || current_user.quality_analist? || current_user.manage? || current_user.manage_analist? || current_user.proy_responsible?
+	@mostrar_descargar = false
+    else
+	@mostrar_descargar = true
+    end
+
     @requisition = Requisition.find(params[:id])
 
   end
