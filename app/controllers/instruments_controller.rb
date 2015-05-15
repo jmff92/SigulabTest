@@ -89,10 +89,6 @@ class InstrumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def instrument_params
-<<<<<<< HEAD
-      params.require(:instrument).permit(:name, :brand, :model, :measurement_unit, :capacity, :material, :status, :location, :last_calibration, :responsible, :national_good, :investigation, :teaching, :extention, :management, :adquisition_date, :buy_order, :cost, :bill, :dependency, :origen, :NumDonacion, :FechaDonacion, :PJDonacion, :PersonaContactoDonacion)
-=======
-      params.require(:instrument).permit(:name, :brand, :model, :measurement_unit, :capacity, :material, :status, :location, :last_calibration, :responsible, :national_good, :investigation, :teaching, :extention, :management, :adquisition_date, :buy_order, :cost, :bill, :dependency, :correo)
->>>>>>> 48bba7f6bd1c5358bcf78051c6f3cd8f3e00a14f
+      params.require(:instrument).permit(:name, :brand, :model, :measurement_unit, :capacity, :material, :status, :location, :last_calibration, :responsible, :national_good, :investigation, :teaching, :extention, :management, :adquisition_date, :buy_order, :cost, :bill, :dependency, :correo, :origen, :NumDonacion, :FechaDonacion, :PJDonacion, :PersonaContactoDonacion)
     end
 end
