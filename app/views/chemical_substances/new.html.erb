@@ -231,6 +231,18 @@
 
 <script>
 
+if( window.localStorage )
+  {
+    if( !localStorage.getItem( 'firstLoad' ) )
+    {
+      localStorage[ 'firstLoad' ] = true;
+      window.location.reload();
+    }
+    else
+      localStorage.removeItem( 'firstLoad' );
+  }
+;
+
 function changeOrigen() {
 
   if ($('#chemical_substance_origen').val()== "Comprado") {

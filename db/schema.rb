@@ -714,22 +714,6 @@ ActiveRecord::Schema.define(version: 20150515050237) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_id"
-    t.string   "attachment"
-    t.integer  "specification_id"
-  end
-
-  create_table "servicerequests", force: true do |t|
-    t.string   "seccion"
-    t.string   "contacto_int"
-    t.string   "correo_int"
-    t.string   "extension"
-    t.string   "monto"
-    t.text     "observacion"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "user_id"
-    t.integer  "specification_id"
-    t.datetime "fecha"
   end
 
   create_table "services", force: true do |t|
