@@ -18,42 +18,22 @@
 
 </script>
 
-<div style="margin-left:350px;">
-	<%= form_for(@requisition) do |f| %>
-  		 <%= @requisition.errors.full_messages.first if @requisition.errors.any? %> 
+<div style="margin-left:0px;">
+	<%= form_for(@reject) do |f| %>
+  		 <%= @reject.errors.full_messages.first if @reject.errors.any? %> 
 <br/>
       	<br>	
-  		
-  <div class="field">
+  	
+  <div class="field"><center>
           <span class="red">*</span>
-			 <%= f.label "Nro de requisición" %><br>
-			 <%= f.text_field :numero %>
-                  </div>
-<div class="field">
-                        <span class="red">*</span>
-                            <%= f.label "Fecha" %><br/>
-				
-				<%= f.text_field :observacion, class: 'bootlayout-date form-control' %>
-				
-                          </div>  
- <div class="field">
-          <span class="red">*</span>
-			 <%= f.label "Unidad solicitante" %><br>
-			 <%= f.text_field :solicitante %>
-                  </div>
-  <div class="field">
- 	 <span class="red">*</span>
-    <%= f.label "Requisición" %><br>
-    <%= f.file_field :archivo, id:"browse", style:"display: none", onChange:"Handlechange()" %>
-	 <input type="text" id="filename" readonly="true"/>
-	 <input type="button" class="btn btn-default" value="Examinar" id="fakeBrowse" onclick="HandleBrowseClick();"/>
-  </div>
-   
-        <div class="actions">
+			 <%= f.label "Seleccione una opción: " %><br><br>
+			  <%= f.collection_select :estado, Reject::Aceptacion, :to_s, :to_s, 
+          :include_blank => false %></center>
+                  </div>  <br/>
+        <div class="actions"><center>
     <%= f.submit "Aceptar", data: { confirm: '¿Está seguro de la informacion que acaba de suministrar?' }  %>
 <% end %>
-    <%= link_to '<button type="button" class="btn btn-primary" style="margin-top:0px; margin-left:15px;"> Cancelar </button>'.html_safe, controller: "requisitions" %>  
-      </div>
+     </center> </div>
 </div>
 
 <style>

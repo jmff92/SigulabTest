@@ -138,9 +138,11 @@
 		   <% end %></li>
 		   <% end %>
 <% end %>
-<li style="text-align:left" <% if session['specification_p7'] != 1 %> class='select' <% else %> class='habilitado' <% end %>><%= link_to devolutions_url do %>
+<% if current_user.acquisition? || current_user.acquisition_analist? || current_user.import? || current_user.import_analist? %>
+<li style="text-align:left" <% if session['specification_p7'] != 1 %> class='select' <% else %> class='habilitado' <% end %>><%= link_to rejects_url do %>
 		       <i class="fa fa-file-text-o"> &nbsp Aceptar/Devolver </i>
 		   <% end %></li>
+		   <%end%>
 		   
 </ul>
 <div style="font-size:10px; text-align:right">
