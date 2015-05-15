@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'item_donados/new'
+
+  get 'item_donados/create'
+
+  get 'item_donados/destroy'
+
   resources :records
   resources :relation_loans
 
@@ -41,6 +47,7 @@ Rails.application.routes.draw do
   post 'records/new'
 
   resources :invitations
+  resources :item_donados
   resources :services
   resources :items
   resources :chemical_substances
@@ -102,6 +109,8 @@ end
 
   resources :poas do
     get 'delete', on: :member
+    get 'valid_dir', on: :member
+    get 'no_valid_dir', on: :member
 	 end
   resources :incomes do
     get 'valid_adm', on: :member

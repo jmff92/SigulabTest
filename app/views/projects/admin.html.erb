@@ -58,7 +58,12 @@
  									<td class="text-center"><%= number_to_currency(@incomes_proj[p.id], format: "%n", delimiter: ".", separator: ",") %></td>
 									<td class="text-center"><%= number_to_currency(@commitments_proj[p.id], format: "%n", delimiter: ".", separator: ",") %></td>									
 									<td class="text-center"><%= number_to_currency(@executions_commitement[p.id], format: "%n", delimiter: ".", separator: ",") %></td>	
-									<td class="text-center"><%= number_to_currency(@incomes_proj[p.id] - @commitments_proj[p.id], format: "%n", delimiter: ".", separator: ",") %></td>
+									<% @available = @incomes_proj[p.id] - @commitments_proj[p.id] %>
+									<% if @available >= 0 %>							
+										<td class="text-center"><%= number_to_currency(@available, format: "%n", delimiter: ".", separator: ",") %></td>
+									<% else %>
+										<td class="text-center" style="color:#FF0000"><%= number_to_currency(@available, format: "%n", delimiter: ".", separator: ",") %></td>
+									<% end %>	
 								</tr>
 							<% end %>
 						</tbody>
@@ -95,7 +100,7 @@
 			</div>
 <div class="col-xs-12" align="center">
 	<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Descargar </button>'.html_safe, projects_admin_path("projects", :format => 'pdf') %>	
-	<% if current_user.director? or current_user.directorate? or  current_user.manage? or current_user.manage_analist? %>	
+	<% if current_user.director? or current_user.directorate? or  current_user.projadmin? %>	
 		<%= link_to controller: 'projincomes', action: 'all' do %>
 			<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp; Ingresos </button>
 		<% end %>

@@ -1,3 +1,10 @@
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
+<%= javascript_include_tag 'tabla.js' %>
+
+
+
 <p id="notice"><%= notice %></p>
 <ol class="breadcrumb">
   <li> <%=link_to 'Inicio', controller: 'statics'%></li>
@@ -20,35 +27,6 @@
   <div class="col-xs-12">
     <table class="table table-striped">
 
-    <tr>
-      <td class="col-xs-5 text-right"><strong>Nombre:</strong></td>
-      <td class="col-xs-7"> <%= @donation.nombreItem %>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="col-xs-5 text-right"><strong>Marca:</strong></td>
-      <td class="col-xs-7"> <%= @donation.marca %>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="col-xs-5 text-right"><strong>Modelo:</strong></td>
-      <td class="col-xs-7"> <%= @donation.modelo %>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="col-xs-5 text-right"><strong>Cantidad:</strong></td>
-      <td class="col-xs-7"> <%= @donation.cantidad %>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="col-xs-5 text-right"><strong>Unidad de Medida:</strong></td>
-      <td class="col-xs-7"> <%= @donation.unidadMedida %>
-      </td>
-    </tr>
 
     <tr>
       <td class="col-xs-5 text-right"><strong>No. Documento:</strong></td>
@@ -74,22 +52,16 @@
     </tr>
 
     <tr>
-      <td class="col-xs-5 text-right"><strong>Tipo:</strong></td>
-      <td class="col-xs-7"> <%= @donation.tipo %>
-      </td>
     </tr>
 
-    </div>
-  </table>
-
 <br><br>
-<div class="col-xs-12">
+
   <div class="col-xs-6 text-left">
 
     <% if can? :create, @donation %>
           <%= link_to new_donation_path do %>
             <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Donación</button>
-          <% end %> 
+    <% end %> 
     <%end%>
     <% if can? :update, @donation %>
       <%= link_to edit_donation_path(@donation) do %>
@@ -102,6 +74,67 @@
           <% end %>
     <%end%>
   </div>
+
+<div class="col-xs-6 text-right">
+      <% if can? :create, @donation %>
+          <%= link_to new_item_donado_path(donation_id:@donation.id) do %>
+            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Item a la Donación</button>
+    <% end %> 
+    <%end%>
+    <br><br><br><br>
 </div>
+
+
+</div>
+<div class="col-xs-12">
+
+  <div class="col-xs-12">
+    <body id="dt_example" class="ex_highlight_row">
+
+      <div id="container">
+        <div id="demo">
+          <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+            <thead>
+              <tr>
+                <th align="center">Nombre</th>
+                <th align="center">Marca</th>
+                <th align="center">Modelo</th>
+                <th align="center">Unidad de Medida</th>
+                <th align="center">Tipo</th>
+                <th align="center"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @item_donados.each do |i| %>
+                  <tr>
+                   <td ><%= i.Nombre %></td>
+                   <td ><%= i.Marca %></td>
+                   <td ><%= i.Modelo %></td>
+                   <td ><%= i.UniDeMedida %></td>
+                   <td ><%= i.tipo %></td>
+                   <td ><%= link_to "Borrar", item_donado_path(i.id), :method=> 'delete' %></td>
+                 </tr>
+               <% end %>
+            </tbody>
+          </table>
+          <div class="spacer"></div>
+        </div>
+      </div>
+    </body>
+
+    <p></p>
+
+  </div>
+
+
+
+
+    </div>
+
+  </table>
+
+
 <br><br><br><br>
+
 

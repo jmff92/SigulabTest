@@ -187,25 +187,34 @@
 
   <div id="tabs-3">
     <table class="table table-striped">
-      <tr>
-        <td class="col-xs-5 text-right"><strong>Factura:</strong></td>
-        <td class="col-xs-7"><span class="mayus" ><%= @chemical_substance.bill %></span></td>
-      </tr>
 
       <tr>
-        <td class="col-xs-5 text-right"><strong>Costo:</strong></td>
-        <td class="col-xs-7"><%= @chemical_substance.cost %> BS.</td>
+        <td class="col-xs-5 text-right"><strong>Origen:</strong></td>
+        <td class="col-xs-7"><span class="mayus" ><%= @chemical_substance.origen %></span></td>
       </tr>
 
-      <tr>
-        <td class="col-xs-5 text-right"><strong>Órden de Compra:</strong></td>
-        <td class="col-xs-7"><span class="mayus"><%= @chemical_substance.buy_order %></span></td>
-      </tr>
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura:</strong></td>
+            <td class= "hidden_option1 col-xs-7" ><%=  @chemical_substance.bill %></td>
+          </tr>
 
-      <tr>
-        <td class="col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
-        <td class="col-xs-7"><%= @chemical_substance.adquisition_date %></td>
-      </tr>
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo:</strong></td>
+            <td class="hidden_option1 col-xs-7" >Bs.<%= @chemical_substance.cost %></td> 
+          </tr>
+
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%=  @chemical_substance.buy_order %></td>
+
+          <tr>
+            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= @chemical_substance.adquisition_date %></td>
+          </tr>
+                  <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;La USB no autoriza</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><strong>donaciones de sustancias quimicas</strong></td>
+        </table>
     </table></p>
     
         <% if can? :create, @chemical_substance %>
@@ -233,7 +242,7 @@
 <div class="col-xs-12">
 <div class="col-xs-6 text-left">
 
-<div class="col-xs-6 text-right">
+<div class="col-xs-6 text-left">
     <%= link_to binnacles_path(@ids) do %>
       <button type="button" class="btn btn-info" id="letra"><span class="fa fa-bar-chart"></span>&nbsp;&nbsp;Bitácora</button>
     <% end %>
@@ -243,6 +252,14 @@
 
 
 <style>
+
+.hidden_option1{
+  display: none;
+}
+
+.hidden_option2{
+  display: none;
+}
 
 #letra {
   text-decoration: none;
@@ -301,4 +318,22 @@
       localStorage.removeItem( 'firstLoad' );
   }
 ;
+
+function changeOrigen() {
+
+  if ($('#chemical_substance_origen').val()== "Comprado") {
+    $(".hidden_option1").fadeIn('fast');
+  } else {
+    $(".hidden_option1").fadeOut('fast');   
+  }
+ 
+  if ($('#chemical_substance_origen').val()== "Donado") {
+    $(".hidden_option2").fadeIn('fast');
+  } else {
+    $(".hidden_option2").fadeOut('fast');   
+  }
+
+
+}
+
   </script>

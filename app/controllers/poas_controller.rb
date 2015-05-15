@@ -43,14 +43,11 @@ class PoasController < ApplicationController
   end
 
     def edit
-
       @poa = Poa.find(params[:id])
-
     end
     
     def update
       @poa = Poa.find(params[:id])
-
       if @poa.update_attributes(poa_params)
         redirect_to poa_url(@poa)
       else
@@ -59,11 +56,22 @@ class PoasController < ApplicationController
     end
 
   def delete
+    @poa = Poa.find(params[:id])
+    @poa.update_column(:del, true)
+    redirect_to :back
+  end
+
+  def valid_dir
     @poa = Poa.find params[:id]
     @poa.destroy
-    redirect_to action: 'index'
-  end      
+    redirect_to :back    
+  end
 
+  def no_valid_dir
+    @poa = Poa.find(params[:id])
+    @poa.update_column(:del, false)
+    redirect_to action: :notifications, controller: :administration    
+  end
 
   private
   

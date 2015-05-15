@@ -76,19 +76,23 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				<label for='paymentauth_delivery_date' class="col-xs-3 control-label text-right">Fecha de Recepción </label>
-				<div class='col-xs-4'>
-					<%= i.text_field :delivery_date, class: 'bootlayout-date form-control', placeholder: 'Fecha de Recepción' %>
-				</div>
-			</div>
+			<% if current_user.manage? or current_user.manage_analist? %>
 
-		   <div class="form-group">
-				<label for='paymentauth_recieved_by' class="col-xs-3 control-label text-right">Recibido por </label>
-				<div class='col-xs-4'>
-					<%= i.text_field :recieved_by, class: 'form-control' %>
+				<div class="form-group">
+					<label for='paymentauth_delivery_date' class="col-xs-3 control-label text-right">Fecha de Recepción </label>
+						<div class='col-xs-4'>
+							<%= i.text_field :delivery_date, value: (@pay.delivery_date.strftime("%d/%m/%Y") unless @pay.delivery_date.blank?), class: 'bootlayout-date form-control', placeholder: 'Fecha de Recepción' %>
+						</div>
 				</div>
-			</div>
+
+		   		<div class="form-group">
+					<label for='paymentauth_recieved_by' class="col-xs-3 control-label text-right">Recibido por </label>
+						<div class='col-xs-4'>
+							<%= i.text_field :recieved_by, class: 'form-control' %>
+						</div>
+					</div>
+
+			<% end %>
 
 			<div class="form-group">				
 				<div class="col-xs-offset-3 col-xs-9">

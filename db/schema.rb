@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515050237) do
+ActiveRecord::Schema.define(version: 20150515021919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -360,6 +360,18 @@ ActiveRecord::Schema.define(version: 20150515050237) do
     t.date     "fecha_tope"
   end
 
+  create_table "item_donados", force: true do |t|
+    t.string   "Nombre"
+    t.string   "Marca"
+    t.string   "Modelo"
+    t.string   "UniDeMedida"
+    t.string   "tipo"
+    t.string   "NoDonacion"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "donation_id"
+  end
+
   create_table "items", force: true do |t|
     t.string   "nombre"
     t.string   "tipo"
@@ -470,6 +482,7 @@ ActiveRecord::Schema.define(version: 20150515050237) do
   create_table "poas", force: true do |t|
     t.string  "document"
     t.integer "year"
+    t.boolean "del"
   end
 
   create_table "projcommitments", force: true do |t|
@@ -814,6 +827,7 @@ ActiveRecord::Schema.define(version: 20150515050237) do
     t.boolean  "external"
     t.string   "name"
     t.string   "surname"
+    t.boolean  "projadmin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
