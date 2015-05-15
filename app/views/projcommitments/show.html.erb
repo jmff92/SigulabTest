@@ -65,19 +65,19 @@
 		</table>
 	</div>
 	<div class="col-xs-12">
-		<% if current_user.manage? or current_user.manage_analist? or current_user.acquisition? or current_user.acquisition_analist? %>	
+		<% if current_user.projadmin? or current_user.acquisition? or current_user.acquisition_analist? %>	
 			<%= link_to edit_projcommitment_path do %>
 				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Compromiso</button>
 			<% end %>
 		<% end %>
-		<% if current_user.manage? or current_user.manage_analist? %>						
+		<% if current_user.projadmin? %>						
         	<% if @sum < @commitment.amount %>
 				<%= link_to controller: :projexecutions, action: 'new', cid: @commitment.id do %>
 					<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Ejecución</button>
 				<% end %>
 			<% end %>
 		<% end %>
-		<% if current_user.manage? or current_user.manage_analist? or current_user.acquisition? or current_user.acquisition_analist? or current_user.proy_responsible? %>						
+		<% if current_user.projadmin? or current_user.acquisition? or current_user.acquisition_analist? or current_user.proy_responsible? %>						
         	<% if @size > 0 %>
 				<%= link_to controller: :projexecutions, action: 'list', cid: @commitment.id do %>
 					<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Listar Ejecuciones</button>

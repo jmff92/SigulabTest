@@ -74,7 +74,7 @@ border-color:#7A7070;
 <script>
 if (window.location.search.replace("?", "") == "pdf=1")
 {
-window.location.href = "<%= @requisition.attachment %>";
+window.location.href = "<%= @requisition.archivo %>";
 }
 </script>
 

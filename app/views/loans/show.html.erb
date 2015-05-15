@@ -1,3 +1,13 @@
+<%= stylesheet_link_tag 'chemical_substances.css.scss'%>
+<%= javascript_include_tag 'jquery-1.10.2.js'%>
+<%= javascript_include_tag 'jquery-ui.js' %>
+<%= stylesheet_link_tag 'jquery-ui.css'%>
+<%= javascript_include_tag 'tabs.js' %>
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
+<%= javascript_include_tag 'tabla.js' %>
+
 <p id="notice"><%= notice %></p>
 <ol class="breadcrumb">
   <li> <%=link_to 'Inicio', controller: 'statics'%></li>
@@ -18,84 +28,259 @@
   </div>
 </div>
 
-
 <div class="col-xs-12">
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1" class="show">Cantidad y Uso</a></li>
+    <li><a href="#tabs-2" class="hidex">Período y Horario</a></li>
+    <li><a href="#tabs-3" class="hidex">Datos y Observaciones</a></li>
+    <li><a href="#tabs-4" class="hidex">Ítems Solicitados</a></li>
+  </ul>
 
-<div class="col-xs-12">
-
-  <div class="col-xs-8">
-
-    <table class="table table-striped">
-      <tr>
-        <td class="col-xs-5 text-right"><strong>Fecha requerida:</strong></td>
-        <td class="col-xs-7"><%= @loan.fechaEntrega %></td>
-      </tr>
-      <tr>
-        <td class="col-xs-5 text-right"><strong>Ubicación Destino:</strong></td>
-        <td class="col-xs-7"><%=@loan.ubicacion %></td>
-      </tr>
-      <tr>
-        <td class="col-xs-5 text-right"><strong>Fecha tope de entrega:</strong></td>
-        <td class="col-xs-7"><%= @loan.fechaTope %></td>
-      </tr>
-      <tr>
-        <td class="col-xs-5 text-right"><strong>Condiciones de Préstamo:</strong></td>
-        <td class="col-xs-7"><%= @loan.condiciones %></td>
-      </tr>
-      <tr>
-        <td class="col-xs-5 text-right"><strong>Cantidad:</strong></td>
-        <td class="col-xs-7"> <%= @loan.medida %><% @loan.unidadMedida %></td>
-      </tr>
-      <%= hidden_field_tag "id", @id %>
-     </div></td>
-    </table>
-
-  </div>
-  <div class="col-xs-4">
-    <table id="itemTable" class="table table-hover">
-      <thead>
+  <div id="tabs-1">
+    <div class="form-group">
+      <table class="table table-striped">
         <tr>
-          <th class="tg-hgcj"> Código del Bien</th>
-          <th class="tg-093g">Nombre</th>
+          <td class="col-xs-5 text-right"><strong>Cantidad:</strong></td>
+          <td class="col-xs-7"><%= @loan.medida %></td>
         </tr>
-      </thead>
-
-      <tbody>
-        <% @sustancias.each do |sustancia| %>
-          <tr>
-            <td class="tg-s6z2"><%= sustancia.id2 %></td>
-            <td class="tg-s6z2"><%=  sustancia.name  %></td>
-          </tr>
-        <% end %>
-        <% @equipment.each do |equipment| %>
-          <tr>
-            <td class="tg-s6z2"><%= equipment.id2 %></td>
-            <td class="tg-s6z2"><%=  equipment.name  %></td>
-          </tr>
-        <% end %>
-        <% @tools.each do |tool| %>
-          <tr>
-            <td class="tg-s6z2"><%= tool.id2 %></td>
-            <td class="tg-s6z2"><%=  tool.name  %></td>
-          </tr>
-        <% end %>
-        <% @consumables.each do |consumable| %>
-          <tr>
-            <td class="tg-s6z2"><%= consumable.id2 %></td>
-            <td class="tg-s6z2"><%=  consumable.name  %></td>
-          </tr>
-        <% end %>
-        <% @instruments.each do |instrument| %>
-          <tr>
-            <td class="tg-s6z2"><%= instrument.id2 %></td>
-            <td class="tg-s6z2"><%=  instrument.name  %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Uso:</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><% if @loan.docencia %>
+                                 <%= 'Docencia' %><br>
+                               <% end %>
+                               <% if @loan.investigacion %>
+                                 <%= 'Investigación' %><br>
+                               <% end %>
+                               <% if @loan.extension %>
+                                 <%= 'Extensión' %><br>
+                               <% end %>
+                               <% if @loan.apoyo %>
+                                 <%= 'Apoyo' %>
+                               <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Condiciones:</strong></td>
+          <td class="col-xs-7"><%= @loan.condiciones %></td>
+        </tr> 
+      </table>
+    </div>
   </div>
-</div>
 
+  <div id="tabs-2">
+    <div class="form-group">
+      <table class="table table-striped">
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Período:</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><%= @loan.periodo %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Semana(s):</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><% if @loan.sem1 %>
+                                 <%= 'Semana 1' %><br>
+                               <% end %>
+                               <% if @loan.sem2 %>
+                                  <%= 'Semana 2' %><br>
+                               <% end %>
+                               <% if @loan.sem3 %>
+                                <%= 'Semana 3' %><br>
+                               <% end %>
+                               <% if @loan.sem4 %>
+                                  <%= 'Semana 4' %><br>
+                               <% end %>
+                               <% if @loan.sem5 %>
+                                  <%= 'Semana 5' %><br>
+                               <% end %>
+                               <% if @loan.sem6 %>
+                                  <%= 'Semana 6' %><br>
+                               <% end %>
+                               <% if @loan.sem7 %>
+                                  <%= 'Semana 7' %><br>
+                               <% end %>
+                               <% if @loan.sem8 %>
+                                  <%= 'Semana 8' %><br>
+                               <% end %>
+                               <% if @loan.sem9 %>
+                                  <%= 'Semana 9' %><br>
+                               <% end %>
+                               <% if @loan.sem10 %>
+                                  <%= 'Semana 10' %><br>
+                               <% end %>
+                               <% if @loan.sem11 %>
+                                  <%= 'Semana 11' %><br>
+                               <% end %>
+                               <% if @loan.sem12 %>
+                                  <%= 'Semana 12' %>
+                               <% end %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Desde:</strong><span class="red">*</span></td>
+          <td class="col-xs-7"><%= @loan.desde %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Hasta:</strong></td>
+          <td class="col-xs-7"><%= @loan.fechaEntrega %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Horario:</strong></td>
+          <td class="col-xs-7"></td>
+        </tr>
+        <tr>
+          <td class="col-xs-3 text-right"><% if @loan.lunes %>
+                                              <%= 'Lunes:' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                                          <% end %>
+                                          <% if @loan.martes %>
+                                              <%= 'Martes:' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                                          <% end %>
+                                          <% if @loan.miercoles %>
+                                              <%= 'Miércoles:' %><br>
+                                          <% end %>
+                                          <% if @loan.jueves %>
+                                              <%= 'Jueves:' %>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                                          <% end %>
+                                          <% if @loan.viernes %>
+                                              <%= 'Viernes:' %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <% end %></td>
+          <td class="col-xs-9 text-left"><% if @loan.todoLun %>
+                                            <%= 'Todo El Día' %>
+                                          <% else %>
+                                            <%= 'De' %>
+                                            <%= @loan.horalunes %>
+                                            <%= 'a' %>
+                                            <%= @loan.finLunes %><br>
+                                          <% end %>
+                                          <% if @loan.todoMar %>
+                                            <%= 'Todo El Día' %>
+                                          <% else %>
+                                            <%= 'De' %>
+                                            <%= @loan.horaMartes %>
+                                            <%= 'a' %>
+                                            <%= @loan.finMartes %><br>
+                                          <% end %>
+                                          <% if @loan.todoMie %>
+                                            <%= 'Todo El Día' %>
+                                          <% else %>
+                                            <%= 'De' %>
+                                            <%= @loan.horaMiercoles %>
+                                            <%= 'a' %>
+                                            <%= @loan.finMiercoles %><br>
+                                          <% end %>
+                                          <% if @loan.todoJue %>
+                                            <%= 'Todo El Día' %>
+                                          <% else %>
+                                            <%= 'De' %>
+                                            <%= @loan.horaJueves %>
+                                            <%= 'a' %>
+                                            <%= @loan.finJueves %><br>
+                                          <% end %>
+                                          <% if @loan.todoVie %>
+                                            <%= 'Todo El Día' %>
+                                          <% else %>
+                                            <%= 'De' %>
+                                            <%= @loan.horaViernes %>
+                                            <%= 'a' %>
+                                            <%= @loan.finViernes %><br>
+                                          <% end %>
+                                          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div id="tabs-3">
+    <div class="form-group">
+      <table class="table table-striped">
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Lugar de Destino:</strong></td>
+          <td class="col-xs-7"><%= @loan.ubicacion %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Fecha Máxima de Devolución:</strong></td>
+          <td class="col-xs-7"><%= @loan.maxDevolucion %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Observaciones:</strong></td>
+          <td class="col-xs-7"><%= @loan.descripcion %></td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Persona autorizada a retirar el Ítem:</strong></td>
+          <td class="col-xs-7"><%= @loan.persona %>
+                               <strong><%= 'CI:' %></strong>
+                               <%= @loan.cedula %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="tabs-4">
+    <body id="dt_example" class="ex_highlight_row">
+
+        <div id="container">
+          <div id="demo">
+            <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+              <thead>
+                <tr>
+                  <th class="text-center">Identificador</th>
+                  <th class="text-center">Nombre</th>
+                  <th class="text-center">Ubicación</th>
+                  <th class="text-center">Responsable</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @sustancias.each do |sustancia| %>
+                  <tr>
+                    <td class="text-center"><span class="mayus"><%= sustancia.id2 %></span></td>
+                    <td class="text-center"><span class="mayus"><%= sustancia.name %></span></td>
+                    <td class="text-center"><span class="mayus"><%= sustancia.location %></span></td>
+                    <td class="text-center"><span class="mayus"><%= sustancia.responsible %></span></td>
+                  </tr>
+                <% end %>
+                <% @equipment.each do |equipment| %>
+                  <tr>
+                    <td class="text-center"><span class="mayus"><%= equipment.id2 %></span></td>
+                    <td class="text-center"><span class="mayus"><%= equipment.name %></span></td>
+                    <td class="text-center"><span class="mayus"><%= equipment.location %></span></td>
+                    <td class="text-center"><span class="mayus"><%= equipment.responsible %></span></td>
+                  </tr>
+                <% end %>
+                <% @consumables.each do |consumable| %>
+                  <tr>
+                    <td class="text-center"><span class="mayus"><%= consumable.id2 %></span></td>
+                    <td class="text-center"><span class="mayus"><%= consumable.name %></span></td>
+                    <td class="text-center"><span class="mayus"><%= consumable.location %></span></td>
+                    <td class="text-center"><span class="mayus"><%= consumable.responsible %></span></td>
+                  </tr>
+                <% end %>
+                <% @tools.each do |tool| %>
+                  <tr>
+                    <td class="text-center"><span class="mayus"><%= tool.id2 %></span></td>
+                    <td class="text-center"><span class="mayus"><%= tool.name %></span></td>
+                    <td class="text-center"><span class="mayus"><%= tool.location %></span></td>
+                    <td class="text-center"><span class="mayus"><%= tool.responsible %></span></td>
+                  </tr>
+                <% end %>
+                <% @instruments.each do |instrument| %>
+                  <tr>
+                    <td class="text-center"><span class="mayus"><%= instrument.id2 %></span></td>
+                    <td class="text-center"><span class="mayus"><%= instrument.name %></span></td>
+                    <td class="text-center"><span class="mayus"><%= instrument.location %></span></td>
+                    <td class="text-center"><span class="mayus"><%= instrument.responsible %></span></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <div class="spacer"></div>
+          </div>
+        </div>
+      </body>
+      <p></p>
+  </div>
+  <%= hidden_field_tag "id", @id %>
+
+</div><br><br>
+</div>
+<br><br>
 
 <div class="col-xs-12 text-left">
   <i class="fa fa-cog"></i><%= link_to ' Editar', edit_loan_path(@loan), 'data-no-turbolink' => true %> |
@@ -104,3 +289,33 @@
 <br><br><br><br>
 </div>
 
+ <style>
+
+    .red {
+        font-size               : 22px;
+        color                   : red;
+    }
+
+    .linkButton { 
+       text-decoration: none;
+       text-align: right;
+       color: #384157;
+       font-weight: bold;
+         background: none repeat scroll 0px 0px transparent;
+         border: none;
+    }
+
+    .linkButton:hover {
+        cursor: pointer;
+        color: #8ED6FF;
+        text-align: right;
+        background: none repeat scroll 0% 0% #FFF;
+        text-decoration: none;
+    }
+
+    .linkButton:focus {
+        outline: thin dotted;
+        outline-offset: -2px;
+    }
+
+  </style>

@@ -8,8 +8,8 @@ class ServicerequestsController < ApplicationController
 
      if current_user
          @servicerequests = Servicerequest.where(:user_id => current_user.username).all
-         @sumServReq = Servicerequest.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
-         @servreq = Servicerequest.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).first
+         @sumServReq = Servicerequest.where(:specification_id => session[:specification_sel_id]).count
+         @servreq = Servicerequest.where(:specification_id => session[:specification_sel_id]).first
      end
      respond_to do |format|
        format.html do
@@ -63,6 +63,17 @@ class ServicerequestsController < ApplicationController
   # GET /servicerequests/1
   # GET /servicerequests/1.json
   def show
+     if current_user.acquisition? || current_user.import? 
+    @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
+    @user = User.where(:username => @especificacion.user_id).first 
+        if @user.acquisition? || @user.import? || @user.acquisition_analist? || @user.import_analist?
+            @mostrar = true
+        else
+            @mostrar = false
+        end
+    else
+    @mostrar = true
+    end
     @servicerequest = Servicerequest.find(params[:id])
 
   end

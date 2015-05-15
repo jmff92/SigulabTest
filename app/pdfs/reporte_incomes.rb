@@ -114,7 +114,7 @@ class ReporteIncomes < Prawn::Document
   end
 
   def contact
-    data = [ ["Elaborado por : ", "Lic. Thailyn Villa", "#{current_user.name}" ],
+    data = [ ["Elaborado por : ", "Lic. Thailyn Villa"],
            ["Telf. Ext. : ", "3708 al 11 su ext 105"],
            ]
 

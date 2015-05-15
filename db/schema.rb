@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150514170219) do
+=======
+ActiveRecord::Schema.define(version: 20150513233500) do
+>>>>>>> 48bba7f6bd1c5358bcf78051c6f3cd8f3e00a14f
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +120,7 @@ ActiveRecord::Schema.define(version: 20150514170219) do
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
+    t.string   "correo"
   end
 
   create_table "commitments", force: true do |t|
@@ -158,6 +163,7 @@ ActiveRecord::Schema.define(version: 20150514170219) do
     t.string   "FechaDonacion"
     t.string   "PJDonacion"
     t.string   "PersonaContactoDonacion"
+    t.string   "correo"
   end
 
   create_table "devolutions", force: true do |t|
@@ -252,6 +258,7 @@ ActiveRecord::Schema.define(version: 20150514170219) do
     t.string   "FechaDonacion"
     t.string   "PJDonacion"
     t.string   "PersonaContactoDonacion"
+    t.string   "correo"
   end
 
   create_table "executions", force: true do |t|
@@ -333,6 +340,7 @@ ActiveRecord::Schema.define(version: 20150514170219) do
     t.string   "FechaDonacion"
     t.string   "PJDonacion"
     t.string   "PersonaContactoDonacion"
+    t.string   "correo"
   end
 
   create_table "invitations", force: true do |t|
@@ -416,10 +424,6 @@ ActiveRecord::Schema.define(version: 20150514170219) do
     t.boolean  "investigacion"
     t.boolean  "extension"
     t.boolean  "apoyo"
-    t.boolean  "enemar"
-    t.boolean  "abrjul"
-    t.boolean  "verano"
-    t.boolean  "sepdic"
     t.boolean  "sem1"
     t.boolean  "sem2"
     t.boolean  "sem3"
@@ -449,12 +453,19 @@ ActiveRecord::Schema.define(version: 20150514170219) do
     t.boolean  "todoMie"
     t.boolean  "todoJue"
     t.boolean  "todoVie"
+    t.string   "periodo"
+    t.date     "desde"
+    t.time     "finLunes"
+    t.time     "finMartes"
+    t.time     "finMiercoles"
+    t.time     "finJueves"
+    t.time     "finViernes"
+    t.time     "maxDevolucion"
   end
 
   create_table "paymentauths", force: true do |t|
     t.string   "recipient"
     t.string   "registry"
-    t.string   "from"
     t.date     "elaboration_date"
     t.date     "delivery_date"
     t.string   "delivered_id"
@@ -465,6 +476,14 @@ ActiveRecord::Schema.define(version: 20150514170219) do
     t.boolean  "is_valid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
+    t.string   "user"
+    t.integer  "from"
+  end
+
+  create_table "poas", force: true do |t|
+    t.string  "document"
+    t.integer "year"
   end
 
   create_table "projcommitments", force: true do |t|
@@ -566,6 +585,8 @@ ActiveRecord::Schema.define(version: 20150514170219) do
     t.boolean  "is_valid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
+    t.string   "user"
   end
 
   create_table "quotes", force: true do |t|
@@ -771,6 +792,7 @@ ActiveRecord::Schema.define(version: 20150514170219) do
     t.string   "FechaDonacion"
     t.string   "PJDonacion"
     t.string   "PersonaContactoDonacion"
+    t.string   "correo"
   end
 
   create_table "users", force: true do |t|

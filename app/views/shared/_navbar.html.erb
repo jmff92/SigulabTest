@@ -48,13 +48,15 @@
 									<li><%= link_to 'Notificaciones', controller: 'administration', action: 'notifications' %></li>
 									<li class="divider"></li>
 								<% end %>
-								<li><a href="#">Anteproyecto de POA</a></li>
-								<% if current_user.director? or current_user.directorate? or current_user.gsmp? or 	current_user.acquisition? or current_user.acquisition_analist? or 				current_user.import? or current_user.import_analist? or current_user.manage? or current_user.manage_analist? or current_user.quality? or              current_user.quality_analist? or current_user.labBoss? or						current_user.labassistant? %>
+								<% if current_user.director? or current_user.directorate? or current_user.acquisition? or  current_user.manage? or current_user.labBoss? or	current_user.labassistant? or current_user.acquisition_analist? %>
+									<li><%= link_to 'Anteproyecto de POA', controller: 'poas' %></li>
 									<li class="divider"></li>
+								<% end %>									
+								<% if current_user.director? or current_user.directorate? or current_user.gsmp? or 	current_user.acquisition? or current_user.acquisition_analist? or 				current_user.import? or current_user.import_analist? or current_user.manage? or current_user.manage_analist? or current_user.quality? or              current_user.quality_analist? or current_user.labBoss? or						current_user.labassistant? %>
 									<li><%= link_to 'Presupuesto', budget_path %></li>
 									<li class="divider"></li>
 								<% end %>
-								<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.import_analist? or current_user.manage? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? or current_user.labBoss? or current_user.labassistant? or current_user.section_boss? or current_user.proy_responsible? or current_user.technician? %>	
+								<% if current_user.director? or current_user.directorate? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.import_analist? or current_user.projadmin? or current_user.quality? or current_user.quality_analist? or current_user.labBoss? or current_user.labassistant? or current_user.section_boss? or current_user.proy_responsible? or current_user.technician? %>	
 									<li><%= link_to 'Proyectos', projects_path %></li>
 								<% end %>
 							</ul>

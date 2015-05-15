@@ -50,7 +50,7 @@
 		</table>
 	</div>
 
-	<% if current_user.director? or current_user.directorate? or current_user.gsmp? or  current_user.manage? or current_user.manage_analist? %>	
+	<% if current_user.director? or current_user.directorate? or  current_user.projadmin? %>	
 		<div class="col-xs-12" align="center">
 
 			<%= link_to controller: 'projincomes', id: @project.id do %>

@@ -68,7 +68,8 @@
 
 	</div>
 
-	<% if current_user.acquisition? or current_user.manage? or current_user.manage_analist? %>
+	<% if current_user.proy_responsible? %>
+	<!-- Solo disponible para responsable del proy -->
 		<div class="col-xs-12" align="left">
 			<p></p>
 			<%= link_to controller: "projpaymentauths", action: "new", id: @project.id do %>

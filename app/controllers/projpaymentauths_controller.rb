@@ -9,7 +9,7 @@ class ProjpaymentauthsController < ApplicationController
   end
 
   def show
-    @pay = Paymentauth.find(params[:id])
+    @pay = Projpaymentauth.find(params[:id])
     @project = Project.find(@pay.proyect)    
     respond_to do |format|
       format.html
@@ -44,7 +44,8 @@ class ProjpaymentauthsController < ApplicationController
     end
     
     @pay = Projpaymentauth.new(projpaymentauth_params)
-    
+    @pay.proyect = params[:id]
+
     if @pay.save
 						redirect_to controller: 'projpaymentauths', id: params[:id]
     else
@@ -58,23 +59,44 @@ class ProjpaymentauthsController < ApplicationController
   end
   
   def update
-    # Check Date
-    unless params[:paymentauth].nil?
-      begin
-        params[:projpaymentauth][:elaboration_date] = Date.parse(params[:projaymentauth][:elaboration_date])
-      rescue ArgumentError
-        params[:projpaymentauth][:elaboration_date] = nil
-      end
-    end
-    
     @pay = Projpaymentauth.find(params[:id])
+    @old_date = @pay.delivery_date
+    @new_date = projpaymentauth_params[:delivery_date]
     
     if @pay.update_attributes(projpaymentauth_params)
+      # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
+        if (@old_date == nil) and (@new_date != "")
+        @commitment = Projcommitment.new
+        @commitment.id = Projcommitment.last.id+1
+        @commitment.proj_id = @pay.proyect
+        @commitment.code = @pay.registry
+        @commitment.amount = @pay.amount
+        @commitment.description = @pay.concept
+        @commitment.recipient = @pay.recipient
+        @commitment.date = @pay.elaboration_date
+        @commitment.observations = @pay.observations
+        @commitment.document = 2
+        @commitment.created_at = @pay.created_at
+        @commitment.updated_at = @pay.updated_at
+        @commitment.save      
+      end
       redirect_to projpaymentauth_url(@pay)
     else
       render 'edit'
     end
   end
+
+  def annul
+    @pay = Projpaymentauth.find(params[:id])
+    @pay.update_column(:status, "annulled")
+    redirect_to :back
+  end  
+
+  def delete
+    @pay = Projpaymentauth.find params[:id]
+   @pay.destroy
+    redirect_to action: 'index'
+  end  
   
   private
   

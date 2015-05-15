@@ -70,7 +70,8 @@
           </tr>
           <tr>
             <td class="col-xs-5 text-right"><strong>Serial:</strong></td>
-            <td class="col-xs-7"><%= f.text_field(:serial) %></td>
+            <td class="col-xs-7"><%= f.text_field(:serial) %>
+            <span class="red">*</span></td>
           </tr>
           <tr>
             <td class="col-xs-5 text-right"><strong>Número de Bien Nacional:</strong></td>
@@ -131,6 +132,10 @@
           <td class="col-xs-5 text-right"><strong>Responsable:</strong></td>
           <td class="col-xs-7"><%= f.text_field :responsible %>
       <span class="red">*</span></td>
+      </tr>
+      <tr>
+        <td class="col-xs-5 text-right"><strong>Correo de Responsable:</strong></td>
+          <td class="col-xs-7"><%= f.text_field :correo %><span class="red">*</span></td>
       </tr>
 
           <tr>

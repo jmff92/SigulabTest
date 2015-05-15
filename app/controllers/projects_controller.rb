@@ -88,7 +88,7 @@ class ProjectsController < ApplicationController
 
 def list
   @projects = Project.all.order("project_number ASC").where("valid_res=?", true)
-  @sum = @projects.where("NOT(status=3) AND NOT(status=4)").sum(:amount)  
+  @sum = @projects.where("NOT(status=3) AND NOT(status=4)").where("valid_res=?", true).sum(:amount)  
 end
 
 def admin

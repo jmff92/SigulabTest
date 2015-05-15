@@ -75,3 +75,9 @@ gem "font-awesome-rails"
 
 # Use to translate error messages
 gem 'rails-i18n'
+
+# Mail
+gem 'figaro'
+
+# Gmail
+gem 'gmail'
