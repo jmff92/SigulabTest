@@ -28,7 +28,6 @@ class BinnaclesController < ApplicationController
   end
 
   def new
-    binding.pry
     @binnacle = Binnacle.new
     if params[:format]
       @id = params[:format]
@@ -62,6 +61,14 @@ class BinnaclesController < ApplicationController
         @consumos = Binnacle.where(idSustancia: @binnacle.idSustancia).sum(:consumo)
         @binnacle.total = @ingresos - @consumos
         @binnacle.save
+        @sustancia = ChemicalSubstance.where(id2: @binnacle.idSustancia)
+        @sustancia.each do |sustancia|
+          @minimo = sustancia.min
+          @email = sustancia.correo
+        end
+        if @binnacle.total < @minimo
+          BinnacleMailer.binnacle_email(@email,@sustancia).deliver
+        end
         f.html { redirect_to @binnacle }
         f.json { render :show, status: :created, location: @binnacle }
       else

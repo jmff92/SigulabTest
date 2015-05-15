@@ -3,6 +3,8 @@
 <%= javascript_include_tag 'jquery-ui.js' %>
 <%= stylesheet_link_tag 'jquery-ui.css'%>
 <%= javascript_include_tag 'tabs.js' %>
+<%= javascript_include_tag 'bootstrap-datepicker.js' %>
+<%= javascript_include_tag 'bootstrap-datepicker.es.js' %>
 
 <div class="row">
 
@@ -95,6 +97,12 @@
               <td class="col-xs-5 text-right"><strong>Cantidad:</strong></td>
               <td class="col-xs-7"><%= f.number_field(:quantity, min: 0, :step => 'any') %><span class="red">*</span>
             <%= f.select(:meassure, [['kg'], ['g'], ['mg'], ['l'], ['ml'] ] ) %></td>
+          </tr>
+
+          <tr>
+              <td class="col-xs-5 text-right"><strong>Mínimo en Inventario:</strong></td>
+              <td class="col-xs-7"><%= f.number_field(:min, min: 0, :step => 'any') %><span class="red">*</span>
+            <%= f.select(:meassureMin, [['kg'], ['g'], ['mg'], ['l'], ['ml'] ] ) %></td>
           </tr>
 
           <tr>
@@ -310,5 +318,4 @@ function changeOrigen() {
 
 
 }
-  //]]>
   </script>

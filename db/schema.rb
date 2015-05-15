@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(version: 20150515021919) do
     t.string   "id2"
     t.string   "origen"
     t.string   "correo"
+    t.float    "min"
+    t.string   "meassureMin"
   end
 
   create_table "commitments", force: true do |t|
@@ -410,7 +412,6 @@ ActiveRecord::Schema.define(version: 20150515021919) do
     t.string   "medida"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "fechaEntrega"
     t.date     "fechaTope"
     t.string   "unidadMedida"
     t.string   "descripcion"
@@ -450,13 +451,14 @@ ActiveRecord::Schema.define(version: 20150515021919) do
     t.boolean  "todoJue"
     t.boolean  "todoVie"
     t.string   "periodo"
-    t.date     "desde"
     t.time     "finLunes"
     t.time     "finMartes"
     t.time     "finMiercoles"
     t.time     "finJueves"
     t.time     "finViernes"
-    t.time     "maxDevolucion"
+    t.string   "maxDevolucion"
+    t.string   "inicio"
+    t.string   "hasta"
   end
 
   create_table "paymentauths", force: true do |t|

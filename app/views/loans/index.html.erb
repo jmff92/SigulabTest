@@ -44,7 +44,7 @@
 							<% @loans.each do |loan| %>
 						  		<tr>
 							     <td style="text-decoration:underline; color:black"><%= link_to loan.id, loan %></td>
-							     <td><%= loan.fechaEntrega %></td>
+							     <td><%= loan.hasta %></td>
 							     <td><%= loan.ubicacion %></td>
 							   </tr>
 							 <% end %>

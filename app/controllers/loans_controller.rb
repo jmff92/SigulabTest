@@ -58,6 +58,12 @@ class LoansController < ApplicationController
 
   # GET /loans/1/edit
   def edit
+    @item_ids = RelationLoan.where(prestamo: @loan.id.to_s).select(:item)
+    @equipment = Equipment.where(id2: @item_ids)
+    @instruments = Instrument.where(id2: @item_ids)
+    @tools = Tool.where(id2: @item_ids)
+    @consumables = Consumable.where(id2: @item_ids)
+    @sustancias = ChemicalSubstance.where(id2: @item_ids)
   end
 
   # POST /loans
@@ -70,7 +76,6 @@ class LoansController < ApplicationController
     @tools = Tool.where(id2: @ids)
     @consumables = Consumable.where(id2: @ids)
     @sustancias = ChemicalSubstance.where(id2: @ids)
-    
     respond_to do |format|
       if @loan.save
 
@@ -160,14 +165,14 @@ class LoansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def loan_params
-      params.require(:loan).permit(:fechaEntrega, :ubicacion, :fechaTope, :condiciones, :medida,
+      params.require(:loan).permit(:ubicacion, :fechaTope, :condiciones, :medida,
                                    :unidadMedida, :descripcion, :uso, :esprestado, :docencia,
                                    :investigacion, :extension, :apoyo, :sem1, :sem2, :sem3,
                                    :sem4, :sem5, :sem6, :sem7, :sem8, :sem9, :sem10, :sem11,
                                    :sem12, :horalunes, :horaMartes, :horaMiercoles, :horaJueves,
                                    :horaViernes, :lunes, :martes, :miercoles, :jueves, :viernes,
                                    :persona, :cedula, :todoLun, :todoMar, :todoMier, :todoJue,
-                                   :todoVie, :periodo, :desde, :finLunes, :finMartes, :finMiercoles,
-                                   :finJueves, :finViernes, :maxDevolucion)
+                                   :todoVie, :periodo, :finLunes, :finMartes, :finMiercoles,
+                                   :finJueves, :finViernes, :maxDevolucion, :inicio, :hasta)
     end
 end
