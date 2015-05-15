@@ -57,13 +57,28 @@ class PaymentauthsController < ApplicationController
   end
   
   def update   
-    @pay = Paymentauth.find(params[:id])       
-    # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
-#    if (@pay.delivery_date == nil) and (paymentauth_params[:delivery_date] != "")
-#      @commitment = Commitment.new(paymentauth_params[:from], paymentauth_params[:registry], paymentauth_params[:amount], paymentauth_params[:concept], paymentauth_params[:recipient], paymentauth_params[:elaboration_date], paymentauth_params[:created_at], paymentauth_params[:updated_at], " ", paymentauth_params[:observations], 2)
-#    end    
+    @pay = Paymentauth.find(params[:id])
+    @old_date = @pay.delivery_date
+    @new_date = paymentauth_params[:delivery_date]
+    
     if @pay.update_attributes(paymentauth_params)
-#      @commitment.save
+      # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
+        if (@old_date == nil) and (@new_date != "")
+        @commitment = Commitment.new
+        @commitment.id = Commitment.last.id+1
+        @commitment.lab_id = @pay.from
+        @commitment.code = @pay.registry
+        @commitment.amount = @pay.amount
+        @commitment.description = @pay.concept
+        @commitment.recipient = @pay.recipient
+        @commitment.date = @pay.elaboration_date
+        @commitment.sae_code = sae(@pay.from)
+        @commitment.observations = @pay.observations
+        @commitment.document = 2
+        @commitment.created_at = @pay.created_at
+        @commitment.updated_at = @pay.updated_at
+        @commitment.save      
+      end
       redirect_to action: 'index'
     else
       @labs = Lab.all
@@ -88,6 +103,30 @@ class PaymentauthsController < ApplicationController
   
     def paymentauth_params
       params.require(:paymentauth).permit(:registry, :recipient, :from, :elaboration_date, :delivery_date, :delivered_id, :concept, :amount, :observations, :recieved_by, :is_valid, :user)
+    end
+
+    def sae(id)
+      if id == 0
+        return "01.05.03.01"
+      elsif id == 1
+        return "01.05.03.03"
+      elsif id == 2
+        return "01.05.03.04"
+      elsif id == 3
+        return "01.05.03.05"
+      elsif id == 4
+        return "01.05.03.06"
+      elsif id == 5
+        return "01.05.03.07"
+      elsif id == 6
+        return "01.05.03.08"   
+      elsif id == 7
+        return "01.05.03.09"
+      elsif id == 8
+        return "01.05.03.02"
+      else
+        return "01.05.03.01"
+      end
     end
   
 end
