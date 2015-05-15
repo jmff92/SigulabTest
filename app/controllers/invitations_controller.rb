@@ -7,17 +7,36 @@ class InvitationsController < ApplicationController
   # GET /invitations.json
   def index
     if current_user
-    	@invitations = Invitation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).all
-      @sumInvitation = Invitation.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
+    	@invitations = Invitation.where(:specification_id => session[:specification_sel_id]).all
+      @sumInvitation = Invitation.where(:specification_id => session[:specification_sel_id]).count
 	@invitationsAll= Invitation.where(:specification_id => session[:specification_sel_id]).all
 	@invitationsItemsAll= Invitation.all().count
+	
+
     end
+    
   end
 
   # GET /invitations/1
   # GET /invitations/1.json
   def show
+  specification = Specification.find(session[:specification_sel_id])
     @invitation = Invitation.find(params[:id])
+    if specification.user_id == current_user.username
+		@propio = true
+	else
+		@propio = false
+	end
+	if current_user.acquisition?  || current_user.acquisition_analist?  || current_user.import?  || current_user.import_analist?
+		if @propio
+			@puedeEliminar = true
+		else
+			@puedeEliminar = false
+		end
+	else
+		@puedeEliminar = true
+	end
+	
     respond_to do |format|
       format.html
       format.pdf do

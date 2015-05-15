@@ -6,8 +6,8 @@ class QuotesController < ApplicationController
   # GET /quotes.json
   def index
 	if current_user
-    @quotes = Quote.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).all
-    @sumQuotes = Quote.where(:user_id => current_user.username, :specification_id => session[:specification_sel_id]).count
+    @quotes = Quote.where(:specification_id => session[:specification_sel_id]).all
+    @sumQuotes = Quote.where(:specification_id => session[:specification_sel_id]).count
     @quotesAll= Quote.where(:specification_id => session[:specification_sel_id]).all
 	@sumQuotesAll= Quote.all().count
    end
@@ -17,6 +17,21 @@ class QuotesController < ApplicationController
   # GET /quotes/1.json
   def show
      @itemsquote = Itemsquote.where(:id_oferta => params[:id]).all
+     specification = Specification.find(session[:specification_sel_id])
+     if specification.user_id == current_user.username
+		@propio = true
+	else
+		@propio = false
+	end
+     if current_user.acquisition?  || current_user.acquisition_analist?  || current_user.import?  || current_user.import_analist?
+		if @propio
+			@puedeEliminar = true
+		else
+			@puedeEliminar = false
+		end
+	else
+		@puedeEliminar = true
+	end
   end
 
   # GET /quotes/new

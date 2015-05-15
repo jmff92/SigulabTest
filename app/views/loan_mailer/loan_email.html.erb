@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <h1>Welcome to example.com</h1>
+    <h1>Solicitud de Préstamo</h1>
     <p>
-      You have successfully signed up to example.com,
-      your username is: nelson.<br>
+      Se le ha realizado un préstamo para el siguiente ítem:<br><br>
     </p>
-    <p>
-      To login to the site, just follow this link: <%= @url %>.
-    </p>
-    <p>Thanks for joining and have a great day!</p>
+    
+    <table class="table table-striped">
+      <% @sustancias.each do |sustancia| %>
+        <tr>
+          <td><%= sustancia.id2 %>&nbsp;&nbsp;<%= sustancia.name %></td>
+        </tr>
+      <% end %>
+      <% @consumables.each do |consumable| %>
+        <tr>
+          <td><%= consumable.id2 %>&nbsp;&nbsp;<%= consumable.name %></td>
+        </tr>
+      <% end %>
+      <% @equipments.each do |equipment| %>
+        <tr>
+          <td><%= equipment.id2 %>&nbsp;&nbsp;<%= equipment.name %></td>
+        </tr>
+      <% end %>
+      <% @tools.each do |tool| %>
+        <tr>
+          <td><%= tool.id2 %>&nbsp;&nbsp;<%= tool.name %></td>
+        </tr>
+      <% end %>
+      <% @instruments.each do |instrument| %>
+        <tr>
+          <td><%= instrument.id2 %>&nbsp;&nbsp;<%= instrument.name %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <p>Gracias.</p>
   </body>
 </html>

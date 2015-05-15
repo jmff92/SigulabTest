@@ -3,6 +3,8 @@
 <%= javascript_include_tag 'jquery-ui.js' %>
 <%= stylesheet_link_tag 'jquery-ui.css'%>
 <%= javascript_include_tag 'tabs.js' %>
+<%= javascript_include_tag 'bootstrap-datepicker.js' %>
+<%= javascript_include_tag 'bootstrap-datepicker.es.js' %>
 
 <div class="row">
 
@@ -89,6 +91,12 @@
               <td class="col-xs-5 text-right"><strong>Cantidad:</strong></td>
               <td class="col-xs-7"><%= f.number_field(:quantity, min: 0, :step => 'any') %><span class="red">*</span>
             <%= f.select(:meassure, [['kg'], ['g'], ['mg'], ['l'], ['ml'] ] ) %></td>
+          </tr>
+
+          <tr>
+              <td class="col-xs-5 text-right"><strong>Mínimo en Inventario:</strong></td>
+              <td class="col-xs-7"><%= f.number_field(:min, min: 0, :step => 'any') %><span class="red">*</span>
+            <%= f.select(:meassureMin, [['kg'], ['g'], ['mg'], ['l'], ['ml'] ] ) %></td>
           </tr>
 
           <tr>
@@ -180,36 +188,34 @@
           <tr>
 
             <td class="col-xs-5 text-right"><strong>Origen:</strong></td>
-            <td class="col-xs-7" ><%= f.check_box :origen %><%= f.label :Comprado %>&nbsp;&nbsp;
-            					 <%= f.check_box :origen %><%= f.label :Donado %>&nbsp;&nbsp;
+            <td class="col-xs-7" ><%= f.select(:origen, options_for_select([['Comprado'],['Donado']]), {:include_blank => true, :default => nil}, {:onchange => "changeOrigen();"} ) %>
             </td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Factura:</strong></td>
-            <td class="col-xs-7" disabled class="fieldsComprado"><%=  f.text_field :bill%></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura:</strong></td>
+            <td class= "hidden_option1 col-xs-7" ><%=  f.text_field :bill%></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Costo:</strong></td>
-            <td class="col-xs-7" disabled class="fieldsComprado"><%= f.number_field(:cost, min: 0, :step => 'any') %>&nbsp;Bs.</td> 
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo:</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= f.number_field(:cost, min: 0, :step => 'any') %>&nbsp;Bs.</td> 
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
-            <td class="col-xs-7" disabled class="fieldsComprado"><%=  f.text_field :buy_order %></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%=  f.text_field :buy_order %></td>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
-            <td class="col-xs-7" disabled class="fieldsComprado"><%= f.text_field :adquisition_date, class: "bootlayout-date" %></td>
+            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= f.text_field :adquisition_date, class: "bootlayout-date" %></td>
           </tr>
-
-
-          <tr>
-            <td class="col-xs-7"><strong>La USB no autoriza donaciones de sustancias quimicas</strong></td>
-          </tr>
-
+                  <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;La USB no autoriza</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><strong>donaciones de sustancias quimicas</strong></td>
         </table>
+
+          </tr>
       </div>
   </div>
 </div>
@@ -225,44 +231,41 @@
 
 <script>
 
-    function habilitaDonado(){
-        elementos=document.getElementsByClassName("fieldsDonado");
-        for(var i = 0; i < elementos.length; i++)
-        {
-            elementos[i].disabled = false;
-        }
+if( window.localStorage )
+  {
+    if( !localStorage.getItem( 'firstLoad' ) )
+    {
+      localStorage[ 'firstLoad' ] = true;
+      window.location.reload();
     }
+    else
+      localStorage.removeItem( 'firstLoad' );
+  }
+;
 
-    function deshabilitaDonado(){
-        elementos=document.getElementsByClassName("filedsDonado");
-        for(var i = 0; i < elementos.length; i++)
-        {
-            elementos[i].disabled = true;
-        }
-    }
+function changeOrigen() {
 
-    function habilitaComprado(){
-        elementos=document.getElementsByClassName("fieldsComprado");
-        for(var i = 0; i < elementos.length; i++)
-        {
-            elementos[i].disabled = false;
-        }
-    }
+  if ($('#chemical_substance_origen').val()== "Comprado") {
+    $(".hidden_option1").fadeIn('fast');
+  } else {
+    $(".hidden_option1").fadeOut('fast');   
+  }
+ 
+  if ($('#chemical_substance_origen').val()== "Donado") {
+    $(".hidden_option2").fadeIn('fast');
+  } else {
+    $(".hidden_option2").fadeOut('fast');   
+  }
 
-    function deshabilitaComprado(){
-        elementos=document.getElementsByClassName("filedsComprado");
-        for(var i = 0; i < elementos.length; i++)
-        {
-            elementos[i].disabled = true;
-        }
-    }
 
+}
 
 </script>
 
 
 
 <style>
+
 
 .red {
     font-size               : 22px;
@@ -295,6 +298,13 @@
     outline-offset: -2px;
 }
 
+.hidden_option1{
+  display: none;
+}
+
+.hidden_option2{
+  display: none;
+}
 </style>
 
 

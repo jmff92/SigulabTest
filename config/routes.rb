@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'item_donados/new'
+
+  get 'item_donados/create'
+
+  get 'item_donados/destroy'
+
   resources :records
   resources :relation_loans
 
@@ -9,6 +15,8 @@ Rails.application.routes.draw do
   resources :binnacles
 
   resources :donations
+  
+  resources :rejects
 
   resources :applications
 
@@ -41,6 +49,7 @@ Rails.application.routes.draw do
   post 'records/new'
 
   resources :invitations
+  resources :item_donados
   resources :services
   resources :items
   resources :chemical_substances

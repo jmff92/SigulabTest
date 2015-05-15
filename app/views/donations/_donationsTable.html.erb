@@ -82,3 +82,10 @@ border-radius:px;
 }
 
 </style>
+
+    <%= f.fields_for :item_donados do |c| %>
+      <%= c.select(:tipo, [ ['Equipos/Mobiliarios'],['Instrumentos de Medición'],
+          ['Herramientas'], ['Consumibles/Materiales'] ] ) %>
+      <%= c.link_to_remove 'Remover item'%>
+    <% end %>
+    <%= f.link_to_add 'Agregar item', :item_donados %>

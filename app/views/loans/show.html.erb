@@ -45,7 +45,7 @@
           <td class="col-xs-7"><%= @loan.medida %></td>
         </tr>
         <tr>
-          <td class="col-xs-5 text-right"><strong>Uso:</strong><span class="red">*</span></td>
+          <td class="col-xs-5 text-right"><strong>Uso:</strong></td>
           <td class="col-xs-7"><% if @loan.docencia %>
                                  <%= 'Docencia' %><br>
                                <% end %>
@@ -72,11 +72,11 @@
     <div class="form-group">
       <table class="table table-striped">
         <tr>
-          <td class="col-xs-5 text-right"><strong>Período:</strong><span class="red">*</span></td>
+          <td class="col-xs-5 text-right"><strong>Período:</strong></td>
           <td class="col-xs-7"><%= @loan.periodo %></td>
         </tr>
         <tr>
-          <td class="col-xs-5 text-right"><strong>Semana(s):</strong><span class="red">*</span></td>
+          <td class="col-xs-5 text-right"><strong>Semana(s):</strong></td>
           <td class="col-xs-7"><% if @loan.sem1 %>
                                  <%= 'Semana 1' %><br>
                                <% end %>
@@ -115,12 +115,12 @@
                                <% end %></td>
         </tr>
         <tr>
-          <td class="col-xs-5 text-right"><strong>Desde:</strong><span class="red">*</span></td>
-          <td class="col-xs-7"><%= @loan.desde %></td>
+          <td class="col-xs-5 text-right"><strong>Desde:</strong></td>
+          <td class="col-xs-7"><%= @loan.inicio %></td>
         </tr>
         <tr>
           <td class="col-xs-5 text-right"><strong>Hasta:</strong></td>
-          <td class="col-xs-7"><%= @loan.fechaEntrega %></td>
+          <td class="col-xs-7"><%= @loan.hasta %></td>
         </tr>
         <tr>
           <td class="col-xs-5 text-right"><strong>Horario:</strong></td>
@@ -142,45 +142,45 @@
                                           <% if @loan.viernes %>
                                               <%= 'Viernes:' %>&nbsp;&nbsp;&nbsp;&nbsp;
                                           <% end %></td>
-          <td class="col-xs-9 text-left"><% if @loan.todoLun %>
-                                            <%= 'Todo El Día' %>
-                                          <% else %>
+          <td class="col-xs-9 text-left"><% if @loan.todoLun && @loan.lunes %>
+                                            <%= 'Todo El Día' %><br>
+                                          <% elsif @loan.lunes %>
                                             <%= 'De' %>
-                                            <%= @loan.horalunes %>
+                                            <%= @loan.horalunes.to_formatted_s(:time) %>
                                             <%= 'a' %>
-                                            <%= @loan.finLunes %><br>
+                                            <%= @loan.finLunes.to_formatted_s(:time) %><br>
                                           <% end %>
-                                          <% if @loan.todoMar %>
-                                            <%= 'Todo El Día' %>
-                                          <% else %>
+                                          <% if @loan.todoMar  && @loan.martes %>
+                                            <%= 'Todo El Día' %><br>
+                                          <% elsif @loan.martes %>
                                             <%= 'De' %>
-                                            <%= @loan.horaMartes %>
+                                            <%= @loan.horaMartes.to_formatted_s(:time) %>
                                             <%= 'a' %>
-                                            <%= @loan.finMartes %><br>
+                                            <%= @loan.finMartes.to_formatted_s(:time) %><br>
                                           <% end %>
-                                          <% if @loan.todoMie %>
-                                            <%= 'Todo El Día' %>
-                                          <% else %>
+                                          <% if @loan.todoMie  && @loan.miercoles %>
+                                            <%= 'Todo El Día' %><br>
+                                          <% elsif @loan.miercoles %>
                                             <%= 'De' %>
-                                            <%= @loan.horaMiercoles %>
+                                            <%= @loan.horaMiercoles.to_formatted_s(:time) %>
                                             <%= 'a' %>
-                                            <%= @loan.finMiercoles %><br>
+                                            <%= @loan.finMiercoles.to_formatted_s(:time) %><br>
                                           <% end %>
-                                          <% if @loan.todoJue %>
-                                            <%= 'Todo El Día' %>
-                                          <% else %>
+                                          <% if @loan.todoJue  && @loan.jueves %>
+                                            <%= 'Todo El Día' %><br>
+                                          <% elsif  @loan.jueves %>
                                             <%= 'De' %>
-                                            <%= @loan.horaJueves %>
+                                            <%= @loan.horaJueves.to_formatted_s(:time) %>
                                             <%= 'a' %>
-                                            <%= @loan.finJueves %><br>
+                                            <%= @loan.finJueves.to_formatted_s(:time) %><br>
                                           <% end %>
-                                          <% if @loan.todoVie %>
-                                            <%= 'Todo El Día' %>
-                                          <% else %>
+                                          <% if @loan.todoVie  && @loan.viernes %>
+                                            <%= 'Todo El Día' %><br>
+                                          <% elsif @loan.viernes %>
                                             <%= 'De' %>
-                                            <%= @loan.horaViernes %>
+                                            <%= @loan.horaViernes.to_formatted_s(:time) %>
                                             <%= 'a' %>
-                                            <%= @loan.finViernes %><br>
+                                            <%= @loan.finViernes.to_formatted_s(:time) %><br>
                                           <% end %>
                                           </td>
         </tr>
@@ -283,9 +283,15 @@
 <br><br>
 
 <div class="col-xs-12 text-left">
-  <i class="fa fa-cog"></i><%= link_to ' Editar', edit_loan_path(@loan), 'data-no-turbolink' => true %> |
-  <i class="fa fa-times fa-1x"></i><%= link_to ' Ocultar', @loan, method: :delete, data: { confirm: '¿Estás seguro?' } %> |
-  <i class="fa fa-download"></i><%= link_to ' Descargar Solicitud '.html_safe, loan_path(@loan, :format => 'pdf') %>
+  <%= link_to edit_loan_path(@loan), 'data-no-turbolink' => true do %>
+    <button type="button" class="btn btn-warning"><span class="fa fa-cog"></span>&nbsp;&nbsp;Editar Solicitud</button>
+  <% end %>
+  <%= link_to @loan, method: :delete, data: { confirm: '¿Estás seguro?' }  do %>
+    <button type="button" class="btn btn-danger"><span class="fa fa-times"></span>&nbsp;&nbsp;Ocultar</button>
+  <% end %>
+  <%= link_to loan_path(@loan, :format => 'pdf') do %>
+    <button type="button" class="btn btn-info"><span class="fa fa-download"></span>&nbsp;&nbsp;Descargar Planilla</button>
+  <% end %>
 <br><br><br><br>
 </div>
 

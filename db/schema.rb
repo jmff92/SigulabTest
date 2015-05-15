@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(version: 20150515021919) do
     t.string   "id2"
     t.string   "origen"
     t.string   "correo"
+    t.float    "min"
+    t.string   "meassureMin"
   end
 
   create_table "commitments", force: true do |t|
@@ -358,6 +360,18 @@ ActiveRecord::Schema.define(version: 20150515021919) do
     t.date     "fecha_tope"
   end
 
+  create_table "item_donados", force: true do |t|
+    t.string   "Nombre"
+    t.string   "Marca"
+    t.string   "Modelo"
+    t.string   "UniDeMedida"
+    t.string   "tipo"
+    t.string   "NoDonacion"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "donation_id"
+  end
+
   create_table "items", force: true do |t|
     t.string   "nombre"
     t.string   "tipo"
@@ -398,7 +412,6 @@ ActiveRecord::Schema.define(version: 20150515021919) do
     t.string   "medida"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "fechaEntrega"
     t.date     "fechaTope"
     t.string   "unidadMedida"
     t.string   "descripcion"
@@ -438,13 +451,14 @@ ActiveRecord::Schema.define(version: 20150515021919) do
     t.boolean  "todoJue"
     t.boolean  "todoVie"
     t.string   "periodo"
-    t.date     "desde"
     t.time     "finLunes"
     t.time     "finMartes"
     t.time     "finMiercoles"
     t.time     "finJueves"
     t.time     "finViernes"
-    t.time     "maxDevolucion"
+    t.string   "maxDevolucion"
+    t.string   "inicio"
+    t.string   "hasta"
   end
 
   create_table "paymentauths", force: true do |t|
@@ -620,6 +634,13 @@ ActiveRecord::Schema.define(version: 20150515021919) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "idEquipo"
+  end
+
+  create_table "rejects", force: true do |t|
+    t.string   "estado"
+    t.integer  "specification_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "relation_loans", force: true do |t|

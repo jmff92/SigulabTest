@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Nombre: MyString
+  Marca: MyString
+  Modelo: MyString
+  UniDeMedida: MyString
+  tipo: MyString
+  NoDonacion: 
+
+two:
+  Nombre: MyString
+  Marca: MyString
+  Modelo: MyString
+  UniDeMedida: MyString
+  tipo: MyString
+  NoDonacion: 

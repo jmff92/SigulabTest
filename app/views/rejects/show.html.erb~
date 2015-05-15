@@ -1,0 +1,80 @@
+<%= render 'menu' %>
+<br/>
+<div style="text-align: right; height: 45px; margin-top: 12px;">
+      
+<% if session['specification_p6'] != 2 %>
+	<%= link_to '<button type="button" class="btn btn-warning"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar </button>'.html_safe, edit_requisition_path(@requisition) %>
+   <%= link_to '<button type="button" class="btn btn-danger"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, @requisition,method: :delete,
+       data: { confirm: '¿Está seguro que desea eliminar la requisición?' } %><% else %>Ya no puede editar porque se generó la requisición. <% end %>
+<% if session['specification_p6'] == 2 %><a href='?pdf=1' target="_blank"><button type="button" class="btn btn-primary"> Descargar </button></a><% else %> <% if @sumRec != 0 %><%= link_to '<button type="button" class="btn btn-primary"> Descargar </button>'.html_safe, requisitions_path(@requisition, :format => 'xml'), target: '_blank', :onclick => "return confirm('¿Está seguro que desea generar la requisición? Luego de hacerlo no podrá modificarla ni eliminarla.')" %> <% end %><% end %>
+	</div>
+
+  <table id="actTable" class="table table-striped">
+   <tr>
+				<th class="active text-center" colspan="2"><h2>Requisición</h2></th>
+			</tr>
+	  	 <tr>
+       	<td class="col-xs-5 text-right">Nro de requisición</td>
+       	<td class="col-xs-7"><%=@requisition.numero%></td>
+    	</tr>
+	  	 <tr>
+       	<td class="col-xs-5 text-right">Fecha</td>
+       	<td class="col-xs-7"><%=@requisition.observacion%></td>
+    	</tr>
+	  	 <tr>
+       	<td class="col-xs-5 text-right">Unidad solicitante</td>
+       	<td class="col-xs-7"><%=@requisition.solicitante%></td>
+    	</tr>
+
+     	 <tr>
+       	<td class="col-xs-5 text-right">Requisición</td>
+       	<td class="col-xs-7"><a href='<%= @requisition.archivo %>'>Ver Requisición</a></td>
+    	</tr>
+
+	</table>
+
+	</div>
+</div>
+
+<style>
+
+#quoteTable th, td, tr{
+	border-color:#7A7070;
+   font-size: 14px;
+ 
+}
+
+#quoteTable th {
+background-color: #F2F8F7;
+}
+
+
+
+.table-bordered {
+
+	border-color:#7A7070;
+
+}
+
+.table-bordered>tbody>tr>td {
+
+	border-color:#7A7070;
+
+
+}
+
+
+#quoteTable td:nth-child(even) {
+
+border-color:#7A7070;
+
+}
+
+</style>
+<script>
+if (window.location.search.replace("?", "") == "pdf=1")
+{
+window.location.href = "<%= @requisition.archivo %>";
+}
+</script>
+

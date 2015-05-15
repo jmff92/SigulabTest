@@ -32,6 +32,7 @@ gem 'spring',        group: :development
 # gem 'bcrypt', '~> 3.1.7'
 gem 'pry', '~> 0.10.1'
 
+gem 'nested_form', '~> 0.3.2'
 # Use unicorn as the app server
 # gem 'unicorn'
 

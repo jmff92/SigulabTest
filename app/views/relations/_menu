@@ -139,7 +139,7 @@
 		   <% end %>
 <% end %>
 <li style="text-align:left" <% if session['specification_p7'] != 1 %> class='select' <% else %> class='habilitado' <% end %>><%= link_to devolutions_url do %>
-		       <i class="fa fa-file-text-o"> &nbsp Aceptar/Rechazar </i>
+		       <i class="fa fa-file-text-o"> &nbsp Aceptar/Devolver </i>
 		   <% end %></li>
 		   
 </ul>

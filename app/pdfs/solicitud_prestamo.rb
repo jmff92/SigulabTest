@@ -54,12 +54,10 @@ end
 end
 
   def pie_de_pagina
-    font("#{Prawn::DATADIR}/fonts/DejaVuSans.ttf") do 
       font_size 8
       text_box "Universidad Simón Bolívar, Edif. Energética, Planta Baja. Valle de Sartenejas, Baruta, " +
                 "Caracas, Edo. Miranda, Venezuela, 89000", :at => [20,11], :height => 8
       font_size 7
       text_box "Telef.: +58 212 906-3708 / 3709 / 3710 / 3711  Fax: +58 212 906-3712", :at => [150,0], :height => 7
-  end
 end
 end
