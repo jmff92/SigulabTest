@@ -1,3 +1,8 @@
+<%= stylesheet_link_tag 'demo_table_jui.css'%>
+<%= stylesheet_link_tag 'examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css'%>
+<%= javascript_include_tag 'jquery.dataTables.js' %>
+<%= javascript_include_tag 'tabla.js' %>
+
 <div class="row">
 	<div class="col-xs-12">
 		<ol class="breadcrumb">
@@ -26,16 +31,27 @@
 					<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
 						<thead>
 							<tr>
-								<th class="text-center">Documento</th>
-								<th class="text-center">Fecha</th>
+								<th class="text-center">Año</th>
+								<th class="text-center" style="width:120px"></th>
 							</tr>
 						</thead>
 
 						<tbody>
 							<% @poas.each do |i| %>
 								<tr>
-									<td class="text-center"><%= link_to i.document, i %></td>
-									<td class="text-center"><%= i.year %></td>
+									<td class="text-center"><%= link_to i.year, i.document_url %></td>
+									<td class="text-center">
+										<% if current_user.directorate? or current_user.manage? %>
+ 											<%= link_to edit_poa_path(i), class: "btn btn-warning", title: "Editar Anteproyecto" do %>
+												<span class="glyphicon glyphicon-pencil"></span>		
+											<% end %>
+										<% end %>
+										<% if current_user.directorate? %>
+ 											<%= link_to delete_poa_path(i), class: "btn btn-danger", title: "Eliminar Anteproyecto", data: {confirm: "¿Está seguro de eliminar el anteproyecto? \n El director deberá validar esta eliminación."} do %>
+												<span class="glyphicon glyphicon-remove"></span>		
+											<% end %>										
+										<% end %>
+									</td>
 								</tr>
 							<% end %>
 						</tbody>
@@ -45,11 +61,13 @@
 			</div>
 		</body>
 
+	<% if current_user.directorate? or current_user.manage? %>
 		<div class="col-xs-12" align="left">
 			<p></p>
 			<%= link_to new_poa_path do %>
 				<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Anteproyecto</button>
 			<% end %>
 		</div>
+	<% end %>
 
 </div>

@@ -28,6 +28,7 @@ class BinnaclesController < ApplicationController
   end
 
   def new
+    binding.pry
     @binnacle = Binnacle.new
     if params[:format]
       @id = params[:format]

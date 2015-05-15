@@ -16,7 +16,8 @@ class StaticsController < ApplicationController
       	@projects = {}
       	@projcommitments = {}
       	@projexecutions = {}
-        @notifications = @incomes.count + @executions.count + @projects.count + @projcommitments.count + @projexecutions.count
+        @poas = Poa.all.order("year ASC").where("del=?", true)
+        @notifications = @incomes.count + @executions.count + @projects.count + @projcommitments.count + @projexecutions.count + @poas.count
     	elsif current_user.proy_responsible?
       	@incomes = {}
       	@executions = {}

@@ -8,7 +8,8 @@
 		<ol class="breadcrumb">
 			<li><%= link_to 'Inicio', controller: 'statics' %></li>
 			<li><%= link_to 'Administración', administration_path %></li>
-			<li class="active">Anteproyecto de POA</li>
+			<li><%= link_to 'Anteproyecto de POA', poas_path %></li>
+			<li class="active"><%= @poa.year %></li>
 		</ol>
 	</div>
 
@@ -21,15 +22,10 @@
 	</div>   
 
 
-<p><h2><center>Anteproyecto: <%= @poa.id %></center></h2></p>
+<p><h2><center>Anteproyecto de POA <%= @poa.year %></center></h2></p>
 
 	<div class="col-xs-12">
 		<table class="table table-striped">
-			<tr>
-				<td class="col-xs-5 text-right">Año:</td>
-				<td class="col-xs-7"><%= @poa.year %>  </td>
-			</tr>
-
 			  <tr>
 				<td class="col-xs-5 text-right">Documento:</td>
 				<td class="col-xs-7"><%= link_to "Consultar", @poa.document_url %></td>
@@ -40,8 +36,6 @@
 			<%= link_to edit_poa_path do %>
 				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Anteproyecto</button>
 			<% end %>
-			<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-search"></i> Consultar Documento </button>'.html_safe, poa_path(@poa, :format => 'pdf') %>
-
 			<%= link_to delete_poa_path, data: {confirm: "¿Está seguro de eliminar el anteproyecto?"} do %>
 				<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Eliminar Anteproyecto</button>
 			<% end %>

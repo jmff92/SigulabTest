@@ -102,6 +102,8 @@ end
 
   resources :poas do
     get 'delete', on: :member
+    get 'valid_dir', on: :member
+    get 'no_valid_dir', on: :member
 	 end
   resources :incomes do
     get 'valid_adm', on: :member

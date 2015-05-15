@@ -21,13 +21,7 @@ Rails.application.config.assets.precompile += %w( jquery-1.10.2.js )
 Rails.application.config.assets.precompile += %w( jquery-ui.js )
 Rails.application.config.assets.precompile += %w( jquery-ui.css )
 
-Rails.application.config.assets.precompile += %w( style.css )
-Rails.application.config.assets.precompile += %w( jquery.accordion.js )
-Rails.application.config.assets.precompile += %w( jquery.easing.1.3.js )
-Rails.application.config.assets.precompile += %w( desplegable.js )
-
 Rails.application.config.assets.precompile += %w( bootstrap-datepicker.js )
 Rails.application.config.assets.precompile += %w( bootstrap-datepicker.es.js )
-Rails.application.config.assets.precompile += %w( datepicker3.css )
 Rails.application.config.assets.precompile += %w( bootstrap-confirmation.js )
 
