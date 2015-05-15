@@ -175,36 +175,40 @@
       </div>
     </div>
 
+
     <div id="tabs-3">
       <div class="form-group">
         <table class="table table-striped">
-
           <tr>
-            <td class="col-xs-5 text-right"><strong>Factura:</strong></td>
-            <td class="col-xs-7"><%=  f.text_field :bill %></td>
-          </tr>
 
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Costo:</strong></td>
-            <td class="col-xs-6">Bs.&nbsp;<%= f.number_field(:cost, min: 0, :step => 'any') %></td>
-          </tr>
-
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
-            <td class="col-xs-7"><%=  f.text_field :buy_order %></td>
-          </tr>
-
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :adquisition_date, class: "bootlayout-date" %></td>
-          </tr>
-
-          <tr>
             <td class="col-xs-5 text-right"><strong>Origen:</strong></td>
-            <td class="col-xs-7"><%=f.select(:origen, [['Comprado'], ['Donado']] )%></td>
+            <td class="col-xs-7" ><%= f.select(:origen, options_for_select([['Comprado'],['Donado']]), {:include_blank => true, :default => nil}, {:onchange => "changeOrigen();"} ) %>
+            </td>
           </tr>
 
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura:</strong></td>
+            <td class= "hidden_option1 col-xs-7" ><%=  f.text_field :bill%></td>
+          </tr>
+
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo:</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= f.number_field(:cost, min: 0, :step => 'any') %>&nbsp;Bs.</td> 
+          </tr>
+
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%=  f.text_field :buy_order %></td>
+
+          <tr>
+            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= f.text_field :adquisition_date, class: "bootlayout-date" %></td>
+          </tr>
+                  <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;La USB no autoriza</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><strong>donaciones de sustancias quimicas</strong></td>
         </table>
+
       </div>
   </div>
 
@@ -266,6 +270,15 @@
     line-height             :1.6em;
 }
 
+
+.hidden_option1{
+  display: none;
+}
+
+.hidden_option2{
+  display: none;
+}
+
  </style>
 
  <script type="text/javascript">
@@ -280,6 +293,22 @@
     else
       localStorage.removeItem( 'firstLoad' );
   }
-;
+  
+function changeOrigen() {
+
+  if ($('#chemical_substance_origen').val()== "Comprado") {
+    $(".hidden_option1").fadeIn('fast');
+  } else {
+    $(".hidden_option1").fadeOut('fast');   
+  }
+ 
+  if ($('#chemical_substance_origen').val()== "Donado") {
+    $(".hidden_option2").fadeIn('fast');
+  } else {
+    $(".hidden_option2").fadeOut('fast');   
+  }
+
+
+}
   //]]>
   </script>
