@@ -7,8 +7,13 @@ class DevolutionsController < ApplicationController
   # GET /devolutions.json
   def index
     if current_user
-        @devolutions = Devolution.where(:user_id => current_user.username).all
-        @sumDevolution = Devolution.where(:user_id => current_user.username).count
+        @devolutions = Devolution.where(:specification_id => session[:specification_sel_id]).first
+        @sumDevolution = Devolution.where(:specification_id => session[:specification_sel_id]).count
+        if @sumDevolution ==0
+			redirect_to "/devolutions/new"
+		else
+			redirect_to "/devolutions/#{@devolutions.id}"
+        end
     end
   end
 
@@ -39,6 +44,7 @@ class DevolutionsController < ApplicationController
   def create
     @devolution = Devolution.new(devolution_params)
     @devolution.user_id = current_user.username
+    @devolution.specification_id = session[:specification_sel_id]
 
 
     respond_to do |format|
