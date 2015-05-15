@@ -159,28 +159,51 @@
     <%end%>
   </div>
 
-  <div id="tabs-3">
-    <p><table class="table table-striped">
+    <div id="tabs-3">
+        <table class="table table-striped">
+
+            <td class="col-xs-5 text-right"><strong>Origen:</strong></td>
+            <td class="col-xs-7" ><%= @instrument.origen %>
+            </td>
+          </tr>
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura:</strong></td>
+            <td class= "hidden_option1 col-xs-7" ><%= @instrument.bill %></td>
+          </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Factura:</strong></td>
-            <td class="col-xs-7"><%= @instrument.bill %></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo:</strong></td>
+            <td class="hidden_option1 col-xs-7" >Bs.<%= @instrument.cost %></td> 
           </tr>
-          
+
           <tr>
-            <td class="col-xs-5 text-right"><strong>Costo:</strong></td>
-            <td class="col-xs-7"><%= @instrument.cost %> BS.</td>
-          </tr>
-          
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= @instrument.buy_order %></td>
+
           <tr>
-            <td class="col-xs-5 text-right"><strong>Órden de Compra:</strong></td>
-            <td class="col-xs-7"><%= @instrument.buy_order %></td>
+            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= @instrument.adquisition_date%></td>
           </tr>
-          
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
-            <td class="col-xs-7"><%= @instrument.adquisition_date %></td>
-          </tr>
+
+                  <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong>Numero de Donación</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @instrument.NumDonacion %></td>
+            </tr>
+
+            <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong>Fecha de Donación</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @instrument.FechaDonacion %></td>
+            </tr>
+
+              <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong> PJ Donación</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @instrument.PJDonacion %></td>
+            </tr>
+
+              <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong> Persona de Contacto</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @instrument.PersonaContactoDonacion %></td>
+            </tr>
         </table></p>
         
     <% if can? :create, @instrument %>
@@ -325,11 +348,18 @@
   text-transform: uppercase;
 }
 
+.hidden_option1{
+  display: none;
+}
+
+.hidden_option2{
+  display: none;
+}
+
 </style>
 
   <script type="text/javascript">
   //<![CDATA[
-    showButtons();
 
   if( window.localStorage )
   {
@@ -341,5 +371,21 @@
     else
       localStorage.removeItem( 'firstLoad' );
   }
-;
+
+
+function changeOrigen() {
+
+  if ($('#equipment_origen').val()== "Comprado") {
+    $(".hidden_option1").fadeIn('fast');
+  } else {
+    $(".hidden_option1").fadeOut('fast');   
+  }
+ 
+  if ($('#equipment_origen').val()== "Donado") {
+    $(".hidden_option2").fadeIn('fast');
+  } else {
+    $(".hidden_option2").fadeOut('fast');   
+  }
+
+}
   </script>

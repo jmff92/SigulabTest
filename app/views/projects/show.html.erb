@@ -28,7 +28,7 @@
 <div id="tabs">
 	<ul>
 		<li><a href="#tabs-1" class="hidex">Datos del Proyecto</a></li>
-		<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or  current_user.manage? or current_user.manage_analist? or current_user.proy_responsible? %>	
+		<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or  current_user.projadmin? or current_user.proy_responsible? %>	
 			<li><a href="#tabs-2" class="hidex">Distribución del Monto</a></li>
 			<li><a href="#tabs-3" class="hidex">Cuenta Bancaria</a></li>
 			<li><a href="#tabs-4" class="show">Resumen Presupuestario</a></li>
@@ -91,13 +91,13 @@
 				<td class="col-xs-7"></td>
 			</tr>
  		    </table></p>
-		<% if current_user.manage? or current_user.manage_analist? %>	 		    
+		<% if current_user.projadmin? %>	 		    
  			<%= link_to edit_project_path do %>
 				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Datos del Proyecto</button>
 			<% end %>
 		<% end %>
 	</div>
-	<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or  current_user.manage? or current_user.manage_analist? or current_user.proy_responsible? %>	
+	<% if current_user.director? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or  current_user.projadmin? or current_user.proy_responsible? %>	
 	<div id="tabs-2">
 		<p><table class="table table-striped">
   			<% if @project.equipments>0 %> 	
@@ -147,7 +147,7 @@
 				<td class="col-xs-7" ><div id="span1"> <font size=3.6> Bs. </div> </font><div id="span2" align="right"> <font size=3.6> <%= number_to_currency(@project.amount, format: "%n", delimiter: ".", separator: ",") %> </font> </div> </td>	
 			</tr>  
 		</table></p>
-		<% if current_user.manage? or current_user.manage_analist? %>	 
+		<% if current_user.projadmin? %>	 
 			<%= link_to edit_project_path + "#tabs-2" do %>
 				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Distribución del Monto</button>
 			<% end %>
@@ -168,7 +168,7 @@
 				<td class="col-xs-7"></td>
 			</tr>
 		</table></p>
-		<% if current_user.manage? or current_user.manage_analist? %>	 
+		<% if current_user.projadmin? %>	 
 			<%= link_to edit_project_path + "#tabs-3" do %>
 				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Cuenta Bancaria</button>
 			<% end %>
@@ -207,7 +207,7 @@
 
 </br>
 
-<% if current_user.director? or current_user.directorate? or current_user.manage? or current_user.manage_analist? or current_user.proy_responsible? %>	
+<% if current_user.director? or current_user.directorate? or current_user.projadmin? or current_user.proy_responsible? %>	
 	<div class="col-xs-12">
 		<%= link_to controller: 'projincomes', id: @project.id do %>
 			<button type="button" class="btn btn-primary hidden_option"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp; Ingresos </button>
@@ -220,7 +220,7 @@
 			<button type="button" class="btn btn-primary hidden_option"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;&nbsp; Compromisos </button>
 		<% end %>
 <% end %>
-<% if current_user.manage? or current_user.manage_analist? or current_user.proy_responsible? or current_user.acquisition? %>
+<% if current_user.projadmin? or current_user.proy_responsible? or current_user.acquisition? %>
 		<%= link_to controller: 'projexecutions', id: @project.id do %>
 			<button type="button" class="btn btn-primary hidden_option"><span class="glyphicon glyphicon-check"></span>&nbsp;&nbsp;Ejecuciones </button>
 		<% end %>

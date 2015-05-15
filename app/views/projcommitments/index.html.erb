@@ -70,7 +70,7 @@
 
 	</div>
 
-	<% if current_user.manage? or current_user.manage_analist? or current_user.acquisition? or current_user.acquisition_analist? %>	
+	<% if current_user.projadmin? or current_user.acquisition? or current_user.acquisition_analist? %>	
 		<div class="col-xs-12" align="left">
 			<p></p>
 			<%= link_to controller: :projcommitments, action: 'new', id: @project.id do %>

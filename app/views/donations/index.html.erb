@@ -38,22 +38,16 @@
 					<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
 						<thead>
 							<tr>
-                <th align="center">Tipo</th>
-								<th align="center">Nombre</th>
-						    <th align="center">Marca</th>
-						    <th align="center">Cantidad</th>
-                <th align="center">Unidad de Medida</th>
+								<th align="center">No. Documento</th>
+						    <th align="center">Fecha del Documento</th>
 							</tr>
 						</thead>
 
 						<tbody>
 							<% @donations.each do |donation| %>
 						  		<tr>
-                   <td><%= donation.tipo %></td>
-							     <td style="text-decoration:underline; color:black"><%= link_to donation.nombreItem, donation %></td>
-							     <td><%= donation.marca %></td>
-							     <td><div style="text-align:center"><%= donation.cantidad %></div></td>
-                   <td><%= donation.unidadMedida %></td>
+                   <td><%= link_to donation.numDocumento, donation %></td>
+							     <td style="text-decoration:underline; color:black"><%= donation.fechaDocumento %></td>
 							   </tr>
 							 <% end %>
 						</tbody>

@@ -70,7 +70,7 @@
 
 	</div>
 
-	<% if current_user.manage? or current_user.manage_analist? %>	
+	<% if current_user.projadmin? %>	
 		<div class="col-xs-12" align="left">
 			<p></p>
 			<%= link_to controller: "projincomes", action: "new", id: @project.id do %>

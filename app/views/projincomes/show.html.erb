@@ -71,7 +71,7 @@
 			</tr>
 		</table>
 	</div>
-	<% if current_user.manage? or current_user.manage_analist? %>	
+	<% if current_user.projadmin? %>	
 		<div class="col-xs-12">
 			<%= link_to edit_projincome_path do %>
 				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ingreso</button>
