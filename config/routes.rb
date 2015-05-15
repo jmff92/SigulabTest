@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :binnacles
 
   resources :donations
+  
+  resources :rejects
 
   resources :applications
 
