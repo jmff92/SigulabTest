@@ -7,6 +7,11 @@ class ServicerequestsController < ApplicationController
    def index
 
      if current_user
+	if current_user.director? || current_user.section_boss? || current_user.proy_responsible?
+		@mostrar = false
+	else
+		@mostrar = true
+	end
          @servicerequests = Servicerequest.where(:user_id => current_user.username).all
          @sumServReq = Servicerequest.where(:specification_id => session[:specification_sel_id]).count
          @servreq = Servicerequest.where(:specification_id => session[:specification_sel_id]).first
@@ -63,16 +68,25 @@ class ServicerequestsController < ApplicationController
   # GET /servicerequests/1
   # GET /servicerequests/1.json
   def show
-     if current_user.acquisition? || @user.import? 
     @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
     @user = User.where(:username => @especificacion.user_id).first 
-        if @user.acquisition? || @user.import? || @user.acquisition_analist? || @user.import_analist?
-            @mostrar = true
-        else
-            @mostrar = false
-        end
+
+if current_user.acquisition? || current_user.import? || current_user.acquisition_analist? || current_user.import_analist?   
+    @mostrar_editar = true
+    if @user.director? || @user.directorate? || @user.gsmp? || @user.acquisition? || @user.import? || @user.quality? || @user.manage? || @user.acquisition_analist? || @user.import_analist? || @user.quality_analist? || @user.manage_analist? 
+	@mostrar_eliminar = true
     else
-    @mostrar = true
+	@mostrar_eliminar = false
+    end
+    else
+    @mostrar_eliminar = false
+    @mostrar_editar = false
+    end
+
+    if current_user.gsmp? || current_user.quality? || current_user.quality_analist? || current_user.manage? || current_user.manage_analist? || current_user.proy_responsible?
+	@mostrar_descargar = false
+    else
+	@mostrar_descargar = true
     end
     @servicerequest = Servicerequest.find(params[:id])
 

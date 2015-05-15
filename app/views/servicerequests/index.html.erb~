@@ -6,6 +6,10 @@
 <% if session['specification_p10'] != 2 %>
 	<%= link_to '<button type="button" class="btn btn-success"> <span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Solicitud de Servicio </button>'.html_safe,  new_servicerequest_path %><% end %>
 
+ <div style='text-align: center'>No existe una solicitud de servicio registrada.
+               </div>
+      
+
 
 
 
