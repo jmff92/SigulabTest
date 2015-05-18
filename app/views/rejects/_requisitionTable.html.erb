@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+</head>
+<body>
+<table id="requisitionTable" class="table table-hover" >
+	  <thead>
+		 <tr>
+		   <th align="left">No. de Requisición</th>
+		   <th align="left">Unidad Solicitante</th>
+		   <th align="left">Unidad Consumidora</th>
+		 </tr>
+	  </thead>
+
+	  <tbody>
+		 <% @requisitions.each do |requisition| %>
+	  		<tr>
+		     <td style="text-decoration:underline; color:black"><%= link_to requisition.id, requisition %></td>
+		     <td><%= requisition.solicitante %> </td>
+		     <td><%= requisition.consumidor %> </td>
+		   </tr>
+		 <% end %>
+		 <% if @sumRequisition == 0 %>
+		 	<tr class="warning">
+				<td class="text-center" colspan="5"><h4>No hay Requisiciones registradas</h4></td>
+			</tr>
+		 <% end %>
+	  </tbody>
+	</table>
+</body>
+
+<style>
+
+a:visited { 
+   color:black;
+   font-weight: bold;
+	font-size: 110%;
+}
+
+#requisitionTable th {
+      background-color: #94E79E;
+      border-color:#7A7070;
+     font-size: 14px;
+  }
+
+#requisitionTable th, td, tr{
+ border-color:black;
+ }
+
+
+
+ .table-hover {
+
+border-color:#7A7070;
+
+}
+
+.table-hover>tbody>tr>td {
+
+border-color:#7A7070;
+
+}
+
+#requisitionTable tr:hover {
+background-color: #ffff99;
+}
+
+#requisitionTable tr:nth-child(even) {
+
+background-color: #F2F8F7;
+
+}
+
+input[type=submit] {
+-webkit-appearance: button;
+cursor: pointer;
+background-color:#F8F0BE;
+border-radius:px;
+}
+
+</style>

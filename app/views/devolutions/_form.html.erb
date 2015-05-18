@@ -1,12 +1,3 @@
-<script>
-function myFunction() {
-    var x = document.getElementById("aceptacion").value;
-    if (x == "rechazado")
-        document.getElementById("nota_devolucion").style.display = "inline";
-    if (x == "aceptado")
-        document.getElementById("nota_devolucion").style.display = "none";
-}
-</script>
 
 
 <div class="grid_12 push_1">
@@ -16,12 +7,8 @@ function myFunction() {
         <br>
       <% end %>
 
-<select id="aceptacion" onchange="myFunction();">
-<option value="aceptado">Aceptar</option>
-<option value="rechazado">Devolver</option>
-</select>
 
-<div id="nota_devolucion" style="display:none">
+<div id="nota_devolucion" >
       <div class="field"><br/>
         
 	<table><tr><td style="padding-right:80px;padding-bottom:5px;"><span class="red">*</span>

@@ -20,6 +20,15 @@ class ChemicalSubstancesController < ApplicationController
   # GET /chemical_substances/1.json
   def show
     @ids = @chemical_substance.id2
+    @binnacle = Binnacle.new
+    @binnacle.idSustancia = @chemical_substance.id2
+    @binnacle.fecha = Date.today
+    @binnacle.consumo = 0.0
+    @binnacle.ingreso = @chemical_substance.quantity
+    @binnacle.total = @chemical_substance.quantity
+    @binnacle.tipo = "Ingreso"
+    @binnacle.descripcion = " "
+    @binnacle.save
   end
 
   # GET /chemical_substances/new
@@ -37,6 +46,8 @@ class ChemicalSubstancesController < ApplicationController
     @chemical_substance = ChemicalSubstance.new(chemical_substance_params)
     respond_to do |format|
       if @chemical_substance.save
+        @chemical_substance.id2 = "SQ-" + "#{@chemical_substance.id}"
+        @chemical_substance.save
         format.html { redirect_to @chemical_substance }
         format.json { render :show, status: :created, location: @chemical_substance }
       else
@@ -44,17 +55,7 @@ class ChemicalSubstancesController < ApplicationController
         format.json { render json: @chemical_substance.errors, status: :unprocessable_entity }
       end
     end
-    @chemical_substance.id2 = "SQ-" + "#{@chemical_substance.id}"
-    @chemical_substance.save
-    @binnacle = Binnacle.new
-    @binnacle.idSustancia = @chemical_substance.id2
-    @binnacle.fecha = Date.today
-    @binnacle.consumo = 0.0
-    @binnacle.ingreso = @chemical_substance.quantity
-    @binnacle.total = @chemical_substance.quantity
-    @binnacle.tipo = "Ingreso"
-    @binnacle.descripcion = " "
-    @binnacle.save
+    
   end
 
   # PATCH/PUT /chemical_substances/1
@@ -97,6 +98,7 @@ class ChemicalSubstancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chemical_substance_params
-      params.require(:chemical_substance).permit(:name, :purity, :matter_states, :controlled, :quantity, :cas, :meassure, :status, :responsible, :location, :expiration_date, :rI7, :rI4, :toxic, :oxidant, :explosive, :irritating, :inflamable, :corrosive, :nocive, :investigation, :teaching, :extention, :cost, :bill, :buy_order, :adquisition_date, :showable, :dependency, :correo)
+      params.require(:chemical_substance).permit(:name, :purity, :matter_states, :controlled, :quantity, :cas, :meassure, :status, :responsible, :location, :expiration_date, :rI7, :rI4, :toxic, :oxidant, :explosive, :irritating, :inflamable, :corrosive, :nocive, :investigation, :teaching, :extention, :cost, :bill, :buy_order, :adquisition_date, :showable, :dependency, :correo, :min, :meassureMin, :origen)
+
     end
 end

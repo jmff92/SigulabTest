@@ -4,14 +4,16 @@ class RecommendationsController < ApplicationController
 
   def index
     if current_user
-    if current_user.acquisition? || current_user.import? || current_user.
+    if current_user.acquisition? || current_user.import?  || current_user.acquisition_analist? || current_user.import_analist? 
     @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
     @user = User.where(:username => @especificacion.user_id).first 
-        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
+        if @user.director? || @user.directorate? || @user.gsmp? || @user.acquisition? || @user.import? || @user.quality? || @user.manage? || @user.acquisition_analist? || @user.import_analist? || @user.quality_analist? || @user.manage_analist?
             @mostrar = true
         else
             @mostrar = false
         end
+    elsif current_user.director? || current_user.directorate? || current_user.gsmp? || current_user.quality? || current_user.quality_analist? || current_user.manage? || current_user.manage_analist? || current_user.section_boss? || current_user.proy_responsible?
+        @mostrar = false
     else
     @mostrar = true
     end
@@ -59,16 +61,48 @@ class RecommendationsController < ApplicationController
   # GET /quotes/1
   # GET /quotes/1.json
   def show
-     if current_user.acquisition? || current_user.import? 
     @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
     @user = User.where(:username => @especificacion.user_id).first 
-        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
-            @mostrar = true
-        else
-            @mostrar = false
-        end
+
+     if current_user.acquisition? || current_user.import? 
+            @mostrar_editar = true
+	    if @user.director? || @user.directorate? || @user.gsmp? || @user.acquisition? || @user.import? || @user.quality? || @user.manage? || @user.acquisition_analist? || @user.import_analist? || @user.quality_analist? || @user.manage_analist? 
+                @mostrar_eliminar = true
+            else
+                @mostrar_eliminar = false
+            end
+     elsif current_user.acquisition_analist? || current_user.import_analist? 
+	    if @user.director? || @user.directorate? || @user.gsmp? || @user.acquisition? || @user.import? || @user.quality? || @user.manage? || @user.acquisition_analist? || @user.import_analist? || @user.quality_analist? || @user.manage_analist? 
+		@mostrar_editar = true
+                @mostrar_eliminar = true
+            else
+                @mostrar_eliminar = false
+		@mostrar_editar = false
+            end
+    elsif current_user.director? || current_user.directorate? || current_user.gsmp? || current_user.quality? || current_user.quality_analist? || current_user.manage? || current_user.manage_analist? || current_user.section_boss? || current_user.proy_responsible?
+	@mostrar_editar = false
+	@mostrar_eliminar = false
+    elsif current_user.acquisition?
+	if @user.acquisition? || @user.acquisition_analist?
+	    @mostrar_validar = true
+	else
+	    @mostrar_validar = false
+	end
+    elsif current_user.import?
+	if @user.import? || @user.import_analist?
+	    @mostrar_validar = true
+	else
+	    @mostrar_validar = false
+	end
+    elsif current_user.director? || current_user.directorate? || current_user.gsmp? || current_user.acquisition_analist? || current_user.import_analist? || current_user.quality? || current_user.quality_analist? || current_user.manage? || current_user.manage_analist? || current_user.labassistant? || current_user.proy_responsible?
+	@mostrar_validar = false
+    elsif current_user.gsmp? || current_user.quality? || current_user.quality_analist? || current_user.manage? || current_user.manage_analist?
+	@mostrar_descargar = false
     else
-    @mostrar = true
+	@mostrar_descargar = true
+	@mostrar_editar = true
+	@mostrar_eliminar = true
+	@mostrar_validar = true
     end
      @recommendation = Recommendation.where(:specification_id => session[:specification_sel_id]).first
      @empresas_todas = Invitation.where(:specification_id => session[:specification_sel_id]).all

@@ -3,7 +3,7 @@
 <%= render 'menu' %>
 <div style="margin-top: 30px;margin-bottom: -50px; margin-left: 10px;width:500px;"><h3>Ofertas</h3></div>
 <div style="text-align: right; height: 45px; margin-top: 12px;">
-<% if session['specification_p3'] != 2 %>
+<% if session['specification_p2'] != 2 && !current_user.director? && !current_user.quality && !current_user.quality_analist && !current_user.manage? && !current_user.manage_analist  && !current_user.gsmp? && !current_user.directorate?  && !current_user.director %>
 	<%= link_to '<button type="button" class="btn btn-success"> <span style="font-size:10px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Ofertas </button>'.html_safe,  new_quote_path %><% end %>
 	</div>
                 <%= render 'quotetable' %>

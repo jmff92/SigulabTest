@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513233500) do
+
+ActiveRecord::Schema.define(version: 20150515050237) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +119,8 @@ ActiveRecord::Schema.define(version: 20150513233500) do
     t.string   "id2"
     t.string   "origen"
     t.string   "correo"
+    t.float    "min"
+    t.string   "meassureMin"
   end
 
   create_table "commitments", force: true do |t|
@@ -358,6 +362,18 @@ ActiveRecord::Schema.define(version: 20150513233500) do
     t.date     "fecha_tope"
   end
 
+  create_table "item_donados", force: true do |t|
+    t.string   "Nombre"
+    t.string   "Marca"
+    t.string   "Modelo"
+    t.string   "UniDeMedida"
+    t.string   "tipo"
+    t.string   "NoDonacion"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "donation_id"
+  end
+
   create_table "items", force: true do |t|
     t.string   "nombre"
     t.string   "tipo"
@@ -398,7 +414,6 @@ ActiveRecord::Schema.define(version: 20150513233500) do
     t.string   "medida"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "fechaEntrega"
     t.date     "fechaTope"
     t.string   "unidadMedida"
     t.string   "descripcion"
@@ -438,13 +453,14 @@ ActiveRecord::Schema.define(version: 20150513233500) do
     t.boolean  "todoJue"
     t.boolean  "todoVie"
     t.string   "periodo"
-    t.date     "desde"
     t.time     "finLunes"
     t.time     "finMartes"
     t.time     "finMiercoles"
     t.time     "finJueves"
     t.time     "finViernes"
-    t.time     "maxDevolucion"
+    t.string   "maxDevolucion"
+    t.string   "inicio"
+    t.string   "hasta"
   end
 
   create_table "paymentauths", force: true do |t|
@@ -468,6 +484,7 @@ ActiveRecord::Schema.define(version: 20150513233500) do
   create_table "poas", force: true do |t|
     t.string  "document"
     t.integer "year"
+    t.boolean "del"
   end
 
   create_table "projcommitments", force: true do |t|
@@ -621,6 +638,13 @@ ActiveRecord::Schema.define(version: 20150513233500) do
     t.string   "idEquipo"
   end
 
+  create_table "rejects", force: true do |t|
+    t.string   "estado"
+    t.integer  "specification_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "relation_loans", force: true do |t|
     t.string   "prestamo"
     t.string   "item"
@@ -692,8 +716,9 @@ ActiveRecord::Schema.define(version: 20150513233500) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_id"
-    t.string   "attachment"
     t.integer  "specification_id"
+    t.string   "numero"
+    t.string   "attachment"
   end
 
   create_table "servicerequests", force: true do |t|
@@ -703,11 +728,11 @@ ActiveRecord::Schema.define(version: 20150513233500) do
     t.string   "extension"
     t.string   "monto"
     t.text     "observacion"
+    t.integer  "specification_id"
+    t.datetime "fecha"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_id"
-    t.integer  "specification_id"
-    t.datetime "fecha"
   end
 
   create_table "services", force: true do |t|
@@ -812,6 +837,7 @@ ActiveRecord::Schema.define(version: 20150513233500) do
     t.boolean  "external"
     t.string   "name"
     t.string   "surname"
+    t.boolean  "projadmin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

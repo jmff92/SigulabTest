@@ -12,15 +12,8 @@ class DonationsController < ApplicationController
   # GET /donations/1
   # GET /donations/1.json
   def show
-  @donations = Donation.find(params[:id])  
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = ReporteDonations.new(@donations)
-        send_data pdf.render, filename: 'MOD-01.pdf', type: 'application/pdf'
-      end
-    end
-
+  @donations = Donation.find(params[:id])
+  @item_donados = @donations.item_donados
   end
 
   # GET /donations/new
@@ -35,17 +28,9 @@ class DonationsController < ApplicationController
   # POST /donations
   # POST /donations.json
   def create
-    @donation = Donation.new(donation_params)
 
-    respond_to do |format|
-      if @donation.save
-        format.html { redirect_to @donation }
-        format.json { render :show, status: :created, location: @donation }
-      else
-        format.html { render :new }
-        format.json { render json: @donation.errors, status: :unprocessable_entity }
-      end
-    end
+
+    @donation = Donation.new(donation_params)
 
     if params[:donation][:document] != nil
       archivo = params[:donation][:document];      
@@ -64,6 +49,16 @@ class DonationsController < ApplicationController
         subir_archivo = "ok";
       else
         subir_archivo = "error";
+      end
+    end
+
+    respond_to do |format|
+      if @donation.save
+        format.html { redirect_to @donation }
+        format.json { render :show, status: :created, location: @donation }
+      else
+        format.html { render :new }
+        format.json { render json: @donation.errors, status: :unprocessable_entity }
       end
     end
 
@@ -122,6 +117,13 @@ class DonationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def donation_params
-      params.require(:donation).permit(:nombreItem, :marca, :modelo, :cantidad, :unidadMedida, :tipo, :numDocumento, :fechaDocumento, :estimado)
-    end
+      params.require(:donation).permit(:nombreItem, :marca, :modelo, :cantidad, :unidadMedida, :tipo, :numDocumento, :fechaDocumento, :estimado, :document,
+                                        item_donados_attributes:[:id,
+                                                              :Nombre,
+                                                              :Marca,
+                                                              :Modelo,
+                                                              :UniDeMedida,
+                                                              :tipo,
+                                                              :NoDonacion])
+  end
 end
