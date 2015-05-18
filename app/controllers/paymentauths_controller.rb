@@ -4,6 +4,7 @@ class PaymentauthsController < ApplicationController
   before_filter :authenticate_user!
   
   def index
+    binding.pry
     if current_user.gsmp?
       @pays = Paymentauth.all.order("elaboration_date ASC")
     elsif current_user.quality? or current_user.quality_analist? or current_user.import? or current_user.import_analist? or current_user.labBoss?
@@ -65,7 +66,11 @@ class PaymentauthsController < ApplicationController
       # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
         if (@old_date == nil) and (@new_date != "")
         @commitment = Commitment.new
-        @commitment.id = Commitment.last.id+1
+        if Commitment.count > 0
+          @commitment.id = Commitment.last.id+1
+        else
+          @commitment.id = 1
+        end
         @commitment.lab_id = @pay.from
         @commitment.code = @pay.registry
         @commitment.amount = @pay.amount
