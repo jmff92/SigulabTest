@@ -67,7 +67,11 @@ class ProjpaymentauthsController < ApplicationController
       # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
         if (@old_date == nil) and (@new_date != "")
         @commitment = Projcommitment.new
-        @commitment.id = Projcommitment.last.id+1
+        if Projcommitment.count > 0
+          @commitment.id = Projcommitment.last.id+1
+        else
+          @commitment.id = 1
+        end
         @commitment.proj_id = @pay.proyect
         @commitment.code = @pay.registry
         @commitment.amount = @pay.amount
