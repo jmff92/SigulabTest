@@ -98,8 +98,7 @@ class PaymentauthsController < ApplicationController
   end  
 
   def delete
-    @pay = Paymentauth.find params[:id]
-   @pay.destroy
+    @pay = Paymentauth.find(params[:id]).destroy
     redirect_to action: 'index'
   end  
   

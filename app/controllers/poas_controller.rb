@@ -62,8 +62,7 @@ class PoasController < ApplicationController
   end
 
   def valid_dir
-    @poa = Poa.find params[:id]
-    @poa.destroy
+    @poa = Poa.find(params[:id]).destroy
     redirect_to :back    
   end
 
