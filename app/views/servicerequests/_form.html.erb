@@ -30,7 +30,7 @@ function validateForm() {
     if (x == null || x == "") {
         alert("Nombre de Persona Contacto no puede estar en blanco");
         return false;
-    } else if (!(/^[a-zA-Z]+$/.test(x))) {
+    } else if (!(/^[a-zA-Z\sáéíóú]+$/.test(x))) {
         alert("Nombre de Persona Contacto debe contener solo letras");
         return false;
     }
@@ -41,7 +41,7 @@ function validateForm() {
         return false;
     }
     var x = document.forms[0]["servicerequest[extension]"].value;
-    if ((x == null || x == "") || !(x.match(/\d/g).length===10)) {
+    if ((x == null || x == "") || !(x.match(/\d/g).length===11)) {
         alert("Ingrese un teléfono válido (Ej: 02124920384");
         return false;
     }
