@@ -65,7 +65,11 @@ class PaymentauthsController < ApplicationController
       # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
         if (@old_date == nil) and (@new_date != "")
         @commitment = Commitment.new
-        @commitment.id = Commitment.last.id+1
+        if Commitment.count > 0
+          @commitment.id = Commitment.last.id+1
+        else
+          @commitment.id = 1
+        end
         @commitment.lab_id = @pay.from
         @commitment.code = @pay.registry
         @commitment.amount = @pay.amount
@@ -79,7 +83,7 @@ class PaymentauthsController < ApplicationController
         @commitment.updated_at = @pay.updated_at
         @commitment.save      
       end
-      redirect_to action: 'index'
+      redirect_to paymentauth_url(@pay)
     else
       @labs = Lab.all
       render 'edit'
@@ -94,8 +98,7 @@ class PaymentauthsController < ApplicationController
   end  
 
   def delete
-    @pay = Paymentauth.find params[:id]
-   @pay.destroy
+    @pay = Paymentauth.find(params[:id]).destroy
     redirect_to action: 'index'
   end  
   

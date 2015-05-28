@@ -27,11 +27,13 @@
 
 <div class="field">
 <br>
-<b><%='Tipo de Usuario :' %></b><br>
+<b><%='Tipo de Usuario :' %></b><br><br>
+
   <%= f.check_box :director %>
   <%= 'Director'%><br>
   <%= f.check_box :directorate %>
-  <%= 'Coordinador Dirección'%><br>
+  <%= 'Asistente del Director'%><br><br>
+
   <%= f.check_box :gsmp %>
   <%= 'Gestor de SMyDP'%><br><br>
   
@@ -60,6 +62,8 @@
   <%= f.check_box :quality_analist %>
   <%= 'Analista'%><br><br>
 
+  <%= f.check_box :projadmin %>
+  <%= 'Administrador de Proyectos'%><br><br>
 
   <%= 'Personal Laboratorio :' %><br>
   <%= f.check_box :labBoss %>

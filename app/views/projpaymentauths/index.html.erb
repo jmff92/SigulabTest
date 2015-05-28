@@ -45,6 +45,7 @@
 								<th class="text-center">Registro</th>
 								<th class="text-center">Beneficiario</th>
 								<th class="text-center">Monto</th>
+								<th class="text-center">Status</th>
 							</tr>
 						</thead>
 
@@ -55,6 +56,13 @@
 									<td><%= link_to c.registry, c %></td>
 									<td class="text-center"><%= c.recipient %></td>
 									<td class="text-right"><%= number_to_currency(c.amount, format: "%n", delimiter: ".", separator: ",", precision: 2) %></td>
+					                <% if c.status=="annulled" %>
+					                	<td class="text-right"> Anulada </td>
+					                <% elsif !c.delivery_date.blank? %>
+					                	<td class="text-right"> Recibida </td>
+					                <% else %>	
+					                	<td class="text-right"> Sin recibir </td>
+					                <% end %>
 								</tr>
 							<% end %>
 						</tbody>
