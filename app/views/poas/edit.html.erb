@@ -4,7 +4,7 @@
 			<li><%= link_to 'Inicio', controller: 'statics' %></li>
 			<li><%= link_to 'Administración', administration_path %></li>
 			<li><%= link_to 'Anteproyecto de POA', poas_path %></li>
-			<li><%= link_to @poa.year, @poa %></li>
+			<li><%= link_to @poa.year, @poa.document_url %></li>
 			<li class="active">Editar Anteproyecto</li>
 		</ol>
 	</div>
@@ -38,7 +38,7 @@
 				<div class="col-xs-offset-3 col-xs-9">
 					<button type="submit" class="btn btn-default btn-primary" onclick="return confirm('¿Está seguro de modificar el anteproyecto?')"><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;&nbsp;Actualizar Anteproyecto</button>
 
-					<%= link_to @poa, class: "btn btn-default btn-danger" do %>
+					<%= link_to poas_path, class: "btn btn-default btn-danger" do %>
 						<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Cancelar Operación
 					<% end %>
 				</div>
