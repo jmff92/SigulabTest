@@ -15,6 +15,8 @@ class AdministrationController < ApplicationController
       @projcommitments = {}
       @projexecutions = {}
       @poas = {}
+      @notifications = @incomes.count + @executions.count + @projects.count + @projcommitments.count + @projexecutions.count + @poas.count
+      closeNotif(@notifications)
     end
     if current_user.director?
       @incomes = Income.all.order("date ASC").where("valid_adm=? AND valid_dir=?", true, false)
@@ -23,6 +25,8 @@ class AdministrationController < ApplicationController
       @projcommitments = {}
       @projexecutions = {}
       @poas = Poa.all.order("year ASC").where("del=?", true)
+      @notifications = @incomes.count + @executions.count + @projects.count + @projcommitments.count + @projexecutions.count + @poas.count
+      closeNotif(@notifications)
     end
     if current_user.proy_responsible?
       @incomes = {}
@@ -31,10 +35,17 @@ class AdministrationController < ApplicationController
       @projcommitments = Projcommitment.all.order("date ASC").where("valid_res=?", false)
       @projexecutions = Projexecution.all.order("check_elaboration_date ASC").where("valid_res=?", false)
       @poas = {}
+      @notifications = @incomes.count + @executions.count + @projects.count + @projcommitments.count + @projexecutions.count + @poas.count
+      closeNotif(@notifications)
     end
   end
 
   private
+  def closeNotif(notif)
+    if notif==0
+      redirect_to administration_url
+    end
+  end
   
   def set_subsystem
     @subsystem = 'administracion'

@@ -83,7 +83,7 @@ class PaymentauthsController < ApplicationController
         @commitment.updated_at = @pay.updated_at
         @commitment.save      
       end
-      redirect_to action: 'index'
+      redirect_to paymentauth_url(@pay)
     else
       @labs = Lab.all
       render 'edit'
