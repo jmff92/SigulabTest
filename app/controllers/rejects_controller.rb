@@ -39,6 +39,7 @@ class RejectsController < ApplicationController
   def create
     @reject = Reject.new(reject_params)
     @reject.specification_id = session[:specification_sel_id]
+    if "Rechazar solicitud" ==  @reject.estado
      @specification = Specification.where(:id => session[:specification_sel_id]).first 
     @specification.p1 = 1
     @specification.p2 = 1
@@ -50,6 +51,7 @@ class RejectsController < ApplicationController
     @specification.p8 = 1
     @specification.p9 = 1
     @specification.save
+    end
     respond_to do |format|
       if @reject.save
         format.html { redirect_to "/rejects/", notice: 'Requisition was successfully created.' }
