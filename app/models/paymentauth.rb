@@ -13,9 +13,9 @@ class Paymentauth < ActiveRecord::Base
     'Laboratorio E',
     'Laboratorio F',
     'Laboratorio G',
-    'Laboratorio G - Dirección',
+    'Laboratorio G - Administración',
     'Coordinación de Adquisiciones',
-    'Coordinación de Calidad',
+    'Coordinación de la Calidad',
     'Coordinación de Importaciones',
     'Unidad de Administración'
   ]
