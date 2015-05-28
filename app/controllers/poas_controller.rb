@@ -47,9 +47,28 @@ class PoasController < ApplicationController
     end
     
     def update
+      if (params[:poa][:document] != nil)
+        archivo = params[:poa][:document];
+        #Nombre original del archivo.
+        nombre = archivo.original_filename;
+        #Directorio donde se va a guardar.
+        directorio = "public/archivos/";
+        #Extensión del archivo.
+        extension = nombre.slice(nombre.rindex("."), nombre.length).downcase;
+        #Ruta del archivo.
+        path = File.join(directorio, nombre);
+        #Crear en el archivo en el directorio. Guardamos el resultado en una variable, será true si el archivo se ha guardado correctamente.
+        resultado = File.open(path, "wb") { |f| f.write(archivo.read) };
+        #Verifica si el archivo se subió correctamente.
+        if resultado
+          subir_archivo = "ok";
+        else
+          subir_archivo = "error";
+        end
+      end      
       @poa = Poa.find(params[:id])
       if @poa.update_attributes(poa_params)
-        redirect_to poa_url(@poa)
+        redirect_to poas_url
       else
         render 'edit'
       end
