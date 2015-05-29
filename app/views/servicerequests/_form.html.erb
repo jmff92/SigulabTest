@@ -41,7 +41,7 @@ function validateForm() {
         return false;
     }
     var x = document.forms[0]["servicerequest[extension]"].value;
-    if ((x == null || x == "") || !(x.match(/\d/g).length===11)) {
+    if ((!(/^[0-9]+$/.test(x))) || x.length != 11) {
         alert("Ingrese un teléfono válido (Ej: 02124920384");
         return false;
     }
