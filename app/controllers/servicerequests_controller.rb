@@ -35,11 +35,13 @@ class ServicerequestsController < ApplicationController
          #Revisamos si es un Acto Motivado
          if Recommendation.where(:specification_id => session[:specification_sel_id]).count == 0
             @act = Act.where(:specification_id => session[:specification_sel_id]).first
-            @empresa = Invitation.where(:nombre => @act.proveedor,:specification_id => session[:specification_sel_id])
+            @empresa = Invitation.where(:nombre => @act.proveedor,:specification_id => session[:specification_sel_id]).first
             @quote = Quote.where(:specification_id => session[:specification_sel_id]).first
-            @itemsQts = Itemsquote.where(:specification_id => session[:specification_sel_id],:id_oferta => @recoEmp.quote_id,:compra => 1).all
+            @itemsQts = Itemsquote.where(:specification_id => session[:specification_sel_id]).all
             @items = []
-
+			 @itemsQts.each do |itemsqts|
+             @items.push(Service.where(:specification_id => session[:specification_sel_id],:id => itemsqts.id_item).first)
+           end
             pdf = SolicitudServices.new(@servreq, @empresa, @items, @quote)
          end
 
