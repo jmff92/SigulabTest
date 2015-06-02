@@ -14,7 +14,7 @@ class ProjpaymentauthsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = AutorizacionPago.new(@pay)
+        pdf = AutorizacionPagoProj.new(@pay)
         send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
       end
     end
