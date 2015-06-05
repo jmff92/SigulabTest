@@ -159,44 +159,44 @@
         <table class="table table-striped">
 
             <td class="col-xs-5 text-right"><strong>Origen:</strong></td>
-            <td class="col-xs-7" ><%= f.select(:origen, options_for_select([['Comprado'],['Donado']]), {:include_blank => true, :default => nil}, {:onchange => "changeOrigen();"} ) %>
+            <td class="col-xs-7" ><%= f.select(:origen, options_for_select([['Comprado'],['Donado']]), {:include_blank => true, :default => :blank}, {:onchange => "changeOrigen();"} ) %>
             </td>
           </tr>
-          <tr>
+          <tr class="hidden_option1">
             <td class="hidden_option1 col-xs-5 text-right"><strong>Factura:</strong></td>
             <td class= "hidden_option1 col-xs-7" ><%= f.text_field :bill %></td>
           </tr>
 
-          <tr>
+          <tr class="hidden_option1">
             <td class="hidden_option1 col-xs-5 text-right"><strong>Costo:</strong></td>
             <td class="hidden_option1 col-xs-7" >Bs.<%= f.text_field :cost %></td> 
           </tr>
 
-          <tr>
+          <tr class="hidden_option1">
             <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= f.text_field :buy_order %></td>
 
-          <tr>
+          <tr class="hidden_option1">
             <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= f.text_field :adquisition_date, class: "bootlayout-date" %></td>
           </tr>
 
-                  <tr>
+          <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong>Numero de Donación</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :NumDonacion %></td>
             </tr>
 
-            <tr>
+            <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong>Fecha de Donación</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :FechaDonacion, class: "bootlayout-date" %></td>
             </tr>
 
-              <tr>
+              <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong> PJ Donación</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :PJDonacion %></td>
             </tr>
 
-              <tr>
+              <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong> Persona de Contacto</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :PersonaContactoDonacion %></td>
             </tr>
@@ -295,6 +295,5 @@ function changeOrigen() {
 
 
 }
-  //]]>
   </script>
   
