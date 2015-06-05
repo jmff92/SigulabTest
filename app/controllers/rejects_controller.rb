@@ -1,67 +1,33 @@
 class RejectsController < ApplicationController
   layout "application_compras"
   respond_to :html, :xml, :json
-  before_action :set_requisition, only: [:show, :edit, :update, :destroy]
 
   # GET /requisitions
   # GET /requisitions.json
   def index
     if current_user
-if current_user.acquisition? || current_user.import? 
-    @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
-    @user = User.where(:username => @especificacion.user_id).first 
-        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
-            @mostrar = true
-        else
-            @mostrar = false
-        end
-    else
-    @mostrar = true
+    @reject = Reject.where(:specification_id => session[:specification_sel_id]).first 
+    @rejectN = Reject.where(:specification_id => session[:specification_sel_id]).count
+    if @rejectN != 0
+		if @reject.estado != "Aceptar solicitud"
+			redirect_to "/devolutions"
+		end
+	else
+		redirect_to "/rejects/new"
     end
-    	@requisitions = Requisition.where(:specification_id => session[:specification_sel_id]).first
-      @sumRequisition = Requisition.where(:specification_id => session[:specification_sel_id]).count
-     respond_to do |format|
-	      format.html do
-          if @sumRequisition != 0
-            redirect_to @requisitions
-          end
-        end
-        format.pdf do
-		
-		redirect_to @requisitions.attachment
-	      end
-	      format.xml do
-              specification = Specification.find(session[:specification_sel_id])
-	       specification.p6 = 2
-	    session[:specification_p6] = specification.p6
-	    specification.save
-              redirect_to "/requisitions/#{@requisitions.id}?pdf=1"
-      end
-      end
+    
     end
   end
 
   # GET /requisitions/1
   # GET /requisitions/1.json
   def show
-if current_user.acquisition? || current_user.import? 
-    @especificacion = Specification.where(:id => session[:specification_sel_id]).first 
-    @user = User.where(:username => @especificacion.user_id).first 
-        if @user.director? || @user.acquisition? || @user.import? || @user.quality? || @user.manage?
-            @mostrar = true
-        else
-            @mostrar = false
-        end
-    else
-    @mostrar = true
-    end
-    @requisition = Requisition.find(params[:id])
 
   end
 
   # GET /requisitions/new
   def new
-    @requisition = Requisition.new
+    @reject = Reject.new
   end
 
   # GET /requisitions/1/edit
@@ -71,12 +37,24 @@ if current_user.acquisition? || current_user.import?
   # POST /requisitions
   # POST /requisitions.json
   def create
-    @requisition = Requisition.new(requisition_params)
-    @requisition.user_id = current_user.username
-    @requisition.specification_id = session[:specification_sel_id]
+    @reject = Reject.new(reject_params)
+    @reject.specification_id = session[:specification_sel_id]
+    if "Rechazar solicitud" ==  @reject.estado
+     @specification = Specification.where(:id => session[:specification_sel_id]).first 
+    @specification.p1 = 1
+    @specification.p2 = 1
+    @specification.p3 = 1
+    @specification.p4 = 1
+    @specification.p5 = 1
+    @specification.p6 = 1
+    @specification.p7 = 1
+    @specification.p8 = 1
+    @specification.p9 = 1
+    @specification.save
+    end
     respond_to do |format|
-      if @requisition.save
-        format.html { redirect_to @requisition, notice: 'Requisition was successfully created.' }
+      if @reject.save
+        format.html { redirect_to "/rejects/", notice: 'Requisition was successfully created.' }
         format.json { render :show, status: :created, location: @requisition }
       else
         format.html { render :new }
@@ -88,35 +66,22 @@ if current_user.acquisition? || current_user.import?
   # PATCH/PUT /requisitions/1
   # PATCH/PUT /requisitions/1.json
   def update
-    respond_to do |format|
-      if @requisition.update(requisition_params)
-        format.html { redirect_to @requisition, notice: 'Requisition was successfully updated.' }
-        format.json { render :show, status: :ok, location: @requisition }
-      else
-        format.html { render :edit }
-        format.json { render json: @requisition.errors, status: :unprocessable_entity }
-      end
-    end
+    
   end
 
   # DELETE /requisitions/1
   # DELETE /requisitions/1.json
   def destroy
-    @requisition.destroy
+    @reject.destroy
     respond_to do |format|
-      format.html { redirect_to requisitions_url, notice: 'Requisition was successfully destroyed.' }
+      format.html { redirect_to rejects_url, notice: 'Requisition was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_requisition
-      @requisition = Requisition.find(params[:id])
-    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def requisition_params
-      params.require(:requisition).permit(:solicitante, :consumidor, :partida, :numero, :observacion, :archivo)
+    def reject_params
+      params.require(:reject).permit(:estado)
     end
 end

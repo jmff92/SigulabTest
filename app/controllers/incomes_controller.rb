@@ -127,8 +127,7 @@ class IncomesController < ApplicationController
   end
 
   def delete
-    @income = Income.find params[:id]
-    @income.destroy
+    @income = Income.find(params[:id]).destroy
     redirect_to :back    
   end    
 

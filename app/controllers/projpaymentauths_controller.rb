@@ -9,12 +9,12 @@ class ProjpaymentauthsController < ApplicationController
   end
 
   def show
-    @pay = Projpaymentauth.find(params[:id])
+    @pay = Projpaymentauth.find(params[:id])    
     @project = Project.find(@pay.proyect)    
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = AutorizacionPago.new(@pay)
+        pdf = AutorizacionPagoProj.new(@pay)
         send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
       end
     end
@@ -67,7 +67,11 @@ class ProjpaymentauthsController < ApplicationController
       # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
         if (@old_date == nil) and (@new_date != "")
         @commitment = Projcommitment.new
-        @commitment.id = Projcommitment.last.id+1
+        if Projcommitment.count > 0
+          @commitment.id = Projcommitment.last.id+1
+        else
+          @commitment.id = 1
+        end
         @commitment.proj_id = @pay.proyect
         @commitment.code = @pay.registry
         @commitment.amount = @pay.amount
@@ -93,9 +97,9 @@ class ProjpaymentauthsController < ApplicationController
   end  
 
   def delete
-    @pay = Projpaymentauth.find params[:id]
-   @pay.destroy
-    redirect_to action: 'index'
+    @proy = Projpaymentauth.find(params[:id]).proyect 
+    @pay = Projpaymentauth.find(params[:id]).destroy
+    redirect_to action: 'index', id: @proy
   end  
   
   private

@@ -38,6 +38,12 @@ class CommitmentsController < ApplicationController
     end
     
     @commitment = Commitment.new(commitment_params)
+
+    if Commitment.count > 0
+      @commitment.id = Commitment.last.id+1
+    else
+      @commitment.id = 1
+    end    
     
     if @commitment.save
       redirect_to action: 'index'

@@ -3,10 +3,10 @@
 <div style="text-align: right; height: 45px; margin-top: 12px;">
       
 <% if true %>
-	<%= link_to '<button type="button" class="btn btn-warning"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar </button>'.html_safe, edit_servicerequest_path(@servicerequest) %>
-   <%= link_to '<button type="button" class="btn btn-danger"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, @servicerequest,method: :delete,
-       data: { confirm: '¿Está seguro que desea eliminar la solicitud?' } %><% else %>Ya no puede editar porque se generó la solicitud. <% end %>
-<% if session['specification_p10'] == 2 %><a href='../servicerequests.pdf' target="_blank"><button type="button" class="btn btn-primary"> Descargar </button></a><% else %> <% if @sumServicerequest != 0 %><%= link_to '<button type="button" class="btn btn-primary"> Descargar </button>'.html_safe, servicerequests_path(@servicerequest, :format => 'pdf'), target: '_blank' %> <% end %><% end %>
+<% if @mostrar_editar %>	<%= link_to '<button type="button" class="btn btn-warning"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar </button>'.html_safe, edit_servicerequest_path(@servicerequest) %><% end %>
+<% if @mostrar_eliminar %>   <%= link_to '<button type="button" class="btn btn-danger"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, @servicerequest,method: :delete,
+       data: { confirm: '¿Está seguro que desea eliminar la solicitud?' } %><% end %><% end %><% else %>Ya no puede editar porque se generó la solicitud. <% end %>
+<% if session['specification_p10'] == 2 %><% if @mostrar_descargar %><a href='../servicerequests.pdf' target="_blank"><button type="button" class="btn btn-primary"> Descargar </button></a><% end %><% else %> <% if @sumServicerequest != 0 %><%= link_to '<button type="button" class="btn btn-primary"> Descargar </button>'.html_safe, servicerequests_path(@servicerequest, :format => 'pdf'), target: '_blank' %> <% end %><% end %>
 	</div>
 
   <table id="servicerequestTable " class="table table-striped">
