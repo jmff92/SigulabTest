@@ -48,7 +48,7 @@
 			<div class="form-group">
 				<label for='projpaymentauth_delivered_id' class="col-xs-3 control-label text-right">C.I. o RIF <span style="color:#FF0000">*</span></label>
 				<div class='col-xs-4'>
-					<%= i.text_field :delivered_id, class: 'form-control' %>
+					<%= i.text_field :delivered_id, class: 'form-control', :onblur => "setProjPaymentAuthDeliveredID();" %>
 				</div>
 			</div>
     
@@ -65,7 +65,7 @@
 					<div class="input-group">
       <span class="input-group-addon">Bs.</span>
 						<%= i.text_field :amount, class: 'form-control', value: number_to_currency(i.object.amount, format: "%n", 
-						delimiter: ".", separator: ",", precision: 2), :onblur => "setCommitmentAmount();", placeholder: '0.000,00' %>
+						delimiter: ".", separator: ",", precision: 2), :onblur => "setProjPaymentAuthAmount();", placeholder: '0.000,00' %>
 					</div>
 				</div>
 			</div>

@@ -10,12 +10,14 @@ class ProjpaymentauthsController < ApplicationController
 
   def show
     @pay = Projpaymentauth.find(params[:id])    
+    @status = @pay.status
     @project = Project.find(@pay.proyect)    
     respond_to do |format|
       format.html
       format.pdf do
         pdf = AutorizacionPagoProj.new(@pay)
         send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
+        @pay.update_column(:status, "generated")
       end
     end
   end

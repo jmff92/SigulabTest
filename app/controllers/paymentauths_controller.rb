@@ -25,11 +25,13 @@ class PaymentauthsController < ApplicationController
 
   def show  
     @pay = Paymentauth.find(params[:id])
+    @status = @pay.status
     respond_to do |format|
       format.html
       format.pdf do
         pdf = AutorizacionPago.new(@pay)
         send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
+        @pay.update_column(:status, "generated")
       end
     end    
   end

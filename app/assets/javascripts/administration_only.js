@@ -160,6 +160,30 @@ function setOtheramount() {
 	$('#project_other_amount').val(formatAmount($('#project_other_amount').val()));
 }
 
+function setPaymentAuthAmount() {
+	if (!isNaN(parseFloat($('#paymentauth_amount').val()))) {
+		$('#paymentauth_amount').val(formatAmount($('#paymentauth_amount').val()));
+	}		
+}
+
+function setPaymentAuthDeliveredID() {
+	if (!isNaN(parseFloat($('#paymentauth_delivered_id').val()))) {
+		$('#paymentauth_delivered_id').val(formatAmountI($('#paymentauth_delivered_id').val()));
+	}		
+}
+
+function setProjPaymentAuthAmount() {
+	if (!isNaN(parseFloat($('#projpaymentauth_amount').val()))) {
+		$('#projpaymentauth_amount').val(formatAmount($('#projpaymentauth_amount').val()));
+	}		
+}
+
+function setProjPaymentAuthDeliveredID() {
+	if (!isNaN(parseFloat($('#projpaymentauth_delivered_id').val()))) {
+		$('#projpaymentauth_delivered_id').val(formatAmountI($('#projpaymentauth_delivered_id').val()));
+	}		
+}
+
 function calculateAmount() {
 
 	if (isNaN(parseFloat($('#project_equipments').val()))) {
@@ -222,6 +246,13 @@ function formatAmount(n){
 	return addPeriods(n);
 }
 
+function formatAmountI(n){
+	if (n.toString().indexOf(",") == n.toString().length-2) {
+		n = n.concat("0");
+	} 	
+	return addPeriodsI(n);
+}
+
 function addPeriods(n){
     var rx=  /(\d+)(\d{3})/;
 	var split = String(n).split(',');
@@ -233,6 +264,19 @@ function addPeriods(n){
         }
 			return w;
     }).concat(",".concat(decimals));
+}
+
+function addPeriodsI(n){
+    var rx=  /(\d+)(\d{3})/;
+	var split = String(n).split(',');
+	var integer = split[0];
+	var decimals = split[1];
+    return integer.replace(/^\d+/, function(w){
+        while(rx.test(w)){
+            w= w.replace(rx, '$1.$2');
+        }
+			return w;
+    });
 }
 
 function changeAnnulledDate() {
