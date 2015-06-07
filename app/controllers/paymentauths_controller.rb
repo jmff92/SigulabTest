@@ -33,7 +33,7 @@ class PaymentauthsController < ApplicationController
         send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
         @pay.update_column(:status, "generated")
       end
-    end    
+    end   
   end
   
   def new
@@ -80,7 +80,11 @@ class PaymentauthsController < ApplicationController
         else
           @commitment.id = 1
         end
-        @commitment.lab_id = @pay.from
+        if Paymentauth.froms[@pay.from] < 9
+          @commitment.lab_id = Paymentauth.froms[@pay.from]
+        else
+          @commitment.lab_id = 0
+        end
         @commitment.code = @pay.registry
         @commitment.amount = @pay.amount
         @commitment.description = @pay.concept

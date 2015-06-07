@@ -23,6 +23,8 @@
 	<div class="col-xs-12">
 		<%= form_for @pay, url: {action: 'update'}, id: @pay.id, html: {class: 'form-horizontal'} do |i| %>
 
+		<% if @pay.status == nil %>
+
 			<div class="form-group">
 				<label for='paymentauth_registry' class="col-xs-3 control-label text-right">Registro <span style="color:#FF0000">*</span></label>
 				<div class='col-xs-4'>
@@ -91,6 +93,81 @@
 							<%= i.text_field :recieved_by, class: 'form-control' %>
 						</div>
 					</div>
+
+			<% end %>
+
+			<% else %>
+
+			<div class="form-group">
+				<label for='paymentauth_registry' class="col-xs-3 control-label text-right">Registro <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :registry, class: 'form-control', readonly: true  %>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for='paymentauth_from' class="col-xs-3 control-label text-right">De <span style="color:#FF0000">*</span></label>
+				<div class="col-xs-3">	
+					<%= i.select(:from, options_for_select(Paymentauth.origin_str.zip(Paymentauth.froms.keys), @pay.from), {}, {class: "form-control", :disabled => true} )%>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for='paymentauth_recipient' class="col-xs-3 control-label text-right">Páguese a <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :recipient, class: 'form-control', readonly: true  %>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for='paymentauth_delivered_id' class="col-xs-3 control-label text-right">C.I. o RIF <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<%= i.text_field :delivered_id, class: 'form-control', :onblur => "setPaymentAuthDeliveredID();", readonly: true  %>
+				</div>
+			</div>
+    
+   <div class="form-group">
+				<label for='paymentauth_concept' class="col-xs-3 control-label text-right">Concepto <span style="color:#FF0000">*</span> </label>
+				<div class='col-xs-4'>
+					<%= i.text_area :concept, class: 'form-control', readonly: true  %>
+				</div>
+			</div>
+						
+			<div class="form-group">
+				<label for='paymentauth_amount' class="col-xs-3 control-label text-right">Cantidad <span style="color:#FF0000">*</span></label>
+				<div class='col-xs-4'>
+					<div class="input-group">
+      <span class="input-group-addon">Bs.</span>
+						<%= i.text_field :amount, class: 'form-control', value: number_to_currency(i.object.amount, format: "%n", 
+						delimiter: ".", separator: ",", precision: 2), :onblur => "setPaymentAuthAmount();", placeholder: '0.000,00', readonly: true  %>
+					</div>
+				</div>
+			</div>
+
+   <div class="form-group">
+				<label for='paymentauth_concept' class="col-xs-3 control-label text-right">Observaciones/Exposición de motivos </label>
+				<div class='col-xs-4'>
+					<%= i.text_area :observations, class: 'form-control', readonly: true  %>
+				</div>
+			</div>
+
+			<% if current_user.manage? or current_user.manage_analist? %>
+
+				<div class="form-group">
+					<label for='paymentauth_delivery_date' class="col-xs-3 control-label text-right">Fecha de Recepción </label>
+						<div class='col-xs-4'>
+							<%= i.text_field :delivery_date, value: (@pay.delivery_date.strftime("%d/%m/%Y") unless @pay.delivery_date.blank?), class: 'bootlayout-date form-control', placeholder: 'Fecha de Recepción' %>
+						</div>
+				</div>
+
+		   		<div class="form-group">
+					<label for='paymentauth_recieved_by' class="col-xs-3 control-label text-right">Recibido por </label>
+						<div class='col-xs-4'>
+							<%= i.text_field :recieved_by, class: 'form-control' %>
+						</div>
+					</div>
+
+			<% end %>
 
 			<% end %>
 
