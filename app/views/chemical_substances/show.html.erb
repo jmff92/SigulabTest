@@ -43,22 +43,22 @@
   <div id="tabs-1">
       <p><table class="table table-striped">
         <tr>
-          <td class="col-xs-5 text-right"><strong>Nombre:</strong></td>
+          <td class="col-xs-5 text-right"><strong>Nombre</strong></td>
           <td class="col-xs-7"><span class="mayus"><%= @chemical_substance.name %></span></td>
         </tr>
 
         <tr>
-          <td class="col-xs-5 text-right"><strong>Pureza:</strong></td>
+          <td class="col-xs-5 text-right"><strong>Pureza</strong></td>
           <td class="col-xs-7"><%=@chemical_substance.purity %></td>
         </tr>
 
         <tr>
-          <td class="col-xs-5 text-right"><strong>Estado materia:</strong></td>
+          <td class="col-xs-5 text-right"><strong>Estado materia</strong></td>
           <td class="col-xs-7"><span class="mayus"><%= @chemical_substance.matter_states %></span></td>
         </tr>
 
         <tr>
-          <td class="col-xs-5 text-right"><strong>Controlado:</strong></td>
+          <td class="col-xs-5 text-right"><strong>Controlado</strong></td>
           <td class="col-xs-7">
             <% if @chemical_substance.controlled %>
               <%= 'SÍ' %>
@@ -68,17 +68,17 @@
         </tr>
 
         <tr>
-          <td class="col-xs-5 text-right"><strong>Cantidad:</strong></td>
+          <td class="col-xs-5 text-right"><strong>Cantidad</strong></td>
           <td class="col-xs-7"> <%= @chemical_substance.quantity %><% @chemical_substance.meassure %></td>
         </tr>
 
         <tr>
-          <td class="col-xs-5 text-right" ><strong title="Servicio de Resúmenes Químicos (Chemical Abstract Service)">CAS:</strong></td>
+          <td class="col-xs-5 text-right" ><strong title="Servicio de Resúmenes Químicos (Chemical Abstract Service)">CAS</strong></td>
           <td class="col-xs-7"><span class="mayus"><%= @chemical_substance.cas %></span></td>
         </tr>
 
         <tr>
-          <td class="col-xs-5 text-right"><strong>Estado:</strong></td>
+          <td class="col-xs-5 text-right"><strong>Estado</strong></td>
           <td class="col-xs-7"><span class="mayus"><%= @chemical_substance.status %></span></td>
         </tr>
 
@@ -111,17 +111,17 @@
       </tr>
 
       <tr>
-        <td class="col-xs-5 text-right"><strong>Dependencia:</strong></td>
+        <td class="col-xs-5 text-right"><strong>Dependencia</strong></td>
         <td class="col-xs-7"><span class="mayus"><%= @chemical_substance.dependency %></span></td>
       </tr>
 
       <tr>
-        <td class="col-xs-5 text-right"><strong>Ubicación Física:</strong></td>
+        <td class="col-xs-5 text-right"><strong>Ubicación Física</strong></td>
         <td class="col-xs-7"><span class="mayus"><%= @chemical_substance.location %><span class="mayus"></td>
       </tr>
 
       <tr>
-        <td class="col-xs-5 text-right"><strong>Fecha de expiración:</strong></td>
+        <td class="col-xs-5 text-right"><strong>Fecha de expiración</strong></td>
         <td class="col-xs-7"><span class="mayus"><%= @chemical_substance.expiration_date %></span></td>
       </tr>
 
@@ -129,39 +129,39 @@
           <td class="col-xs-5 text-right"><strong>Peligrosidad:</strong></td>
           <td class="col-xs-7">
              <% if @chemical_substance.toxic %>
-              <%= ' TÓXICO ' %>
+              <%= ' TÓXICO /' %>
             <% end %>
             <% if @chemical_substance.oxidant %>
-              <%= ' COMBURENTE ' %>
+              <%= '/ COMBURENTE /' %>
             <% end %>
             <% if @chemical_substance.explosive %>
-              <%= ' EXPLOSIVO ' %>
+              <%= '/ EXPLOSIVO /' %>
             <% end %>
             <% if @chemical_substance.irritating %>
-              <%= ' IRRITANTE ' %>
+              <%= '/ IRRITANTE /' %>
             <% end %>
             <% if @chemical_substance.inflamable %>
-              <%= ' INFLAMABLE ' %>
+              <%= '/ INFLAMABLE /' %>
             <% end %>
             <% if @chemical_substance.corrosive %>
-              <%= ' CORROSIVO ' %>
+              <%= '/ CORROSIVO /' %>
             <% end %>
             <% if @chemical_substance.nocive %>
-              <%= ' NOCIVO' %>
+              <%= '/ NOCIVO ' %>
             <% end %>
         </td>
       </tr>
       <tr>
-        <td class="col-xs-5 text-right"><strong>Uso:</strong></td>
+        <td class="col-xs-5 text-right"><strong>Uso</strong></td>
           <td class="col-xs-7">
             <% if @chemical_substance.investigation %>
-              <%= ' INVESTIGACIÓN ' %>
+              <%= ' INVESTIGACIÓN /' %>
             <% end %>
             <% if @chemical_substance.teaching %>
-              <%= ' DOCENCIA ' %>
+              <%= '/ DOCENCIA /' %>
             <% end %>
             <% if @chemical_substance.extention %>
-              <%= ' EXTENSIÓN ' %>
+              <%= '/ EXTENSIÓN ' %>
             <% end %>
           </td>
       </tr>
@@ -189,31 +189,29 @@
     <table class="table table-striped">
 
       <tr>
-        <td class="col-xs-5 text-right"><strong>Origen:</strong></td>
+        <td class="col-xs-5 text-right"><strong>Origen</strong></td>
         <td class="col-xs-7"><span class="mayus" ><%= @chemical_substance.origen %></span></td>
       </tr>
 
           <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura:</strong></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura</strong></td>
             <td class= "hidden_option1 col-xs-7" ><%=  @chemical_substance.bill %></td>
           </tr>
 
           <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo:</strong></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo</strong></td>
             <td class="hidden_option1 col-xs-7" >Bs.<%= @chemical_substance.cost %></td> 
           </tr>
 
           <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra</strong></td>
             <td class="hidden_option1 col-xs-7" ><%=  @chemical_substance.buy_order %></td>
 
           <tr>
-            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
+            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= @chemical_substance.adquisition_date %></td>
           </tr>
-                  <tr>
-            <td class="hidden_option2 col-xs-5 text-right"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;La USB no autoriza</strong></td>
-            <td class="hidden_option2 col-xs-7 text-left"><strong>donaciones de sustancias quimicas</strong></td>
+
         </table>
     </table></p>
     

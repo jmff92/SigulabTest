@@ -50,29 +50,29 @@
   <div id="tabs-1">
       <p><table class="table table-striped">
 
-            <td class="col-xs-5 text-right"><strong>Marca:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Marca</strong></td>
             <td class="col-xs-7"><%= @tool.brand %></td>
           </tr> 
            <tr>
-            <td class="col-xs-5 text-right"><strong>Tipo:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Tipo</strong></td>
             <td class="col-xs-7"><%= @tool.tipo %></td>
           </tr>
            <tr>
-            <td class="col-xs-5 text-right"><strong>Número Bien Nacional:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Número Bien Nacional</strong></td>
             <td class="col-xs-7"><%= @tool.national_good %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Estado:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Estado</strong></td>
             <td class="col-xs-7"><%= @tool.status %></td>
           </tr>
           <tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Material:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Material</strong></td>
             <td class="col-xs-7"><%= @tool.material %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>De un juego:</strong></td>
+            <td class="col-xs-5 text-right"><strong>De un juego</strong></td>
             <td class="col-xs-7"><%= @tool.from_set %></td>
           </tr>
      
@@ -81,16 +81,16 @@
             <td class="col-xs-5 text-right"><strong>Uso:</strong></td>
               <td class="col-xs-7">   
               <% if @tool.investigation %>
-              <%= ' INVESTIGACIÓN ' %>
+              <%= ' INVESTIGACIÓN /' %>
             <% end %>
             <% if @tool.teaching %>
-              <%= ' DOCENCIA ' %>
+              <%= '/ DOCENCIA /' %>
             <% end %>
             <% if @tool.extention %>
-              <%= ' EXTENSIÓN ' %>
+              <%= '/ EXTENSIÓN /' %>
             <% end %>
             <% if @tool.management %>
-              <%= ' GESTIÓN ' %>
+              <%= '/ APOYO ' %>
             <% end %>
               </td>
           </tr>
@@ -116,15 +116,15 @@
   <div id="tabs-2">
     <p><table class="table table-striped">
 
-            <td class="col-xs-5 text-right"><strong>Responsable:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Responsable</strong></td>
             <td class="col-xs-7"><%= @tool.responsible %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Dependencia:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Dependencia</strong></td>
             <td class="col-xs-7"><%= @tool.dependency %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Ubicación Física:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Ubicación Física</strong></td>
             <td class="col-xs-7"><%= @tool.location %></td>
           </tr>
 
@@ -146,29 +146,54 @@
     <%end%>
   </div>
 
-  <div id="tabs-3">
-    <p><table class="table table-striped">
+    <div id="tabs-3">
+        <table class="table table-striped">
+
+            <td class="col-xs-5 text-right"><strong>Origen</strong></td>
+            <td class="col-xs-7" ><%= @tool.origen %>
+            </td>
+          </tr>
+          <% if @tool.origen == "Comprado" %>
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura</strong></td>
+            <td class= "hidden_option1 col-xs-7" ><%= @tool.bill %></td>
+          </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Factura:</strong></td>
-            <td class="col-xs-7"><%= @tool.bill %></td>
-          </tr>
-          
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Costo:</strong></td>
-            <td class="col-xs-7"><%= @tool.cost %> Bs.</td>
-          </tr>
-          
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Órden de Compra:</strong></td>
-            <td class="col-xs-7"><%= @tool.buy_order %></td>
-          </tr>
-          
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
-            <td class="col-xs-7"><%= @tool.adquisition_date %></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo</strong></td>
+            <td class="hidden_option1 col-xs-7" >Bs.<%= @tool.cost %></td> 
           </tr>
 
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= @tool.buy_order %></td>
+
+          <tr>
+            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= @tool.adquisition_date%></td>
+          </tr>
+          <% end %>
+          <% if @tool.origen == "Donado" %>
+                  <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong>Numero de Donación</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @tool.NumDonacion %></td>
+            </tr>
+
+            <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong>Fecha de Donación</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @tool.FechaDonacion %></td>
+            </tr>
+
+              <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong> PJ Donación</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @tool.PJDonacion %></td>
+            </tr>
+
+              <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong> Persona de Contacto</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @tool.PersonaContactoDonacion %></td>
+            </tr>
+            <% end %>
 
     </table></p>
 

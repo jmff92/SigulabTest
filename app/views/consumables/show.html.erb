@@ -40,32 +40,36 @@
       <p><table class="table table-striped">
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Descripción:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Nombre</strong></td>
+            <td class="col-xs-7"><%= @consumable.name %></td>
+          </tr>
+          <tr>
+            <td class="col-xs-5 text-right"><strong>Descripción</strong></td>
             <td class="col-xs-7"><%= @consumable.description %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Material:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Material</strong></td>
             <td class="col-xs-7"><%= @consumable.material %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Cantidad:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Cantidad</strong></td>
             <td class="col-xs-7"><%= @consumable.quantity %></td>
           </tr>
            
          <tr>
-            <td class="col-xs-5 text-right"><strong>Uso:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Uso</strong></td>
               <td class="col-xs-7"> <% if @consumable.investigation %>
-                <%= ' INVESTIGACIÓN ' %>
+                <%= ' INVESTIGACIÓN /' %>
               <% end %>
               <% if @consumable.teaching %>
-                <%= ' DOCENCIA ' %>
+                <%= '/ DOCENCIA /' %>
               <% end %>
               <% if @consumable.extention %>
-                <%= ' EXTENSIÓN ' %>
+                <%= '/ EXTENSIÓN /' %>
               <% end %>
               <% if @consumable.management %>
-                <%= ' GESTIÓN ' %>
+                <%= '/ APOYO ' %>
               <% end %></td>
          </tr>
 
@@ -93,15 +97,15 @@
     <p><table class="table table-striped">
 
            <tr>
-            <td class="col-xs-5 text-right"><strong>Responsable:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Responsable</strong></td>
             <td class="col-xs-7"><%= @consumable.responsible %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Dependencia:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Dependencia</strong></td>
             <td class="col-xs-7"><%= @consumable.dependency %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Ubicación Física:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Ubicación Física</strong></td>
             <td class="col-xs-7"><%= @consumable.location %></td>
           </tr>
 
@@ -125,28 +129,54 @@
 
   </div>
 
-  <div id="tabs-3">
-    <table class="table table-striped">
+    <div id="tabs-3">
+        <table class="table table-striped">
+
+            <td class="col-xs-5 text-right"><strong>Origen</strong></td>
+            <td class="col-xs-7" ><%= @consumable.origen %>
+            </td>
+          </tr>
+          <% if @consumable.origen == "Comprado" %>
+          <tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura</strong></td>
+            <td class= "hidden_option1 col-xs-7" ><%= @consumable.bill %></td>
+          </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Factura:</strong></td>
-            <td class="col-xs-7"><%= @consumable.bill %></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo</strong></td>
+            <td class="hidden_option1 col-xs-7" >Bs.<%= @consumable.cost %></td> 
           </tr>
-          
+
           <tr>
-            <td class="col-xs-5 text-right"><strong>Costo:</strong></td>
-            <td class="col-xs-7"><%= @consumable.cost %> Bs.</td>
-          </tr>
-          
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= @consumable.buy_order %></td>
+
           <tr>
-            <td class="col-xs-5 text-right"><strong>Órden de Compra:</strong></td>
-            <td class="col-xs-7"><%= @consumable.buy_order %></td>
+            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= @consumable.adquisition_date%></td>
           </tr>
-          
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
-            <td class="col-xs-7"><%= @consumable.adquisition_date %></td>
-          </tr>
+          <% end %>
+          <% if @consumable.origen == "Donado" %>
+                  <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong>Numero de Donación</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @consumable.NumDonacion %></td>
+            </tr>
+
+            <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong>Fecha de Donación</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @consumable.FechaDonacion %></td>
+            </tr>
+
+              <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong> PJ Donación</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @consumable.PJDonacion %></td>
+            </tr>
+
+              <tr>
+            <td class="hidden_option2 col-xs-5 text-right"><strong> Persona de Contacto</strong></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= @consumable.PersonaContactoDonacion %></td>
+            </tr>
+            <% end %>
 
     </table></p>
 
@@ -224,6 +254,13 @@
   text-transform: uppercase;
 }
 
+.hidden_option1{
+  display: none;
+}
+
+.hidden_option2{
+  display: none;
+}
 </style>
 
   <script type="text/javascript">
@@ -241,5 +278,21 @@
       localStorage.removeItem( 'firstLoad' );
   }
 ;
+
+function changeOrigen() {
+
+  if ($('#equipment_origen').val()== "Comprado") {
+    $(".hidden_option1").fadeIn('fast');
+  } else {
+    $(".hidden_option1").fadeOut('fast');   
+  }
+ 
+  if ($('#equipment_origen').val()== "Donado") {
+    $(".hidden_option2").fadeIn('fast');
+  } else {
+    $(".hidden_option2").fadeOut('fast');   
+  }
+
+}
   //]]>
   </script>
