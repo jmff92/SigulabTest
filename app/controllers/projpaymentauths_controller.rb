@@ -9,12 +9,12 @@ class ProjpaymentauthsController < ApplicationController
   end
 
   def show
-    @pay = Projpaymentauth.find(params[:id])
+    @pay = Projpaymentauth.find(params[:id])    
     @project = Project.find(@pay.proyect)    
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = AutorizacionPago.new(@pay)
+        pdf = AutorizacionPagoProj.new(@pay)
         send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
       end
     end
@@ -97,9 +97,9 @@ class ProjpaymentauthsController < ApplicationController
   end  
 
   def delete
-    @pay = Projpaymentauth.find params[:id]
-   @pay.destroy
-    redirect_to action: 'index'
+    @proy = Projpaymentauth.find(params[:id]).proyect 
+    @pay = Projpaymentauth.find(params[:id]).destroy
+    redirect_to action: 'index', id: @proy
   end  
   
   private

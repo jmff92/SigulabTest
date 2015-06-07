@@ -82,7 +82,7 @@
 				<div class="form-group">
 					<label for='projpaymentauth_delivery_date' class="col-xs-3 control-label text-right">Fecha de Recepción <span style="color:#FF0000">*</span></label>
 						<div class='col-xs-4'>
-							<%= i.text_field :delivery_date, class: 'bootlayout-date form-control', placeholder: 'Fecha de Recepción' %>
+							<%= i.text_field :delivery_date, value: (@pay.delivery_date.strftime("%d/%m/%Y") unless @pay.delivery_date.blank?), class: 'bootlayout-date form-control', placeholder: 'Fecha de Recepción' %>
 						</div>
 				</div>
 

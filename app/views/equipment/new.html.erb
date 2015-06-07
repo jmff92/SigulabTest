@@ -164,6 +164,7 @@
         <table class="table table-striped">
 
             <td class="col-xs-5 text-right"><strong>Origen</strong></td>
+
             <td class="col-xs-7" ><%= f.select(:origen, options_for_select([['Comprado'],['Donado']]), {:include_blank => true, :default => :blank}, {:onchange => "changeOrigen();"} ) %>
             </td>
           </tr>
@@ -182,13 +183,11 @@
                   <%= f.text_field :cost %>
                 </div>
               </td> 
-          </tr>
-          
 
-          <tr class="hidden_option1">
+            <tr class="hidden_option1">
             <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= f.text_field :buy_order %></td>
-
+            </tr>
           <tr class="hidden_option1">
             <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= f.text_field :adquisition_date, class: "bootlayout-date" %></td>
@@ -320,6 +319,5 @@ function changeOrigen() {
   }
 
 }
-  //]]>
   </script>
   

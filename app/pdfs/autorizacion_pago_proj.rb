@@ -1,5 +1,5 @@
 # encoding: utf-8
-class AutorizacionPago < Prawn::Document
+class AutorizacionPagoProj < Prawn::Document
   include ActionView::Helpers::NumberHelper
 
   def initialize(pay)
@@ -54,7 +54,7 @@ class AutorizacionPago < Prawn::Document
 
   def info
     data = [ ["PARA:", "DE:", "FECHA:"],
-           ["UNIDAD DE LABORATORIOS", "#{Paymentauth.origin_str[Paymentauth.froms[@pay.from]]}", "#{Date.today.strftime("%d/%m/%Y")}"],
+           ["UNIDAD DE LABORATORIOS", "#{@pay.from}", "#{Date.today.strftime("%d/%m/%Y")}"],
            ]
     table (data) do
       cells.valign = :center

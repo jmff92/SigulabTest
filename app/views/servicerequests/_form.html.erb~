@@ -15,9 +15,42 @@
 		 textinput.value = fileinput.value;
 	}
         
+function validateForm() {
+    var x = document.forms[0]["servicerequest[seccion]"].value;
+    if (x == null || x == "") {
+        alert("Sección solicitante no puede estar en blanco");
+        return false;
+    }
+    var x = document.forms[0]["servicerequest[contacto_int]"].value;
+    if (x == null || x == "") {
+        alert("Nombre de Persona Contacto no puede estar en blanco");
+        return false;
+    }
+    var x = document.forms[0]["servicerequest[contacto_int]"].value;
+    if (x == null || x == "") {
+        alert("Nombre de Persona Contacto no puede estar en blanco");
+        return false;
+    } else if (!(/^[a-zA-Z]+$/.test(x))) {
+        alert("Nombre de Persona Contacto debe contener solo letras");
+        return false;
+    }
+    var x = document.forms[0]["servicerequest[correo_int]"].value;
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;  
+   if (!(re.test(x)) || (x == null || x == "")) {
+        alert("Ingrese un correo electrónico válido");
+        return false;
+    }
+    var x = document.forms[0]["servicerequest[extension]"].value;
+    if ((x == null || x == "") || !(x.match(/\d/g).length===10)) {
+        alert("Ingrese un teléfono válido (Ej: 02124920384");
+        return false;
+    }
+}
+
+
+
 
 </script>
-
 <div class="col-xs-12">
 		<%= form_for @servicerequest, html: { class: 'form-horizontal' } do |i| %>
 
@@ -26,8 +59,9 @@
 			<div class="form-group">
 				<label for='income_lab_id' class="col-xs-3 control-label text-right">De: <span style="color:#FF0000">*</span></label>
 				<div class="col-xs-4">
-					<%= i.select(:seccion, options_for_select([ "Coordinación de Adquisiciones", "Coordinación de Importaciones", "Coordinación de la Calidad", "Unidad Administrativa", "Dirección ULAB", "Laboratorio A", "Laboratorio B","Laboratorio C", "Laboratorio D", "Laboratorio E", "Laboratorio F", "Laboratorio G" ])) %>
-				</div>
+					<%= i.collection_select :seccion, Servicerequest::DeOpc, :to_s, :to_s, 
+          :include_blank => false %>
+					</div>
 			</div>	
 
 
@@ -78,7 +112,7 @@
 			<div class="form-group">
 				<div class="col-xs-offset-3 col-xs-9">
 					<div class="actions">
-    <%= i.submit "Aceptar", data: { confirm: '¿Está seguro de la informacion que acaba de suministrar?' }  %>
+    <%= i.submit "Aceptar", data: { confirm: '¿Está seguro de la información que acaba de suministrar?' }  %>
 <% end %>
     <%= link_to '<button type="button" class="btn btn-primary" style="margin-top:0px; margin-left:15px;"> Cancelar </button>'.html_safe, controller: "servicerequests" %>  
       </div>
@@ -190,5 +224,8 @@ $(document).ready(function() {
         }
     });
     
+
 });
+document.forms[0].onsubmit=function() { return validateForm(); };
+
 </script>

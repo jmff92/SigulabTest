@@ -44,7 +44,7 @@
   <div class="field">
  	 <span class="red">*</span>
     <%= f.label "Requisición" %><br>
-    <%= f.file_field :archivo, id:"browse", style:"display: none", onChange:"Handlechange()" %>
+    <%= f.file_field :attachment, id:"browse", style:"display: none", onChange:"Handlechange()" %>
 	 <input type="text" id="filename" readonly="true"/>
 	 <input type="button" class="btn btn-default" value="Examinar" id="fakeBrowse" onclick="HandleBrowseClick();"/>
   </div>

@@ -115,8 +115,7 @@ class ExecutionsController < ApplicationController
   end
 
   def delete
-    @execution = Execution.find params[:id]
-    @execution.destroy
+    @execution = Execution.find(params[:id]).destroy
     redirect_to :back    
   end      
 

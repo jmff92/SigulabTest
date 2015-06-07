@@ -4,13 +4,21 @@ class PaymentauthsController < ApplicationController
   before_filter :authenticate_user!
   
   def index
+    # Autorizaciones agregadas por el usuario
     if current_user.gsmp?
+      @pays = Paymentauth.all.where("\"user\"=?", current_user.username).order("elaboration_date ASC")
+    # Autorizaciones de una coordinacion  
+    elsif current_user.quality? or current_user.quality_analist?
+      # PENDIENTE
       @pays = Paymentauth.all.order("elaboration_date ASC")
-    elsif current_user.quality? or current_user.quality_analist? or current_user.import? or current_user.import_analist? or current_user.labBoss?
-      # Filtrar aca solo las de la coordinacion o laboratorio del current_user
-      @pays = Paymentauth.all.order("elaboration_date ASC")
-    else
-      # @pays = Paymentauth.all.where("user=?", current_user.username).order("elaboration_date ASC")
+    elsif current_user.import? or current_user.import_analist?
+      # PENDIENTE
+      @pays = Paymentauth.all.order("elaboration_date ASC")  
+    elsif current_user.labBoss?
+      # PENDIENTE
+      @pays = Paymentauth.all.order("elaboration_date ASC")  
+    # Todas las autorizaciones de pago  
+    else 
       @pays = Paymentauth.all.order("elaboration_date ASC")
     end
   end
@@ -83,7 +91,7 @@ class PaymentauthsController < ApplicationController
         @commitment.updated_at = @pay.updated_at
         @commitment.save      
       end
-      redirect_to action: 'index'
+      redirect_to paymentauth_url(@pay)
     else
       @labs = Lab.all
       render 'edit'
@@ -98,8 +106,7 @@ class PaymentauthsController < ApplicationController
   end  
 
   def delete
-    @pay = Paymentauth.find params[:id]
-   @pay.destroy
+    @pay = Paymentauth.find(params[:id]).destroy
     redirect_to action: 'index'
   end  
   

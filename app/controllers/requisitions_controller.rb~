@@ -129,6 +129,6 @@ if current_user.acquisition? || current_user.import? || current_user.acquisition
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def requisition_params
-      params.require(:requisition).permit(:solicitante, :consumidor, :partida, :numero, :observacion, :archivo)
+      params.require(:requisition).permit(:solicitante, :consumidor, :partida, :numero, :observacion, :attachment)
     end
 end

@@ -11,7 +11,7 @@
 			<li><%= link_to action: :list do %>
 				<h3><i class="fa fa-list-ul"></i>Gestión de proyectos</h3>
 			<% end %></li>
-			<% if current_user.director? or current_user.directorate? or current_user.acquisition? or  current_user.projadmin or current_user.proy_responsible? %>	
+			<% if current_user.director? or current_user.directorate? or current_user.acquisition? or  current_user.projadmin or current_user.proy_responsible? or current_user.manage? or current_user.manage_analist? %>	
 				<li><%= link_to action: :admin do %>
 					<li><h3><i class="fa fa-credit-card"></i>Resumen presupuestario de proyectos</h3></li>
 				<% end %></li>
