@@ -60,9 +60,11 @@
 						                	<td class="text-center"> Recibida </td>
 						                <% elsif c.status=="generated" %>
 						                	<td class="text-center"> Sin recibir </td>
-						                <% elsif c.status==nil %>
-						                	<td class="text-center"> Sin generar </td>                
-						                <% end %>									
+						                <% elsif c.status=="validating" %>
+						                	<td class="text-center"> Por validar </td>
+						                <% else %>	
+						                	<td class="text-center"> Sin generar </td>
+						                <% end %>			
 								</tr>
 							<% end %>
 						</tbody>

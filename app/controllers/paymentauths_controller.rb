@@ -9,17 +9,14 @@ class PaymentauthsController < ApplicationController
       @pays = Paymentauth.all.where("\"user\"=?", current_user.username).order("elaboration_date ASC")
     # Autorizaciones de una coordinacion  
     elsif current_user.quality? or current_user.quality_analist?
-      # PENDIENTE
-      @pays = Paymentauth.all.order("elaboration_date ASC")
+      @pays = ((Paymentauth.joins(:user).where("quality_analist=? OR quality=?", true, true).where("valid_dir=?", true)) + (Paymentauth.all.where("user_id=?", current_user.id))).uniq.sort_by(&:"#{"elaboration_date"}")
     elsif current_user.import? or current_user.import_analist?
-      # PENDIENTE
-      @pays = Paymentauth.all.order("elaboration_date ASC")  
+      @pays = ((Paymentauth.joins(:user).where("import_analist=? OR import=?", true, true).where("valid_dir=?", true)) + (Paymentauth.all.where("user_id=?", current_user.id))).uniq.sort_by(&:"#{"elaboration_date"}")
     elsif current_user.labBoss?
-      # PENDIENTE
-      @pays = Paymentauth.all.order("elaboration_date ASC")  
+      @pays = ((Paymentauth.joins(:user).where("labBoss=? OR labassistant=?", true, true).where("valid_dir=?", true)) + (Paymentauth.all.where("user_id=?", current_user.id))).uniq.sort_by(&:"#{"elaboration_date"}")
     # Todas las autorizaciones de pago  
     else 
-      @pays = Paymentauth.all.order("elaboration_date ASC")
+      @pays = ((Paymentauth.all.where("valid_coord=? AND valid_dir=?", true, true)) + (Paymentauth.all.where("user_id=?", current_user.id))).uniq.sort_by(&:"#{"elaboration_date"}")
     end
   end
 
@@ -52,7 +49,17 @@ class PaymentauthsController < ApplicationController
     end
     
     @pay = Paymentauth.new(paymentauth_params)
-    
+
+    # Validacion de coordinacion segun el cargo del usuario
+    if current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.manage? or current_user.import? or current_user.quality? or current_user.labBoss?
+      @pay.valid_coord = true
+      @pay.valid_dir = false
+    else
+      @pay.valid_coord = false
+    end
+
+    @pay.user_id = current_user.id.to_int
+
     if @pay.save
       redirect_to action: 'index'
     else
@@ -90,7 +97,7 @@ class PaymentauthsController < ApplicationController
         @commitment.description = @pay.concept
         @commitment.recipient = @pay.recipient
         @commitment.date = @pay.elaboration_date
-        @commitment.sae_code = sae(@pay.from)
+        @commitment.sae_code = sae(Paymentauth.froms[@pay.from])
         @commitment.observations = @pay.observations
         @commitment.document = 2
         @commitment.created_at = @pay.created_at
@@ -105,21 +112,60 @@ class PaymentauthsController < ApplicationController
 
   end
  
-  def annul
+  def valid_dir_annull
     @pay = Paymentauth.find(params[:id])
     @pay.update_column(:status, "annulled")
+    @pay.update_column(:annull, false)
     redirect_to :back
   end  
+
+  def no_valid_dir
+    @pay = Paymentauth.find(params[:id])
+    @pay.update_column(:annull, false)
+    redirect_to action: :notifications, controller: :administration    
+  end
+
+  def annul
+    @pay = Paymentauth.find(params[:id])
+    @pay.update_column(:annull, true)
+    redirect_to :back
+  end
+
+  def validating
+    @pay = Paymentauth.find(params[:id])
+    @pay.update_column(:status, "validating")
+    redirect_to :back
+  end   
 
   def delete
     @pay = Paymentauth.find(params[:id]).destroy
     redirect_to action: 'index'
   end  
   
+  def del
+    @pay = Paymentauth.find(params[:id]).destroy
+    redirect_to :back    
+  end    
+
+  def valid_coord
+    @pay = Paymentauth.find(params[:id])
+    @pay.update_column(:valid_coord, true)
+    @pay.update_column(:valid_dir, false)
+    @pay.update_column(:status, "generated")
+    redirect_to :back
+  end  
+
+  def valid_dir
+    @pay = Paymentauth.find(params[:id])
+    @pay.update_column(:valid_dir, true)
+    redirect_to :back
+  end     
+
+
   private
   
     def paymentauth_params
-      params.require(:paymentauth).permit(:registry, :recipient, :from, :elaboration_date, :delivery_date, :delivered_id, :concept, :amount, :observations, :recieved_by, :is_valid, :user)
+      params.require(:paymentauth).permit(:registry, :recipient, :from, :elaboration_date, :delivery_date, :delivered_id, :concept, :amount, :observations, :recieved_by, :is_valid, :user, :valid_coord, :valid_dir)
     end
 
     def sae(id)
