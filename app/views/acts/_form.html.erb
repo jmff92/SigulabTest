@@ -20,19 +20,15 @@
        <%= f.collection_select :tesis, Act::Uso, :to_s, :to_s, 
           :include_blank => true %>
 </td></tr><tr><td style="padding-top:10px;">
-       <span class="red">*</span>
-       <%= f.label "Nombre del Responsable" %><br>
-       <%= f.text_field :responsable, :placeholder => "Nombre del solicitante" %>
-</td><td style="padding-top:10px;">
        
        <span class="red">*</span>
        <%= f.label "La solicitud obedece a que:" %><br>
        <%= f.text_field :justificacion, :placeholder => "Razón de la solicitud." %>
-</td></tr><tr><td style="padding-top:10px;"> 
+</td><td style="padding-top:10px;"> 
        <span class="red">*</span>
        <%= f.label "Origen de los recursos" %><br>
-       <%= f.text_field :providencia, :placeholder => "Providencia de fondos" %>
-</td></tr></table>
+       <%= f.text_field :providencia, :placeholder => "Procedencia de fondos" %>
+</td></tr></table><br/><br/>
        
        <div class="actions">
        <%= f.submit "Aceptar", :style => "float:left; margin-right:10px;margin-top:7px;", data: { confirm: '¿Está seguro de la informacion que acaba de suministrar?' }  %>

@@ -31,7 +31,7 @@ class ActsController < ApplicationController
 	end
       format.pdf do
 		pdf = ReporteActs.new(@act)
-      		  send_data pdf.render, filename: 'Especificacion_#{session[:specification_sel_id]}_Acto_Motivado.pdf', type: 'application/pdf'
+      		  send_data pdf.render, filename: "Especificacion_#{session[:specification_sel_id]}_Acto_Motivado.pdf", type: 'application/pdf'
 	      end
        format.xml do
               specification = Specification.find(session[:specification_sel_id])
@@ -141,6 +141,8 @@ class ActsController < ApplicationController
 	specification.nacional = "Nacional"
 	specification.save
     @act = Act.new(act_params)
+    @invt = Invitation.where(:specification_id => session[:specification_sel_id]).first
+    @act.responsable = @invt.responsable
     @invitations = Invitation.where(:specification_id => session[:specification_sel_id]).all
     @act.user_id = current_user.username
     @quot = Quote.where(:specification_id => session[:specification_sel_id]).first
