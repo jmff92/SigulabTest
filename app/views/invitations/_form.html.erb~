@@ -58,16 +58,10 @@
 			 <%= f.text_field :telefono, :placeholder => "02121234567" %>
                   </div></td><td style="padding-top:20px;">
 		  <div class="field">
-			 <%= f.label "Teléfono adicional" %><br>
+			 <%= f.label "Teléfono" %><br>
 			 <%= f.text_field :telefono_Adicional, :placeholder => "02121234567" %><br>
                             </div></td></tr><tr><td>
-                    <div class="field">
-                        <span class="red">*</span>
-                            <%= f.label "Fecha tope de recepción de ofertas" %><br/>
-				
-				<%= f.text_field :fecha_tope, class: 'bootlayout-date form-control' %>
-				
-                          </div>  <br/><br/>
+                      <br/><br/>
                         </td></tr><tr><td colspan="2" style=" padding-left:120px;">
                             <%= f.hidden_field :specification_id, :value => session['specification_sel_id'] %>
 		  <div class="actions">
