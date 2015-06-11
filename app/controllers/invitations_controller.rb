@@ -89,6 +89,7 @@ class InvitationsController < ApplicationController
   # PATCH/PUT /invitations/1
   # PATCH/PUT /invitations/1.json
   def update
+    @invitation.update(invitation_params)
     @invitation.nombre = @invitation.nombre.upcase
     @invitation.direccion = @invitation.direccion.upcase
     @invitation.correo = @invitation.correo.upcase
@@ -98,7 +99,7 @@ class InvitationsController < ApplicationController
     @invitation.contacto = @invitation.contacto.upcase
     @invitation.correo_contacto = @invitation.correo_contacto.upcase
     respond_to do |format|
-      if @invitation.update(invitation_params)
+      if @invitation.save
         format.html { redirect_to @invitation, notice: 'Invitation was successfully updated.' }
         format.json { render :show, status: :ok, location: @invitation }
       else

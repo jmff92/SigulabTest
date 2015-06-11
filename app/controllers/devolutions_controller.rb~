@@ -46,7 +46,7 @@ class DevolutionsController < ApplicationController
     @devolution.user_id = current_user.username
     @devolution.specification_id = session[:specification_sel_id]
     @devolution.observaciones = @devolution.observaciones.upcase
-    @devolution.otro_especifico = @devolution.otro_especifico.upcase
+    @devolution.otro = @devolution.otro.upcase
     @devolution.unidadSolicitante = @devolution.unidadSolicitante.upcase
 
 
@@ -66,7 +66,7 @@ class DevolutionsController < ApplicationController
   def update
     @devolution.update(devolution_params)
     @devolution.observaciones = @devolution.observaciones.upcase
-    @devolution.otro_especifico = @devolution.otro_especifico.upcase
+    @devolution.otro = @devolution.otro.upcase
     @devolution.unidadSolicitante = @devolution.unidadSolicitante.upcase
     respond_to do |format|
       if @devolution.save

@@ -159,6 +159,7 @@ class RecommendationsController < ApplicationController
     @invt = Invitation.where(:specification_id => session[:specification_sel_id]).first
     @recommendation.responsale = @invt.responsable
     @recommendation.specification_id = session[:specification_sel_id]
+    @recommendation.responsale = @recommendation.responsale.upcase
     @recommendation.save
     specification = Specification.find(session[:specification_sel_id])
 	session[:specification_sel_nacional] = "Nacional"

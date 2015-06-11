@@ -108,10 +108,9 @@ class SpecificationsController < ApplicationController
   # PATCH/PUT /specifications/1
   # PATCH/PUT /specifications/1.json
   def update
-    @specification.update(specification_params)
     @specification.nombre = @specification.nombre.upcase
     respond_to do |format|
-      if @specification.save
+      if @specification.update(specification_params)
         format.html { redirect_to @specification, notice: 'Specification was successfully updated.' }
         format.json { render :show, status: :ok, location: @specification }
       else
