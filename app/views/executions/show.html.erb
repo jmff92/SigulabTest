@@ -108,9 +108,11 @@
 	</div>
 	<% if current_user.manage? or current_user.manage_analist? %>
 		<div class="col-xs-12">
-    		<%= link_to edit_execution_path do %>
-				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ejecución</button>
-			<% end %>
+			<%	if @execution.valid_adm and @execution.valid_dir %>
+	    		<%= link_to edit_execution_path do %>
+					<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ejecución</button>
+				<% end %>
+			<% end	%>
 		</div>
 	<% end %>		
 </div>

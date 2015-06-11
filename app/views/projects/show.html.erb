@@ -92,8 +92,10 @@
 			</tr>
  		    </table></p>
 		<% if current_user.projadmin? %>	 		    
- 			<%= link_to edit_project_path do %>
-				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Datos del Proyecto</button>
+			<%	if @project.valid_res %>
+ 				<%= link_to edit_project_path do %>
+					<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Datos del Proyecto</button>
+				<% end %>
 			<% end %>
 		<% end %>
 	</div>
