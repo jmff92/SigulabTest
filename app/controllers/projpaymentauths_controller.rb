@@ -10,12 +10,14 @@ class ProjpaymentauthsController < ApplicationController
 
   def show
     @pay = Projpaymentauth.find(params[:id])    
+    @status = @pay.status
     @project = Project.find(@pay.proyect)    
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = AutorizacionPago.new(@pay)
+        pdf = AutorizacionPagoProj.new(@pay)
         send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
+        @pay.update_column(:status, "generated")
       end
     end
   end
@@ -105,7 +107,7 @@ class ProjpaymentauthsController < ApplicationController
   private
   
     def projpaymentauth_params
-      params.require(:projpaymentauth).permit(:registry, :recipient, :from, :elaboration_date, :delivery_date, :delivered_id, :concept, :amount, :observations, :recieved_by, :is_valid)
+      params.require(:projpaymentauth).permit(:registry, :recipient, :from, :elaboration_date, :delivery_date, :delivered_id, :concept, :amount, :observations, :recieved_by, :valid)
     end
   
 end

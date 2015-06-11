@@ -1,0 +1,96 @@
+
+<table id="example" class="table table-hover" >
+	  <thead>
+		 <tr>
+		   <th align="left">Nro</th>
+		   <th align="left">Tipo</th>
+		   <th align="left" style="width: 60%;">Nombre</th>
+		   <th align="left">Proceso</th>
+		 </tr>
+	  </thead>
+
+	  <tbody>
+		 <% @specifications.each_with_index do |specification,index| %>
+	  		<tr>
+		     <td><%= index+1 %></td>
+		     <td><%= specification.tipo %></td>
+		     <td style="width: 60%;"><%= specification.nombre %></td>
+		     <td style="text-align:right">
+
+		     <%= link_to '<button type="button" class="btn btn-primary">Completar</button>'.html_safe,  {:controller => "comprando", :action => "seleccionarEspecificacion", :specification => specification.id } %>
+	<% if session['specification_p1'] == 1 %>
+
+   <%= link_to '<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, @specification,method: :delete,
+       data: { confirm: '¿Está seguro que desea eliminar la especificación técnica?' } %>
+
+<% end %></td>
+		   </tr>
+		 <% end %>
+<% if @sumSpecifications == 0 %>
+		 	<tr class="warning">
+				<td class="text-center" colspan="5"><h4>No hay especificaciones técnicas registradas</h4></td>
+			</tr>
+		 <% end %>
+		 
+	  </tbody>
+	</table>
+<script>
+$(document).ready(function() {
+				$('#example').dataTable( {
+					"bJQueryUI": true,
+					"sPaginationType": "full_numbers"
+					
+				} );
+			} );
+$.fn.dataTableExt.sErrMode = 'throw';
+</script>
+<style>
+
+a:visited { 
+   color:black;
+   font-weight: bold;
+	font-size: 110%;
+}
+
+
+#specificationTable th {
+      background-color: #94E79E;
+      border-color:#7A7070;
+      font-size: 14px;
+  }
+
+#specificationTable th td tr{
+ border-color:black;
+ }
+
+
+.table-hover {
+
+border-color:#7A7070;
+
+}
+
+.table-hover>tbody>tr>td {
+
+border-color:#7A7070;
+
+}
+
+.table-hover>tbody>tr:hover {
+background-color: #ffff99;
+}
+
+#specificationTable tr:nth-child(even) {
+
+background-color: #F2F8F7;
+
+}
+
+input[type=submit] {
+-webkit-appearance: button;
+cursor: pointer;
+background-color:#F8F0BE;
+border-radius:px;
+}
+
+</style>

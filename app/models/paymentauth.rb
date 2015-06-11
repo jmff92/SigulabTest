@@ -2,6 +2,8 @@ class Paymentauth < ActiveRecord::Base
 
   attr_localized :amount
 
+  belongs_to :user
+
   enum from: [:dir, :a, :b, :c, :d, :e, :f, :g, :dirg, :acq, :qua, :imp, :man]
   def self.origin_str
   [

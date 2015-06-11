@@ -105,7 +105,7 @@ class AutorizacionPago < Prawn::Document
 
   def observaciones
     data = [ ["OBSERVACIONES / EXPOSICIÓN DE MOTIVOS", "Firma y Sello"],
-           ["#{@pay.observations}", "\n _______________________"]
+           ["#{@pay.observations}", "\n \n _______________________ \n #{responsable(Paymentauth.froms[@pay.from])}"]
            ]
     table (data) do
       cells.valign = :center
@@ -197,6 +197,36 @@ class AutorizacionPago < Prawn::Document
       text "Universidad Simón Bolívar, Edif. Energética, Planta Baja. Valle de Sartenejas, Baruta, Caracas, Edo. Miranda, Venezuela, 89000", size: 10, :align => :center
       text "Telef.: 58 212 906-3708 / 3709 / 3710 / 3711  Fax: 58 212 906-3712   www.ulab.usb.ve", size: 10, :align => :center
     end   
+  end
+
+  def responsable(n)
+    if n == 0
+      return "Director"
+    elsif n == 1
+      return "Jefe del Laboratorio A"
+    elsif n == 2
+      return "Jefe del Laboratorio B"
+    elsif n == 3
+      return "Jefe del Laboratorio C"
+    elsif n == 4
+      return "Jefe del Laboratorio D"
+    elsif n == 5
+      return "Jefe del Laboratorio E"
+    elsif n == 6
+      return "Jefe del Laboratorio F"
+    elsif n == 7
+      return "Jefe del Laboratorio G"                                    
+    elsif n == 8
+      return "Administrador del Laboratorio G"    
+    elsif n == 9
+      return "Coordinador de Adquisiciones"
+    elsif n == 10
+      return "Coordinador de la Calidad"
+    elsif n == 11
+      return "Coordinador de Importaciones"
+    elsif n == 12
+      return "Coordinador de Administración"
+    end
   end
 
 end

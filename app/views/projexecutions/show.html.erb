@@ -103,8 +103,10 @@
 	</div>
 	<% if current_user.projadmin? %>	
 		<div class="col-xs-12">
-    		<%= link_to edit_projexecution_path do %>
-				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ejecución</button>
+			<%	if @projexecution.valid_res %>
+    			<%= link_to edit_projexecution_path do %>
+					<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Ejecución</button>
+				<% end %>
 			<% end %>
 		</div>
 	<% end %>

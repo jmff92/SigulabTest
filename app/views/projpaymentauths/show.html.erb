@@ -68,8 +68,10 @@
                 	<td class="col-xs-7"> Anulada </td>
                 <% elsif !@pay.delivery_date.blank? %>
                 	<td class="col-xs-7"> Recibida </td>
+                <% elsif @pay.status=="generated" %>
+                	<td class="col-xs-7"> Sin recibir </td>
                 <% else %>	
-                	<td class="col-xs-7"> Sin recibir </td>                
+                	<td class="col-xs-7"> Sin generar </td>                
                 <% end %>
 			</tr>			
 			<tr class="success">
@@ -81,8 +83,8 @@
 	<div class="col-xs-12">
 		
 		<!-- Solo disponible para responsable del proy -->
-			<% if @pay.status!="annulled" %>
-			<% if current_user.proy_responsible? %>
+			<% if @pay.delivery_date.blank? and @status!="annulled" %>
+			<% if current_user.proy_responsible? or current_user.projadmin?%>
 				<%= link_to edit_projpaymentauth_path do %>
 					<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Autorización de Pago</button>
 				<% end %>
@@ -90,7 +92,7 @@
 			<% end %>
 			<% if @pay.delivery_date.blank?  %>
 				<% if current_user.proy_responsible? %>
-					<% if @pay.status!="annulled" %>
+					<% if @pay.status==nil or @pay.status="generated" %>
 						<%= link_to delete_projpaymentauth_path, data: {confirm: "¿Está seguro de eliminar la autorización de pago?"} do %>
 							<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Eliminar Autorización de Pago</button>
      			<% end %>
@@ -98,15 +100,18 @@
      			<% end %>
 			<% else %>     			
 				<% if current_user.projadmin? %>
-					<% if @pay.status!="annulled" %>
+					<% if @status!="annulled" %>
 	     				<%= link_to annul_projpaymentauth_path, data: {confirm: "¿Está seguro de anular la autorización de pago?"} do %>
 							<button type="button" class="btn btn-danger"}><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Anular Autorización de Pago</button>
 	     				<% end %>
 					<% end %>	     			
 				<% end %>	     			
  			<% end %>
- 		<% if current_user.proy_responsible? and !@pay.status=="annulled" and !@pay.delivery_date.blank? %>
-		<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Generar Autorización de Pago </button>'.html_safe, projpaymentauth_path(@pay, :format => 'pdf') %>
+ 		<% if current_user.proy_responsible? and @pay.status==nil and @pay.delivery_date.blank? %>
+			<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Generar Autorización de Pago </button>'.html_safe, projpaymentauth_path(@pay, :format => 'pdf') %>
+		<% end %>
+		 <% if current_user.proy_responsible? and @status=="generated" %>
+			<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Descargar Autorización de Pago </button>'.html_safe, projpaymentauth_path(@pay, :format => 'pdf') %>
 		<% end %>
 		
 	</div>

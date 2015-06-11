@@ -3,6 +3,8 @@
 <%= javascript_include_tag 'jquery-ui.js' %>
 <%= stylesheet_link_tag 'jquery-ui.css'%>
 <%= javascript_include_tag 'tabs.js' %>
+<%= javascript_include_tag 'bootstrap-datepicker.js' %>
+<%= javascript_include_tag 'bootstrap-datepicker.es.js' %>
 
 <div class="row">
 
@@ -59,66 +61,67 @@
         <table class="table table-striped">
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Nombre:</strong></td>
-            <td class="col-xs-7"> <%= f.text_field :name %>
+            <td class="col-xs-5 text-right"><strong>Nombre</strong>
             <span class="red">*</span></td>
+            <td class="col-xs-7"> <%= f.text_field :name %>
+            </td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Marca:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Marca</strong></td>
             <td class="col-xs-7"> <%= f.text_field :brand %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Modelo:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Modelo</strong></td>
             <td class="col-xs-7"><%= f.text_field :model  %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Serial:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Serial</strong></td>
             <td class="col-xs-7"><%= f.text_field(:serial) %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Número de Bien Nacional:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Número de Bien Nacional</strong></td>
             <td class="col-xs-7">  <%= f.number_field(:national_good, min: 0) %></td>
           </tr>
      
             <tr>
-            <td class="col-xs-5 text-right"><strong>Estado:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Estado</strong></td>
             <td class="col-xs-7"> <%= f.select(:status, [['Operativo'], ['Inoperativo Temporalmente'], ['En Desuso'] ] ) %></td>
           </tr>
            <tr>
-            <td class="col-xs-5 text-right"><strong>Calibrado:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Calibrado</strong></td>
             <td class="col-xs-7"><%= f.select(:calibrated, [['N/A'],['Sí'], ['No'], ['Desconocido'] ])  %></td>
           </tr>
            <tr>
-            <td class="col-xs-5 text-right"><strong>Última Calibración:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Última Calibración</strong></td>
             <td class="col-xs-7"> <%= f.text_field :last_calibration, :class => "bootlayout-date" %></td>
           </tr>
            <tr>
-            <td class="col-xs-5 text-right"><strong>Dimensiones:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Dimensiones</strong></td>
             <td class="col-xs-7">
-            <strong>Ancho:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong>
-            <%= f.number_field(:length, min: 0, :step => 'any') %>
+            <strong>Ancho&nbsp&nbsp</strong>
+            <%= f.text_field(:length, min: 0, :step => 'any') %>
             <%= f.select(:measurelength, [['m'], ['cm'], ['mm'], ['in']] ) %><br><br>
-            <strong>Largo:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </strong>
-             <%= f.number_field(:width, min: 0, :step => 'any') %>
+            <strong>Largo&nbsp&nbsp&nbsp </strong>
+             <%= f.text_field(:width, min: 0, :step => 'any') %>
             <%= f.select(:measurewidth, [['m'], ['cm'], ['mm'], ['in']] ) %><br><br>
-            <strong>Profundidad:</strong>
-            <%= f.number_field(:depth, min: 0, :step => 'any') %>
+            <strong>Alto&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong>
+            <%= f.text_field(:depth, min: 0, :step => 'any') %>
             <%= f.select(:measuredepth, [['m'], ['cm'], ['mm'], ['in']] ) %>
             </td>
           </tr>
 
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Uso:</strong></td>
-             <td class="col-xs-7">  
-             <%= f.check_box :investigation %>
-             <%= 'Investigación' %>
-             <%= f.check_box :teaching %>
-             <%= 'Docencia' %>
-             <%= f.check_box :extention %>
-             <%= 'Extensión' %>
-             <%= f.check_box :management %>
-             <%= 'Apoyo administrativo' %><br>
-          </tr>
+         <tr>
+            <td class="col-xs-5 text-right"><strong><%= 'Uso'%></td>
+              <td class="col-xs-7">
+           <%= f.check_box :investigation %>
+            <%= 'Investigación' %><br>
+            <%= f.check_box :teaching %>
+            <%= 'Docencia' %><br>
+            <%= f.check_box :extention %>
+            <%= 'Extensión' %><br>
+            <%= f.check_box :management %>
+            <%= 'Apoyo administrativo' %> </td>
+          </tr><br>
 
         </table>
       </div>
@@ -129,20 +132,23 @@
         <table class="table table-striped">
 
         <tr>
-          <td class="col-xs-5 text-right"><strong>Responsable:</strong></td>
+          <td class="col-xs-5 text-right"><strong>Responsable</strong>
+          <span class="red">*</span></td>
           <td class="col-xs-7"><%= f.text_field :responsible %>
-      <span class="red">*</span></td>
+      </td>
       </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Dependencia:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Dependencia</strong>
+            <span class="red">*</span></td>
             <td class="col-xs-7"><%= f.text_field :dependency %>
-            <span class="red">*</span> </td>
+            </td>
           </tr>
           
           <tr>
-            <td class="col-xs-5 text-right"><strong>Ubicación Física:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Ubicación Física</strong>
+            <span class="red">*</span></td>
             <td class="col-xs-7"><%= f.text_field :location %>
-            <span class="red">*</span> </td>
+            </td>
           </tr>
 
         </table>
@@ -153,49 +159,56 @@
       <div class="form-group">
         <table class="table table-striped">
 
-            <td class="col-xs-5 text-right"><strong>Origen:</strong></td>
-            <td class="col-xs-7" ><%= f.select(:origen, options_for_select([['Comprado'],['Donado']]), {:include_blank => true, :default => nil}, {:onchange => "changeOrigen();"} ) %>
+            <td class="col-xs-5 text-right"><strong>Origen</strong></td>
+            <td class="col-xs-7" ><%= f.select(:origen, options_for_select([['Comprado'],['Donado']]), {:include_blank => true, :default => :blank}, {:onchange => "changeOrigen();"} ) %>
             </td>
           </tr>
-          <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura:</strong></td>
+          <tr class="hidden_option1">
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura</strong></td>
             <td class= "hidden_option1 col-xs-7" ><%= f.text_field :bill %></td>
           </tr>
 
-          <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo:</strong></td>
-            <td class="hidden_option1 col-xs-7" >Bs.<%= f.text_field :cost %></td> 
-          </tr>
 
-          <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
+          <tr class="hidden_option1">
+          
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo</strong></td>
+              <td class="hidden_option1 col-xs-7" >
+                <div class="input-group">
+                  <span class="input-group-addon">Bs.</span>
+                  <%= f.text_field :cost %>
+                </div>
+              </td> 
+          </tr>
+          
+
+          <tr class="hidden_option1">
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= f.text_field :buy_order %></td>
 
-          <tr>
-            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
+          <tr class="hidden_option1">
+            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= f.text_field :adquisition_date, class: "bootlayout-date" %></td>
           </tr>
 
-                  <tr>
+                  <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong>Numero de Donación</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :NumDonacion %></td>
             </tr>
 
-            <tr>
+            <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong>Fecha de Donación</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :FechaDonacion, class: "bootlayout-date" %></td>
             </tr>
 
-              <tr>
+              <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong> PJ Donación</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :PJDonacion %></td>
             </tr>
 
-              <tr>
+              <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong> Persona de Contacto</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :PersonaContactoDonacion %></td>
             </tr>
-
 
         </table>
       </div>

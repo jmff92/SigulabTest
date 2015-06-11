@@ -55,53 +55,53 @@
           </tr> 
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Modelo:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Modelo</strong></td>
             <td class="col-xs-7"> <%= @instrument.model %></td>
           </tr> 
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Unidad de medida::</strong></td>
+            <td class="col-xs-5 text-right"><strong>Unidad de medida</strong></td>
             <td class="col-xs-7"><%=  @instrument.measurement_unit %></td>
           </tr> 
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Capacidad:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Capacidad</strong></td>
             <td class="col-xs-7"> <%= @instrument.capacity %></td>
           </tr> 
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Material:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Material</strong></td>
             <td class="col-xs-7"><%= @instrument.material %></td>
           </tr> 
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Estado:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Estado</strong></td>
             <td class="col-xs-7"><%= @instrument.status %></td>
           </tr> 
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Última Calibración:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Última Calibración</strong></td>
             <td class="col-xs-7"> <%= @instrument.last_calibration %></td> </td>
           </tr>
 
            <tr>
-            <td class="col-xs-5 text-right"><strong>Número bien nacional:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Número bien nacional</strong></td>
             <td class="col-xs-7"> <%= @instrument.national_good %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong><%= 'Uso:'%></strong></td>
+            <td class="col-xs-5 text-right"><strong><%= 'Uso'%></strong></td>
            <td class="col-xs-7"> <% if @instrument.investigation %>
-              <%= ' INVESTIGACIÓN ' %>
+              <%= ' INVESTIGACIÓN /' %>
             <% end %>
             <% if @instrument.teaching %>
-              <%= ' DOCENCIA ' %>
+              <%= '/ DOCENCIA /' %>
             <% end %>
             <% if @instrument.extention %>
-              <%= ' EXTENSIÓN ' %>
+              <%= '/ EXTENSIÓN /' %>
             <% end %>
             <% if @instrument.management %>
-              <%= ' GESTIÓN ' %>
+              <%= '/ APOYO ' %>
             <% end %></td>
           </tr>
 
@@ -127,17 +127,17 @@
     <p><table class="table table-striped">
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Responsable:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Responsable</strong></td>
             <td class="col-xs-7"> <%= @instrument.responsible %>
             </td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Dependencia:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Dependencia</strong></td>
             <td class="col-xs-7"><%= @instrument.dependency %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Ubicación Física:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Ubicación Física</strong></td>
             <td class="col-xs-7"><%= @instrument.location %></td>
           </tr>
 
@@ -162,29 +162,31 @@
     <div id="tabs-3">
         <table class="table table-striped">
 
-            <td class="col-xs-5 text-right"><strong>Origen:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Origen</strong></td>
             <td class="col-xs-7" ><%= @instrument.origen %>
             </td>
           </tr>
+          <% if @instrument.origen == "Comprado" %>
           <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura:</strong></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura</strong></td>
             <td class= "hidden_option1 col-xs-7" ><%= @instrument.bill %></td>
           </tr>
 
           <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo:</strong></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo</strong></td>
             <td class="hidden_option1 col-xs-7" >Bs.<%= @instrument.cost %></td> 
           </tr>
 
           <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= @instrument.buy_order %></td>
 
           <tr>
-            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
+            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= @instrument.adquisition_date%></td>
           </tr>
-
+          <% end %>
+          <% if @instrument.origen == "Donado"%>
                   <tr>
             <td class="hidden_option2 col-xs-5 text-right"><strong>Numero de Donación</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= @instrument.NumDonacion %></td>
@@ -204,6 +206,7 @@
             <td class="hidden_option2 col-xs-5 text-right"><strong> Persona de Contacto</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= @instrument.PersonaContactoDonacion %></td>
             </tr>
+            <% end %>
         </table></p>
         
     <% if can? :create, @instrument %>

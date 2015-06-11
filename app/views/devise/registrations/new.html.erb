@@ -63,7 +63,9 @@
   <%= 'Analista'%><br><br>
 
   <%= f.check_box :projadmin %>
-  <%= 'Administrador de Proyectos'%><br><br>
+  <%= 'Administrador de Proyectos'%><br>
+  <%= f.check_box :proy_responsible %>
+  <%= 'Responsable de Proyecto'%><br><br>
 
   <%= 'Personal Laboratorio :' %><br>
   <%= f.check_box :labBoss %>
@@ -72,8 +74,6 @@
   <%= 'Asistente de Laboratorio'%><br>
   <%= f.check_box :section_boss %>
   <%= 'Jefe de Sección/Área'%>
-  <%= f.check_box :proy_responsible %>
-  <%= 'Responsable de Proyecto'%><br>
   <%= f.check_box :technician %>
   <%= 'Personal de Sección/Área'%><br><br>
   <%= f.check_box :external %>

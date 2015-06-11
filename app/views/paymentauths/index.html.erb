@@ -54,13 +54,17 @@
 									<td><%= link_to c.registry, c %></td>
 									<td class="text-center"><%= c.recipient %></td>
 									<td class="text-right"><%= number_to_currency(c.amount, format: "%n", delimiter: ".", separator: ",", precision: 2) %></td>
-					                <% if c.status=="annulled" %>
-					                	<td class="text-right"> Anulada </td>
-					                <% elsif !c.delivery_date.blank? %>
-					                	<td class="text-right"> Recibida </td>
-					                <% else %>	
-					                	<td class="text-right"> Sin recibir </td>
-					                <% end %>									
+						                <% if c.status=="annulled" %>
+						                	<td class="text-center"> Anulada </td>
+						                <% elsif !c.delivery_date.blank? %>
+						                	<td class="text-center"> Recibida </td>
+						                <% elsif c.status=="generated" %>
+						                	<td class="text-center"> Sin recibir </td>
+						                <% elsif c.status=="validating" %>
+						                	<td class="text-center"> Por validar </td>
+						                <% else %>	
+						                	<td class="text-center"> Sin generar </td>
+						                <% end %>			
 								</tr>
 							<% end %>
 						</tbody>

@@ -53,6 +53,7 @@ specification = Specification.find(session[:specification_sel_id])
   
   # GET /services/new
   def new
+    @item = Equipment.all.where(id2: params[:format])
     @service = Service.new
   end
 
