@@ -60,11 +60,11 @@ class ReporteItems < Prawn::Document
   end
  
   def items_rows
-
+	@index = 0
     [['Número de Item','Nombre','Descripción','Cantidad']] +
       @items.map do |item|
-
-      [item.id, item.nombre.upcase, item.descripcion.upcase, item.cantidad]
+		@index = @index+1
+      [@index, item.nombre.upcase, item.descripcion.upcase, item.cantidad]
     end
   end
 
