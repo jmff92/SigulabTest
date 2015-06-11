@@ -1,10 +1,11 @@
 <%= render 'menu' %>
 <br/>
 <div style="text-align: right; height: 45px; margin-top: 12px;">
-        <% if session['specification_p2'] != 2 %>
-	<%= link_to '<button type="button" class="btn btn-warning"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Modificar </button>'.html_safe, edit_invitation_path(@invitation) %>
-   <%= link_to '<button type="button" class="btn btn-danger"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, @invitation,method: :delete,
-       data: { confirm: '¿Está seguro que desea eliminar el servicio?' } %><% else %>Ya no puede editar porque se generó la solicitud. <%= link_to '<button type="button" class="btn btn-primary"> Volver </button>'.html_safe, invitations_url %><% end %>
+    <%= link_to '<button type="button" class="btn btn-primary"> Volver </button>'.html_safe, invitations_url %>
+        <% if session['specification_p2'] != 2 && !current_user.director? && !current_user.quality && !current_user.quality_analist && !current_user.manage? && !current_user.manage_analist && !current_user.gsmp? && !current_user.directorate?  && !current_user.director%>
+	<%= link_to '<button type="button" class="btn btn-warning"> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar </button>'.html_safe, edit_invitation_path(@invitation) %>
+   <% if @puedeEliminar%><%= link_to '<button type="button" class="btn btn-danger"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, @invitation,method: :delete,
+       data: { confirm: '¿Está seguro que desea eliminar el servicio?' } %><% end %><% else %>Ya no puede editar porque se generó la solicitud. <% end %>
 	</div>
 
 
@@ -16,11 +17,34 @@
    <tr>
 				<th class="active text-center" colspan="2"><h2>Carta de Invitación</h2></th>
 			</tr>
+                 
+                        <tr>
+<td class="col-xs-5 text-right">Tipo de invitación</td>
+		   <td class="col-xs-7"><%= @invitation.tipo %></td>
+		 </tr>
+                   <tr>
 <td class="col-xs-5 text-right">Nombre de la empresa</td>
 		   <td class="col-xs-7"><%= @invitation.nombre %></td>
 		 </tr>
+                   <tr>
+<td class="col-xs-5 text-right">RIF</td>
+		   <td class="col-xs-7"><%= @invitation.rif %></td>
+		 </tr>
+                 
+                 <tr>
+		   <td class="col-xs-5 text-right">Persona contacto de la empresa</td>
+		   <td class="col-xs-7"><%= @invitation.contacto %></td>
+		 </tr>
+                 <tr>
+		   <td class="col-xs-5 text-right">Correo electrónico de la persona contacto de la empresa</td>
+		   <td class="col-xs-7"><%= @invitation.correo_contacto %></td>
+		 </tr>
+                 <tr>
+		   <td class="col-xs-5 text-right">Dirección</td>
+		   <td class="col-xs-7"><%= @invitation.direccion %></td>
+		 </tr>
 		 <tr>
-		   <td class="col-xs-5 text-right">Responsable del proyecto</td>
+		   <td class="col-xs-5 text-right">Responsable</td>
 		   <td class="col-xs-7"><%= @invitation.responsable %></td>
 		 </tr>
 		 <tr>
@@ -28,20 +52,16 @@
 		   <td class="col-xs-7"><%= @invitation.correo %></td>
 		 </tr>
 		 <tr>
-		   <td class="col-xs-5 text-right">Contacto de la empresa</td>
-		   <td class="col-xs-7"><%= @invitation.direccion %></td>
-		 </tr>
-		 <tr>
-		   <td class="col-xs-5 text-right">Telefono del solicitante</td>
+		   <td class="col-xs-5 text-right">Fax del solicitante</td>
 		   <td class="col-xs-7"><%= @invitation.telefono %></td>
 		 </tr>
        <tr>
-		   <td class="col-xs-5 text-right">Telefono adicional</td>
+		   <td class="col-xs-5 text-right">Teléfono adicional</td>
 		   <td class="col-xs-7"><%= @invitation.telefono_Adicional %></td>
 		 </tr>
-	<tr>
-		   <td class="col-xs-5 text-right">Tipo</td>
-		   <td class="col-xs-7"><%= @invitation.international %></td>
+                 <tr>
+		   <td class="col-xs-5 text-right">Fecha tope de recepción de ofertas</td>
+		   <td class="col-xs-7"><%= @invitation.fecha_tope %></td>
 		 </tr>
 	 
    </table>

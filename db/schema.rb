@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605144540) do
+ActiveRecord::Schema.define(version: 20150611032024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -347,7 +347,6 @@ ActiveRecord::Schema.define(version: 20150605144540) do
     t.string   "direccion"
     t.string   "correo"
     t.string   "telefono"
-    t.string   "telefono_Adicional"
     t.string   "responsable"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -358,6 +357,7 @@ ActiveRecord::Schema.define(version: 20150605144540) do
     t.string   "contacto"
     t.string   "correo_contacto"
     t.date     "fecha_tope"
+    t.string   "numero_fax"
   end
 
   create_table "item_donados", force: true do |t|
@@ -477,6 +477,10 @@ ActiveRecord::Schema.define(version: 20150605144540) do
     t.string   "status"
     t.string   "user"
     t.integer  "from"
+    t.boolean  "valid_coord"
+    t.boolean  "valid_dir"
+    t.integer  "user_id"
+    t.boolean  "annull"
   end
 
   create_table "poas", force: true do |t|
@@ -581,11 +585,11 @@ ActiveRecord::Schema.define(version: 20150605144540) do
     t.float    "amount"
     t.string   "observations"
     t.string   "recieved_by"
-    t.boolean  "is_valid"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
     t.string   "user"
+    t.boolean  "valid"
   end
 
   create_table "quotes", force: true do |t|
@@ -714,9 +718,9 @@ ActiveRecord::Schema.define(version: 20150605144540) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_id"
-    t.string   "attachment"
     t.integer  "specification_id"
     t.string   "numero"
+    t.string   "attachment"
   end
 
   create_table "servicerequests", force: true do |t|
