@@ -143,7 +143,10 @@ class PaymentauthsController < ApplicationController
   end  
   
   def del
-    @pay = Paymentauth.find(params[:id]).destroy
+    @pay = Paymentauth.find(params[:id])
+    @pay.update_column(:status, nil)
+    @pay.update_column(:valid_coord, false)
+    @pay.update_column(:valid_dir, false)    
     redirect_to :back    
   end    
 

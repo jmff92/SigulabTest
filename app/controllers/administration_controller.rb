@@ -19,7 +19,7 @@ class AdministrationController < ApplicationController
     if current_user.manage?
       @incomes = Income.all.order("date ASC").where("valid_adm=?", false)
       @executions = Execution.all.order("check_elaboration_date ASC").where("valid_adm=?", false)
-      @pays = Paymentauth.joins(:user).where("manage_analist=?", true).where("valid_coord=?", false).order("elaboration_date ASC")
+      @pays = Paymentauth.joins(:user).where("manage_analist=?", true).where("valid_coord=? AND status=?", false, "validating").order("elaboration_date ASC")
     end
     if current_user.director?
       @incomes = Income.all.order("date ASC").where("valid_adm=? AND valid_dir=?", true, false)
