@@ -20,7 +20,7 @@
 		     <%= link_to '<button type="button" class="btn btn-primary">Completar</button>'.html_safe,  {:controller => "comprando", :action => "seleccionarEspecificacion", :specification => specification.id } %>
 	<% if session['specification_p1'] == 1 %>
 
-   <%= link_to '<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, specification,method: :delete,
+   <%= link_to '<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, @specification,method: :delete,
        data: { confirm: '¿Está seguro que desea eliminar la especificación técnica?' } %>
 
 <% end %></td>
