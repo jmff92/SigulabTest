@@ -46,7 +46,7 @@ class ReporteInvitations < Prawn::Document
   def info 
     move_down 20
     if @invitation.rif != "N/A"
-  	 text "#{@invitation.nombre} (Rif: #{@invitation.rif})"
+  	 text "#{@invitation.nombre}.upcase (Rif: #{@invitation.rif}.upcase)"
     else
   	text "#{@invitation.nombre}"
     end
