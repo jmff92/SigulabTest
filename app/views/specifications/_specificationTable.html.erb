@@ -22,8 +22,9 @@
 		     <td><%= specification.tipo %></td>
 		     <td style="width: 40%;"><%= specification.nombre %></td>
 		     <td style="text-align:right">
-<<<<<<< HEAD
+
 			 <% if @est == "vacio" %>
+			 <%@a = 1%>
 		     <%= link_to '<button type="button" class="btn btn-primary">Completar</button>'.html_safe,  {:controller => "comprando", :action => "seleccionarEspecificacion", :specification => specification.id } %>
 		     <% else if specification.p6 == 2 %>
 		     <%= link_to '<button type="button" class="btn btn-primary">Consultar</button>'.html_safe,  {:controller => "comprando", :action => "seleccionarEspecificacion", :specification => specification.id } %>
@@ -36,13 +37,13 @@
 
 				<% end %>
 				<% end %>
-			 <% if session['specification_p1'] == 1 %>
-
+			
+		     <% end %>
+		      <% if specification.p1 == 1 && @est == "vacio" %>
    <%= link_to '<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, specification,method: :delete,
        data: { confirm: '¿Está seguro que desea eliminar la especificación técnica?' } %>
 
 <% end %></tr>	
-		     <% end %>
 		   </td></tr>
 		 <% end %>
 <% if @sumSpecifications == 0 %>
