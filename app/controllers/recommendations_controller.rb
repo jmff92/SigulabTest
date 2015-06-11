@@ -157,6 +157,7 @@ class RecommendationsController < ApplicationController
     @recommendation = Recommendation.new(recommendation_params)
     @recommendation.user_id = current_user.username
     @recommendation.specification_id = session[:specification_sel_id]
+    @recommendation.responsale = @recommendation.responsale.upcase
     @recommendation.save
     specification = Specification.find(session[:specification_sel_id])
 	session[:specification_sel_nacional] = "Nacional"
