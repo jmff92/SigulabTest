@@ -6,6 +6,7 @@
 	         <li class="active"> Compras </li>
 	      </ol>
 	</div>
+	<% if current_user %>
     <div class="col-xs-8 col-xs-offset-3">
 	<div class="grid_12 push_4">
 		<ul id="tittle">
@@ -20,7 +21,9 @@
 			<% end %></li>
 		</ul>
 	</div>
-        </div>
+        </div><% else %>
+		<div style="color:#000; text-align:center; width: 100%">Debe iniciar sesión</div>
+		<% end %>
 </div>
 </body>
 <style>
