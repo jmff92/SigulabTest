@@ -122,6 +122,12 @@ end
   resources :paymentauths do
     get 'annul', on: :member
     get 'delete', on: :member
+    get 'del', on: :member
+    get 'validating', on: :member
+    get 'valid_coord', on: :member
+    get 'valid_dir', on: :member    
+    get 'valid_dir_annull', on: :member 
+    get 'no_valid_dir', on: :member    
   end
   resources :commitments
   resources :executions do 

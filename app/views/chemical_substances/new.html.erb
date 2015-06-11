@@ -56,23 +56,23 @@
       <div class="form-group">
         <table class="table table-striped">
           <tr>
-            <td class="col-xs-5 text-right"><strong>Nombre:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :name %><span class="red">*</span></td>
+            <td class="col-xs-5 text-right"><strong>Nombre</strong><span class="red">*</span></td>
+            <td class="col-xs-7"><%= f.text_field :name %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Pureza:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Pureza</strong></td>
             <td class="col-xs-7"><%= f.number_field(:purity, min: 0, max: 100, :step => 'any') %>&nbsp;%
             </td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Estado materia:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Estado materia</strong></td>
             <td class="col-xs-7"><%= f.select(:matter_states, [ ['Líquido'],['Sólido'],['Gaseoso'] ] ) %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Controlado:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Controlado</strong></td>
             <td class="col-xs-7">
             <%= f.select(:controlled,[['No',false], ['Si', true]]) %></td>
 
@@ -88,63 +88,61 @@
           </tr>
 
           <tr>
-              <td class="col-xs-5 text-right"><strong>Cantidad:</strong></td>
-              <td class="col-xs-7"><%= f.number_field(:quantity, min: 0, :step => 'any') %><span class="red">*</span>
+              <td class="col-xs-5 text-right"><strong>Cantidad</strong><span class="red">*</span></td>
+              <td class="col-xs-7"><%= f.number_field(:quantity, min: 0, :step => 'any') %>
             <%= f.select(:meassure, [['kg'], ['g'], ['mg'], ['l'], ['ml'] ] ) %></td>
           </tr>
 
           <tr>
-              <td class="col-xs-5 text-right"><strong>Mínimo en Inventario:</strong></td>
-              <td class="col-xs-7"><%= f.number_field(:min, min: 0, :step => 'any') %><span class="red">*</span>
+              <td class="col-xs-5 text-right"><strong>Mínimo en Inventario</strong><span class="red">*</span></td>
+              <td class="col-xs-7"><%= f.number_field(:min, min: 0, :step => 'any') %>
             <%= f.select(:meassureMin, [['kg'], ['g'], ['mg'], ['l'], ['ml'] ] ) %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong title="Servicio de Resúmenes Químicos (Chemical Abstract Service)">CAS:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :cas %><span class="red">*</span></td>
+            <td class="col-xs-5 text-right"><strong title="Servicio de Resúmenes Químicos (Chemical Abstract Service)">CAS</strong><span class="red">*</span></td>
+            <td class="col-xs-7"><%= f.text_field :cas %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Estado:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Estado</strong></td>
             <td class="col-xs-7"><%=f.select(:status, [['Vigente'], ['Vencido'], ['Indeterminado']] )%></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Fecha Expiración:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Fecha Expiración</strong></td>
             <td class="col-xs-7"><%= f.text_field :expiration_date, :class => "bootlayout-date" %></td>
           </tr>
 
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Peligrosidad:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Peligrosidad</strong></td>
             <td class="col-xs-7">
               <%= f.check_box :toxic %>
-              <%= f.label :Tóxico %>&nbsp;&nbsp;
-
+              <%= f.label :Tóxico %><br>
               <%= f.check_box :inflamable %>
-              <%= f.label :Inflamable %>&nbsp;&nbsp;
+              <%= f.label :Inflamable %><br>
               <%= f.check_box :oxidant %>
-              <%= f.label :Comburente  %>&nbsp;
+              <%= f.label :Comburente  %><br>
               <%= f.check_box :corrosive %>
-              <%= f.label :Corrosivo %>&nbsp;&nbsp;
+              <%= f.label :Corrosivo %><br>
               <%= f.check_box :explosive %>
-              <%= f.label :Explosivo %>&nbsp;&nbsp;
-              <br>
+              <%= f.label :Explosivo %><br>
               <%= f.check_box :nocive %>
-              <%= f.label :Nocivo %>&nbsp;&nbsp;
+              <%= f.label :Nocivo %><br>
               <%= f.check_box :irritating %>
-              <%= f.label :Irritante %>
+              <%= f.label :Irritante %><br>
             </td>
           </tr>
 
           <tr>
             <td class="col-xs-5 text-right"><strong>Uso:</strong></td>
             <td class="col-xs-7">   <%= f.check_box :investigation %>
-            <%= 'Investigación' %>
+            <%= 'Investigación' %><br>
             <%= f.check_box :teaching %>
-            <%= 'Docencia' %>
+            <%= 'Docencia' %><br>
             <%= f.check_box :extention %>
-            <%= 'Extensión' %></div></td>
+            <%= 'Extensión' %><br></div></td>
           </tr>
 
 
@@ -157,24 +155,24 @@
       <div class="form-group">
         <table class="table table-striped">
           <tr>
-            <td class="col-xs-5 text-right"><strong>Responsable:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :responsible %><span class="red">*</span></td>
+            <td class="col-xs-5 text-right"><strong>Responsable</strong><span class="red">*</span></td>
+            <td class="col-xs-7"><%= f.text_field :responsible %></td>
           </tr>
           <tr>
-            <td class="col-xs-5 text-right"><strong>Correo de Responsable:</strong></td>
-              <td class="col-xs-7"><%= f.text_field :correo %><span class="red">*</span></td>
+            <td class="col-xs-5 text-right"><strong>Correo de Responsable</strong><span class="red">*</span></td>
+              <td class="col-xs-7"><%= f.text_field :correo %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Dependencia:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Dependencia</strong><span class="red">*</span></td>
             <td class="col-xs-7"><%= f.text_field :dependency %>
-            <span class="red">*</span> </td>
+             </td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Ubicación Física:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Ubicación Física</strong><span class="red">*</span></td>
             <td class="col-xs-7"><%= f.text_field :location %>
-            <span class="red">*</span> </td>
+             </td>
           </tr>
 
 
@@ -185,32 +183,39 @@
     <div id="tabs-3">
       <div class="form-group">
         <table class="table table-striped">
-          <tr>
 
-            <td class="col-xs-5 text-right"><strong>Origen:</strong></td>
-            <td class="col-xs-7" ><%= f.select(:origen, options_for_select([['Comprado'],['Donado']]), {:include_blank => true, :default => nil}, {:onchange => "changeOrigen();"} ) %>
+            <td class="col-xs-5 text-right"><strong>Origen</strong></td>
+            <td class="col-xs-7" ><%= f.select(:origen, options_for_select([['Comprado'],['Donado']]), {:include_blank => true, :default => :blank}, {:onchange => "changeOrigen();"} ) %>
             </td>
           </tr>
-
-          <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura:</strong></td>
-            <td class= "hidden_option1 col-xs-7" ><%=  f.text_field :bill%></td>
+          <tr class="hidden_option1">
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura</strong></td>
+            <td class= "hidden_option1 col-xs-7" ><%= f.text_field :bill %></td>
           </tr>
 
-          <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo:</strong></td>
-            <td class="hidden_option1 col-xs-7" ><%= f.number_field(:cost, min: 0, :step => 'any') %>&nbsp;Bs.</td> 
+
+          <tr class="hidden_option1">
+          
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo</strong></td>
+              <td class="hidden_option1 col-xs-7" >
+                <div class="input-group">
+                  <span class="input-group-addon">Bs.</span>
+                  <%= f.text_field :cost %>
+                </div>
+              </td> 
           </tr>
+          
 
-          <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
-            <td class="hidden_option1 col-xs-7" ><%=  f.text_field :buy_order %></td>
+          <tr class="hidden_option1">
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra</strong></td>
+            <td class="hidden_option1 col-xs-7" ><%= f.text_field :buy_order %></td>
 
-          <tr>
-            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
+          <tr class="hidden_option1">
+            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= f.text_field :adquisition_date, class: "bootlayout-date" %></td>
           </tr>
-                  <tr>
+
+                  <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;La USB no autoriza</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><strong>donaciones de sustancias quimicas</strong></td>
         </table>
@@ -220,6 +225,19 @@
   </div>
 </div>
 <br><br>
+
+  <div class="col-xs-12">
+    <div class="well">
+      <span style="color:#FF0000">*</span> Los campos son obligatorios.
+    </div>
+  </div>
+
+  <div class="col-xs-12">
+<div class="alert alert-warning alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>¡Recuerde!</strong> Revisar todas las pestañas para rellenar los campos obligatorios del formulario.
+</div>
+ </div>
 
 <div class="col-xs-12 text-center">
   <div class="actions">

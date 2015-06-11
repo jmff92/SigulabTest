@@ -8,7 +8,7 @@
 				<li><%= link_to 'Autorizaciones de Pago', paymentauths_path %></li>
 			<% else %>
 			<% end %>			
-			<li class="active"><%= @pay.id%></li>
+			<li class="active"><%= @pay.registry%></li>
 		</ol>
 	</div>
 
@@ -68,8 +68,12 @@
                 	<td class="col-xs-7"> Anulada </td>
                 <% elsif !@pay.delivery_date.blank? %>
                 	<td class="col-xs-7"> Recibida </td>
+                <% elsif @pay.status=="generated" %>
+                	<td class="col-xs-7"> Sin recibir </td>
+                <% elsif @pay.status=="validating" %>
+                	<td class="col-xs-7"> Por validar </td>                	
                 <% else %>	
-                	<td class="col-xs-7"> Sin recibir </td>                
+                	<td class="col-xs-7"> Sin generar </td>                
                 <% end %>
 			</tr>		
 			<tr class="success">
@@ -79,35 +83,49 @@
 		</table>
 	</div>
 	<div class="col-xs-12">
-		<% if current_user.directorate? or current_user.gsmp? or current_user.acquisition_analist? or current_user.acquisition? or current_user.manage? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? or current_user.import? or current_user.import_analist? or current_user.labBoss? %>
-		<!-- Pendiente que solo puedan editar propias autorizaciones de pago -->
-			<% if @pay.status==nil %>
+		<% if (current_user.directorate? and @pay.user_id == current_user.id) or current_user.gsmp? or (current_user.acquisition_analist?  and @pay.user_id == current_user.id) or (current_user.acquisition? and Paymentauth.froms[@pay.from]==9) or (current_user.manage? and Paymentauth.froms[@pay.from]==12) or (current_user.manage_analist? and @pay.user_id == current_user.id) or current_user.quality? or current_user.quality_analist? or current_user.import? or current_user.import_analist? or current_user.labBoss? %>
+			<% if @pay.delivery_date.blank? and @status!="annulled" and @status!="validating" %>
 				<%= link_to edit_paymentauth_path do %>
 					<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Autorización de Pago</button>
 				<% end %>
 			<% end %>
 		<% end %>			
 		<% if @pay.delivery_date.blank? %>
-			<% if current_user.directorate? or current_user.gsmp? or current_user.acquisition_analist? or current_user.acquisition? or current_user.manage? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? or current_user.import? or current_user.import_analist? or current_user.labBoss? %>
-			<!-- Pendiente que solo puedan eliminar propias autorizaciones de pago -->
-				<% if @pay.status==nil %>
+			<% if (current_user.directorate? and @pay.user_id == current_user.id) or current_user.gsmp? or (current_user.acquisition_analist?  and @pay.user_id == current_user.id) or (current_user.acquisition? and Paymentauth.froms[@pay.from]==9) or (current_user.manage? and Paymentauth.froms[@pay.from]==12) or (current_user.manage_analist? and @pay.user_id == current_user.id) or current_user.quality? or current_user.quality_analist? or current_user.import? or current_user.import_analist? or current_user.labBoss? %>
+				<% if @status==nil or @status=="validating" %>
 					<%= link_to delete_paymentauth_path, data: {confirm: "¿Está seguro de eliminar la autorización de pago?"} do %>
 						<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Eliminar Autorización de Pago</button>
 					<% end %>
      			<% end %>
      		<% end %>
+		    <% if current_user.manage? %> 			
+				<% if @status=="generated" %>
+	    			<%= link_to annul_paymentauth_path, data: {confirm: "¿Está seguro de anular la autorización de pago? Deberá ser validada por el director"} do %>
+						<button type="button" class="btn btn-danger"}><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Anular Autorización de Pago</button>
+	    			<% end %>
+				<% end %>
+			<% end %>     			     		
 		<% else %>
 		    <% if current_user.manage? %> 			
-				<% if @pay.status==nil %>
+				<% if @status!="annulled" %>
 	    			<%= link_to annul_paymentauth_path, data: {confirm: "¿Está seguro de anular la autorización de pago?"} do %>
 						<button type="button" class="btn btn-danger"}><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Anular Autorización de Pago</button>
 	    			<% end %>
 				<% end %>
 			<% end %>
  		<% end %>	     		
-		<% if @pay.status==nil and @pay.delivery_date.blank? %> 		
-			<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Generar Autorización de Pago </button>'.html_safe, paymentauth_path(@pay, :format => 'pdf') %>	
-		<% end %>
+		<% if @pay.status==nil and @pay.delivery_date.blank? %>
+			<% if current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.manage? or current_user.import? or current_user.quality? or current_user.labBoss? %>
+				<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Generar Autorización de Pago </button>'.html_safe, paymentauth_path(@pay, :format => 'pdf') %>	
+			<%else%>
+	    			<%= link_to validating_paymentauth_path, data: {confirm: "¿Está seguro de generar la autorización de pago? La misma deberá ser validada por su coordinador."} do %>
+						<button type="button" class="btn btn-primary"}><span class="fa fa-download"></span>&nbsp;&nbsp;Generar Autorización de Pago</button>
+	    			<% end %>	
+			<%end%>
+		<%end%>			
+		<% if @status=="generated" %> 		
+			<%= link_to '<button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Descargar Autorización de Pago </button>'.html_safe, paymentauth_path(@pay, :format => 'pdf') %>	
+		<% end %>		
 	</div>
 </div>
 

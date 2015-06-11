@@ -14,7 +14,7 @@ class Projcommitment < ActiveRecord::Base
   end
 
   validates :code, presence: true
-  validates :code, numericality: { greater_than: 0 }, if: "!code.blank?"
+  validates_format_of :code, with: /\A((J-|V-|G-)([0-9])(-[0-9]))|([0-9])\z/i, on: :create, :update, if: "!code.blank?"
   validates :amount, presence: true
   validates :amount, numericality: { greater_than: 0 }, if: "!amount.blank?"
   validates :description, presence: true, length: {maximum: 512}

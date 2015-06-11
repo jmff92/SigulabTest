@@ -50,65 +50,65 @@
       <p><table class="table table-striped">
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Marca:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Marca</strong></td>
             <td class="col-xs-7"><%= @equipment.brand %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Modelo:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Modelo</strong></td>
             <td class="col-xs-7"><%= @equipment.model %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Serial:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Serial</strong></td>
             <td class="col-xs-7"><%=  @equipment.serial %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Número de Bien Nacional:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Número de Bien Nacional</strong></td>
             <td class="col-xs-7">  <%= @equipment.national_good %></td>
           </tr> 
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Estado:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Estado</strong></td>
             <td class="col-xs-7"><%= @equipment.status %></td>
           </tr>
 
            <tr>
-            <td class="col-xs-5 text-right"><strong>Calibrado:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Calibrado</strong></td>
             <td class="col-xs-7"><%= @equipment.calibrated  %></td>
           </tr>
 
            <tr>
-            <td class="col-xs-5 text-right"><strong>Última Calibración:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Última Calibración</strong></td>
             <td class="col-xs-7"><%= @equipment.last_calibration %></td>
           </tr>
 
            <tr>
-            <td class="col-xs-5 text-right"><strong>Medidas:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Medidas</strong></td>
             <td class="col-xs-7">
-            <strong> - Alto: </strong>
+            <strong> - Alto </strong>
             <%= @equipment.length %><%= @equipment.measurelength %><br>
-            <strong> - Ancho: </strong>
+            <strong> - Ancho </strong>
             <%= @equipment.width %><%= @equipment.measurewidth %><br>
-            <strong> - Profundidad:</strong>
+            <strong> - Profundidad</strong>
             <%= @equipment.depth %><%= @equipment.measuredepth %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Uso:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Uso</strong></td>
             <td class="col-xs-7">  
             <% if @equipment.investigation %>
-              <%= ' INVESTIGACIÓN ' %>
+              <%= ' INVESTIGACIÓN /' %>
             <% end %>
             <% if @equipment.teaching %>
-              <%= ' DOCENCIA ' %>
+              <%= '/ DOCENCIA /' %>
             <% end %>
             <% if @equipment.extention %>
-              <%= ' EXTENSIÓN ' %>
+              <%= '/ EXTENSIÓN /' %>
             <% end %>
             <% if @equipment.management %>
-              <%= ' GESTIÓN ' %>
+              <%= '/ APOYO ' %>
             <% end %></td>
           </tr>
     </table></p>
@@ -135,17 +135,17 @@
     <p><table class="table table-striped">
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Responsable:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Responsable</strong></td>
             <td class="col-xs-7"><%= @equipment.responsible %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Dependencia:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Dependencia</strong></td>
             <td class="col-xs-7"><%= @equipment.dependency %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Ubicación Física:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Ubicación Física</strong></td>
             <td class="col-xs-7"><%= @equipment.location %></td>
           </tr>
 
@@ -171,29 +171,31 @@
     <div id="tabs-3">
         <table class="table table-striped">
 
-            <td class="col-xs-5 text-right"><strong>Origen:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Origen</strong></td>
             <td class="col-xs-7" ><%= @equipment.origen %>
             </td>
           </tr>
+          <% if @equipment.origen == "Comprado" %>
           <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura:</strong></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Factura</strong></td>
             <td class= "hidden_option1 col-xs-7" ><%= @equipment.bill %></td>
           </tr>
 
           <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo:</strong></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Costo</strong></td>
             <td class="hidden_option1 col-xs-7" >Bs.<%= @equipment.cost %></td> 
           </tr>
 
           <tr>
-            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra:</strong></td>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Orden de Compra</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= @equipment.buy_order %></td>
 
           <tr>
-            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición:</strong></td>
+            <td class=" hidden_option1 col-xs-5 text-right"><strong>Fecha Adquisición</strong></td>
             <td class="hidden_option1 col-xs-7" ><%= @equipment.adquisition_date%></td>
           </tr>
-
+          <% end %>
+          <% if @equipment.origen == "Donado" %>
                   <tr>
             <td class="hidden_option2 col-xs-5 text-right"><strong>Numero de Donación</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= @equipment.NumDonacion %></td>
@@ -213,7 +215,7 @@
             <td class="hidden_option2 col-xs-5 text-right"><strong> Persona de Contacto</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= @equipment.PersonaContactoDonacion %></td>
             </tr>
-
+            <% end %>
 
 
     </table></p>

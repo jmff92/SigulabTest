@@ -137,6 +137,9 @@
 			</div>				
   	  			<% else %>
 
+			<%= i.hidden_field :valid_adm, :value => false %>
+			<%= i.hidden_field :valid_dir, :value => false %>  	  			
+
 			<div class="form-group">
 				<label for='execution_code' class="col-xs-3 control-label text-right">Número del Documento <span style="color:#FF0000">*</span></label>
 				<div class='col-xs-4'>

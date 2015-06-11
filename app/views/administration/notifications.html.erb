@@ -85,6 +85,44 @@
      									<% end %> </td>     							
 								</tr>
 							<% end %>	
+							<% @pays.each do |a| %>
+								<tr>
+									<td class="text-center"><%= a.elaboration_date.strftime('%d/%m/%Y') %></td>
+									<td class="text-center"><%= link_to "Autorización de Pago", a %></td>
+									<td class="text-center"><%= a.recipient %></td>
+									<td class="text-right"><%= number_to_currency(a.amount, format: "%n", delimiter: ".", separator: ",", precision: 2) %></td>
+									<td class="text-center">
+										<% if current_user.director? %>
+											<%= link_to valid_dir_paymentauth_path(a), class: "btn btn-success", title: "Validar autorización de pago", data: {confirm: "¿Está seguro de validar la autorización de pago?"} do %>
+												<span class="glyphicon glyphicon-check"></span>
+											<% end %>
+										<% else %>
+											<%= link_to valid_coord_paymentauth_path(a), class: "btn btn-success", title: "Validar autorización de pago", data: {confirm: "¿Está seguro de validar la autorización de pago?"} do %>
+												<span class="glyphicon glyphicon-check"></span>
+											<% end %>									
+										<% end %>									
+										 &nbsp;
+										 <%= link_to del_paymentauth_path(a), class: "btn btn-danger", title: "Rechazar autorización de pago", data: {confirm: "¿Está seguro de rechazar la autorización de pago?"} do %>
+     										<span class="glyphicon glyphicon-remove"></span>
+     									<% end %> </td>
+								</tr>
+							<% end %>							
+							<% @apays.each do |b| %>
+								<tr>
+									<td class="text-center"><%= b.elaboration_date.strftime('%d/%m/%Y') %></td>
+									<td class="text-center"><%= link_to "Anulación de Autorización de Pago", b %></td>
+									<td class="text-center"><%= b.recipient %></td>
+									<td class="text-right"><%= number_to_currency(b.amount, format: "%n", delimiter: ".", separator: ",", precision: 2) %></td>
+									<td class="text-center">
+										<%= link_to valid_dir_annull_paymentauth_path(b), class: "btn btn-success", title: "Validar anulación de autorización de pago", data: {confirm: "¿Está seguro de anular la autorización de pago?"} do %>
+											<span class="glyphicon glyphicon-check"></span>
+										<% end %>
+										 &nbsp;
+										 <%= link_to no_valid_dir_paymentauth_path(b), class: "btn btn-danger", title: "Rechazar anulación de autorización de pago", data: {confirm: "¿Está seguro de rechazar la anulación de la autorización de pago?"} do %>
+     										<span class="glyphicon glyphicon-remove"></span>
+     									<% end %> </td>
+								</tr>
+							<% end %>							
 							<% @projects.each do |i| %>
 								<tr>
 									<td class="text-center"><%= i.incoming_date %></td>
@@ -151,7 +189,7 @@
      										<span class="glyphicon glyphicon-remove"></span>
      									<% end %> </td>     							
 								</tr>
-							<% end %>
+							<% end %>						
 						</tbody>
 					</table>
 					<div class="spacer"></div>
