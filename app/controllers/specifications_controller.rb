@@ -89,6 +89,7 @@ class SpecificationsController < ApplicationController
       else
          session[:specification_sel_link] = "/items/"
       end
+
     respond_to do |format|
       if @specification.save
         session[:specification_sel_id] = @specification.id
