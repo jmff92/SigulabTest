@@ -94,7 +94,7 @@ class ExecutionsController < ApplicationController
     @oldamount = @execution.check_amount    
     @executions = Execution.where("commitment_id=?",@execution.commitment_id).where("valid_adm=? AND valid_dir=?", true, false)
     @executed = @executions.where("check_annulled=false").sum(:check_amount) - @oldamount
-
+binding.pry
     if params[:execution][:check_amount].to_i > @commitment.amount - @executed
       @execution.executable_amount
       render 'edit'
