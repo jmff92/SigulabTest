@@ -33,6 +33,7 @@ class SpecificationsController < ApplicationController
       @specifications = Specification.where(:user_id => current_user.username).all
       @sumSpecifications = Specification.where(:user_id => current_user.username).count
     end
+    @estado = Reject.all
   end
 
   # GET /specifications/1

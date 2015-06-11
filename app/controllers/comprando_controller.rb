@@ -23,9 +23,19 @@ class ComprandoController < ApplicationController
       else
          session[:specification_sel_link] = "/items/"
       end
-      respond_to do |format|
-         format.html { redirect_to session[:specification_sel_link], notice: 'Especificacion Seleccionada' } 
-      end
+      @estado =  Reject.where(:specification_id => @specification.id).first
+      
+      if @estado != nil && @estado.estado == "Rechazar solicitud"
+		  respond_to do |format|
+			 format.html { redirect_to devolutions_url, notice: 'Especificacion Seleccionada' } 
+		  end
+      else
+		respond_to do |format|
+			 format.html { redirect_to session[:specification_sel_link], notice: 'Especificacion Seleccionada' } 
+		  end
+	  end
+      
+      
    end
 
    def solicitudCompra

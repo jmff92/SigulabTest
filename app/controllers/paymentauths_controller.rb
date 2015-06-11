@@ -151,13 +151,13 @@ class PaymentauthsController < ApplicationController
     @pay = Paymentauth.find(params[:id])
     @pay.update_column(:valid_coord, true)
     @pay.update_column(:valid_dir, false)
-    @pay.update_column(:status, "generated")
     redirect_to :back
   end  
 
   def valid_dir
     @pay = Paymentauth.find(params[:id])
     @pay.update_column(:valid_dir, true)
+    @pay.update_column(:status, "generated")
     redirect_to :back
   end     
 
