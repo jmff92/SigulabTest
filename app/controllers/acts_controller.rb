@@ -31,7 +31,7 @@ class ActsController < ApplicationController
 	end
       format.pdf do
 		pdf = ReporteActs.new(@act)
-      		  send_data pdf.render, filename: 'Especificacion_#{session[:specification_sel_id]}_Acto_Motivado.pdf', type: 'application/pdf'
+      		  send_data pdf.render, filename: "Especificacion_#{session[:specification_sel_id]}_Acto_Motivado.pdf", type: 'application/pdf'
 	      end
        format.xml do
               specification = Specification.find(session[:specification_sel_id])
@@ -141,6 +141,13 @@ class ActsController < ApplicationController
 	specification.nacional = "Nacional"
 	specification.save
     @act = Act.new(act_params)
+    @invt = Invitation.where(:specification_id => session[:specification_sel_id]).first
+    @act.responsable = @invt.responsable
+    @act.tesis = @act.tesis.upcase
+    @act.responsable = @act.responsable.upcase
+    @act.justificacion = @act.justificacion.upcase
+    @act.providencia = @act.providencia.upcase
+
     @invitations = Invitation.where(:specification_id => session[:specification_sel_id]).all
     @act.user_id = current_user.username
     @quot = Quote.where(:specification_id => session[:specification_sel_id]).first
@@ -173,8 +180,13 @@ class ActsController < ApplicationController
   # PATCH/PUT /acts/1
   # PATCH/PUT /acts/1.json
   def update
+    @act.update(act_params)
+    @act.tesis = @act.tesis.upcase
+    @act.responsable = @act.responsable.upcase
+    @act.justificacion = @act.justificacion.upcase
+    @act.providencia = @act.providencia.upcase
     respond_to do |format|
-      if @act.update(act_params)
+      if @act.save
         format.html { redirect_to @act, notice: 'Act was successfully updated.' }
         format.json { render :show, status: :ok, location: @act }
       else
