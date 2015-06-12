@@ -30,12 +30,12 @@
 			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">Origen:</td>
-				<td class="col-xs-7"><%= Projincome.origin_str[Projincome.origins[@projincome.origin]] %></td>
+				<td class="col-xs-7"><%= Projincome.origin_str[Projincome.origins[@projincome.origin]].upcase %></td>
 			</tr>
 			<% if !@projincome.financing.blank? -%>			
 			<tr>
 				<td class="col-xs-5 text-right">Fuente de Financiamiento:</td>
-				<td class="col-xs-7"><%= Projincome.financing_str[Projincome.financings[@projincome.financing]] %></td>
+				<td class="col-xs-7"><%= Projincome.financing_str[Projincome.financings[@projincome.financing]].upcase %></td>
 			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">Concepto</td>

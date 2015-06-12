@@ -27,6 +27,8 @@ class ActsController < ApplicationController
       format.html do
           if @sumActs != 0
             redirect_to @act
+          else
+			redirect_to new_act_url
           end
 	end
       format.pdf do

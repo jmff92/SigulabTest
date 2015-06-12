@@ -13,5 +13,7 @@ class User < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :surname, :presence => true
+  validates_exclusion_of :password, in: ->(user) { [user.username] },
+                         message: 'no debe ser igual a nombre de usuario'
 
 end

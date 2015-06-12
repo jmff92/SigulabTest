@@ -49,6 +49,10 @@ class PaymentauthsController < ApplicationController
     end
     
     @pay = Paymentauth.new(paymentauth_params)
+    @pay.recipient = @pay.recipient.upcase
+    @pay.concept = @pay.concept.upcase
+    @pay.observations = @pay.observations.upcase
+    @pay.recieved_by = @pay.recieved_by.upcase
 
     # Validacion de coordinacion segun el cargo del usuario
     if current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.manage? or current_user.import? or current_user.quality? or current_user.labBoss?
@@ -77,7 +81,20 @@ class PaymentauthsController < ApplicationController
     @pay = Paymentauth.find(params[:id])
     @old_date = @pay.delivery_date
     @new_date = paymentauth_params[:delivery_date]
-    
+binding.pry    
+    if !(params[:paymentauth][:recipient]).nil?
+      params[:paymentauth][:recipient] = params[:paymentauth][:recipient].upcase
+    end
+    if !params[:paymentauth][:concept].nil?
+      params[:paymentauth][:concept] = params[:paymentauth][:concept].upcase
+    end
+    if params[:paymentauth][:observations].nil?
+      params[:paymentauth][:observations] = params[:paymentauth][:observations].upcase
+    end
+    if params[:paymentauth][:recieved_by].nil?
+      params[:paymentauth][:recieved_by] = params[:paymentauth][:recieved_by].upcase
+    end
+
     if @pay.update_attributes(paymentauth_params)
       # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
         if (@old_date == nil) and (@new_date != "")
@@ -110,6 +127,11 @@ class PaymentauthsController < ApplicationController
       render 'edit'
     end
 
+  end
+
+  def list_lab
+    @lab = Lab.find(params[:id])
+    @pays = Paymentauth.all.order("elaboration_date ASC").where("\"from\"=?", params[:id]).where("valid_dir=?", true)
   end
  
   def valid_dir_annull

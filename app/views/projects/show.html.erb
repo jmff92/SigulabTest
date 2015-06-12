@@ -56,7 +56,7 @@
 			<% end %> 
 			<tr>
 				<td class="col-xs-5 text-right">Administrador del Proyecto:</td>
-				<td class="col-xs-7"><%= Project.admin_str[Project.admins[@project.admin]] %></td>
+				<td class="col-xs-7"><%= Project.admin_str[Project.admins[@project.admin]].upcase %></td>
 			</tr>
 			<tr>
 			    <td class="col-xs-5 text-right">Código SAE:</td>
@@ -159,7 +159,7 @@
 		<p><table class="table table-striped">
 			<tr>
 				<td class="col-xs-5 text-right">Banco:</td>
-				<td class="col-xs-7"><%= Project.banco_str[Project.bancos[@project.banco]] %></td>
+				<td class="col-xs-7"><%= Project.banco_str[Project.bancos[@project.banco]].upcase %></td>
   			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">Número de cuenta:</td>

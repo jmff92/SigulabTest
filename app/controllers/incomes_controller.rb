@@ -65,6 +65,11 @@ class IncomesController < ApplicationController
     end
 
     @income = Income.new(income_params)
+    @income.description = @income.description.upcase
+    @income.organism = @income.organism.upcase
+    @income.unit = @income.unit.upcase
+    @income.variation = @income.variation.upcase
+    @income.resource_description = @income.resource_description.upcase
   
     if @income.save
 #      redirect_to action: 'index'
@@ -114,9 +119,12 @@ class IncomesController < ApplicationController
       end
     end
 
-
-
     @income = Income.find(params[:id])
+    params[:income][:description] = params[:income][:description].upcase
+    params[:income][:organism] = params[:income][:organism].upcase
+    params[:income][:unit] = params[:income][:unit].upcase
+    params[:income][:variation] = params[:income][:variation].upcase
+    params[:income][:resource_description] = params[:income][:resource_description].upcase
   
     if @income.update_attributes(income_params)
       redirect_to income_url(@income)

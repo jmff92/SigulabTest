@@ -24,13 +24,29 @@ class BudgetController < ApplicationController
 
     @executions_total = 0
 
+    if current_user.username == "labA"
+      @labs = Lab.all.where("name=?", "A")
+    elsif current_user.username == "labB"
+      @labs = Lab.all.where("name=?", "B")
+    elsif current_user.username == "labC"
+      @labs = Lab.all.where("name=?", "C")
+    elsif current_user.username == "labD"
+      @labs = Lab.all.where("name=?", "D")      
+    elsif current_user.username == "labE"
+      @labs = Lab.all.where("name=?", "E")      
+    elsif current_user.username == "labF"
+      @labs = Lab.all.where("name=?", "F")      
+    elsif current_user.username == "labG"
+      @labs = Lab.all.where("name=? OR name=?", "G", "DirG")      
+    end
+
     @labs.each do |l|
-      @incomes_lab[l.id] = @incomes.where(lab_id: l.id).sum(:amount)
+      @incomes_lab[l.id] = @incomes.where(lab_id: l.id).where("valid_adm=? and valid_dir=?", true, true).sum(:amount)
       @incomes_total += @incomes_lab[l.id]
       @commitments_lab[l.id] = @commitments.where(lab_id: l.id).sum(:amount)
       @commitments_total += @commitments_lab[l.id]
       @com_lab = @commitments.where(lab_id: l.id)
-      @executions_commitement[l.id] = @executions.joins(commitment: :lab).where("lab_id=?", l.id).where("check_annulled=false").sum(:check_amount)
+      @executions_commitement[l.id] = @executions.joins(commitment: :lab).where("lab_id=?", l.id).where("check_annulled=false").where("valid_adm=? and valid_dir=?", true, true).sum(:check_amount)
       @executions_total += @executions_commitement[l.id]
     end
 
@@ -38,6 +54,23 @@ class BudgetController < ApplicationController
 
   def budget
     @labs = Lab.all
+
+    if current_user.username == "labA"
+      @labs = Lab.all.where("name=?", "A")
+    elsif current_user.username == "labB"
+      @labs = Lab.all.where("name=?", "B")
+    elsif current_user.username == "labC"
+      @labs = Lab.all.where("name=?", "C")
+    elsif current_user.username == "labD"
+      @labs = Lab.all.where("name=?", "D")      
+    elsif current_user.username == "labE"
+      @labs = Lab.all.where("name=?", "E")      
+    elsif current_user.username == "labF"
+      @labs = Lab.all.where("name=?", "F")      
+    elsif current_user.username == "labG"
+      @labs = Lab.all.where("name=? OR name=?", "G", "DirG")      
+    end
+
     @incomes = Income.all
     @commitments = Commitment.all
     @executions = Execution.all

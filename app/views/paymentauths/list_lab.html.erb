@@ -10,7 +10,9 @@
 			<li><%= link_to 'Inicio', controller: 'statics' %></li>
 			<li><%= link_to 'Administración', administration_path %></li>
 			<li><%= link_to 'Presupuesto', budget_path %></li>
-			<li class="active">Compromisos</li>
+			<li><%= link_to 'Resumen Presupuestario', controller: 'budget', action: 'summary' %></li>
+			<li><%= link_to @lab.sae_name, controller: 'labs', action: 'show', id: @lab.id %></li>			
+			<li class="active">Autorizaciones de Pago</li>
 		</ol>
 	</div>
 
@@ -21,7 +23,7 @@
 	</div>   
 
 	<div class="col-xs-12">
-		<h2><center>Compromisos</center></h2>
+		<h2><center>Autorizaciones de Pago</center></h2>
 	</div>
 
 	<div class="col-xs-12">
@@ -40,19 +42,31 @@
 						<thead>
 							<tr>
 								<th class="text-center">Fecha</th>
-								<th class="text-center">Dependencia</th>
-								<th class="text-center">Descripción</th>
+								<th class="text-center">Registro</th>
+								<th class="text-center">Beneficiario</th>
 								<th class="text-center">Monto</th>
+								<th class="text-center">Status</th>
 							</tr>
 						</thead>
 
 						<tbody>
-							<% @commitments.each do |c| %>
+							<% @pays.each do |c| %>
 								<tr>
-									<td class="text-center"><%= c.date.strftime('%d/%m/%Y') %></td>
-									<td class="text-center"><%= c.lab.sae_name.upcase %></td>
-									<td><%= link_to c.description, c %></td>
+									<td class="text-center"><%= c.elaboration_date.strftime('%d/%m/%Y') %></td>
+									<td><%= link_to c.registry, c %></td>
+									<td class="text-center"><%= c.recipient %></td>
 									<td class="text-right"><%= number_to_currency(c.amount, format: "%n", delimiter: ".", separator: ",", precision: 2) %></td>
+						                <% if c.status=="annulled" %>
+						                	<td class="text-center"> Anulada </td>
+						                <% elsif !c.delivery_date.blank? %>
+						                	<td class="text-center"> Recibida </td>
+						                <% elsif c.status=="generated" %>
+						                	<td class="text-center"> Sin recibir </td>
+						                <% elsif c.status=="validating" %>
+						                	<td class="text-center"> Por validar </td>
+						                <% else %>	
+						                	<td class="text-center"> Sin generar </td>
+						                <% end %>			
 								</tr>
 							<% end %>
 						</tbody>
@@ -64,19 +78,6 @@
 
 		<p></p>
 
-		<div class="well" align="right">
-			<h4>Monto Total Comprometido: Bs. <%= number_to_currency(@sum, format: "%n", delimiter: ".", separator: ",") %></h4>
-		</div>
-
 	</div>
-
-	<% if current_user.acquisition? or current_user.manage? or current_user.manage_analist? %>
-		<div class="col-xs-12" align="left">
-			<p></p>
-			<%= link_to new_commitment_path do %>
-				<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Agregar Compromiso</button>
-			<% end %>
-		</div>
-	<% end %>
 
 </div>

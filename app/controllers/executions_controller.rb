@@ -47,6 +47,8 @@ class ExecutionsController < ApplicationController
     end
     
     @execution = Execution.new(execution_params)
+    @execution.remarks = @execution.remarks.upcase
+    @execution.document_name = @execution.document_name.upcase
 
     @commitment = Commitment.find(params[:cid])    
     @executions = Execution.where("commitment_id=?",params[:cid])
@@ -89,17 +91,18 @@ class ExecutionsController < ApplicationController
     end
 
     @execution = Execution.find(params[:id])
+    params[:execution][:remarks] = params[:execution][:remarks].upcase
+
     @commitment = Commitment.find(Execution.find(params[:id]).commitment_id)    
 
     @oldamount = @execution.check_amount    
-    @executions = Execution.where("commitment_id=?",@execution.commitment_id).where("valid_adm=? AND valid_dir=?", true, false)
-    @executed = @executions.where("check_annulled=false").sum(:check_amount) - @oldamount
-
-    if params[:execution][:check_amount].to_i > @commitment.amount - @executed
+    @executions = Execution.where("commitment_id=?",@execution.commitment_id).where("valid_adm=? AND valid_dir=?", true, true)
+    @executed = @executions.where("check_annulled=false").sum(:check_amount) - @execution.check_amount
+    if (params[:execution][:check_amount]).tr('.','').tr(',', '.').to_f > @commitment.amount - @executed
       @execution.executable_amount
       render 'edit'
     else 
-      if @execution.update_attributes(execution_params)
+      if @execution.update_attributes(execution_params)      
         redirect_to action: 'index'
       else
         @commitment = Commitment.find(Execution.find(params[:id]).commitment_id)

@@ -28,6 +28,10 @@ class ProjectsController < ApplicationController
     end      
     
     @project = Project.new(project_params)
+    @project.title = @project.title.upcase
+    @project.responsible = @project.responsible.upcase
+    @project.observation = @project.observation.upcase
+
     if @project.save
 #      redirect_to action: 'index'
 		redirect_to projects_path, notice: "The document has been uploaded."
@@ -67,6 +71,9 @@ class ProjectsController < ApplicationController
       end
 
       @project = Project.find(params[:id])
+      params[:project][:title] = params[:project][:title].upcase
+      params[:project][:responsible] = params[:project][:responsible].upcase
+      params[:project][:observation] = params[:project][:observation].upcase
 
       if params[:project][:incoming_date].nil? && (not (params[:project][:status] == "pending"))      
         @project.incoming_date_required

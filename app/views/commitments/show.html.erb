@@ -35,7 +35,7 @@
 			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">Dependencia:</td>
-				<td class="col-xs-7"><%= @commitment.lab.sae_name %></td>
+				<td class="col-xs-7"><%= @commitment.lab.sae_name.upcase %></td>
 			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">Código SAE:</td>
@@ -43,7 +43,7 @@
 			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">Documento:</td>
-				<td class="col-xs-7"><%= Commitment.document_str[Commitment.documents[@commitment.document]] %></td>
+				<td class="col-xs-7"><%= Commitment.document_str[Commitment.documents[@commitment.document]].upcase %></td>
 			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">Número de Documento:</td>

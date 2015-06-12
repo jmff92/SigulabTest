@@ -51,6 +51,9 @@
 	<%= link_to controller: 'incomes', action: 'list_lab', id: @lab.id do %>
 		<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp; Ingresos </button>
 	<% end %>
+	<%= link_to controller: 'paymentauths', action: 'list_lab', id: @lab.id do %>
+		<button type="button" class="btn btn-primary"><span class="fa fa-money"></span>&nbsp;&nbsp; Autorizaciones de Pago </button>
+	<% end %>	
 	<%= link_to controller: 'commitments', action: 'list_lab', id: @lab.id do %>
 		<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;&nbsp; Compromisos </button>
 	<% end %>

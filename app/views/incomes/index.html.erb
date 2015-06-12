@@ -50,8 +50,8 @@
 							<% @incomes.each do |i| %>
 								<tr>
 									<td class="text-center"><%= i.date.strftime('%d/%m/%Y') unless i.date.blank? %></td>
-									<td class="text-center"><%= i.lab.sae_name %></td>
-									<td><%= link_to i.description, i %></td>
+									<td class="text-center"><%= i.lab.sae_name.upcase %></td>
+									<td><%= link_to i.description.upcase, i %></td>
 									<td class="text-right"><%= number_to_currency(i.amount, format: "%n", delimiter: ".", separator: ",") %></td>
 								</tr>
 							<% end %>
