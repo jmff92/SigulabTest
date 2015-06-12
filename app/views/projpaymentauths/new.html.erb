@@ -40,6 +40,7 @@
 			<%= i.hidden_field :elaboration_date, value: Date.today %>
 			<%= i.hidden_field :valid_adm, value: false %>
 			<%= i.hidden_field :user_id, value: current_user.id %>				
+			<%= i.hidden_field :proyecto, value: params[:id] %>	
 			
 			<div class="form-group">
 				<label for='projpaymentauth_recipient' class="col-xs-3 control-label text-right">Páguese a <span style="color:#FF0000">*</span></label>
