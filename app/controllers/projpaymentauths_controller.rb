@@ -63,7 +63,7 @@ class ProjpaymentauthsController < ApplicationController
     @pay = Projpaymentauth.find(params[:id])
     @old_date = @pay.delivery_date
     @new_date = projpaymentauth_params[:delivery_date]
-    
+binding.pry
     if @pay.update_attributes(projpaymentauth_params)
       # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
         if (@old_date == nil) and (@new_date != "")

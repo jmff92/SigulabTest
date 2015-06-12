@@ -39,7 +39,7 @@
 								<li><%= link_to 'Compra de Servicios', buyservices_url %></li>
 							</ul>
 						</li>
-						<% if current_user.director? or current_user.manage? or current_user.proy_responsible? or current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.acquisition_analist? or current_user.import? or current_user.import_analist? or current_user.manage_analist? or current_user.quality? or current_user.quality_analist? or current_user.labBoss? or current_user.labassistant? or current_user.section_boss? or current_user.technician? or current_user.projadmin?%>	
+						<% if !current_user.external %>	
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle " data-toggle="dropdown">Administración<span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
