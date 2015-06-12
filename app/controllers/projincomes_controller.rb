@@ -65,8 +65,6 @@ class ProjincomesController < ApplicationController
     @projincome.description = @projincome.description.upcase
     @projincome.organism = @projincome.organism.upcase
     @projincome.unit = @projincome.unit.upcase
-    @projincome.variation = @projincome.variation.upcase
-    @projincome.resource_description = @projincome.resource_description.upcase
   
     if @projincome.save
       redirect_to controller: 'projincomes', id: params[:id]
@@ -120,8 +118,7 @@ class ProjincomesController < ApplicationController
     params[:projincome][:description] = params[:projincome][:description].upcase
     params[:projincome][:organism] = params[:projincome][:organism].upcase
     params[:projincome][:unit] = params[:projincome][:unit].upcase
-    params[:projincome][:variation] = params[:projincome][:variation].upcase
-    params[:projincome][:resource_description] = params[:projincome][:resource_description].upcase
+
   
     if @projincome.update_attributes(projincome_params)
       redirect_to projincome_url(@projincome)

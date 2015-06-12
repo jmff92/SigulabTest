@@ -17,9 +17,9 @@ class ProjexecutionsController < ApplicationController
   end
 
    def show
-     @projexecution = Projexecution.find(params[:id]).where("valid_res=?", true)
-     @projcommitment = Projcommitment.find(@projexecution.commitment_id).where("valid_res=?", true)
-     @project = Project.find(@projcommitment.proj_id).where("valid_res=?", true)
+     @projexecution = Projexecution.find(params[:id])
+     @projcommitment = Projcommitment.find(@projexecution.commitment_id)
+     @project = Project.find(@projcommitment.proj_id)
      @projexecutions = Projexecution.where("commitment_id=?",params[:id]).where("valid_res=?", true)
      @sum = @projexecutions.where("check_annulled=false").sum(:check_amount)
    end
@@ -55,7 +55,7 @@ class ProjexecutionsController < ApplicationController
    
      @projexecution = Projexecution.new(execution_params)
      @projexecution.remarks = @projexecution.remarks.upcase
-     @projexecution.document_name = @projexecution.document_name.upcase
+     #@projexecution.document_name = @projexecution.document_name.upcase
      @commitment = Projcommitment.find(params[:cid])    
      @projexecutions = Projexecution.where("commitment_id=?",params[:cid])
      @projexecuted = @projexecutions.where("check_annulled=false").sum(:check_amount)
@@ -96,29 +96,28 @@ class ProjexecutionsController < ApplicationController
          end
        end
      end
-     @projexecution = Projexecution.find(params[:id]).where("valid_res=?", true)
-     @commitment = Projcommitment.find(Projexecution.find(params[:id]).commitment_id).where("valid_res=?", true)    
+     @projexecution = Projexecution.find(params[:id])
+     @commitment = Projcommitment.find(Projexecution.find(params[:id]).commitment_id)
 
      @oldamount = @projexecution.check_amount    
      @projexecutions = Projexecution.where("commitment_id=?", @projexecution.commitment_id).where("valid_res=?", true)
      @projexecuted = @projexecutions.where("check_annulled=false").sum(:check_amount) - @oldamount
 
-     params[:projexecution][:remarks] = params[:execution][:remarks].upcase
-     params[:projexecution][:document_name] = params[:execution][:document_name].upcase        
-
-    if (params[:projexecution][:check_amount]).tr('.','').tr(',', '.').to_f > @commitment.amount - @executed
-       @projexecution.executable_amount
-       render 'edit'
-     else 
-       if @projexecution.update_attributes(execution_params)
-         @projexecution.remarks = @projexecution.remarks.upcase
-         @projexecution.document_name = @projexecution.document_name.upcase
-         redirect_to action: 'index', id: @projexecution.proyecto
-       else
-         @commitment = Projcommitment.find(Projexecution.find(params[:id]).commitment_id)
-         render 'edit'
-       end
-     end    
+     if !params[:projexecution][:check_amount].nil?
+      if (params[:projexecution][:check_amount]).tr('.','').tr(',', '.').to_f > @commitment.amount - @projexecuted
+        @projexecution.executable_amount
+        render 'edit'
+      else 
+        if @projexecution.update_attributes(execution_params)
+          @projexecution.remarks = @projexecution.remarks.upcase
+          #@projexecution.document_name = @projexecution.document_name.upcase
+          redirect_to action: 'index', id: @projexecution.proyecto
+        else
+          @commitment = Projcommitment.find(Projexecution.find(params[:id]).commitment_id)
+          render 'edit'
+        end
+      end    
+     end
    end
 
    def annul
