@@ -25,6 +25,8 @@ class RecommendationsController < ApplicationController
 	      format.html do
           if @sumRec != 0
             redirect_to @reco
+          else
+            redirect_to new_recommendation_url
           end
         end
 	      format.pdf do
