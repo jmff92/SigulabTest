@@ -111,6 +111,11 @@ class PaymentauthsController < ApplicationController
     end
 
   end
+
+  def list_lab
+    @lab = Lab.find(params[:id])
+    @pays = Paymentauth.all.order("elaboration_date ASC").where("\"from\"=?", params[:id]).where("valid_dir=?", true)
+  end
  
   def valid_dir_annull
     @pay = Paymentauth.find(params[:id])

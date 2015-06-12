@@ -12,19 +12,19 @@
 
 		<% if current_user.labBoss? or current_user.labassistant? %>
 			<%
-				if current_user.username = "labA"
+				if current_user.username == "labA"
 			      @idLab = 1
-			    elsif current_user.username = "labB"
+			    elsif current_user.username == "labB"
 			      @idLab = 2
-			    elsif current_user.username = "labC"
+			    elsif current_user.username == "labC"
 			      @idLab = 3
-			    elsif current_user.username = "labD"
+			    elsif current_user.username == "labD"
 			      @idLab = 4
-			    elsif current_user.username = "labE"
+			    elsif current_user.username == "labE"
 			      @idLab = 5
-			    elsif current_user.username = "labF"
+			    elsif current_user.username == "labF"
 			      @idLab = 6
-			    elsif current_user.username = "labG"
+			    elsif current_user.username == "labG"
 			      @idLab = 7
 			    end
 			%>

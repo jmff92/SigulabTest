@@ -24,19 +24,19 @@ class BudgetController < ApplicationController
 
     @executions_total = 0
 
-    if current_user.username = "labA"
+    if current_user.username == "labA"
       @labs = Lab.all.where("name=?", "A")
-    elsif current_user.username = "labB"
+    elsif current_user.username == "labB"
       @labs = Lab.all.where("name=?", "B")
-    elsif current_user.username = "labC"
+    elsif current_user.username == "labC"
       @labs = Lab.all.where("name=?", "C")
-    elsif current_user.username = "labD"
+    elsif current_user.username == "labD"
       @labs = Lab.all.where("name=?", "D")      
-    elsif current_user.username = "labE"
+    elsif current_user.username == "labE"
       @labs = Lab.all.where("name=?", "E")      
-    elsif current_user.username = "labF"
+    elsif current_user.username == "labF"
       @labs = Lab.all.where("name=?", "F")      
-    elsif current_user.username = "labG"
+    elsif current_user.username == "labG"
       @labs = Lab.all.where("name=? OR name=?", "G", "DirG")      
     end
 
@@ -55,19 +55,19 @@ class BudgetController < ApplicationController
   def budget
     @labs = Lab.all
 
-    if current_user.username = "labA"
+    if current_user.username == "labA"
       @labs = Lab.all.where("name=?", "A")
-    elsif current_user.username = "labB"
+    elsif current_user.username == "labB"
       @labs = Lab.all.where("name=?", "B")
-    elsif current_user.username = "labC"
+    elsif current_user.username == "labC"
       @labs = Lab.all.where("name=?", "C")
-    elsif current_user.username = "labD"
+    elsif current_user.username == "labD"
       @labs = Lab.all.where("name=?", "D")      
-    elsif current_user.username = "labE"
+    elsif current_user.username == "labE"
       @labs = Lab.all.where("name=?", "E")      
-    elsif current_user.username = "labF"
+    elsif current_user.username == "labF"
       @labs = Lab.all.where("name=?", "F")      
-    elsif current_user.username = "labG"
+    elsif current_user.username == "labG"
       @labs = Lab.all.where("name=? OR name=?", "G", "DirG")      
     end
 
