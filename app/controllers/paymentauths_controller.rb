@@ -52,7 +52,9 @@ class PaymentauthsController < ApplicationController
     @pay.recipient = @pay.recipient.upcase
     @pay.concept = @pay.concept.upcase
     @pay.observations = @pay.observations.upcase
-    @pay.recieved_by = @pay.recieved_by.upcase
+    if !@pay.recieved_by.nil?
+      @pay.recieved_by = @pay.recieved_by.upcase
+    end
 
     # Validacion de coordinacion segun el cargo del usuario
     if current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.manage? or current_user.import? or current_user.quality? or current_user.labBoss?
@@ -81,17 +83,17 @@ class PaymentauthsController < ApplicationController
     @pay = Paymentauth.find(params[:id])
     @old_date = @pay.delivery_date
     @new_date = paymentauth_params[:delivery_date]
-binding.pry    
+
     if !(params[:paymentauth][:recipient]).nil?
       params[:paymentauth][:recipient] = params[:paymentauth][:recipient].upcase
     end
     if !params[:paymentauth][:concept].nil?
       params[:paymentauth][:concept] = params[:paymentauth][:concept].upcase
     end
-    if params[:paymentauth][:observations].nil?
+    if !params[:paymentauth][:observations].nil?
       params[:paymentauth][:observations] = params[:paymentauth][:observations].upcase
     end
-    if params[:paymentauth][:recieved_by].nil?
+    if !params[:paymentauth][:recieved_by].nil?
       params[:paymentauth][:recieved_by] = params[:paymentauth][:recieved_by].upcase
     end
 
