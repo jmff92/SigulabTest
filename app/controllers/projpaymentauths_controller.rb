@@ -107,7 +107,7 @@ class ProjpaymentauthsController < ApplicationController
   private
   
     def projpaymentauth_params
-      params.require(:projpaymentauth).permit(:registry, :recipient, :from, :elaboration_date, :delivery_date, :delivered_id, :concept, :amount, :observations, :recieved_by, :valid)
+      params.require(:projpaymentauth).permit(:registry, :recipient, :from, :elaboration_date, :delivery_date, :delivered_id, :concept, :amount, :observations, :recieved_by, :valid_adm)
     end
   
 end
