@@ -1,5 +1,6 @@
 <%= javascript_include_tag 'bootstrap-datepicker.js' %>
 <%= javascript_include_tag 'bootstrap-datepicker.es.js' %>
+
 <h1>Nuevo Registro en la Bitácora</h1>
 <ol class="breadcrumb">
 	<li> <%=link_to 'Inicio', controller: 'statics'%></li>
@@ -62,16 +63,16 @@
             </tr>
             <tr class="hidden_option1">
               <td class="hidden_option1 col-xs-5 text-right"><strong>Cantidad Consumida:</strong></td>
-              <td class="hidden_option1 col-xs-7"> <%= f.number_field :consumo, :value => number_to_currency(f.object.ingreso, format: "%n", delimiter: " ", separator: "."), :class => 'hidden_option1' %><span class="hidden_option1 red">*</span><%= @unidad %></td>
+              <td class="hidden_option1 col-xs-7"> <%= f.text_field :consumo, :class => 'hidden_option1', :onchange => 'changeConsumo();' %><span class="hidden_option1 red">*</span><%= @unidad %></td>
             </tr>
 
             <tr class="hidden_option2">
               <td class="hidden_option2 col-xs-5 text-right"><strong class="hidden_option2">Cantidad Ingresada:</strong></td>
-              <td class="hidden_option2 col-xs-7"><%= f.number_field :ingreso, :value => number_to_currency(f.object.ingreso, format: "%n", delimiter: " ", separator: "."), class: 'hidden_option2' %><span class="hidden_option2 red">*</span>&nbsp;<%= @unidad %></td>
+              <td class="hidden_option2 col-xs-7"><%= f.text_field :ingreso, class: 'hidden_option2', :onchange => 'changeIngreso();' %><span class="hidden_option2 red">*</span>&nbsp;<%= @unidad %></td>
             </tr>
             <tr>
               <td class="col-xs-5 text-right"><strong>Descripción:</strong></td>
-              <td class="col-xs-7"><%= f.text_area :descripcion, :placeholder => "Introduzca el No. de factura" %><span class="red">*</span></td>
+              <td class="col-xs-7"><%= f.text_area :descripcion, :placeholder => "Introduzca el No. de factura\n en caso de introducir un ingreso" %><span class="red">*</span></td>
             </tr>
             
             <%= f.hidden_field :idSustancia, :value => @id %>
@@ -114,6 +115,19 @@
     }
 
   }
+
+  function changeIngreso(){
+    if ($('#binnacle_ingreso').val() != "0.00") {
+      $('#binnacle_consumo').val("0.00");
+    }
+  }
+
+  function changeConsumo(){
+    if ($('#binnacle_consumo').val() != "0.00") {
+      $('#binnacle_ingreso').val("0.00");
+    }
+  }
+
 </script>
 
 <style>
@@ -155,6 +169,6 @@
       localStorage.removeItem( 'firstLoad' );
   }
 ;
-  //]]>
+
   </script>
 

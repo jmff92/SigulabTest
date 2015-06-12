@@ -1,5 +1,5 @@
 .DS_Store
-
+schema.rb
 *.rbc
 capybara-*.html
 .rspec

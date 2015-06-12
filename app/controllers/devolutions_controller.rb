@@ -45,6 +45,9 @@ class DevolutionsController < ApplicationController
     @devolution = Devolution.new(devolution_params)
     @devolution.user_id = current_user.username
     @devolution.specification_id = session[:specification_sel_id]
+    @devolution.observaciones = @devolution.observaciones.upcase
+    @devolution.otro_especifico = @devolution.otro_especifico.upcase
+    @devolution.unidadSolicitante = @devolution.unidadSolicitante.upcase
 
 
     respond_to do |format|
@@ -61,8 +64,12 @@ class DevolutionsController < ApplicationController
   # PATCH/PUT /devolutions/1
   # PATCH/PUT /devolutions/1.json
   def update
+    @devolution.update(devolution_params)
+    @devolution.observaciones = @devolution.observaciones.upcase
+    @devolution.otro_especifico = @devolution.otro_especifico.upcase
+    @devolution.unidadSolicitante = @devolution.unidadSolicitante.upcase
     respond_to do |format|
-      if @devolution.update(devolution_params)
+      if @devolution.save
         format.html { redirect_to devolutions_url, notice: 'Devolution was successfully updated.' }
         format.json { render :show, status: :ok, location: @devolution }
       else
@@ -90,6 +97,6 @@ class DevolutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def devolution_params
-      params.require(:devolution).permit(:numRegistro, :numRequisicion, :requisicion, :numAutorizacion, :autorizacion, :numCertificacion, :certificacion, :numSolicitud, :solicitud, :numInforme, :informe, :numOtro, :otro, :disponibilidad, :idioma, :discriminado, :firma, :carencia, :nombre, :direccion, :datos, :rif, :telefonos, :persona, :otroCarencia, :contacto, :copia, :factura, :foto, :observaciones, :unidadSolicitante)
+      params.require(:devolution).permit(:numRegistro, :numRequisicion, :requisicion, :numAutorizacion, :autorizacion, :numCertificacion, :otro_especifico, :certificacion, :numSolicitud, :solicitud, :numInforme, :informe, :numOtro, :otro, :disponibilidad, :idioma, :discriminado, :firma, :carencia, :nombre, :direccion, :datos, :rif, :telefonos, :persona, :otroCarencia, :contacto, :copia, :factura, :foto, :observaciones, :unidadSolicitante)
     end
 end

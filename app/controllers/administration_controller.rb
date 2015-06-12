@@ -15,11 +15,12 @@ class AdministrationController < ApplicationController
       @projcommitments = {}
       @projexecutions = {}
       @poas = {}
-      @apays = {}  
+      @apays = {}
+      @ppays = {}
     if current_user.manage?
       @incomes = Income.all.order("date ASC").where("valid_adm=?", false)
       @executions = Execution.all.order("check_elaboration_date ASC").where("valid_adm=?", false)
-      @pays = Paymentauth.joins(:user).where("manage_analist=?", true).where("valid_coord=?", false).order("elaboration_date ASC")
+      @pays = Paymentauth.joins(:user).where("manage_analist=?", true).where("valid_coord=? AND status=?", false, "validating").order("elaboration_date ASC")
     end
     if current_user.director?
       @incomes = Income.all.order("date ASC").where("valid_adm=? AND valid_dir=?", true, false)
@@ -45,7 +46,10 @@ class AdministrationController < ApplicationController
     if current_user.labBoss?
       @pays = Paymentauth.joins(:user).where("labassistant=?", true).where("valid_coord=?", false).order("elaboration_date ASC")         
     end
-    @notifications = @incomes.count + @executions.count + @projects.count + @projcommitments.count + @projexecutions.count + @poas.count + @pays.count + @apays.count 
+    if current_user.projadmin?
+      @ppays = Projpaymentauth.all.where("valid_adm=?", false).order("elaboration_date ASC")
+    end  
+    @notifications = @incomes.count + @executions.count + @projects.count + @projcommitments.count + @projexecutions.count + @poas.count + @pays.count + @apays.count + @ppays.count
     closeNotif(@notifications)
   end
 

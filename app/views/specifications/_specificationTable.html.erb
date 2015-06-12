@@ -4,21 +4,47 @@
 		 <tr>
 		   <th align="left">Nro</th>
 		   <th align="left">Tipo</th>
-		   <th align="left" style="width: 60%;">Nombre</th>
+		   <th align="left" style="width: 40%;">Nombre</th>
 		   <th align="left">Proceso</th>
 		 </tr>
 	  </thead>
 
 	  <tbody>
 		 <% @specifications.each_with_index do |specification,index| %>
+		    <% @est = "vacio" %>
+		    <% @estado.each do |estado| %>
+					<% if estado.specification_id == specification.id %>
+						<% @est = estado.estado %>
+					<% end %>
+		    <% end %>
 	  		<tr>
 		     <td><%= index+1 %></td>
 		     <td><%= specification.tipo %></td>
-		     <td style="width: 60%;"><%= specification.nombre %></td>
+		     <td style="width: 40%;"><%= specification.nombre %></td>
 		     <td style="text-align:right">
 
-		     <%= link_to '<button type="button" class="btn btn-primary">Completar</button>'.html_safe,  {:controller => "comprando", :action => "seleccionarEspecificacion", :specification => specification.id } %></td>
-		   </tr>
+			 <% if @est == "vacio" %>
+			 <%@a = 1%>
+		     <%= link_to '<button type="button" class="btn btn-primary">Completar</button>'.html_safe,  {:controller => "comprando", :action => "seleccionarEspecificacion", :specification => specification.id } %>
+		     <% else if specification.p6 == 2 %>
+		     <%= link_to '<button type="button" class="btn btn-primary">Consultar</button>'.html_safe,  {:controller => "comprando", :action => "seleccionarEspecificacion", :specification => specification.id } %>
+		     <% else %>	
+		        
+				<% if @est == "Rechazar solicitud" %>
+		     		     Solicitud Rechazada -  <%= link_to '<button type="button" class="btn btn-primary">Nota de devolución</button>'.html_safe,  {:controller => "comprando", :action => "seleccionarEspecificacion", :specification => specification.id } %>
+				<% else %>
+						Solicitud Aceptada - <%= link_to '<button type="button" class="btn btn-primary">Consultar</button>'.html_safe,  {:controller => "comprando", :action => "seleccionarEspecificacion", :specification => specification.id } %>
+
+				<% end %>
+				<% end %>
+			
+		     <% end %>
+		      <% if specification.p1 == 1 && @est == "vacio" %>
+   <%= link_to '<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar </button>'.html_safe, specification,method: :delete,
+       data: { confirm: '¿Está seguro que desea eliminar la especificación técnica?' } %>
+
+<% end %></tr>	
+		   </td></tr>
 		 <% end %>
 <% if @sumSpecifications == 0 %>
 		 	<tr class="warning">

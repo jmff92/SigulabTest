@@ -64,7 +64,9 @@ class QuotesController < ApplicationController
     invitation = Invitation.find(idq)
     @quote.nombre = invitation.nombre;
     specification = Specification.find(session[:specification_sel_id])
+    if Quote.where(:specification_id => session[:specification_sel_id]).count != 0
     specification.p4 = 1
+    end
     specification.p5 = 1
     session[:specification_p4] = specification.p4
     session[:specification_p5] = specification.p5

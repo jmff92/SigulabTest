@@ -53,7 +53,7 @@
 							<% @commitments.each do |c| %>
 								<tr>
 									<td class="text-center"><%= c.date.strftime('%d/%m/%Y') %></td>
-									<td><%= link_to c.description, c %></td>
+									<td><%= link_to c.description.upcase, c %></td>
 									<td class="text-right"><%= number_to_currency(c.amount, format: "%n", delimiter: ".", separator: ",", precision: 2) %></td>
 								</tr>
 							<% end %>

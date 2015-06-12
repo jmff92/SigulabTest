@@ -53,6 +53,7 @@ specification = Specification.find(session[:specification_sel_id])
   
   # GET /services/new
   def new
+    @item = Equipment.all.where(id2: params[:format])
     @service = Service.new
   end
 
@@ -65,6 +66,10 @@ specification = Specification.find(session[:specification_sel_id])
   def create
     @service = Service.new(service_params)
     @service.user_id = current_user.username
+    @service.nombre = @service.nombre.upcase
+    @service.tipo = @service.tipo.upcase
+    @service.descripcion = @service.descripcion.upcase
+    @service.ubicacion = @service.ubicacion.upcase
 
     respond_to do |format|
       if @service.save
@@ -80,8 +85,13 @@ specification = Specification.find(session[:specification_sel_id])
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
   def update
+    @service.update(service_params)
+    @service.nombre = @service.nombre.upcase
+    @service.tipo = @service.tipo.upcase
+    @service.descripcion = @service.descripcion.upcase
+    @service.ubicacion = @service.ubicacion.upcase
     respond_to do |format|
-      if @service.update(service_params)
+      if @service.save
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
         format.json { render :show, status: :ok, location: @service }
       else

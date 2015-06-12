@@ -61,6 +61,20 @@ class ActsController < ApplicationController
 
      if current_user.acquisition? || current_user.import? 
             @mostrar_editar = true
+     elsif current_user.acquisition_analist? || current_user.import_analist? 
+	    if @user.director? || @user.directorate? || @user.gsmp? || @user.acquisition? || @user.import? || @user.quality? || @user.manage? || @user.acquisition_analist? || @user.import_analist? || @user.quality_analist? || @user.manage_analist? 
+		@mostrar_editar = true
+            else
+		@mostrar_editar = false
+            end
+    elsif current_user.director? || current_user.directorate? || current_user.gsmp? || current_user.quality? || current_user.quality_analist? || current_user.manage? || current_user.manage_analist? || current_user.section_boss? || current_user.proy_responsible?
+	@mostrar_editar = false
+    else
+	@mostrar_editar = true
+    end
+
+
+     if current_user.acquisition? || current_user.import? 
 	    if @user.director? || @user.directorate? || @user.gsmp? || @user.acquisition? || @user.import? || @user.quality? || @user.manage? || @user.acquisition_analist? || @user.import_analist? || @user.quality_analist? || @user.manage_analist? 
                 @mostrar_eliminar = true
             else
@@ -68,16 +82,18 @@ class ActsController < ApplicationController
             end
      elsif current_user.acquisition_analist? || current_user.import_analist? 
 	    if @user.director? || @user.directorate? || @user.gsmp? || @user.acquisition? || @user.import? || @user.quality? || @user.manage? || @user.acquisition_analist? || @user.import_analist? || @user.quality_analist? || @user.manage_analist? 
-		@mostrar_editar = true
                 @mostrar_eliminar = true
             else
                 @mostrar_eliminar = false
-		@mostrar_editar = false
             end
     elsif current_user.director? || current_user.directorate? || current_user.gsmp? || current_user.quality? || current_user.quality_analist? || current_user.manage? || current_user.manage_analist? || current_user.section_boss? || current_user.proy_responsible?
-	@mostrar_editar = false
 	@mostrar_eliminar = false
-    elsif current_user.acquisition?
+    else
+	@mostrar_eliminar = true
+    end
+
+
+    if current_user.acquisition?
 	if @user.acquisition? || @user.acquisition_analist?
 	    @mostrar_validar = true
 	else
@@ -92,10 +108,16 @@ class ActsController < ApplicationController
     elsif current_user.director? || current_user.directorate? || current_user.gsmp? || current_user.acquisition_analist? || current_user.import_analist? || current_user.quality? || current_user.quality_analist? || current_user.manage? || current_user.manage_analist? || current_user.labassistant? || current_user.proy_responsible?
 	@mostrar_validar = false
     else
-	@mostrar_editar = true
-	@mostrar_eliminar = true
 	@mostrar_validar = true
     end
+
+
+    if current_user.gsmp? || current_user.quality? || current_user.quality_analist? || current_user.manage? || current_user.manage_analist?
+	@mostrar_descargar = false
+    else
+	@mostrar_descargar = true
+    end
+
     @acts = Act.find(params[:id])
     
   end

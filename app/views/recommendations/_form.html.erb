@@ -5,7 +5,7 @@
     </span>
 
 <table style="margin-left:-220px; width: 660px;">
-<tr><td style="width:55%"><span class="red">*</span> <%= f.label "Código de la Especificación Técnica" %><br/><%= session['specification_sel_id'] %><input type="hidden" name="recommendation[codigo]" value="<%= session['specification_sel_id'] %>"></td><td><span class="red">*</span> <%= f.label "Nombre del responsable:" %><br/><%= f.text_field :responsale %></td></tr><tr><td><br/><span class="red">*</span><%= f.label "Via por la cual se envió la carta de invitación" %><br/><%= f.collection_select :via, Recommendation::ViaEnvio, :to_s, :to_s, :include_blank => false %></td></tr>
+<tr><td style="width:55%"><span class="red">*</span> <%= f.label "Código de la Especificación Técnica" %><br/><%= session['specification_sel_id'] %><input type="hidden" name="recommendation[codigo]" value="<%= session['specification_sel_id'] %>"></td><td><td><br/><span class="red">*</span><%= f.label "Via por la cual se envió la carta de invitación" %><br/><%= f.collection_select :via, Recommendation::ViaEnvio, :to_s, :to_s, :include_blank => false %></td></tr>
 </table>
    <br/><br/>     
 <div class="field"><span class="red">*</span> <%= f.label "Empresas Seleccionadas" %>

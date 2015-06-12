@@ -82,7 +82,7 @@ class ReporteInvitations < Prawn::Document
     end
 
     move_down 100
-    text " La oferta deberá ser enviada por fax al número: #{@invitation.telefono} o correo electrónico #{@invitation.correo} sellado y firmado por la empresa participante. De igual manera, le informamos que se recibirán ofertas hasta el día #{time.strftime("%d-%m-%Y")}", :align => :justify, :indent_paragraphs => 40, :size => 11
+    text " La oferta deberá ser enviada por fax al número: #{@invitation.numero_fax} o correo electrónico #{@invitation.correo} sellado y firmado por la empresa participante. De igual manera, le informamos que se recibirán ofertas hasta el día #{time.strftime("%d-%m-%Y")}", :align => :justify, :indent_paragraphs => 40, :size => 11
 
    move_down 5
    text "Para efectos de la oferta enviada por su Empresa, será aplicado el Articulo 118 del Reglamento de la Ley de Contrataciones Públicas: “<u>Los órganos o entes contratantes, adjudicaran preferentemente bajo esta modalidad a empresas pequeñas, y medianas industrias o cualquier otra forma asociativa productiva comunitaria, todas natural de la localidad o ubicadas en el lugar donde se ejecutará la contratación.</u>” ", :align => :justify, :indent_paragraphs => 40,:inline_format => true, :size => 11 
@@ -94,7 +94,7 @@ class ReporteInvitations < Prawn::Document
    :align => :justify,:indent_paragraphs => 40, :inline_format => true, :size => 11
    
 	move_down 5
-   text "Para cualquier información adicional comunicarse a #{@invitation.telefono_Adicional} ", :align => :justify, :indent_paragraphs => 40, :size => 11
+   text "Para cualquier información adicional comunicarse a #{@invitation.telefono} ", :align => :justify, :indent_paragraphs => 40, :size => 11
 
    move_down 5
    text "Agradeciendo su receptividad y respuesta a esta solicitud, se despide de usted.", :align => :justify,:indent_paragraphs => 40, :size => 11

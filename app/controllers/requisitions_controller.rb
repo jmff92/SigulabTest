@@ -86,6 +86,7 @@ if current_user.acquisition? || current_user.import? || current_user.acquisition
     @requisition = Requisition.new(requisition_params)
     @requisition.user_id = current_user.username
     @requisition.specification_id = session[:specification_sel_id]
+    @requisition.solicitante = @requisition.solicitante.upcase
     respond_to do |format|
       if @requisition.save
         format.html { redirect_to @requisition, notice: 'Requisition was successfully created.' }
@@ -100,8 +101,10 @@ if current_user.acquisition? || current_user.import? || current_user.acquisition
   # PATCH/PUT /requisitions/1
   # PATCH/PUT /requisitions/1.json
   def update
+    @requisition.update(requisition_params)
+    @requisition.solicitante = @requisition.solicitante.upcase
     respond_to do |format|
-      if @requisition.update(requisition_params)
+      if @requisition.save
         format.html { redirect_to @requisition, notice: 'Requisition was successfully updated.' }
         format.json { render :show, status: :ok, location: @requisition }
       else

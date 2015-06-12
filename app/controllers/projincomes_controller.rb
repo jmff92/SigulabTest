@@ -62,6 +62,9 @@ class ProjincomesController < ApplicationController
     end
     
     @projincome = Projincome.new(projincome_params)
+    @projincome.description = @projincome.description.upcase
+    @projincome.organism = @projincome.organism.upcase
+    @projincome.unit = @projincome.unit.upcase
   
     if @projincome.save
       redirect_to controller: 'projincomes', id: params[:id]
@@ -112,6 +115,10 @@ class ProjincomesController < ApplicationController
 
 
     @projincome = Projincome.find(params[:id])
+    params[:projincome][:description] = params[:projincome][:description].upcase
+    params[:projincome][:organism] = params[:projincome][:organism].upcase
+    params[:projincome][:unit] = params[:projincome][:unit].upcase
+
   
     if @projincome.update_attributes(projincome_params)
       redirect_to projincome_url(@projincome)

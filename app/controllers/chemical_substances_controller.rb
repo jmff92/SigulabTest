@@ -20,15 +20,6 @@ class ChemicalSubstancesController < ApplicationController
   # GET /chemical_substances/1.json
   def show
     @ids = @chemical_substance.id2
-    @binnacle = Binnacle.new
-    @binnacle.idSustancia = @chemical_substance.id2
-    @binnacle.fecha = Date.today
-    @binnacle.consumo = 0.0
-    @binnacle.ingreso = @chemical_substance.quantity
-    @binnacle.total = @chemical_substance.quantity
-    @binnacle.tipo = "Ingreso"
-    @binnacle.descripcion = " "
-    @binnacle.save
   end
 
   # GET /chemical_substances/new
@@ -48,6 +39,15 @@ class ChemicalSubstancesController < ApplicationController
       if @chemical_substance.save
         @chemical_substance.id2 = "SQ-" + "#{@chemical_substance.id}"
         @chemical_substance.save
+        @binnacle = Binnacle.new
+        @binnacle.idSustancia = @chemical_substance.id2
+        @binnacle.fecha = Date.today
+        @binnacle.consumo = 0.0
+        @binnacle.ingreso = @chemical_substance.quantity
+        @binnacle.total = @chemical_substance.quantity
+        @binnacle.tipo = "Ingreso"
+        @binnacle.descripcion = "Primer ingreso al inventario"
+        @binnacle.save
         format.html { redirect_to @chemical_substance }
         format.json { render :show, status: :created, location: @chemical_substance }
       else

@@ -117,6 +117,10 @@ if current_user.acquisition? || current_user.import? || current_user.acquisition
     @servicerequest = Servicerequest.new(servicerequest_params)
     @servicerequest.user_id = current_user.username
     @servicerequest.specification_id = session[:specification_sel_id]
+    @servicerequest.seccion = @servicerequest.seccion.upcase
+    @servicerequest.contacto_int = @servicerequest.contacto_int.upcase
+    @servicerequest.correo_int = @servicerequest.correo_int.upcase
+    @servicerequest.observacion = @servicerequest.observacion.upcase
     respond_to do |format|
       if @servicerequest.save
         format.html { redirect_to @servicerequest, notice: 'Service request was successfully created.' }
@@ -131,8 +135,13 @@ if current_user.acquisition? || current_user.import? || current_user.acquisition
   # PATCH/PUT /servicerequests/1
   # PATCH/PUT /servicerequests/1.json
   def update
+    @servicerequest.update(servicerequest_params)
+    @servicerequest.seccion = @servicerequest.seccion.upcase
+    @servicerequest.contacto_int = @servicerequest.contacto_int.upcase
+    @servicerequest.correo_int = @servicerequest.correo_int.upcase
+    @servicerequest.observacion = @servicerequest.observacion.upcase
     respond_to do |format|
-      if @servicerequest.update(servicerequest_params)
+      if @servicerequest.save
         format.html { redirect_to servicerequests_url, notice: 'Service request was successfully updated.' }
         format.json { render :show, status: :ok, location: @servicerequest }
       else

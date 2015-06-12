@@ -33,6 +33,7 @@ class SpecificationsController < ApplicationController
       @specifications = Specification.where(:user_id => current_user.username).all
       @sumSpecifications = Specification.where(:user_id => current_user.username).count
     end
+    @estado = Reject.all
   end
 
   # GET /specifications/1
@@ -68,6 +69,8 @@ class SpecificationsController < ApplicationController
     @specification.p8 = 0
     @specification.p9 = 0
     
+    @specification.nombre = @specification.nombre.upcase
+
     session[:specification_sel_nacional] = "Nacional"
     @specification.nacional = "Nacional"
 
@@ -89,6 +92,7 @@ class SpecificationsController < ApplicationController
       else
          session[:specification_sel_link] = "/items/"
       end
+
     respond_to do |format|
       if @specification.save
         session[:specification_sel_id] = @specification.id
@@ -104,8 +108,10 @@ class SpecificationsController < ApplicationController
   # PATCH/PUT /specifications/1
   # PATCH/PUT /specifications/1.json
   def update
+    @specification.update(specification_params)
+    @specification.nombre = @specification.nombre.upcase
     respond_to do |format|
-      if @specification.update(specification_params)
+      if @specification.save
         format.html { redirect_to @specification, notice: 'Specification was successfully updated.' }
         format.json { render :show, status: :ok, location: @specification }
       else
