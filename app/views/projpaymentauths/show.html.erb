@@ -91,7 +91,7 @@
 			<% end %>
 			<% if @pay.delivery_date.blank?  %>
 				<% if current_user.proy_responsible? %>
-					<% if @pay.status==nil or @pay.status="generated" %>
+					<% if @pay.status==nil or @status=="validating" %>
 						<%= link_to delete_projpaymentauth_path, data: {confirm: "¿Está seguro de eliminar la autorización de pago?"} do %>
 							<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Eliminar Autorización de Pago</button>
      			<% end %>
