@@ -5,7 +5,7 @@ class ProjpaymentauthsController < ApplicationController
   
   def index
     @project = Project.find(params[:id])
-    @pays = Projpaymentauth.all.order("elaboration_date ASC").where("proyect=?",params[:id])
+    @pays = Projpaymentauth.all.order("elaboration_date ASC").where("proyect=? and valid_adm=?",params[:id], true)
   end
 
   def show
@@ -17,13 +17,12 @@ class ProjpaymentauthsController < ApplicationController
       format.pdf do
         pdf = AutorizacionPagoProj.new(@pay)
         send_data pdf.render, filename: 'AutorizacionPago.pdf', type: 'application/pdf'
-        @pay.update_column(:status, "generated")
       end
     end
   end
 
   def all
-    @pays = Projpaymentauth.all.order("elaboration_date ASC")
+    @pays = Projpaymentauth.all.order("elaboration_date ASC").where("valid_adm=?", true)
     @sum = @pays.sum(:amount)
   end
   
@@ -103,6 +102,28 @@ class ProjpaymentauthsController < ApplicationController
     @pay = Projpaymentauth.find(params[:id]).destroy
     redirect_to action: 'index', id: @proy
   end  
+
+  def validating
+    @pay = Projpaymentauth.find(params[:id])
+    @pay.update_column(:status, "validating")
+    @pay.update_column(:valid_adm, false)    
+    redirect_to :back
+  end   
+
+  def valid_projadmin
+    @pay = Projpaymentauth.find(params[:id])
+    @pay.update_column(:valid_adm, true)
+    @pay.update_column(:status, "generated")    
+    redirect_to :back
+  end  
+
+  def del
+    @pay = Projpaymentauth.find(params[:id])
+    @pay.update_column(:status, nil)
+    @pay.update_column(:valid_adm, false)
+    redirect_to :back    
+  end   
+
   
   private
   

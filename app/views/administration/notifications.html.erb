@@ -141,6 +141,22 @@
      									<% end %> </td>     
 								</tr>
 							<% end %>
+							<% @ppays.each do |j| %>
+								<tr>
+									<td class="text-center"><%= j.elaboration_date.strftime('%d/%m/%Y') %></td>
+									<td class="text-center"><%= link_to "Autorización de Pago", j %></td>
+									<td class="text-center"><%= j.recipient %></td>
+									<td class="text-right"><%= number_to_currency(j.amount, format: "%n", delimiter: ".", separator: ",", precision: 2) %></td>
+									<td class="text-center">
+										<%= link_to valid_projadmin_projpaymentauth_path(j), class: "btn btn-success", title: "Validar autorización de pago", data: {confirm: "¿Está seguro de validar la autorización de pago?"} do %>
+											<span class="glyphicon glyphicon-check"></span>
+										<% end %>									
+										 &nbsp;
+										 <%= link_to del_projpaymentauth_path(j), class: "btn btn-danger", title: "Rechazar autorización de pago", data: {confirm: "¿Está seguro de rechazar la autorización de pago?"} do %>
+     										<span class="glyphicon glyphicon-remove"></span>
+     									<% end %> </td>
+								</tr>
+							<% end %>							
 							<% @projcommitments.each do |c| %>
 								<tr>
 									<td class="text-center"><%= c.date %></td>

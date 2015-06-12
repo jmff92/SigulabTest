@@ -148,6 +148,9 @@ end
   resources :projpaymentauths do
     get 'annul', on: :member
     get 'delete', on: :member
+    get 'del', on: :member
+    get 'validating', on: :member
+    get 'valid_projadmin', on: :member    
   end
   resources :projincomes
   resources :projexecutions do
