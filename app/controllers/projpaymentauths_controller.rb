@@ -5,7 +5,7 @@ class ProjpaymentauthsController < ApplicationController
   
   def index
     @project = Project.find(params[:id])
-    @pays = ((Projpaymentauth.all.order("elaboration_date ASC").where("proyect=? and valid_adm=?",params[:id], true)) + (Projpaymentauth.all.where("user_id=?", current_user.id))).uniq.sort_by(&:"#{"elaboration_date"}")
+    @pays = ((Projpaymentauth.all.order("elaboration_date ASC").where("proyect=? and valid_adm=?",params[:id], true)) + (Projpaymentauth.all.where("user_id=? and proyect=?", current_user.id, params[:id]))).uniq.sort_by(&:"#{"elaboration_date"}")
   end
 
   def show
@@ -22,7 +22,7 @@ class ProjpaymentauthsController < ApplicationController
   end
 
   def all
-    @pays = ((Projpaymentauth.all.order("elaboration_date ASC").where("valid_adm=?", true)) + (Projpaymentauth.all.where("user_id=?", current_user.id))).uniq.sort_by(&:"#{"elaboration_date"}")
+    @pays = ((Projpaymentauth.all.order("elaboration_date ASC").where("valid_adm=?", true)) + (Projpaymentauth.all.where("user_id=? and proyect=?", current_user.id, params[:id]))).uniq.sort_by(&:"#{"elaboration_date"}")
     @sum = @pays.sum(:amount)
   end
   
@@ -128,7 +128,7 @@ class ProjpaymentauthsController < ApplicationController
   private
   
     def projpaymentauth_params
-      params.require(:projpaymentauth).permit(:registry, :recipient, :from, :elaboration_date, :delivery_date, :delivered_id, :concept, :amount, :observations, :recieved_by, :valid_adm)
+      params.require(:projpaymentauth).permit(:registry, :recipient, :from, :elaboration_date, :delivery_date, :delivered_id, :concept, :amount, :observations, :recieved_by, :valid_adm, :user_id)
     end
   
 end
