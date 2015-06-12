@@ -101,7 +101,7 @@ class ProjexecutionsController < ApplicationController
      @projexecutions = Projexecution.where("commitment_id=?", @projexecution.commitment_id).where("valid_res=?", true)
      @projexecuted = @projexecutions.where("check_annulled=false").sum(:check_amount) - @oldamount
 
-     if params[:projexecution][:check_amount].to_i > @commitment.amount - @projexecuted
+    if (params[:execution][:check_amount]).tr('.','').tr(',', '.').to_f > @commitment.amount - @executed
        @projexecution.executable_amount
        render 'edit'
      else 
