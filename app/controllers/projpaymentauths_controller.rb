@@ -5,7 +5,7 @@ class ProjpaymentauthsController < ApplicationController
   
   def index
     @project = Project.find(params[:id])
-    @pays = Projpaymentauth.all.order("elaboration_date ASC").where("proyect=? and valid_adm=?",params[:id], true)
+    @pays = ((Projpaymentauth.all.order("elaboration_date ASC").where("proyect=? and valid_adm=?",params[:id], true))+ (Projpaymentauth.all.where("user_id=?", current_user.id))).uniq.sort_by(&:"#{"elaboration_date"}")
   end
 
   def show
@@ -22,7 +22,7 @@ class ProjpaymentauthsController < ApplicationController
   end
 
   def all
-    @pays = Projpaymentauth.all.order("elaboration_date ASC").where("valid_adm=?", true)
+    @pays = ((Projpaymentauth.all.order("elaboration_date ASC").where("valid_adm=?", true))+ (Projpaymentauth.all.where("user_id=?", current_user.id))).uniq.sort_by(&:"#{"elaboration_date"}")
     @sum = @pays.sum(:amount)
   end
   
@@ -63,7 +63,7 @@ class ProjpaymentauthsController < ApplicationController
     @pay = Projpaymentauth.find(params[:id])
     @old_date = @pay.delivery_date
     @new_date = projpaymentauth_params[:delivery_date]
-binding.pry
+
     if @pay.update_attributes(projpaymentauth_params)
       # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
         if (@old_date == nil) and (@new_date != "")
