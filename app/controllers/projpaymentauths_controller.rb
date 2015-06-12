@@ -46,6 +46,10 @@ class ProjpaymentauthsController < ApplicationController
     
     @pay = Projpaymentauth.new(projpaymentauth_params)
     @pay.proyect = params[:id]
+    @pay.recipient = @pay.recipient.upcase
+    @pay.concept = @pay.concept.upcase
+    @pay.observations = @pay.observations.upcase
+    @pay.recieved_by = @pay.recieved_by.upcase
 
     if @pay.save
 						redirect_to controller: 'projpaymentauths', id: params[:id]
@@ -63,6 +67,11 @@ class ProjpaymentauthsController < ApplicationController
     @pay = Projpaymentauth.find(params[:id])
     @old_date = @pay.delivery_date
     @new_date = projpaymentauth_params[:delivery_date]
+
+    params[:pay][:recipient] = params[:pay][:recipient].upcase
+    params[:pay][:concept] = params[:pay][:concept].upcase
+    params[:pay][:observations] = params[:pay][:observations].upcase
+    params[:pay][:recieved_by] = params[:pay][:recieved_by].upcase
 
     if @pay.update_attributes(projpaymentauth_params)
       # Si cambio fecha de recepcion (nil a fecha), se genera compromiso

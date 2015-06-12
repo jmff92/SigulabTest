@@ -51,7 +51,7 @@
 				      		<% @projexecutions.each do |i| %>
 								<tr>
 									<td class="text-center"><%= link_to i.check_number, i %></td>					
-									<td class="text-center"><%= link_to Projcommitment.find(i.commitment_id).description, Projcommitment.find(i.commitment_id) %></td>
+									<td class="text-center"><%= link_to Projcommitment.find(i.commitment_id).description.upcase, Projcommitment.find(i.commitment_id) %></td>
 									<td class="text-center"><%= number_to_currency(i.check_amount, format: "%n", delimiter: ".", separator: ",") %></td>
 									<td class="text-center">
 				  						<% if i.check_annulled? %>

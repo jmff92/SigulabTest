@@ -46,7 +46,10 @@ class ProjcommitmentsController < ApplicationController
     
     
     @commitment = Projcommitment.new(projcommitment_params)
-    @commitment.proj_id = params[:id]  
+    @commitment.proj_id = params[:id]
+    @commitment.description = @commitment.description.upcase
+    @commitment.recipient = @commitment.recipient.upcase
+    @commitment.observations = @commitment.observations.upcase
 
     if @commitment.save
       redirect_to controller: 'projcommitments', id: params[:id]
@@ -71,6 +74,9 @@ class ProjcommitmentsController < ApplicationController
     end
     
     @commitment = Projcommitment.find(params[:id])
+    params[:commitment][:description] = params[:commitment][:description].upcase
+    params[:commitment][:observations] = params[:commitment][:observations].upcase
+    params[:commitment][:recipient] = params[:commitment][:recipient].upcase
     
     if @commitment.update_attributes(projcommitment_params)
       redirect_to projcommitment_url(@commitment)

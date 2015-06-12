@@ -54,6 +54,8 @@ class ProjexecutionsController < ApplicationController
      end
    
      @projexecution = Projexecution.new(execution_params)
+     @projexecution.remarks = @projexecution.remarks.upcase
+     @projexecution.document_name = @projexecution.document_name.upcase
      @commitment = Projcommitment.find(params[:cid])    
      @projexecutions = Projexecution.where("commitment_id=?",params[:cid])
      @projexecuted = @projexecutions.where("check_annulled=false").sum(:check_amount)
@@ -101,11 +103,16 @@ class ProjexecutionsController < ApplicationController
      @projexecutions = Projexecution.where("commitment_id=?", @projexecution.commitment_id).where("valid_res=?", true)
      @projexecuted = @projexecutions.where("check_annulled=false").sum(:check_amount) - @oldamount
 
-    if (params[:execution][:check_amount]).tr('.','').tr(',', '.').to_f > @commitment.amount - @executed
+     params[:projexecution][:remarks] = params[:execution][:remarks].upcase
+     params[:projexecution][:document_name] = params[:execution][:document_name].upcase        
+
+    if (params[:projexecution][:check_amount]).tr('.','').tr(',', '.').to_f > @commitment.amount - @executed
        @projexecution.executable_amount
        render 'edit'
      else 
        if @projexecution.update_attributes(execution_params)
+         @projexecution.remarks = @projexecution.remarks.upcase
+         @projexecution.document_name = @projexecution.document_name.upcase
          redirect_to action: 'index', id: @projexecution.proyecto
        else
          @commitment = Projcommitment.find(Projexecution.find(params[:id]).commitment_id)

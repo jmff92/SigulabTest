@@ -28,16 +28,16 @@
 		<table class="table table-striped">
 			<tr>
 				<td class="col-xs-5 text-right">Dependencia:</td>
-				<td class="col-xs-7"><%= @execution.commitment.lab.sae_name %></td>
+				<td class="col-xs-7"><%= @execution.commitment.lab.sae_name.upcase %></td>
 			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">Compromiso asociado:</td>
-				<td class="col-xs-7"><%= @execution.commitment.description %></td>
+				<td class="col-xs-7"><%= @execution.commitment.description.upcase %></td>
 			</tr>
 			<% if !@execution.document_name.blank? -%>
 			<tr>
 				<td class="col-xs-5 text-right">Documento:</td>
-				<td class="col-xs-7"><%= @execution.document_name %></td>
+				<td class="col-xs-7"><%= @execution.document_name.upcase %></td>
 			</tr>
 			<% end %>		
 			<tr>

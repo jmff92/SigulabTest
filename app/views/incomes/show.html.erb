@@ -43,12 +43,12 @@
 			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">Origen:</td>
-				<td class="col-xs-7"><%= Income.origin_str[Income.origins[@income.origin]] %></td>
+				<td class="col-xs-7"><%= Income.origin_str[Income.origins[@income.origin]].upcase %></td>
 			</tr>
 			<% if !@income.financing.blank? -%>			
 			<tr>
 				<td class="col-xs-5 text-right">Fuente de Financiamiento:</td>
-				<td class="col-xs-7"><%= Income.financing_str[Income.financings[@income.financing]] %></td>
+				<td class="col-xs-7"><%= Income.financing_str[Income.financings[@income.financing]].upcase %></td>
 			</tr>
             <% end %>			
 			<% if !@income.organism.blank? -%>

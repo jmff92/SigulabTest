@@ -49,6 +49,10 @@ class PaymentauthsController < ApplicationController
     end
     
     @pay = Paymentauth.new(paymentauth_params)
+    @pay.recipient = @pay.recipient.upcase
+    @pay.concept = @pay.concept.upcase
+    @pay.observations = @pay.observations.upcase
+    @pay.recieved_by = @pay.recieved_by.upcase
 
     # Validacion de coordinacion segun el cargo del usuario
     if current_user.directorate? or current_user.gsmp? or current_user.acquisition? or current_user.manage? or current_user.import? or current_user.quality? or current_user.labBoss?
@@ -78,6 +82,11 @@ class PaymentauthsController < ApplicationController
     @old_date = @pay.delivery_date
     @new_date = paymentauth_params[:delivery_date]
     
+    params[:pay][:recipient] = params[:pay][:recipient].upcase
+    params[:pay][:concept] = params[:pay][:concept].upcase
+    params[:pay][:observations] = params[:pay][:observations].upcase
+    params[:pay][:recieved_by] = params[:pay][:recieved_by].upcase
+
     if @pay.update_attributes(paymentauth_params)
       # Si cambio fecha de recepcion (nil a fecha), se genera compromiso
         if (@old_date == nil) and (@new_date != "")

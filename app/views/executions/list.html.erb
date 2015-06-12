@@ -51,7 +51,7 @@
 								<tr>
 									<td class="text-center"><%= i.check_elaboration_date %></td>
 									<td class="text-center"><%= link_to i.code, i %></td>
-									<td class="text-center"><%= i.commitment.lab.sae_name %></td>					
+									<td class="text-center"><%= i.commitment.lab.sae_name.upcase %></td>					
 									<td class="text-right"><%= number_to_currency(i.check_amount, format: "%n", delimiter: ".",
 									separator: ",") %></td>
 									<td class="text-center">
