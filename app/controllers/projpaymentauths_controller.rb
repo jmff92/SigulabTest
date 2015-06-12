@@ -5,7 +5,7 @@ class ProjpaymentauthsController < ApplicationController
   
   def index
     @project = Project.find(params[:id])
-    @pays = ((Projpaymentauth.all.order("elaboration_date ASC").where("proyect=? and valid_adm=?",params[:id], true))+ (Projpaymentauth.all.where("user_id=?", current_user.id))).uniq.sort_by(&:"#{"elaboration_date"}")
+    @pays = Projpaymentauth.all.order("elaboration_date ASC").where("proyect=? and valid_adm=?",params[:id], true)
   end
 
   def show
@@ -22,7 +22,7 @@ class ProjpaymentauthsController < ApplicationController
   end
 
   def all
-    @pays = ((Projpaymentauth.all.order("elaboration_date ASC").where("valid_adm=?", true))+ (Projpaymentauth.all.where("user_id=?", current_user.id))).uniq.sort_by(&:"#{"elaboration_date"}")
+    @pays = Projpaymentauth.all.order("elaboration_date ASC").where("valid_adm=?", true)
     @sum = @pays.sum(:amount)
   end
   
