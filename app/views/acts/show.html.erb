@@ -29,7 +29,26 @@
      </tr>
        <tr>
        <td class="col-xs-5 text-right">Será usado en:</td>
-       <td class="col-xs-7"><%= @act.tesis %></td>
+	 <td  class="col-xs-7">
+
+		<%
+		uso = ""
+		if @act.docencia== 1 
+			uso = uso + "Docencia. "
+		end
+		if @act.investigacion == 1 
+			uso = uso + "Investigación. "
+		end
+		if @act.extension == 1 
+			uso = uso + "Extensión. "
+		end
+		if @act.apoyo== 1 
+			uso = uso + "Apoyo Administrativo. "
+		end				
+   		%>
+<%= uso %>
+</td>
+
      </tr>
      <tr>
        <td class="col-xs-5 text-right">Nombre del Responsable</td>
