@@ -38,12 +38,11 @@ class CommitmentsController < ApplicationController
     end
     
     @commitment = Commitment.new(commitment_params)
+    @commitment.description = @commitment.description.upcase
+    @commitment.recipient = @commitment.recipient.upcase
+    @commitment.observations = @commitment.observations.upcase
 
-    if Commitment.count > 0
-      @commitment.id = Commitment.last.id+1
-    else
-      @commitment.id = 1
-    end    
+    @commitment.id = Commitment.count + 1
     
     if @commitment.save
       redirect_to action: 'index'
@@ -69,7 +68,11 @@ class CommitmentsController < ApplicationController
     end
     
     @commitment = Commitment.find(params[:id])
-    
+
+    params[:commitment][:description] = params[:commitment][:description].upcase
+    params[:commitment][:observations] = params[:commitment][:observations].upcase
+    params[:commitment][:recipient] = params[:commitment][:recipient].upcase
+
     if @commitment.update_attributes(commitment_params)
       redirect_to action: 'index'
     else

@@ -72,6 +72,9 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.user_id = current_user.username
+    @item.nombre = @item.nombre.upcase
+    @item.tipo = @item.tipo.upcase
+    @item.descripcion = @item.descripcion.upcase
 
     respond_to do |format|
       if @item.save
@@ -88,8 +91,12 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
+    @item.update(item_params)
+    @item.nombre = @item.nombre.upcase
+    @item.tipo = @item.tipo.upcase
+    @item.descripcion = @item.descripcion.upcase
     respond_to do |format|
-      if @item.update(item_params)
+      if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else

@@ -22,7 +22,7 @@
 	</div>   	
 
 	<div class="col-xs-12">
-		<h2><center>Ejecuciones de <%= @lab.sae_name %></center></h2>
+		<h2><center>Ejecuciones de <%= @lab.sae_name.upcase %></center></h2>
 	</div>
 
 	<div class="col-xs-12">
@@ -52,7 +52,7 @@
 				      		<% @executions.each do |i| %>
 								<tr>
 									<td class="text-center"><%= link_to i.code, i %></td>			
-									<td class="text-left"><%= link_to i.commitment.description, i.commitment %></td>
+									<td class="text-left"><%= link_to i.commitment.description.upcase, i.commitment %></td>
 									<td class="text-left"><%= i.commitment.recipient %></td>
 									<td class="text-left"><%= number_to_currency(i.check_amount, format: "%n", delimiter: ".", separator: ",") %></td>
 									<td class="text-center">

@@ -25,6 +25,8 @@ class RecommendationsController < ApplicationController
 	      format.html do
           if @sumRec != 0
             redirect_to @reco
+          else
+            redirect_to new_recommendation_url
           end
         end
 	      format.pdf do
@@ -156,7 +158,10 @@ class RecommendationsController < ApplicationController
         end
     @recommendation = Recommendation.new(recommendation_params)
     @recommendation.user_id = current_user.username
+    @invt = Invitation.where(:specification_id => session[:specification_sel_id]).first
+    @recommendation.responsale = @invt.responsable
     @recommendation.specification_id = session[:specification_sel_id]
+    @recommendation.responsale = @recommendation.responsale.upcase
     @recommendation.save
     specification = Specification.find(session[:specification_sel_id])
 	session[:specification_sel_nacional] = "Nacional"

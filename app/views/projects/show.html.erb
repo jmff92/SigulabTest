@@ -56,7 +56,7 @@
 			<% end %> 
 			<tr>
 				<td class="col-xs-5 text-right">Administrador del Proyecto:</td>
-				<td class="col-xs-7"><%= Project.admin_str[Project.admins[@project.admin]] %></td>
+				<td class="col-xs-7"><%= Project.admin_str[Project.admins[@project.admin]].upcase %></td>
 			</tr>
 			<tr>
 			    <td class="col-xs-5 text-right">Código SAE:</td>
@@ -92,8 +92,10 @@
 			</tr>
  		    </table></p>
 		<% if current_user.projadmin? %>	 		    
- 			<%= link_to edit_project_path do %>
-				<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Datos del Proyecto</button>
+			<%	if @project.valid_res %>
+ 				<%= link_to edit_project_path do %>
+					<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar Datos del Proyecto</button>
+				<% end %>
 			<% end %>
 		<% end %>
 	</div>
@@ -157,7 +159,7 @@
 		<p><table class="table table-striped">
 			<tr>
 				<td class="col-xs-5 text-right">Banco:</td>
-				<td class="col-xs-7"><%= Project.banco_str[Project.bancos[@project.banco]] %></td>
+				<td class="col-xs-7"><%= Project.banco_str[Project.bancos[@project.banco]].upcase %></td>
   			</tr>
 			<tr>
 				<td class="col-xs-5 text-right">Número de cuenta:</td>

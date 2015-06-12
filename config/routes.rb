@@ -108,6 +108,7 @@ end
   get "/incomes/list_lab", to: "incomes#list_lab", :as => "incomes/list_lab"
   get "/commitments/list_lab", to: "commitments#list_lab", :as => "commitments/list_lab"
   get "/executions/list_lab", to: "executions#list_lab", :as => "executions/list_lab"
+  get "/paymentauths/list_lab", to: "paymentauths#list_lab", :as => "paymentauths/list_lab"
 
   resources :poas do
     get 'delete', on: :member
@@ -147,6 +148,9 @@ end
   resources :projpaymentauths do
     get 'annul', on: :member
     get 'delete', on: :member
+    get 'del', on: :member
+    get 'validating', on: :member
+    get 'valid_projadmin', on: :member    
   end
   resources :projincomes
   resources :projexecutions do

@@ -63,6 +63,14 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new(invitation_params)
     @invitation.user_id = current_user.username
     @invitation.quote_id = -1;
+    @invitation.nombre = @invitation.nombre.upcase
+    @invitation.direccion = @invitation.direccion.upcase
+    @invitation.correo = @invitation.correo.upcase
+    @invitation.responsable = @invitation.responsable.upcase
+    @invitation.rif = @invitation.rif.upcase
+    @invitation.tipo = @invitation.tipo.upcase
+    @invitation.contacto = @invitation.contacto.upcase
+    @invitation.correo_contacto = @invitation.correo_contacto.upcase
     specification = Specification.find(session[:specification_sel_id])
     specification.p3 = 1
     session[:specification_p3] = specification.p3
@@ -81,8 +89,17 @@ class InvitationsController < ApplicationController
   # PATCH/PUT /invitations/1
   # PATCH/PUT /invitations/1.json
   def update
+    @invitation.update(invitation_params)
+    @invitation.nombre = @invitation.nombre.upcase
+    @invitation.direccion = @invitation.direccion.upcase
+    @invitation.correo = @invitation.correo.upcase
+    @invitation.responsable = @invitation.responsable.upcase
+    @invitation.rif = @invitation.rif.upcase
+    @invitation.tipo = @invitation.tipo.upcase
+    @invitation.contacto = @invitation.contacto.upcase
+    @invitation.correo_contacto = @invitation.correo_contacto.upcase
     respond_to do |format|
-      if @invitation.update(invitation_params)
+      if @invitation.save
         format.html { redirect_to @invitation, notice: 'Invitation was successfully updated.' }
         format.json { render :show, status: :ok, location: @invitation }
       else
@@ -117,6 +134,6 @@ class InvitationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invitation_params
-      params.require(:invitation).permit(:nombre, :direccion, :correo, :telefono, :telefono_Adicional, :responsable, :rif, :specification_id, :tipo, :contacto, :correo_contacto, :fecha_tope)
+      params.require(:invitation).permit(:nombre, :direccion, :correo, :telefono, :numero_fax, :responsable, :rif, :specification_id, :tipo, :contacto, :correo_contacto, :fecha_tope)
     end
 end
