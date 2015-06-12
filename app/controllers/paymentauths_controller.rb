@@ -81,11 +81,19 @@ class PaymentauthsController < ApplicationController
     @pay = Paymentauth.find(params[:id])
     @old_date = @pay.delivery_date
     @new_date = paymentauth_params[:delivery_date]
-    
-    params[:pay][:recipient] = params[:pay][:recipient].upcase
-    params[:pay][:concept] = params[:pay][:concept].upcase
-    params[:pay][:observations] = params[:pay][:observations].upcase
-    params[:pay][:recieved_by] = params[:pay][:recieved_by].upcase
+binding.pry    
+    if !(params[:paymentauth][:recipient]).nil?
+      params[:paymentauth][:recipient] = params[:paymentauth][:recipient].upcase
+    end
+    if !params[:paymentauth][:concept].nil?
+      params[:paymentauth][:concept] = params[:paymentauth][:concept].upcase
+    end
+    if params[:paymentauth][:observations].nil?
+      params[:paymentauth][:observations] = params[:paymentauth][:observations].upcase
+    end
+    if params[:paymentauth][:recieved_by].nil?
+      params[:paymentauth][:recieved_by] = params[:paymentauth][:recieved_by].upcase
+    end
 
     if @pay.update_attributes(paymentauth_params)
       # Si cambio fecha de recepcion (nil a fecha), se genera compromiso

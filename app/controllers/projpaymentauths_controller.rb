@@ -46,6 +46,7 @@ class ProjpaymentauthsController < ApplicationController
     
     @pay = Projpaymentauth.new(projpaymentauth_params)
     @pay.proyect = params[:id]
+    @pay.from = @pay.from.upcase
     @pay.recipient = @pay.recipient.upcase
     @pay.concept = @pay.concept.upcase
     @pay.observations = @pay.observations.upcase
@@ -69,6 +70,7 @@ class ProjpaymentauthsController < ApplicationController
     @old_date = @pay.delivery_date
     @new_date = projpaymentauth_params[:delivery_date]
 
+    params[:projpaymentauth][:from] = params[:projpaymentauth][:from].upcase
     params[:projpaymentauth][:recipient] = params[:projpaymentauth][:recipient].upcase
     params[:projpaymentauth][:concept] = params[:projpaymentauth][:concept].upcase
     params[:projpaymentauth][:observations] = params[:projpaymentauth][:observations].upcase
