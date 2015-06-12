@@ -51,6 +51,8 @@ class ProjcommitmentsController < ApplicationController
     @commitment.recipient = @commitment.recipient.upcase
     @commitment.observations = @commitment.observations.upcase
 
+    @commitment.id = Projcommitment.count + 1
+
     if @commitment.save
       redirect_to controller: 'projcommitments', id: params[:id]
     else

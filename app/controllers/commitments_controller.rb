@@ -42,11 +42,7 @@ class CommitmentsController < ApplicationController
     @commitment.recipient = @commitment.recipient.upcase
     @commitment.observations = @commitment.observations.upcase
 
-    if Commitment.count > 0
-      @commitment.id = Commitment.last.id+1
-    else
-      @commitment.id = 1
-    end    
+    @commitment.id = Commitment.count + 1
     
     if @commitment.save
       redirect_to action: 'index'
