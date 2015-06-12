@@ -138,7 +138,7 @@
       <tr>
         <td class="col-xs-5 text-right"><strong>Correo de Responsable</strong>
         <span class="red">*</span></td>
-          <td class="col-xs-7"><%= f.text_field :correo %></td>
+          <td class="col-xs-7"><%= f.text_field :correo , placeholder:"Ejemplo@usb.ve"%></td>
       </tr>
 
           <tr>
@@ -180,7 +180,7 @@
               <td class="hidden_option1 col-xs-7" >
                 <div class="input-group">
                   <span class="input-group-addon">Bs.</span>
-                  <%= f.text_field :cost %>
+                  <%= f.text_field(:cost, min: 0, :step => 'any') %>
                 </div>
               </td> 
 
@@ -204,7 +204,7 @@
             </tr>
 
               <tr class="hidden_option2">
-            <td class="hidden_option2 col-xs-5 text-right"><strong> PJ Donación</strong></td>
+            <td class="hidden_option2 col-xs-5 text-right"><strong> Persona Juridica</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :PJDonacion %></td>
             </tr>
 
@@ -292,7 +292,7 @@
 
 <script type="text/javascript">
 
-/*  if( window.localStorage )
+  if( window.localStorage )
   {
     if( !localStorage.getItem( 'firstLoad' ) )
     {
@@ -302,7 +302,7 @@
     else
       localStorage.removeItem( 'firstLoad' );
   }
-;*/
+;
 
 function changeOrigen() {
 
