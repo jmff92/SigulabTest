@@ -27,8 +27,8 @@ class ProjexecutionsController < ApplicationController
    def list
      @projexecutions = Projexecution.where("commitment_id=?",params[:cid]).where("valid_res=?", true).order("date ASC")
      @sum = @projexecutions.where("check_annulled=false").sum(:check_amount)
-     @commitments = Projcommitment.find(params[:cid]).where("valid_res=?", true)
-     @project = Project.find(@commitments.proj_id).where("valid_res=?", true)
+     @commitments = Projcommitment.find(params[:cid])
+     @project = Project.find(@commitments.proj_id)
      @sum_commitment = @commitments.amount
    end
   
