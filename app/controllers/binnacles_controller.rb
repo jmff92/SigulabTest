@@ -7,7 +7,7 @@ class BinnaclesController < ApplicationController
 
   def index
     if params[:format]
-      @binnacles = Binnacle.where(idSustancia: params[:format])
+      @binnacles = Binnacle.where(idSustancia: params[:format]).order('fecha ASC, created_at ASC')
       @ingresos = Binnacle.where(idSustancia: params[:format]).sum(:ingreso)
       @consumos = Binnacle.where(idSustancia: params[:format]).sum(:consumo)
     end
@@ -57,8 +57,8 @@ class BinnaclesController < ApplicationController
     @binnacle = Binnacle.new(binnacle_params)
     respond_to do |f|
       if @binnacle.save
-        @ingresos = Binnacle.where(idSustancia: @binnacle.idSustancia).sum(:ingreso)
-        @consumos = Binnacle.where(idSustancia: @binnacle.idSustancia).sum(:consumo)
+        @ingresos = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", @binnacle.fecha).sum(:ingreso)
+        @consumos = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", @binnacle.fecha).sum(:consumo)
         @binnacle.total = @ingresos - @consumos
         @binnacle.save
         @sustancia = ChemicalSubstance.where(id2: @binnacle.idSustancia)
@@ -69,11 +69,20 @@ class BinnaclesController < ApplicationController
         if @binnacle.total < @minimo
           BinnacleMailer.binnacle_email(@email,@sustancia).deliver
         end
+        if Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha > ?", @binnacle.fecha).exists?
+          @modificar = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha > ?", @binnacle.fecha)
+          @modificar.each do |modificar|
+            @ingresos2 = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", modificar.fecha).where('created_at < ?', modificar.created_at).sum(:ingreso)
+            @consumos2 = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", modificar.fecha).where('created_at < ?', modificar.created_at).sum(:consumo)
+            @total2 = @ingresos2 - @consumos2
+            modificar.update(total: @total2)
+          end
+        end
         f.html { redirect_to @binnacle }
         f.json { render :show, status: :created, location: @binnacle }
       else
         f.html { render :new }
-        f.json { render json: @binnacle.errors, status: :unprocessable_entity }
+        f.json { render json: @binnacle.errors(binnacle_params), status: :unprocessable_entity }
       end
     end
   end
