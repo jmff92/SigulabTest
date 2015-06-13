@@ -73,7 +73,12 @@
           </tr>
           <tr>
             <td class="col-xs-5 text-right"><strong>De un juego</strong></td>
-            <td class="col-xs-7"><%= @tool.from_set %></td>
+            <% if @tool.from_set == true %>
+            <td class="col-xs-7"> SI </td>
+            <% end %>
+            <% if @tool.from_set == false %>
+            <td class="col-xs-7"> NO </td>
+            <% end %>
           </tr>
      
 
@@ -102,7 +107,7 @@
           <% end %> 
     <%end%>
     <% if can? :update, @tool %>
-      <%= link_to edit_tool_path(@tool) do %>
+      <%= link_to edit_tool_path(@tool) + "#tabs-1" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>
@@ -120,6 +125,10 @@
             <td class="col-xs-7"><%= @tool.responsible %></td>
           </tr>
           <tr>
+            <td class="col-xs-5 text-right"><strong>Correo del Responsable</strong></td>
+            <td class="col-xs-7"><%= @tool.correo %></td>
+          </tr>
+          <tr>
             <td class="col-xs-5 text-right"><strong>Dependencia</strong></td>
             <td class="col-xs-7"><%= @tool.dependency %></td>
           </tr>
@@ -135,7 +144,7 @@
           <% end %> 
     <%end%>
     <% if can? :update, @tool %>
-      <%= link_to edit_tool_path(@tool) do %>
+      <%= link_to edit_tool_path(@tool) + "#tabs-2" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>
@@ -203,7 +212,7 @@
           <% end %> 
     <%end%>
     <% if can? :update, @tool %>
-      <%= link_to edit_tool_path(@tool) do %>
+      <%= link_to edit_tool_path(@tool) + "#tabs-3" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>

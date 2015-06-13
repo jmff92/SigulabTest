@@ -77,7 +77,7 @@ class ReporteActs < Prawn::Document
 	  		 "adquisición, por parte de la Unidad de Laboratorios " +
 	  		 "a #{@act.proveedor}, de acuerdo a la cotización anexa, " +
 	  		 "de #{@act.bienServicio}, el (los) cual(es) es (son) requerido(s) " +
-	  		 "para #{uso} bajo la responsabilidad de #{@act.responsable}.\n\n" +
+	  		 "para #{uso}, bajo la responsabilidad de #{@act.responsable}.\n\n" +
 	  		 "Dicha solicitud obedece a que #{@act.justificacion}.\n\n" +
 	  		 "En tal sentido, es necesario realizar la adjudicación de compra directa a la empresa " +
 	    	 "#{@act.proveedor}, a los fines de darle continuidad a los objetivos planteados.\n\n" +

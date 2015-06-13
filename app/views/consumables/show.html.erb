@@ -45,7 +45,7 @@
           </tr>
           <tr>
             <td class="col-xs-5 text-right"><strong>Descripción</strong></td>
-            <td class="col-xs-7"><%= @consumable.description %></td>
+            <td class="col-xs-7"><span class="mayus"><%= @consumable.description %></span></td>
           </tr>
           <tr>
             <td class="col-xs-5 text-right"><strong>Material</strong></td>
@@ -81,7 +81,7 @@
           <% end %> 
     <%end%>
     <% if can? :update, @consumable %>
-      <%= link_to edit_consumable_path(@consumable) do %>
+      <%= link_to edit_consumable_path(@consumable) + "#tabs-1" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>
@@ -101,6 +101,10 @@
             <td class="col-xs-7"><%= @consumable.responsible %></td>
           </tr>
           <tr>
+            <td class="col-xs-5 text-right"><strong>Correo del Responsable</strong></td>
+            <td class="col-xs-7"><%= @consumable.correo %></td>
+          </tr>
+          <tr>
             <td class="col-xs-5 text-right"><strong>Dependencia</strong></td>
             <td class="col-xs-7"><%= @consumable.dependency %></td>
           </tr>
@@ -117,7 +121,7 @@
           <% end %> 
     <%end%>
     <% if can? :update, @consumable %>
-      <%= link_to edit_consumable_path(@consumable) do %>
+      <%= link_to edit_consumable_path(@consumable) + "#tabs-2" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>
@@ -186,7 +190,7 @@
           <% end %> 
     <%end%>
     <% if can? :update, @consumable %>
-      <%= link_to edit_consumable_path(@consumable) do %>
+      <%= link_to edit_consumable_path(@consumable) + "#tabs-3" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>

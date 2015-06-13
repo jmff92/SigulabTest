@@ -50,7 +50,7 @@
       <p><table class="table table-striped">
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Marca:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Marca</strong></td>
             <td class="col-xs-7"><%= @instrument.brand %></td>
           </tr> 
 
@@ -112,7 +112,7 @@
           <% end %> 
     <%end%>
     <% if can? :update, @instrument %>
-      <%= link_to edit_instrument_path(@instrument) do %>
+      <%= link_to edit_instrument_path(@instrument) + "#tabs-1" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>
@@ -131,7 +131,10 @@
             <td class="col-xs-7"> <%= @instrument.responsible %>
             </td>
           </tr>
-
+          <tr>
+            <td class="col-xs-5 text-right"><strong>Correo del Responsable</strong></td>
+            <td class="col-xs-7"><%= @instrument.correo %></td>
+          </tr>
           <tr>
             <td class="col-xs-5 text-right"><strong>Dependencia</strong></td>
             <td class="col-xs-7"><%= @instrument.dependency %></td>
@@ -148,7 +151,7 @@
           <% end %> 
     <%end%>
     <% if can? :update, @instrument %>
-      <%= link_to edit_instrument_path(@instrument) do %>
+      <%= link_to edit_instrument_path(@instrument) + "#tabs-2" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>
@@ -215,7 +218,7 @@
           <% end %> 
     <%end%>
     <% if can? :update, @instrument %>
-      <%= link_to edit_instrument_path(@instrument) do %>
+      <%= link_to edit_instrument_path(@instrument) + "#tabs-3" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>

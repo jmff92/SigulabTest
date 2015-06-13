@@ -27,11 +27,13 @@ class ActsController < ApplicationController
       format.html do
           if @sumActs != 0
             redirect_to @act
+          else
+			redirect_to new_act_url
           end
 	end
       format.pdf do
 		pdf = ReporteActs.new(@act)
-      		  send_data pdf.render, filename: 'Especificacion_#{session[:specification_sel_id]}_Acto_Motivado.pdf', type: 'application/pdf'
+      		  send_data pdf.render, filename: "Especificacion_#{session[:specification_sel_id]}_Acto_Motivado.pdf", type: 'application/pdf'
 	      end
        format.xml do
               specification = Specification.find(session[:specification_sel_id])
@@ -141,6 +143,16 @@ class ActsController < ApplicationController
 	specification.nacional = "Nacional"
 	specification.save
     @act = Act.new(act_params)
+    @invt = Invitation.where(:specification_id => session[:specification_sel_id]).first
+    @act.responsable = @invt.responsable
+    @act.docencia = params["doc"]
+    @act.investigacion = params["inv"]
+    @act.extension = params["ext"]
+    @act.apoyo = params["apoyoA"]
+    @act.responsable = @act.responsable.upcase
+    @act.justificacion = @act.justificacion.upcase
+    @act.providencia = @act.providencia.upcase
+
     @invitations = Invitation.where(:specification_id => session[:specification_sel_id]).all
     @act.user_id = current_user.username
     @quot = Quote.where(:specification_id => session[:specification_sel_id]).first
@@ -173,17 +185,12 @@ class ActsController < ApplicationController
   # PATCH/PUT /acts/1
   # PATCH/PUT /acts/1.json
   def update
-    respond_to do |format|
-      if @act.update(act_params)
-        format.html { redirect_to @act, notice: 'Act was successfully updated.' }
-        format.json { render :show, status: :ok, location: @act }
-      else
-        format.html { render :edit }
-        format.json { render json: @act.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
+    @act.update(act_params)
+    @act.docencia = params["doc"]
+    @act.investigacion = params["inv"]
+    @act.extension = params["ext"]
+    @act.apoyo = params["apoyoA"]
+    @act.respons
   # DELETE /acts/1
   # DELETE /acts/1.json
   def destroy
@@ -202,6 +209,6 @@ class ActsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def act_params
-      params.require(:act).permit(:numRegistro, :proveedor, :bienServicio, :tesis, :responsable, :justificacion, :providencia)
+      params.require(:act).permit(:numRegistro, :proveedor, :bienServicio, :docencia,:investigacion,:extension,:apoyo,:responsable, :justificacion, :providencia)
     end
 end

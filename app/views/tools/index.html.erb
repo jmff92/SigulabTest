@@ -63,7 +63,14 @@
                         <td class="tg-s6z2"><%= check_box_tag "item_ids[]", tool.id2 %></td>
                       <% end %>
                       <td class="tg-s6z2"><span class="mayus"><%= link_to tool.name, tool %></span></td>
-                      <td class="tg-s6z2"><span class="mayus"><%= tool.from_set %></span></td>
+                      <td class="tg-s6z2"><span class="mayus">
+                      <% if tool.from_set == true %> 
+                        SI
+                      <% end %>
+                      <% if tool.from_set == false %>
+                        NO
+                      <% end %>
+                      </span></td>
                       <td class="tg-s6z2"><span class="mayus"><%= tool.national_good %></span></td>
                       <td class="tg-s6z2"><span class="mayus"><%= tool.location %></span></td>
                       <td class="tg-qpa3"><span class="mayus"><%= tool.responsible %></span></td>
