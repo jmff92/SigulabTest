@@ -96,7 +96,7 @@ class BinnaclesController < ApplicationController
   end
 
   def update
-    #@binnacle.update(binnacle_params)
+    
     respond_to do |f|
       if @binnacle.update(binnacle_params)
         @ingresos = Binnacle.where(idSustancia: @binnacle.idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", @binnacle.fecha, @binnacle.fecha, @binnacle.created_at).sum(:ingreso)
@@ -129,7 +129,7 @@ class BinnaclesController < ApplicationController
         f.json { render json: @binnacle.errors, status: :unprocessable_entity }
       end
     end
-    #respond_with(@binnacle)
+    
   end
 
   def destroy

@@ -17,7 +17,10 @@ class Binnacle < ActiveRecord::Base
 	validate :totales
 
 	def totales
-		if total < 0
+		@ingresos2 = Binnacle.where(idSustancia: idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", fecha, fecha, created_at).sum(:ingreso)
+        @consumos2 = Binnacle.where(idSustancia: idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", fecha, fecha, created_at).sum(:consumo)
+        @total2 = @ingresos2 - @consumos2
+		if consumo > @total2
 			errors.add(:total, "No puede consumir una cantidad mayor a la existente en inventario.")			
 		end		
 	end
