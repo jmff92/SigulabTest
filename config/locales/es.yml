@@ -48,6 +48,7 @@ es:
         ingreso: "Ingreso"
         saldo: "Saldo"
         tipo: "Tipo de Registro"
+        total: ""
       loans:
         ubicacion: "Ubicación"
         condiciones: "Condiciones"

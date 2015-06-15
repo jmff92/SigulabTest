@@ -50,7 +50,7 @@ class BinnaclesController < ApplicationController
     if params[:errors]
       @errors = params[:errors]
     end
-    
+
     @id = @binnacle.idSustancia
     @sustancias = ChemicalSubstance.where(id2: @id)
     @sustancias.each do |sustancia|
@@ -63,9 +63,9 @@ class BinnaclesController < ApplicationController
     @binnacle = Binnacle.new(binnacle_params)
     respond_to do |f|
       if @binnacle.save
-        @ingresos = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", @binnacle.fecha).sum(:ingreso)
-        @consumos = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", @binnacle.fecha).sum(:consumo)
-        @binnacle.total = @ingresos - @consumos
+        @ingresos = Binnacle.where(idSustancia: @binnacle.idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", @binnacle.fecha, @binnacle.fecha, @binnacle.created_at).sum(:ingreso)
+        @consumos = Binnacle.where(idSustancia: @binnacle.idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", @binnacle.fecha, @binnacle.fecha, @binnacle.created_at).sum(:consumo)
+        @binnacle.total = (@ingresos + @binnacle.ingreso) - (@consumos + @binnacle.consumo)
         @binnacle.save
         @sustancia = ChemicalSubstance.where(id2: @binnacle.idSustancia)
         @sustancia.each do |sustancia|
@@ -79,9 +79,9 @@ class BinnaclesController < ApplicationController
         if Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha > ?", @binnacle.fecha).exists?
           @modificar = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha > ?", @binnacle.fecha)
           @modificar.each do |md|
-            @ingresos2 = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", md.fecha).sum(:ingreso)
-            @consumos2 = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", md.fecha).sum(:consumo)
-            @total2 = @ingresos2 - @consumos2
+            @ingresos2 = Binnacle.where(idSustancia: @binnacle.idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", md.fecha, md.fecha, md.created_at).sum(:ingreso)
+            @consumos2 = Binnacle.where(idSustancia: @binnacle.idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", md.fecha, md.fecha, md.created_at).sum(:consumo)
+            @total2 = (@ingresos2 + md.ingreso) - (@consumos2 + md.consumo)
             md.total = @total2
             md.save
           end
@@ -99,9 +99,9 @@ class BinnaclesController < ApplicationController
     #@binnacle.update(binnacle_params)
     respond_to do |f|
       if @binnacle.update(binnacle_params)
-        @ingresos = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", @binnacle.fecha).sum(:ingreso)
-        @consumos = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", @binnacle.fecha).sum(:consumo)
-        @binnacle.total = @ingresos - @consumos
+        @ingresos = Binnacle.where(idSustancia: @binnacle.idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", @binnacle.fecha, @binnacle.fecha, @binnacle.created_at).sum(:ingreso)
+        @consumos = Binnacle.where(idSustancia: @binnacle.idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", @binnacle.fecha, @binnacle.fecha, @binnacle.created_at).sum(:consumo)
+        @binnacle.total = (@ingresos + @binnacle.ingreso) - (@consumos + @binnacle.consumo)
         @binnacle.save
         @sustancia = ChemicalSubstance.where(id2: @binnacle.idSustancia)
         @sustancia.each do |sustancia|
@@ -115,9 +115,9 @@ class BinnaclesController < ApplicationController
         if Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha > ?", @binnacle.fecha).exists?
           @modificar = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha > ?", @binnacle.fecha)
           @modificar.each do |md|
-            @ingresos2 = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", md.fecha).sum(:ingreso)
-            @consumos2 = Binnacle.where(idSustancia: @binnacle.idSustancia).where("fecha <= ?", md.fecha).sum(:consumo)
-            @total2 = @ingresos2 - @consumos2
+            @ingresos2 = Binnacle.where(idSustancia: @binnacle.idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", md.fecha, md.fecha, md.created_at).sum(:ingreso)
+            @consumos2 = Binnacle.where(idSustancia: @binnacle.idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", md.fecha, md.fecha, md.created_at).sum(:consumo)
+            @total2 = (@ingresos2 + md.ingreso) - (@consumos2 + md.consumo)
             md.total = @total2
             md.save
           end

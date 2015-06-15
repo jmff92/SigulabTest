@@ -10,7 +10,15 @@ class Binnacle < ActiveRecord::Base
 
 	def fechas
 	    if fecha > Date.today
-	      errors.add(:fecha, "no puede ser posterior a la fecha de actual")
+	      errors.add(:fecha, "no puede ser posterior a la fecha de actual.")
 	    end
+	end
+
+	validate :totales
+
+	def totales
+		if total < 0
+			errors.add(:total, "No puede consumir una cantidad mayor a la existente en inventario.")			
+		end		
 	end
 end
