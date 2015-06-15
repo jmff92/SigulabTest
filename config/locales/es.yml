@@ -43,10 +43,12 @@ es:
       record: "Bitácora"
     attributes:
       binnacle:
-        fecha: "Fecha"
+        fecha: "Fecha de Registro"
         consumo: "Consumo"
         ingreso: "Ingreso"
         saldo: "Saldo"
+        tipo: "Tipo de Registro"
+        total: ""
       loans:
         ubicacion: "Ubicación"
         condiciones: "Condiciones"
