@@ -35,15 +35,14 @@
 <br>
 
 <%= form_for(@binnacle) do |f| %>
-  <% if @binnacle.errors.any? %>
-    <div class="col-xs-12" role="alert">
-      <div class="alert alert-danger">
-        <ul>
-          <% @binnacle.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
+  
+  <% if @errors %>
+    <div class="col-xs-12 alert alert-danger">
+      <ul>
+        <%= @errors.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 
@@ -74,7 +73,7 @@
               <td class="col-xs-5 text-right"><strong>Descripción:</strong></td>
               <td class="col-xs-7"><%= f.text_area :descripcion, :placeholder => "Introduzca el No. de factura\n en caso de introducir un ingreso" %><span class="red">*</span></td>
             </tr>
-            
+
             <%= f.hidden_field :idSustancia, :value => @id %>
 
           </table>

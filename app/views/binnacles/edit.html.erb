@@ -32,18 +32,17 @@
 <% end %>
 <br>
 
-<%= form_for(@binnacle) do |f| %>
-  <% if @binnacle.errors.any? %>
-    <div class="col-xs-12" role="alert">
-      <div class="alert alert-danger">
-        <ul>
-          <% @binnacle.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
+<% if @errors %>
+    <div class="col-xs-12 alert alert-danger">
+      <ul>
+        <%= @errors.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
+
+<%= form_for(@binnacle) do |f| %>
 
   <div class ="Informacion">
 
@@ -51,16 +50,16 @@
         <table class="table table-striped">
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Fecha de Registro:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :fecha, :class => "bootlayout-date" %>
-            <span class="red">*</span></td>
-          </tr>
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Tipo de Registro:</strong></td>
-            <td class="col-xs-7"><%= f.select(:tipo, options_for_select([['Ingreso'],['Consumo']]), {:include_blank => true}, {:onchange => "changeType();"} ) %>
-            <span class="red">*</span></td>
-          </tr>
-          <tr class="hidden_option1">
+              <td class="col-xs-5 text-right"><strong>Fecha de Registro:</strong></td>
+              <td class="col-xs-7"><%= f.text_field :fecha, :class => "bootlayout-date" %>
+              <span class="red">*</span></td>
+            </tr>
+            <tr>
+              <td class="col-xs-5 text-right"><strong>Tipo de Registro:</strong></td>
+              <td class="col-xs-7"><%= f.select(:tipo, options_for_select([['Ingreso'],['Consumo']]), {:include_blank => true}, {:onchange => "changeType();"} ) %>
+              <span class="red">*</span></td>
+            </tr>
+            <tr class="hidden_option1">
               <td class="hidden_option1 col-xs-5 text-right"><strong>Cantidad Consumida:</strong></td>
               <td class="hidden_option1 col-xs-7"> <%= f.text_field :consumo, :class => 'hidden_option1', :onchange => 'changeConsumo();' %><span class="hidden_option1 red">*</span><%= @unidad %></td>
             </tr>
@@ -69,14 +68,12 @@
               <td class="hidden_option2 col-xs-5 text-right"><strong class="hidden_option2">Cantidad Ingresada:</strong></td>
               <td class="hidden_option2 col-xs-7"><%= f.text_field :ingreso, class: 'hidden_option2', :onchange => 'changeIngreso();' %><span class="hidden_option2 red">*</span>&nbsp;<%= @unidad %></td>
             </tr>
-          <tr>
-            <td class="col-xs-5 text-right"><strong>Descripción:</strong></td>
-            <td class="col-xs-7"><%= f.text_field :descripcion, :placeholder => "Introduzca No. de Compra" %><span class="red">*</span></td>
-          </tr>
+            <tr>
+              <td class="col-xs-5 text-right"><strong>Descripción:</strong></td>
+              <td class="col-xs-7"><%= f.text_area :descripcion, :placeholder => "Introduzca el No. de factura\n en caso de introducir un ingreso" %><span class="red">*</span></td>
+            </tr>
 
           <%= f.hidden_field :idSustancia, :value => @id %>
-          
-          <td class="col-xs-5"><td>
 
         </table>
 
