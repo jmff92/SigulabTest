@@ -14,9 +14,16 @@ class BinnaclesController < ApplicationController
     @sustancias = ChemicalSubstance.where(id2: params[:format])
     @sustancias.each do |sustancia|
       @unidad = "#{sustancia.meassure}"
+      @minimo = sustancia.min
+      @email = sustancia.correo
     end
     @total = @ingresos - @consumos
     @id = params[:format]
+    if params[:elimino]
+      if @total < @minimo
+        BinnacleMailer.binnacle_email(@email,@sustancias).deliver
+      end
+    end
   end
 
   def show
@@ -133,8 +140,26 @@ class BinnaclesController < ApplicationController
   end
 
   def destroy
-    @binnacle.destroy
-    respond_with(@binnacle)
+    @id = @binnacle.idSustancia
+    @aux = @binnacle
+    respond_to do |f|
+      if @binnacle.destroy
+        if Binnacle.where(idSustancia: @aux.idSustancia).where("fecha > ?", @aux.fecha).exists?
+          @modificar = Binnacle.where(idSustancia: @aux.idSustancia).where("fecha > ?", @aux.fecha)
+          @modificar.each do |md|
+            @ingresos2 = Binnacle.where(idSustancia: @aux.idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", md.fecha, md.fecha, md.created_at).sum(:ingreso)
+            @consumos2 = Binnacle.where(idSustancia: @aux.idSustancia).where("(fecha < ?) OR (fecha = ? AND created_at < ?)", md.fecha, md.fecha, md.created_at).sum(:consumo)
+            @total2 = (@ingresos2 + md.ingreso) - (@consumos2 + md.consumo)
+            md.total = @total2
+            md.save
+          end
+        end
+        f.html { redirect_to action: :index, format: @id, elimino: "Vengo de eliminar" }
+      else
+        f.html { redirect_to @binnacle }
+      end
+    end
+    
   end
 
   private
