@@ -3,7 +3,7 @@ class Requisition < ActiveRecord::Base
 	validates_presence_of :solicitante, :message => "no puede estar en blanco." 
 	validates_presence_of :numero, :message => "de requisicion no puede estar en blanco." 
 	validates_numericality_of :numero, :greater_than => 0, :message => "debe ser un numero y este debe ser mayor que 0."
-	validates_presence_of :observacion, :message => ": fecha no puede estar en blanco."
+	validates_presence_of :observacion, :message => " no puede estar en blanco."
 	validates_presence_of :attachment, :message => "debe ser cargado en el campo Requisicion." 
 	belongs_to :user
 end
