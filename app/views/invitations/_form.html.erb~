@@ -168,8 +168,15 @@ document.getElementById('invitation_tipo').onchange = function () {
 };
 
 document.forms[0].onsubmit = function () {
-	if (document.getElementById('invitation_tipo').value == 'Nacional' && document.getElementById('invitation_rif').value=='N/A')
+	if (document.getElementById('invitation_tipo').value == 'Nacional' && document.getElementById('invitation_rif').value=='N/A'){
 		alert("Ingrese un RIF válido");
+		return false;
+	}
 }
+var tipo = <%= @tipo %>;
+$(document).ready(function() {
+   $('#invitation_tipo').val(tipo);
+    
+});
 </script>
 
