@@ -208,6 +208,9 @@ es:
         fechaini: "Fecha de Inicio"
         fechafin: "Fecha de Culminación"
         observaciones: "Observaciones"
+      requisition:
+        created_at: "Fecha"
+        attachment:  "Archivo"
     errors:
       models:
         income:
