@@ -1,3 +1,6 @@
+<script>
+selec = 0;
+</script>
 <div style="margin-left:350px;">
   <%= form_for(@recommendation) do |f| %>
     <span class="red" style="margin-left:-130px; font-size: 99%;"> 
@@ -14,11 +17,11 @@
 <div class="panel panel-default" style="margin-left:-220px; width: 660px;">
   <div class="panel-heading"><%= quote.nombre %></div>
   <div class="panel-body">
-     <input type="checkbox" name="recommendation_empresas<%= ind %>" value="1" style="margin-right: 5px; margin-bottom: 5px;" onClick="if (this.checked) $('#seleccion<%= ind %>').slideDown(); else $('#seleccion<%= ind %>').slideUp();" /> Esta empresa cumplió con todos los requisitos<br><br>      
+     <input type="checkbox" onchange="if (this.checked) selec++; else selec--;" name="recommendation_empresas<%= ind %>" value="1" style="margin-right: 5px; margin-bottom: 5px;" onClick="if (this.checked) $('#seleccion<%= ind %>').slideDown(); else $('#seleccion<%= ind %>').slideUp();" /> Esta empresa cumplió con todos los requisitos<br><br>      
     <div id="seleccion<%= ind %>" style='display:none'>
 <input type="hidden" name="quoteid<%= ind %>" value="<%= quote.id %>" />
 <input type="hidden" name="empresa<%= ind %>" value="<%= quote.nombre %>" />
-        <strong>Seleccione prioridad:</strong> <select name='prioridad<%= ind %>'>
+        <strong>Seleccione prioridad:</strong> <select name='prioridad<%= ind %>' id='prioridad<%= ind %>'>
 	 <% @quotes.each_with_index do |quote,ind| %>
 	<% if (ind == 0) %>
 	<option value='1'>Primera Opción</option>
@@ -63,7 +66,7 @@
   <% end %>
 </div> 
         <div class="actions">
-    <%= f.submit "Aceptar", data: { confirm: '¿Está seguro de la información que acaba de suministrar?' }  %>
+    <%= f.submit "Aceptar"  %>
 <% end %>
     <%= link_to '<button type="button" class="btn btn-primary" style="margin-top:0px; margin-left:15px;"> Cancelar </button>'.html_safe, controller: "recommendations" %>  
       </div>
@@ -159,4 +162,31 @@ select {
 }
 
 </style>
+<script>
+function comp(){
+prim=0;
+seg=0;
+ter=0;
+men = ""
+for (i=0; i< selec; i++)
+{
+	va = document.getElementById('prioridad'+i).value;
+	if (va ==1) prim++;
+	if (va ==2) seg++;
+	if (va ==3) ter++;
+	if (prim >1 || seg>1 || ter>1)
+	{
+		if (prim>1)
+			men = "Solo puede seleccionar una empresa como primera opción"
+		if (seg>1)
+			men = "Solo puede seleccionar una empresa como segunda opción"
+		if (ter>1)
+			men = "Solo puede seleccionar una empresa como tercera opción"
+		return false;
+	}
 
+}
+return true;
+}
+document.getElementById('new_recommendation').onsubmit = function () {if (selec == 0) {alert('Debe seleccionar al menos una empresa.'); return false} else {if (comp()) return true; else {alert (men); return false;}}};
+</script>

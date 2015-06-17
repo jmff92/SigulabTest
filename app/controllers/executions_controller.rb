@@ -51,9 +51,9 @@ class ExecutionsController < ApplicationController
     @execution.document_name = @execution.document_name.upcase
 
     @commitment = Commitment.find(params[:cid])    
-    @executions = Execution.where("commitment_id=?",params[:cid])
+    @executions = Execution.where("commitment_id=? and valid_dir=?",params[:cid], true)
     @executed = @executions.where("check_annulled=false").sum(:check_amount)
-    if !@execution.check_amount.blank?
+    if !@execution.check_amount.blank?     
       if @execution.check_amount > @commitment.amount - @executed
         @execution.executable_amount
         render 'new'

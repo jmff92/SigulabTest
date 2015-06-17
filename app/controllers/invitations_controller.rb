@@ -51,10 +51,12 @@ class InvitationsController < ApplicationController
   # GET /invitations/new
   def new
     @invitation = Invitation.new
+    @tipo = 'Nacional'
   end
 
   # GET /invitations/1/edit
   def edit
+    @tipo = @invitation.tipo.capitalize
   end
 
   # POST /invitations
@@ -98,6 +100,7 @@ class InvitationsController < ApplicationController
     @invitation.tipo = @invitation.tipo.upcase
     @invitation.contacto = @invitation.contacto.upcase
     @invitation.correo_contacto = @invitation.correo_contacto.upcase
+    
     respond_to do |format|
       if @invitation.save
         format.html { redirect_to @invitation, notice: 'Invitation was successfully updated.' }

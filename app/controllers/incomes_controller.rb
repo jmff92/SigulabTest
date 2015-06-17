@@ -99,6 +99,8 @@ class IncomesController < ApplicationController
     	params[:income][:resource] = 0
     end
 
+    
+
     if (params[:income][:document] != nil)
       archivo = params[:income][:document];
       #Nombre original del archivo.
@@ -119,14 +121,24 @@ class IncomesController < ApplicationController
       end
     end
 
+
     @income = Income.find(params[:id])
+    
     params[:income][:description] = params[:income][:description].upcase
     params[:income][:organism] = params[:income][:organism].upcase
     params[:income][:unit] = params[:income][:unit].upcase
     params[:income][:variation] = params[:income][:variation].upcase
     params[:income][:resource_description] = params[:income][:resource_description].upcase
+
+    if params[:income][:document] == nil
+      doc = @income.document
+    end
   
     if @income.update_attributes(income_params)
+
+    if params[:income][:document] == nil
+      @income.document = doc
+    end
       redirect_to income_url(@income)
     else
       @labs = Lab.all

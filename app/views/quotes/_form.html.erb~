@@ -14,7 +14,27 @@
 		 var textinput = document.getElementById("filename");
 		 textinput.value = fileinput.value;
 	}
-        
+	n=0;
+	function verificar (o)
+	{
+		if (o.checked)
+			n++;
+		else
+			n--;
+		if (n==0)
+		{
+			alert("Debe seleccionar al menos un elemento.");
+			o.checked = true;
+			n++;
+		}
+	}
+
+        document.forms[0].onsubmit = function () {
+		if (document.getElementById('filename').value.indexOf('.pdf')==-1 && document.getElementById('filename').value.indexOf('.jpg')==-1 && document.getElementById('filename').value.indexOf('.jpeg')==-1 && document.getElementById('filename').value.indexOf('.png')==-1 && document.getElementById('filename').value.indexOf('.gif')==-1) {
+			alert("Ingrese un formato válido de oferta. Los formatos válidos son: .pdf, .jpg, .jpeg, .png y .gif");
+			return false;
+		}
+	}
 
 </script>
 
@@ -35,7 +55,7 @@
 </select></div>    
   <div class="field">
  	 <span class="red">*</span>
-    <%= f.label "Oferta" %><br>
+    <%= f.label "Oferta (formato PDF o JPG)" %><br>
     <%= f.file_field :attachment, id:"browse", style:"display: none", onChange:"Handlechange()" %>
 	 <input type="text" id="filename" readonly="true"/>
 	 <input type="button" class="btn btn-default" value="Examinar" id="fakeBrowse" onclick="HandleBrowseClick();"/>
@@ -43,12 +63,11 @@
 
          
  <div class="field"> <%= f.label "Items ofertados" %><br/>
-<input type="checkbox" id="selecctall"/> Seleccionar todo<br/>
   <% @items.each do |item| %>
-	  	
-      <input type="checkbox" class="checkbox1" id="itemsquote" name="itemsquotes<%= item.id %>" value="<%= item.id %>" style="margin-right: 5px; margin-bottom: 5px;" /><%= item.nombre %><br>
+	  	<script>n++;</script>
+      <input type="checkbox" onclick="verificar(this)" checked="checked" class="checkbox1" id="itemsquote" name="itemsquotes<%= item.id %>" value="<%= item.id %>" style="margin-right: 5px; margin-bottom: 5px;" /><%= item.nombre %><br>
         
-		 <% end %></div>     
+		 <% end %>   
                  <br/><br/><%= f.hidden_field :specification_id, :value => session['specification_sel_id'] %>     
         <div class="actions">
     <%= f.submit "Aceptar", data: { confirm: '¿Está seguro de la informacion que acaba de suministrar?' }  %>
