@@ -23,7 +23,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   else
 	if current_path != nil
      @name ||= Digest::MD5.hexdigest(File.dirname(current_path))
-    "#{@name}.#{file.extension}"
+    "#{@name}.#{file.extension}" if original_filename.present?
 	end
   end
 end

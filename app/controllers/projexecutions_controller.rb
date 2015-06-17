@@ -58,7 +58,7 @@ class ProjexecutionsController < ApplicationController
      #@projexecution.document_name = @projexecution.document_name.upcase
      @commitment = Projcommitment.find(params[:cid])    
      @projexecutions = Projexecution.where("commitment_id=?",params[:cid])
-     @projexecuted = @projexecutions.where("check_annulled=false").sum(:check_amount)
+     @projexecuted = @projexecutions.where("check_annulled=false and valid_res=true").sum(:check_amount)
      if !@projexecution.check_amount.blank?
        if @projexecution.check_amount > @commitment.amount - @projexecuted
          @projexecution.executable_amount
