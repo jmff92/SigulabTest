@@ -99,7 +99,7 @@ class IncomesController < ApplicationController
     	params[:income][:resource] = 0
     end
 
-binding.pry    
+    
 
     if (params[:income][:document] != nil)
       archivo = params[:income][:document];
@@ -121,9 +121,9 @@ binding.pry
       end
     end
 
-binding.pry
+
     @income = Income.find(params[:id])
-binding.pry    
+    
     params[:income][:description] = params[:income][:description].upcase
     params[:income][:organism] = params[:income][:organism].upcase
     params[:income][:unit] = params[:income][:unit].upcase
@@ -135,7 +135,7 @@ binding.pry
     end
   
     if @income.update_attributes(income_params)
-binding.pry
+
     if params[:income][:document] == nil
       @income.document = doc
     end
