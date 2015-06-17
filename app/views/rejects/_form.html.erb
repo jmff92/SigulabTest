@@ -31,7 +31,11 @@
           :include_blank => false %></center>
                   </div>  <br/>
         <div class="actions"><center>
+ <% if session['specification_p6'] == 2 %>
     <%= f.submit "Aceptar", data: { confirm: '¿Está seguro de la informacion que acaba de suministrar?' }  %>
+<% else %>
+<%= f.label "No puede aceptar / rechazar la solicitud hasta haber generado una solicitud de servicio" %>
+	<% end %>
 <% end %>
      </center> </div>
 </div>

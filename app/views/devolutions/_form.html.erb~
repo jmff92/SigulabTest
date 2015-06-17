@@ -1,3 +1,5 @@
+
+
 <div class="grid_12 push_1">
     <%= form_for(@devolution) do |f| %>
       <% if @devolution.errors.any? %>
@@ -5,6 +7,8 @@
         <br>
       <% end %>
 
+
+<div id="nota_devolucion" >
       <div class="field"><br/>
         
 	<table><tr><td style="padding-right:80px;padding-bottom:5px;"><span class="red">*</span>
@@ -125,7 +129,7 @@
                 <%= f.label 'Contrato Fonacit (si aplica)' %>
    </td><td>   
                 <%= f.check_box :copia, :align => :texttop %>
-                <b>Copia del Acta del Consejo Directo que autorice
+                <b>Copia del Acta del Consejo Directivo que autorice
                <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;la Contratación Pública (Compras mayores de
               <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2500 UT - si aplica)</b>
    </td></tr><tr><td style="padding-right:30px;">
@@ -172,7 +176,7 @@
                 <%= f.label 'Observaciones', :align => :middle %></td><td>
                 <%= f.text_area :observaciones, :align => :middle, :style => "width:410px; height:80px; margin-top:10px; margin-bottom:20px;", :placeholder => "Indique en caso de que exista alguna" %>
 </td></tr></table>
-
+</div>
       <div class="grid_4 push_3 text-center">
       <div class="actions">
          <%= f.submit "Aceptar", :style => "float:left; margin-right:10px;", data: { confirm: '¿Está seguro de la informacion que acaba de suministrar?' }  %>

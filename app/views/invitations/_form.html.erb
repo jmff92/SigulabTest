@@ -155,6 +155,28 @@ select {
 
 </style>
 <script>
-document.getElementById('invitation_tipo').onchange = function () {if (this.value == 'Internacional') {document.getElementById('invitation_rif').readOnly = true; document.getElementById('invitation_rif').value='N/A';document.getElementById('invitation_rif').style.backgroundColor = '#DFDFDF'}else{document.getElementById('invitation_rif').readOnly = false; document.getElementById('invitation_rif').value='';document.getElementById('invitation_rif').style.backgroundColor = 'white'}};
+document.getElementById('invitation_tipo').onchange = function () {
+	if (this.value == 'Internacional') {
+		document.getElementById('invitation_rif').readOnly = true; 
+		document.getElementById('invitation_rif').value='N/A';
+		document.getElementById('invitation_rif').style.backgroundColor = '#DFDFDF'
+	} else{
+		document.getElementById('invitation_rif').readOnly = false; 
+		document.getElementById('invitation_rif').value="";
+		document.getElementById('invitation_rif').style.backgroundColor = 'white'
+	}
+};
+
+document.forms[0].onsubmit = function () {
+	if (document.getElementById('invitation_tipo').value == 'Nacional' && document.getElementById('invitation_rif').value=='N/A'){
+		alert("Ingrese un RIF válido");
+		return false;
+	}
+}
+
+$(document).ready(function() {
+   $('#invitation_tipo').val("<%= @tipo %>");
+    
+});
 </script>
 

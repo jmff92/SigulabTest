@@ -49,7 +49,8 @@
 
         <tr>
           <td class="col-xs-5 text-right"><strong>Pureza</strong></td>
-          <td class="col-xs-7"><%=@chemical_substance.purity %></td>
+          <td class="col-xs-7"><%=@chemical_substance.purity %> &nbsp;&nbsp 
+          %</td>
         </tr>
 
         <tr>
@@ -69,7 +70,12 @@
 
         <tr>
           <td class="col-xs-5 text-right"><strong>Cantidad</strong></td>
-          <td class="col-xs-7"> <%= @chemical_substance.quantity %><% @chemical_substance.meassure %></td>
+          <td class="col-xs-7"> <%= @chemical_substance.quantity %>&nbsp;&nbsp<%= @chemical_substance.meassure %></td>
+        </tr>
+
+        <tr>
+          <td class="col-xs-5 text-right"><strong>Mínimo en Inventario</strong></td>
+          <td class="col-xs-7"> <%= @chemical_substance.min %>&nbsp;&nbsp<span class="mayus"><%= @chemical_substance.meassureMin %></span></td>
         </tr>
 
         <tr>
@@ -90,7 +96,7 @@
           <% end %>
     <%end%>
     <% if can? :update, @chemical_substance %>
-      <%= link_to edit_chemical_substance_path(@chemical_substance) do %>
+      <%= link_to edit_chemical_substance_path(@chemical_substance) + "#tabs-1" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>
@@ -109,7 +115,11 @@
         <td class="col-xs-5 text-right"><strong title="Persona responsable del Item">Responsable:</strong></td>
         <td class="col-xs-7"><span class="mayus"><%= @chemical_substance.responsible %></span></td>
       </tr>
-
+          <tr>
+            <td class="col-xs-5 text-right"><strong>Correo del Responsable</strong></td>
+            <td class="col-xs-7"><%= @chemical_substance.correo %></td>
+          </tr>
+          <tr>
       <tr>
         <td class="col-xs-5 text-right"><strong>Dependencia</strong></td>
         <td class="col-xs-7"><span class="mayus"><%= @chemical_substance.dependency %></span></td>
@@ -173,7 +183,7 @@
           <% end %>
     <%end%>
     <% if can? :update, @chemical_substance %>
-      <%= link_to edit_chemical_substance_path(@chemical_substance) do %>
+      <%= link_to edit_chemical_substance_path(@chemical_substance) + "#tabs-2" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>
@@ -221,7 +231,7 @@
           <% end %>
     <%end%>
     <% if can? :update, @chemical_substance %>
-      <%= link_to edit_chemical_substance_path(@chemical_substance) do %>
+      <%= link_to edit_chemical_substance_path(@chemical_substance) + "#tabs-3" do %>
         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editar</button>
       <% end %>
     <% end %>

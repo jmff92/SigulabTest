@@ -17,8 +17,12 @@
        
        <span class="red">*</span>
        <%= f.label "Será usado en:" %><br>
-       <%= f.collection_select :tesis, Act::Uso, :to_s, :to_s, 
-          :include_blank => true %>
+      <table style="width: 100%;">
+            <tr><td><input type="checkbox" id="doc" name="doc" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Docencia</td>
+                <td><input type="checkbox" id="inv" name="inv" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Investigacion</td>
+                <td><input type="checkbox" id="ext" name="ext" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Extensión</td>
+                <td><input type="checkbox" id="apoyoA" name="apoyoA" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Apoyo Administrativo</td>
+</table>  
 </td></tr><tr><td style="padding-top:10px;">
        
        <span class="red">*</span>

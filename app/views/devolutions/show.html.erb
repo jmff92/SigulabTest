@@ -62,33 +62,45 @@
            <td class="col-xs-7"><%= @devolution.unidadSolicitante %></td>
          </tr>
          <tr>
-           <td  class="col-xs-5 text-right">Causa de la devolución</td>
-           <td  class="col-xs-7"></td>
-         </tr>
-         <% if @devolution.disponibilidad == true %>
-             <tr>
-               <td class="col-xs-5 text-right">Disponibilidad presupuestaria insuficiente</td>
-               <td class="col-xs-7">Sí</td>
-             </tr>
+           <td  class="col-xs-5 text-right">Causa(s) de la devolución</td>
+           <td  class="col-xs-7">
+
+	<% if @devolution.disponibilidad == true %>            
+               Disponibilidad presupuestaria insuficiente.           
          <% end %>
-         <% if @devolution.idioma == true %>
-             <tr>
-               <td class="col-xs-5 text-right">Registro en idioma distinto al español</td>
-               <td class="col-xs-7">Sí</td>
-             </tr>
+	
+	<% if @devolution.idioma == true %>
+  		 Registro en idioma distinto al español.
          <% end %>
-         <% if @devolution.discriminado == true %>
-             <tr>
-               <td class="col-xs-5 text-right">Registro no discriminado por ítems</td>
-               <td class="col-xs-7">Sí</td>
-             </tr>
+
+	<% if @devolution.discriminado == true %>
+  		Registro no discriminado por ítems.  
          <% end %>
+
          <% if @devolution.firma == true %>
-             <tr>
-               <td class="col-xs-5 text-right">Registro sin la firma y/o sello de la Unidad Responsable</td>
-               <td class="col-xs-7">Sí</td>
-             </tr>
+ 		Registro sin la firma y/o sello de la Unidad Responsable.
+
          <% end %>
+
+	 <% if @devolution.contacto == true %>
+		Falta contrato Fonacit.
+         <% end %>
+	
+	 <% if @devolution.copia == true %>
+		 Falta Copia del Acta del Consejo Directivo que autorice la Contratación Pública.
+         <% end %>
+
+	  <% if @devolution.factura == true %>
+              Falta factura, proforma o cotización a nombre de la USB, indicando  la condición de entrega.
+         <% end %>
+         <% if @devolution.foto == true %>
+   		Falta foto referencial del material y/o equipo solicitado.
+         <% end %>
+
+
+		</td>
+
+
          <% if @devolution.carencia == true %>
              <tr>
                <td class="col-xs-5 text-right">Carencia de información indispensable del proveedor del bien o servicio:</td>
@@ -117,32 +129,7 @@
                </td>
              </tr>
          <% end %>
-
-         <% if @devolution.contacto == true %>
-             <tr>
-               <td class="col-xs-5 text-right">Contrato Fonacit, si aplica</td>
-               <td class="col-xs-7">Falta</td>
-             </tr>
-         <% end %>
-         <% if @devolution.copia == true %>
-             <tr>
-               <td class="col-xs-5 text-right">Copia del Acta del Consejo Directo que autorice la Contratación Pública (Compras mayores de 2500 UT), si es aplicable</td>
-               <td class="col-xs-7">Falta</td>
-             </tr>
-         <% end %>
-         <% if @devolution.factura == true %>
-             <tr>
-               <td class="col-xs-5 text-right">Factura, Proforma o Cotización  a nombre de la USB, indicando  la condición de entrega.</td>
-               <td class="col-xs-7">Falta</td>
-             </tr>
-         <% end %>
-         <% if @devolution.foto == true %>
-             <tr>
-               <td class="col-xs-5 text-right">Foto Referencial del Material y/o Equipo solicitado</td>
-               <td class="col-xs-7">Falta</td>
-             </tr>
-         <% end %>
-
+ 
          <tr>
            <td class="col-xs-5 text-right">Observaciones</td>
            <td class="col-xs-7"><%= @devolution.observaciones %></td>
