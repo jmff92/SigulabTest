@@ -29,7 +29,7 @@
 		}
 	}
 
-        
+
 
 </script>
 
@@ -176,4 +176,11 @@ $(document).ready(function() {
     });
     
 });
+
+        document.forms[0].onsubmit = function () {
+		if (document.getElementById('filename').value.indexOf('.pdf')==-1 && document.getElementById('filename').value.indexOf('.jpg')==-1 && document.getElementById('filename').value.indexOf('.jpeg')==-1 && document.getElementById('filename').value.indexOf('.png')==-1 && document.getElementById('filename').value.indexOf('.gif')==-1) {
+			alert("Ingrese un formato válido de oferta. Los formatos válidos son: .pdf, .jpg, .jpeg, .png y .gif");
+			return false;
+		}
+	}
 </script>

@@ -1,6 +1,6 @@
 class Invitation < ActiveRecord::Base
   validates_presence_of :rif, :message => "de la empresa no puede estar en blanco."
-  validates_format_of :rif, with: /(^[JGVEP][-][0-9]{8}[-][0-9]$)|N\/A/i, on: :create, :message => "tiene que tener un formato correcto (J-/G-/V-/E-/P-)"
+  validates_format_of :rif, with: /(^[JGVEP][-][0-9]{8}[-][0-9]$)|N\/A/i, :message => "tiene que tener un formato correcto (J-/G-/V-/E-/P-)"
 
 	validates_presence_of :nombre, :message => "de la empresa no puede estar en blanco."
 	validates_presence_of :direccion, :message => "de la empresa no puede estar en blanco."

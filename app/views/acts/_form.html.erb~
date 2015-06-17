@@ -14,28 +14,25 @@
 <% end %>
 <% end %></select>
 </td><td style="padding-top:10px;">
-       <span class="red">*</span>
-       <%= f.label "Será usado en:" %><br>
-       <select multiple="true" name="act[tesis]">
-       <option value="Docencia">Docencia<option>
-       <option value="Investigacion">Investigacion<option>
-       <option value="Extension">Extension<option>
-       <option value="Apoyo Administrativo">Apoyo Administrativo<option>
-       </select>
-</td></tr><tr><td style="padding-top:10px;">
-       <span class="red">*</span>
-       <%= f.label "Nombre del Responsable" %><br>
-       <%= f.text_field :responsable, :placeholder => "Nombre del solicitante" %>
-</td><td style="padding-top:10px;">
        
        <span class="red">*</span>
-       <%= f.label "Justificación" %><br>
-       <%= f.text_field :justificacion, :placeholder => "Razón de solicitud" %>
-</td></tr><tr><td style="padding-top:10px;"> 
+       <%= f.label "Será usado en:" %><br>
+      <table style="width: 100%;">
+            <tr><td><input type="checkbox" id="doc" name="docencia" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Docencia</td>
+                <td><input type="checkbox" id="inv" name="investigacion" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Investigacion</td>
+                <td><input type="checkbox" id="ext" name="extension" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Extensión</td>
+                <td><input type="checkbox" id="apoyoA" name="apoyoAdm" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Apoyo Administrativo</td>
+</table>  
+</td></tr><tr><td style="padding-top:10px;">
+       
+       <span class="red">*</span>
+       <%= f.label "La solicitud obedece a que:" %><br>
+       <%= f.text_field :justificacion, :placeholder => "Razón de la solicitud." %>
+</td><td style="padding-top:10px;"> 
        <span class="red">*</span>
        <%= f.label "Origen de los recursos" %><br>
-       <%= f.text_field :providencia, :placeholder => "Providencia de fondos" %>
-</td></tr></table>
+       <%= f.text_field :providencia, :placeholder => "Procedencia de fondos" %>
+</td></tr></table><br/><br/>
        
        <div class="actions">
        <%= f.submit "Aceptar", :style => "float:left; margin-right:10px;margin-top:7px;", data: { confirm: '¿Está seguro de la informacion que acaba de suministrar?' }  %>

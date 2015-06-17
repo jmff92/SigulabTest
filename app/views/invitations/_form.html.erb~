@@ -55,11 +55,11 @@
 		  <div class="field">
           <span class="red">*</span>
 			 <%= f.label "Nro de Fax" %><br>
-			 <%= f.text_field :telefono, :placeholder => "02121234567" %>
+			 <%= f.text_field :numero_fax, :placeholder => "02121234567" %>
                   </div></td><td style="padding-top:20px;">
 		  <div class="field">
 			 <%= f.label "Teléfono" %><br>
-			 <%= f.text_field :telefono_Adicional, :placeholder => "02121234567" %><br>
+			 <%= f.text_field :telefono, :placeholder => "02121234567" %><br>
                             </div></td></tr><tr><td>
                       <br/><br/>
                         </td></tr><tr><td colspan="2" style=" padding-left:120px;">
@@ -155,6 +155,28 @@ select {
 
 </style>
 <script>
-document.getElementById('invitation_tipo').onchange = function () {if (this.value == 'Internacional') {document.getElementById('invitation_rif').readOnly = true; document.getElementById('invitation_rif').value='N/A';document.getElementById('invitation_rif').style.backgroundColor = '#DFDFDF'}else{document.getElementById('invitation_rif').readOnly = false; document.getElementById('invitation_rif').value='';document.getElementById('invitation_rif').style.backgroundColor = 'white'}};
+document.getElementById('invitation_tipo').onchange = function () {
+	if (this.value == 'Internacional') {
+		document.getElementById('invitation_rif').readOnly = true; 
+		document.getElementById('invitation_rif').value='N/A';
+		document.getElementById('invitation_rif').style.backgroundColor = '#DFDFDF'
+	} else{
+		document.getElementById('invitation_rif').readOnly = false; 
+		document.getElementById('invitation_rif').value="";
+		document.getElementById('invitation_rif').style.backgroundColor = 'white'
+	}
+};
+
+document.forms[0].onsubmit = function () {
+	if (document.getElementById('invitation_tipo').value == 'Nacional' && document.getElementById('invitation_rif').value=='N/A'){
+		alert("Ingrese un RIF válido");
+		return false;
+	}
+}
+var tipo = <%= @tipo %>;
+$(document).ready(function() {
+   $('#invitation_tipo').val(tipo);
+    
+});
 </script>
 

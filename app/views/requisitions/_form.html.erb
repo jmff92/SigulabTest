@@ -14,6 +14,7 @@
 		 var textinput = document.getElementById("filename");
 		 textinput.value = fileinput.value;
 	}
+	
         
 
 </script>
@@ -33,7 +34,7 @@
                         <span class="red">*</span>
                             <%= f.label "Fecha" %><br/>
 				
-				<%= f.text_field :observacion, class: 'bootlayout-date form-control' %>
+				<%= f.text_field :observacion, class: 'datepicker2' %>
 				
                           </div>  
  <div class="field">
@@ -43,7 +44,7 @@
                   </div>
   <div class="field">
  	 <span class="red">*</span>
-    <%= f.label "Requisición" %><br>
+    <%= f.label "Requisición" %><br><span style="font-size:10px"><%= @mensaje %></span>
     <%= f.file_field :attachment, id:"browse", style:"display: none", onChange:"Handlechange()" %>
 	 <input type="text" id="filename" readonly="true"/>
 	 <input type="button" class="btn btn-default" value="Examinar" id="fakeBrowse" onclick="HandleBrowseClick();"/>
@@ -161,4 +162,7 @@ $(document).ready(function() {
     });
     
 });
+$('.datepicker2').datepicker({
+    endDate: 'today'
+})
 </script>

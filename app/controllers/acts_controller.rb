@@ -145,7 +145,10 @@ class ActsController < ApplicationController
     @act = Act.new(act_params)
     @invt = Invitation.where(:specification_id => session[:specification_sel_id]).first
     @act.responsable = @invt.responsable
-    @act.tesis = @act.tesis.upcase
+    @act.docencia = params["doc"]
+    @act.investigacion = params["inv"]
+    @act.extension = params["ext"]
+    @act.apoyo = params["apoyoA"]
     @act.responsable = @act.responsable.upcase
     @act.justificacion = @act.justificacion.upcase
     @act.providencia = @act.providencia.upcase
@@ -182,8 +185,13 @@ class ActsController < ApplicationController
   # PATCH/PUT /acts/1
   # PATCH/PUT /acts/1.json
   def update
+    @invitations = Invitation.where(:specification_id => session[:specification_sel_id]).all
+    
     @act.update(act_params)
-    @act.tesis = @act.tesis.upcase
+    @act.docencia = params["doc"]
+    @act.investigacion = params["inv"]
+    @act.extension = params["ext"]
+    @act.apoyo = params["apoyoA"]
     @act.responsable = @act.responsable.upcase
     @act.justificacion = @act.justificacion.upcase
     @act.providencia = @act.providencia.upcase
@@ -216,6 +224,6 @@ class ActsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def act_params
-      params.require(:act).permit(:numRegistro, :proveedor, :bienServicio, :tesis, :responsable, :justificacion, :providencia)
+      params.require(:act).permit(:numRegistro, :proveedor, :bienServicio, :docencia,:investigacion,:extension,:apoyo,:responsable, :justificacion, :providencia)
     end
 end
