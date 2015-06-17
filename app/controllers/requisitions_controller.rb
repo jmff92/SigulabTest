@@ -74,10 +74,12 @@ if current_user.acquisition? || current_user.import? || current_user.acquisition
   # GET /requisitions/new
   def new
     @requisition = Requisition.new
+    @mensaje = ""
   end
 
   # GET /requisitions/1/edit
   def edit
+  @mensaje = "(deje en blanco si no desea modificar el archivo actual)"
   end
 
   # POST /requisitions
@@ -101,6 +103,7 @@ if current_user.acquisition? || current_user.import? || current_user.acquisition
   # PATCH/PUT /requisitions/1
   # PATCH/PUT /requisitions/1.json
   def update
+    @mensaje = "(deje en blanco si no desea modificar el archivo actual)"
     @requisition.update(requisition_params)
     @requisition.solicitante = @requisition.solicitante.upcase
     respond_to do |format|

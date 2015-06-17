@@ -185,6 +185,8 @@ class ActsController < ApplicationController
   # PATCH/PUT /acts/1
   # PATCH/PUT /acts/1.json
   def update
+    @invitations = Invitation.where(:specification_id => session[:specification_sel_id]).all
+    
     @act.update(act_params)
     @act.docencia = params["doc"]
     @act.investigacion = params["inv"]
