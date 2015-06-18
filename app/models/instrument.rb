@@ -25,8 +25,8 @@ class Instrument < ActiveRecord::Base
 			if !PJDonacion
 				errors.add(:PJDonacion,"No puede ser vacio para una ítem donado")
 			end
-			if !PersonaContactoDonacion
-				errors.add(:PersonaContactoDonacion,"No puede ser vacio para una ítem donado")
+			if !personaContactoDonacion
+				errors.add(:personaContactoDonacion,"No puede ser vacio para una ítem donado")
 			end
 		end
 	    if adquisition_date != nil

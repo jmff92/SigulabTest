@@ -54,6 +54,9 @@ es:
         condiciones: "Condiciones"
         fechaEntrega: "Fecha de Entrega"
         fechaTope: "Fecha Tope"
+        medida: "Cantidad"
+        condiciones: "Condiciones"
+        
       applications:
         fechaRequerida: "Fecha Requerida"
         descripcion: "Descripción"
