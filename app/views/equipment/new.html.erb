@@ -98,13 +98,13 @@
             <td class="col-xs-5 text-right"><strong>Dimensiones</strong></td>
             <td class="col-xs-7">
             <strong>Ancho&nbsp&nbsp</strong>
-            <%= f.text_field(:length, min: 0, :step => 'any') %>
+            <%= f.number_field(:length, min: 0, :step => 'any') %>
             <%= f.select(:measurelength, [['m'], ['cm'], ['mm'], ['in']] ) %><br><br>
             <strong>Largo&nbsp&nbsp&nbsp</strong>
-             <%= f.text_field(:width, min: 0, :step => 'any') %>
+             <%= f.number_field(:width, min: 0, :step => 'any') %>
             <%= f.select(:measurewidth, [['m'], ['cm'], ['mm'], ['in']] ) %><br><br>
             <strong>Alto&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong>
-            <%= f.text_field(:depth, min: 0, :step => 'any') %>
+            <%= f.number_field(:depth, min: 0, :step => 'any') %>
             <%= f.select(:measuredepth, [['m'], ['cm'], ['mm'], ['in']] ) %>
             </td>
           </tr>
@@ -320,7 +320,6 @@ function changeOrigen() {
     $(".hidden_option2").fadeOut('fast');   
   }
 
-<<<<<<< HEAD
 }
 
 function setCost() {
