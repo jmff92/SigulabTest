@@ -120,9 +120,9 @@ class ReporteRecommendations < Prawn::Document
               end
 
 		      itemsof = ""
-		      @itemsquote.each do |item|
+		      @itemsquote.each_with_index do |item,ind|
 			      if item.id_oferta == emp.quote_id and item.compra == 1
-				      itemsof = itemsof +item.id.to_s + ", "
+				      itemsof = itemsof +(ind+1).to_s + ", "
 			      end
 		      end
   		    itemsof = itemsof[0..-2]
