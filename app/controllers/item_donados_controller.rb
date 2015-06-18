@@ -18,7 +18,7 @@ class ItemDonadosController < ApplicationController
         format.json { render :show, status: :created, location: @itemdonado }
         redirect_to donation_path(@donation_id)
       else
-        format.html { redirect_to action: :new, :donation_id => @donation_id, :errors => itemdonado.errors.full_messages }
+        format.html { redirect_to action: :new, :donation_id => @donation_id, :errors => @itemdonado.errors.full_messages }
         format.json { render json: @itemdonado.errors, status: :unprocessable_entity }
       end
     end
