@@ -88,11 +88,11 @@
           </tr>
            <tr>
             <td class="col-xs-5 text-right"><strong>Calibrado</strong></td>
-            <td class="col-xs-7"><%= f.select(:calibrated, [['N/A'],['Sí'], ['No'], ['Desconocido'] ],{:onchange => "disableCalibracion();"})  %></td>
+            <td class="col-xs-7"><%= f.select(:calibrated, [['N/A'],['Sí'], ['No'], ['Desconocido'] ])  %></td>
           </tr>
-           <tr class="disableoption">
-            <td class="disableoption col-xs-5 text-right"><strong>Última Calibración</strong></td>
-            <td class="disableoption col-xs-7"> <%= f.text_field :last_calibration, :class => "bootlayout-date" %></td>
+           <tr>
+            <td class="col-xs-5 text-right"><strong>Última Calibración</strong></td>
+            <td class="col-xs-7"> <%= f.text_field :last_calibration, :class => "bootlayout-date" %></td>
           </tr>
            <tr>
             <td class="col-xs-5 text-right"><strong>Dimensiones</strong></td>
@@ -320,6 +320,7 @@ function changeOrigen() {
     $(".hidden_option2").fadeOut('fast');   
   }
 
+
 }
 
 function setCost() {
@@ -371,13 +372,6 @@ function addPeriodsI(n){
     });
 };
 
-function disableCalibracion() {
-  if ($('#equipment_calibrated').val()=="Sí") {
-    $('.disableoption').fadeIn('fast');
-  } else {
-    $('.disableoption').fadeOut('fast');
-  }
-};
 
 </script>
   
