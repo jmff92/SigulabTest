@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20150612050325) do
     t.string   "numRegistro"
     t.string   "proveedor"
     t.string   "bienServicio"
-    t.string   "tesis"
     t.string   "responsable"
     t.string   "justificacion"
     t.string   "providencia"
@@ -28,6 +27,10 @@ ActiveRecord::Schema.define(version: 20150612050325) do
     t.datetime "updated_at"
     t.string   "user_id"
     t.integer  "specification_id"
+    t.integer  "docencia"
+    t.integer  "investigacion"
+    t.integer  "extension"
+    t.integer  "apoyo"
   end
 
   create_table "applications", force: true do |t|
@@ -718,9 +721,9 @@ ActiveRecord::Schema.define(version: 20150612050325) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_id"
-    t.string   "attachment"
     t.integer  "specification_id"
     t.string   "numero"
+    t.string   "attachment"
   end
 
   create_table "servicerequests", force: true do |t|
