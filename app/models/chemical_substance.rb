@@ -6,7 +6,9 @@ class ChemicalSubstance < ActiveRecord::Base
 	validates :cas, :presence => {:message => "no puede ser blanco"}
 	validates :responsible, :presence => {:message => "no puede ser blanco"}
 	validates :quantity, :presence => {:message => "no puede ser blanco"}
-
+	attr_localized :cost
+	validates :cost, numericality: { greater_than: 0 }, if: "!cost.blank?"
+	
 	before_validation :uppercase_fields
 	before_update :uppercase_fields
 	has_many :table_items_solicitud

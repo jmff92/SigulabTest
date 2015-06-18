@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20150618022045) do
+=======
 ActiveRecord::Schema.define(version: 20150618042224) do
+>>>>>>> 59eb7fe8e911a56ea79a71e0f3548d0e1521976d
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -721,9 +725,9 @@ ActiveRecord::Schema.define(version: 20150618042224) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_id"
+    t.string   "attachment"
     t.integer  "specification_id"
     t.string   "numero"
-    t.string   "attachment"
   end
 
   create_table "servicerequests", force: true do |t|

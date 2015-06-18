@@ -8,6 +8,8 @@ class Equipment < ActiveRecord::Base
 	validates :location, :presence => {:message => "no puede ser blanco"}
 	validates :responsible, :presence => {:message => "no puede ser blanco"}
 	has_many :table_items_solicitud
+	attr_localized :cost
+	validates :cost, numericality: { greater_than: 0 }, if: "!cost.blank?"
 	
 
 	validate :fechas
@@ -28,6 +30,21 @@ class Equipment < ActiveRecord::Base
 		    	errors.add(:adquisition_date,"no puede ser posterior a la fecha actual.")
 		    end
 		end
+		if origen == "Donado"
+			if !fechaDonacion
+				errors.add(:fechaDonacion,"No puede ser vacio para una ítem donado")
+			end
+			if !NumDonacion
+				errors.add(:NumDonacion,"No puede ser vacio para una ítem donado")
+			end
+			if !PJDonacion
+				errors.add(:PJDonacion,"No puede ser vacio para una ítem donado")
+			end
+			if !PersonaContactoDonacion
+				errors.add(:PersonaContactoDonacion,"No puede ser vacio para una ítem donado")
+			end
+		end
+		
 		if fechaDonacion
 		    if fechaDonacion > Date.today
 		    	errors.add(:fechaDonacion,"no puede ser posterior a la fecha actual.")
