@@ -30,7 +30,7 @@ class Equipment < ActiveRecord::Base
 		end
 		if fechaDonacion
 		    if fechaDonacion > Date.today
-		    	errors.add(:FechaDonacion,"no puede ser posterior a la fecha actual.")
+		    	errors.add(:fechaDonacion,"no puede ser posterior a la fecha actual.")
 		    end
 		end
 
