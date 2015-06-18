@@ -9,13 +9,15 @@ class Instrument < ActiveRecord::Base
 	before_save :uppercase_fields
 	before_update :uppercase_fields
 	has_many :table_items_solicitud
+	attr_localized :cost
+	validates :cost, numericality: { greater_than: 0 }, if: "!cost.blank?"
 
 	validate :fechas
 
 	def fechas
 		if origen == "Donado"
-			if !FechaDonacion
-				errors.add(:FechaDonacion,"No puede ser vacio para una ítem donado")
+			if !fechaDonacion
+				errors.add(:fechaDonacion,"No puede ser vacio para una ítem donado")
 			end
 			if !NumDonacion
 				errors.add(:NumDonacion,"No puede ser vacio para una ítem donado")
@@ -32,9 +34,9 @@ class Instrument < ActiveRecord::Base
 		    	errors.add(:adquisition_date,"no puede ser posterior a la fecha actual.")
 		    end
 		end
-		if FechaDonacion
-		    if FechaDonacion > Date.today
-		    	errors.add(:FechaDonacion,"no puede ser posterior a la fecha actual.")
+		if fechaDonacion
+		    if fechaDonacion > Date.today
+		    	errors.add(:fechaDonacion,"no puede ser posterior a la fecha actual.")
 		    end
 		end
 		if last_calibration
