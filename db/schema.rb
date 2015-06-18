@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612050325) do
+ActiveRecord::Schema.define(version: 20150618042224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,11 +160,11 @@ ActiveRecord::Schema.define(version: 20150612050325) do
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
-    t.string   "NumDonacion"
-    t.string   "FechaDonacion"
     t.string   "PJDonacion"
     t.string   "PersonaContactoDonacion"
     t.string   "correo"
+    t.date     "FechaDonacion"
+    t.integer  "NumDonacion"
   end
 
   create_table "devolutions", force: true do |t|
@@ -216,7 +216,7 @@ ActiveRecord::Schema.define(version: 20150612050325) do
     t.string   "tipo"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "estimado"
+    t.float    "estimado",       default: 0.0
     t.string   "numDocumento"
     t.date     "fechaDocumento"
     t.string   "document"
@@ -255,11 +255,11 @@ ActiveRecord::Schema.define(version: 20150612050325) do
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
-    t.string   "NumDonacion"
-    t.string   "FechaDonacion"
     t.string   "PJDonacion"
     t.string   "PersonaContactoDonacion"
     t.string   "correo"
+    t.date     "fechaDonacion"
+    t.integer  "NumDonacion"
   end
 
   create_table "executions", force: true do |t|
@@ -337,11 +337,11 @@ ActiveRecord::Schema.define(version: 20150612050325) do
     t.boolean  "solicitados"
     t.string   "id2"
     t.string   "origen"
-    t.string   "NumDonacion"
-    t.string   "FechaDonacion"
     t.string   "PJDonacion"
     t.string   "PersonaContactoDonacion"
     t.string   "correo"
+    t.date     "FechaDonacion"
+    t.integer  "NumDonacion"
   end
 
   create_table "invitations", force: true do |t|
@@ -803,11 +803,11 @@ ActiveRecord::Schema.define(version: 20150612050325) do
     t.string   "id2"
     t.string   "tipo"
     t.string   "origen"
-    t.string   "NumDonacion"
-    t.string   "FechaDonacion"
     t.string   "PJDonacion"
     t.string   "PersonaContactoDonacion"
     t.string   "correo"
+    t.date     "FechaDonacion"
+    t.integer  "NumDonacion"
   end
 
   create_table "users", force: true do |t|

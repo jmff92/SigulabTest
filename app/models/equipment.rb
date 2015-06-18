@@ -9,6 +9,33 @@ class Equipment < ActiveRecord::Base
 	validates :responsible, :presence => {:message => "no puede ser blanco"}
 	has_many :table_items_solicitud
 	
+
+	validate :fechas
+
+	def fechas
+		if (calibrated == "Sí") && (last_calibration == nil)
+			errors.add(:last_calibration,"Si el objeto está calibrado, introduzca fecha de última calibración")
+		elsif (calibrated == "Sí") && (last_calibration != nil)
+		    if last_calibration > Date.today
+		      errors.add(:last_calibration, "no puede ser posterior a la fecha de actual.")
+		    end
+		end
+	    if !(calibrated == "Sí") && !(last_calibration == nil)
+	    	errors.add(:calibrated,"Si el campo Calibración es distinto de Sí, no puede tener Última Calibración")
+	    end
+	    if adquisition_date != nil
+		    if adquisition_date > Date.today
+		    	errors.add(:adquisition_date,"no puede ser posterior a la fecha actual.")
+		    end
+		end
+		if fechaDonacion
+		    if fechaDonacion > Date.today
+		    	errors.add(:FechaDonacion,"no puede ser posterior a la fecha actual.")
+		    end
+		end
+
+	end
+	
 	def self.search(query)
 		query=UnicodeUtils.upcase(query, :es)
 		where("name like ?", "%#{query}%") 
