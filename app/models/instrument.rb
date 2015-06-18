@@ -19,14 +19,14 @@ class Instrument < ActiveRecord::Base
 			if !fechaDonacion
 				errors.add(:fechaDonacion,"No puede ser vacio para una ítem donado")
 			end
-			if !NumDonacion
-				errors.add(:NumDonacion,"No puede ser vacio para una ítem donado")
+			if !numDonacion
+				errors.add(:numDonacion,"No puede ser vacio para una ítem donado")
 			end
-			if !PJDonacion
-				errors.add(:PJDonacion,"No puede ser vacio para una ítem donado")
+			if !pJDonacion
+				errors.add(:pJDonacion,"No puede ser vacio para una ítem donado")
 			end
-			if !PersonaContactoDonacion
-				errors.add(:PersonaContactoDonacion,"No puede ser vacio para una ítem donado")
+			if !personaContactoDonacion
+				errors.add(:personaContactoDonacion,"No puede ser vacio para una ítem donado")
 			end
 		end
 	    if adquisition_date != nil
@@ -45,6 +45,7 @@ class Instrument < ActiveRecord::Base
 		    end
 		end
 	end
+	
 	
 	def self.search(query)
 		query=UnicodeUtils.upcase(query, :es)

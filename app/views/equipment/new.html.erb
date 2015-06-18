@@ -88,23 +88,23 @@
           </tr>
            <tr>
             <td class="col-xs-5 text-right"><strong>Calibrado</strong></td>
-            <td class="col-xs-7"><%= f.select(:calibrated, [['N/A'],['Sí'], ['No'], ['Desconocido'] ],{:onchange => "disableCalibracion();"})  %></td>
+            <td class="col-xs-7"><%= f.select(:calibrated, [['N/A'],['Sí'], ['No'], ['Desconocido'] ])  %></td>
           </tr>
-           <tr class="disableoption">
-            <td class="disableoption col-xs-5 text-right"><strong>Última Calibración</strong></td>
-            <td class="disableoption col-xs-7"> <%= f.text_field :last_calibration, :class => "bootlayout-date" %></td>
+           <tr>
+            <td class="col-xs-5 text-right"><strong>Última Calibración</strong></td>
+            <td class="col-xs-7"> <%= f.text_field :last_calibration, :class => "bootlayout-date" %></td>
           </tr>
            <tr>
             <td class="col-xs-5 text-right"><strong>Dimensiones</strong></td>
             <td class="col-xs-7">
             <strong>Ancho&nbsp&nbsp</strong>
-            <%= f.text_field(:length, min: 0, :step => 'any') %>
+            <%= f.number_field(:length, min: 0, :step => 'any') %>
             <%= f.select(:measurelength, [['m'], ['cm'], ['mm'], ['in']] ) %><br><br>
             <strong>Largo&nbsp&nbsp&nbsp</strong>
-             <%= f.text_field(:width, min: 0, :step => 'any') %>
+             <%= f.number_field(:width, min: 0, :step => 'any') %>
             <%= f.select(:measurewidth, [['m'], ['cm'], ['mm'], ['in']] ) %><br><br>
             <strong>Alto&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong>
-            <%= f.text_field(:depth, min: 0, :step => 'any') %>
+            <%= f.number_field(:depth, min: 0, :step => 'any') %>
             <%= f.select(:measuredepth, [['m'], ['cm'], ['mm'], ['in']] ) %>
             </td>
           </tr>
@@ -197,7 +197,7 @@
 
                   <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong>Numero de Donación</strong></td>
-            <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :NumDonacion, min: 0 %></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= f.number_field :numDonacion, min: 0 %></td>
             </tr>
 
             <tr class="hidden_option2">
@@ -207,12 +207,12 @@
 
               <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong> Persona Juridica</strong></td>
-            <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :PJDonacion %></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :pJDonacion %></td>
             </tr>
 
               <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong> Persona de Contacto</strong></td>
-            <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :PersonaContactoDonacion %></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :personaContactoDonacion %></td>
             </tr>
 
         </table>
@@ -320,7 +320,7 @@ function changeOrigen() {
     $(".hidden_option2").fadeOut('fast');   
   }
 
-<<<<<<< HEAD
+
 }
 
 function setCost() {
@@ -372,13 +372,6 @@ function addPeriodsI(n){
     });
 };
 
-function disableCalibracion() {
-  if ($('#equipment_calibrated').val()=="Sí") {
-    $('.disableoption').fadeIn('fast');
-  } else {
-    $('.disableoption').fadeOut('fast');
-  }
-};
 
 </script>
   

@@ -20,6 +20,7 @@ class Donation < ActiveRecord::Base
 			if fechaDocumento > Date.today
 				errors.add(:fechaDocumento,"No puede ser posterior a la fecha actual.")
 			end
+		end
 	end
 	
 end
