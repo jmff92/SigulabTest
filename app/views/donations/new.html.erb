@@ -1,6 +1,10 @@
 <%= javascript_include_tag :defaults, "nested_form" %>
 <%= javascript_include_tag 'bootstrap-datepicker.js' %>
 <%= javascript_include_tag 'bootstrap-datepicker.es.js' %>
+<%= javascript_include_tag 'jquery-1.10.2.js'%>
+<%= javascript_include_tag 'jquery-ui.js' %>
+<%= stylesheet_link_tag 'jquery-ui.css'%>
+<%= javascript_include_tag 'tabs.js' %>
 
 
 <h1>Nueva Donación</h1>
@@ -33,27 +37,30 @@
 
     <table class="table table-striped">
       <tr>
-        <td class="col-xs-5 text-right"><strong>No. Documento:</strong></td>
+        <td class="col-xs-5 text-right"><strong>No. Documento</strong><span class="red">*</span></td>
         <td class="col-xs-7"> <%= f.text_field :numDocumento %>
-        <span class="red">*</span></td>
+        </td>
       </tr>
 
       <tr>
-        <td class="col-xs-5 text-right" for='income_document'><strong>Documento:</strong></td>
+        <td class="col-xs-5 text-right" for='income_document'><strong>Documento</strong><span class="red">*</span></td>
         <td class="col-xs-7"> <%= f.file_field :document %>
-        <span class="red">*</span></td>
+        </td>
       </tr>
 
       <tr>
-        <td class="col-xs-5 text-right"><strong>Fecha del Documento:</strong></td>
+        <td class="col-xs-5 text-right"><strong>Fecha del Documento</strong></td>
         <td class="col-xs-7"> <%= f.text_field :fechaDocumento, :class => "bootlayout-date" %></td>
       </tr>
 
-      <tr>
-        <td class="col-xs-5 text-right"><strong>Valor Estimado:</strong></td>
-        <td class="col-xs-7"> Bs. <%= f.number_field(:estimado, min: 0, :step => 'any') %>
-        <span class="red">*</span></td>
-      </tr>
+            <td class="hidden_option1 col-xs-5 text-right"><strong>Valor Estimado</strong><span class="red">*</span></td>
+              <td class="hidden_option1 col-xs-7" >
+                <div class="input-group">
+                  <span class="input-group-addon">Bs.</span>
+                  <%= f.text_field :estimado, :onblur => "setDonaciones();", placeholder: '0.000,00' %>
+                </div>
+              </td> 
+
 
     </table>
 
@@ -73,7 +80,54 @@
 <% end %>
 
 <script >
-  
+function setDonaciones() {
+  if (!isNaN(parseFloat($('#donation_estimado').val()))) {
+    $('#donation_estimado').val(formatAmount($('#donation_estimado').val()));
+  }   
+}
+
+function formatAmount(n){
+  if (n.toString().indexOf(",") == -1) {
+    n = n.concat(",00");
+  } 
+  if (n.toString().indexOf(",") == n.toString().length-2) {
+    n = n.concat("0");
+  }   
+  return addPeriods(n);
+}
+
+function formatAmountI(n){
+  if (n.toString().indexOf(",") == n.toString().length-2) {
+    n = n.concat("0");
+  }   
+  return addPeriodsI(n);
+}
+
+function addPeriods(n){
+    var rx=  /(\d+)(\d{3})/;
+  var split = String(n).split(',');
+  var integer = split[0];
+  var decimals = split[1];
+    return integer.replace(/^\d+/, function(w){
+        while(rx.test(w)){
+            w= w.replace(rx, '$1.$2');
+        }
+      return w;
+    }).concat(",".concat(decimals));
+}
+
+function addPeriodsI(n){
+    var rx=  /(\d+)(\d{3})/;
+  var split = String(n).split(',');
+  var integer = split[0];
+  var decimals = split[1];
+    return integer.replace(/^\d+/, function(w){
+        while(rx.test(w)){
+            w= w.replace(rx, '$1.$2');
+        }
+      return w;
+    });
+}
 </script>
 
 <style>
