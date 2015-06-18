@@ -21,9 +21,6 @@ class ItemDonadosController < ApplicationController
     end
     
 
-
-
-
   end
 
   def destroy
