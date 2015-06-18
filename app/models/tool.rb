@@ -5,6 +5,9 @@ class Tool < ActiveRecord::Base
 	validates :location, :presence => {:message => "no puede ser blanco"}
 	validates :dependency, :presence => {:message => "no puede ser blanco"}
 	validates :responsible, :presence => {:message => "no puede ser blanco"}
+	validates_presence_of :correo, :presence => {:message => "no puede ser blanco"}
+	validates_format_of :correo, with: /\A(.[_a-z0-9-]+)*@usb.ve$\z/i, on: :create, :message => "debe ser @usb.ve"
+	validates_format_of :correo, with: /\A(.[_a-z0-9-]+)*@usb.ve$\z/i, on: :update, :message => "debe ser @usb.ve"
 	before_save :uppercase_fields
 	before_update :uppercase_fields
 	has_many :table_items_solicitud

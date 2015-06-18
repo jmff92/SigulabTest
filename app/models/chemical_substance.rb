@@ -6,6 +6,9 @@ class ChemicalSubstance < ActiveRecord::Base
 	validates :cas, :presence => {:message => "no puede ser blanco"}
 	validates :responsible, :presence => {:message => "no puede ser blanco"}
 	validates :quantity, :presence => {:message => "no puede ser blanco"}
+	validates_presence_of :correo, :presence => {:message => "no puede ser blanco"}
+	validates_format_of :correo, with: /\A(.[_a-z0-9-]+)*@usb.ve$\z/i, on: :create, :message => "debe ser @usb.ve"
+	validates_format_of :correo, with: /\A(.[_a-z0-9-]+)*@usb.ve$\z/i, on: :update, :message => "debe ser @usb.ve"
 	attr_localized :cost
 	validates :cost, numericality: { greater_than: 0 }, if: "!cost.blank?"
 	
