@@ -20,19 +20,19 @@ class LoansController < ApplicationController
     @tools = Tool.where(id2: @relation_loan)
     @consumables = Consumable.where(id2: @relation_loan)
     @sustancias = ChemicalSubstance.where(id2: @relation_loan)
-    if @equipment
+    if @equipment != nil
       @parametro = @equipment
     end
-    if @instruments
+    if @instruments != nil
       @parametro = @instruments
     end
-    if @tools
+    if @tools != nil
       @parametro = @tools
     end
-    if @sustancias
+    if @sustancias != nil
       @parametro = @sustancias
     end
-    if @consumables
+    if @consumables != nil
       @parametro = @consumables
     end
 
