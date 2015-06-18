@@ -6,10 +6,24 @@ class ItemDonadosController < ApplicationController
 
   def create
     @itemdonado = ItemDonado.new(item_donados_params)
-  	@donation_id = params[:donation_id]
-  	@itemdonado.donation_id = @donation_id
-  	@itemdonado.save
-  	redirect_to donation_path(@donation_id)
+    @donation_id = params[:donation_id]
+    @itemdonado.donation_id = @donation_id
+
+    respond_to do |format|
+      if @itemdonado.save
+        format.html { redirect_to @itemdonado }
+        format.json { render :show, status: :created, location: @itemdonado }
+        redirect_to donation_path(@donation_id)
+      else
+        format.html { render :new }
+        format.json { render json: @itemdonado.errors, status: :unprocessable_entity }
+      end
+    end
+    
+
+
+
+
   end
 
   def destroy

@@ -19,7 +19,6 @@
     <%= link_to donations_path do %>
       <button type="button" class="btn btn-primary"><span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Volver</button>
     <% end %>
-
   </div>
 <br><br>
 
@@ -29,25 +28,25 @@
 
 
     <tr>
-      <td class="col-xs-5 text-right"><strong>No. Documento:</strong></td>
+      <td class="col-xs-5 text-right"><strong>No. Documento</strong></td>
       <td class="col-xs-7"> <%= @donation.numDocumento %>
       </td>
     </tr>
 
         <tr>
-        <td class="col-xs-5 text-right"><strong>Documento:</strong></td>
+        <td class="col-xs-5 text-right"><strong>Documento</strong></td>
         <td class="col-xs-7"><%= link_to "Consultar", @donation.document_url %></td>
           </tr>
 
     <tr>
-      <td class="col-xs-5 text-right"><strong>Fecha del Documento:</strong></td>
+      <td class="col-xs-5 text-right"><strong>Fecha del Documento</strong></td>
       <td class="col-xs-7"> <%= @donation.fechaDocumento %>
       </td>
     </tr>
 
     <tr>
-      <td class="col-xs-5 text-right"><strong>Valor Estimado:</strong></td>
-      <td class="col-xs-7">  Bs.<%= @donation.estimado%>
+      <td class="col-xs-5 text-right"><strong>Valor Estimado</strong></td>
+      <td class="col-xs-7">  Bs.<%= number_to_currency(@donation.estimado, format: "%n", delimiter: ".", separator: ",", precision: 2) %>
       </td>
     </tr>
 

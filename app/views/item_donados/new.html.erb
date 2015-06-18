@@ -10,6 +10,18 @@
 
 <div id = "table2">
 </div>
+<%= form_for(@itemdonado) do |i| %>
+  <% if @itemdonado.errors.any? %>
+    <div class="col-xs-12" role="alert">
+      <div class="alert alert-danger">
+        <ul>
+          <% @itemdonado.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
 
 <div class ="Informacion">
 
@@ -17,34 +29,33 @@
 
     <table class="table table-striped">
 
-    <%= form_for(@itemdonado) do |i| %>
 
  		<%= hidden_field_tag 'donation_id', @donation_id %>
     <table class="table table-striped">
           <tr>
-            <td class="col-xs-5 text-right"><strong>Nombre:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Nombre</strong><span class="red">*</span></td>
             <td class="col-xs-7"> <%= i.text_field :Nombre %>
-            <span class="red">*</span></td>
+            </td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Marca:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Marca</strong></td>
             <td class="col-xs-7"> <%= i.text_field :Marca %></td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Modelo:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Modelo</strong><span class="red">*</span></td>
             <td class="col-xs-7"> <%= i.text_field :Modelo %>
-            <span class="red">*</span></td>
+            </td>
           </tr>
 
           <tr>
-            <td class="col-xs-5 text-right"><strong>Unidad de Medida:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Unidad de Medida</strong></td>
             <td class="col-xs-7"> <%= i.text_field :UniDeMedida %></td>
           </tr>
 
             <tr>
-            <td class="col-xs-5 text-right"><strong>Tipo:</strong></td>
+            <td class="col-xs-5 text-right"><strong>Tipo</strong></td>
             <td class="col-xs-7"><%= i.select(:tipo, [ ['Equipos/Mobiliarios'],['Instrumentos de Medición'],
               ['Herramientas'], ['Consumibles/Materiales'] ] ) %></td>
           </tr>
