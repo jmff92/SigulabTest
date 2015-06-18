@@ -1,8 +1,12 @@
 class Loan < ActiveRecord::Base
-	#validates_presence_of :ubicacion, :presence => {:message => "no puede ser blanco"}
-	#validates_presence_of :condiciones, :presence => {:message => "no puede ser blanco"}
-	#validates_presence_of :fechaEntrega, :presence => {:message => "no puede ser blanco"}
-	#validates_presence_of :fechaTope, :presence => {:message => "no puede ser blanco"}
+#	validates_presence_of :unidadMedida, :presence => {:message => "no puede ser blanco"}
+#	validates_presence_of :condiciones, :presence => {:message => "no puede ser blanco"}
+#	validates_presence_of :periodo, :presence => {:message => "no puede ser blanco"}
+#	validates_presence_of :inicio, :presence => {:message => "no puede ser blanco"}
+#	validates_presence_of :hasta, :presence => {:message => "no puede ser blanco"}
+#	validates_presence_of :ubicacion, :presence => {:message => "no puede ser blanco"}
+#	validates_presence_of :maxDevolucion, :presence => {:message => "no puede ser blanco"}
+#	validates_presence_of :persona :presence => {:message => "no puede ser blanco"}
 	has_many :table_items_solicitud
 
 	validate :fechas

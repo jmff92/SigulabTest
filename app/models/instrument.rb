@@ -12,6 +12,7 @@ class Instrument < ActiveRecord::Base
 	attr_localized :cost
 	validates :cost, numericality: { greater_than: 0 }, if: "!cost.blank?"
 	
+	
 	def self.search(query)
 		query=UnicodeUtils.upcase(query, :es)
 		where("name like ?", "%#{query}%") 
