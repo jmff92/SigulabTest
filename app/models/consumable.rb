@@ -10,6 +10,22 @@ class Consumable < ActiveRecord::Base
 		query=UnicodeUtils.upcase(query, :es)
 		where("name like ?", "%#{query}%") 
 	end
+
+	validate :fechas
+
+	def fechas
+	    if adquisition_date != nil
+		    if adquisition_date > Date.today
+		    	errors.add(:adquisition_date,"no puede ser posterior a la fecha actual.")
+		    end
+		end
+		if FechaDonacion
+		    if FechaDonacion > Date.today
+		    	errors.add(:FechaDonacion,"no puede ser posterior a la fecha actual.")
+		    end
+		end
+
+	end
 	
 	before_save :uppercase_fields
 	before_update :uppercase_fields
