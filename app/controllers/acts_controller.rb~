@@ -190,7 +190,20 @@ class ActsController < ApplicationController
     @act.investigacion = params["inv"]
     @act.extension = params["ext"]
     @act.apoyo = params["apoyoA"]
-    @act.respons
+    @act.responsable = @act.responsable.upcase
+    @act.justificacion = @act.justificacion.upcase
+    @act.providencia = @act.providencia.upcase
+    respond_to do |format|
+      if @act.save
+        format.html { redirect_to @act, notice: 'Act was successfully updated.' }
+        format.json { render :show, status: :ok, location: @act }
+      else
+        format.html { render :edit }
+        format.json { render json: @act.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /acts/1
   # DELETE /acts/1.json
   def destroy

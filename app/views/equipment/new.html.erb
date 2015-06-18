@@ -88,11 +88,11 @@
           </tr>
            <tr>
             <td class="col-xs-5 text-right"><strong>Calibrado</strong></td>
-            <td class="col-xs-7"><%= f.select(:calibrated, [['N/A'],['Sí'], ['No'], ['Desconocido'] ])  %></td>
+            <td class="col-xs-7"><%= f.select(:calibrated, [['N/A'],['Sí'], ['No'], ['Desconocido'] ],{:onchange => "disableCalibracion();"})  %></td>
           </tr>
-           <tr>
-            <td class="col-xs-5 text-right"><strong>Última Calibración</strong></td>
-            <td class="col-xs-7"> <%= f.text_field :last_calibration, :class => "bootlayout-date" %></td>
+           <tr class="disableoption">
+            <td class="disableoption col-xs-5 text-right"><strong>Última Calibración</strong></td>
+            <td class="disableoption col-xs-7"> <%= f.text_field :last_calibration, :class => "bootlayout-date" %></td>
           </tr>
            <tr>
             <td class="col-xs-5 text-right"><strong>Dimensiones</strong></td>
@@ -202,7 +202,7 @@
 
             <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong>Fecha de Donación</strong></td>
-            <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :FechaDonacion, class: "bootlayout-date" %></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :fechaDonacion, class: "bootlayout-date" %></td>
             </tr>
 
               <tr class="hidden_option2">
@@ -320,6 +320,15 @@ function changeOrigen() {
     $(".hidden_option2").fadeOut('fast');   
   }
 
-}
-  </script>
+};
+
+function disableCalibracion() {
+  if ($('#equipment_calibrated').val()=="Sí") {
+    $('.disableoption').fadeIn('fast');
+  } else {
+    $('.disableoption').fadeOut('fast');
+  }
+};
+
+</script>
   

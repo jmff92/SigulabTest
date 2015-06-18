@@ -128,11 +128,19 @@ class ActsController < ApplicationController
   def new
     @act = Act.new
     @invitations = Invitation.where(:specification_id => session[:specification_sel_id]).all
+    @doc = 0
+    @inv = 0
+    @ext = 0
+    @apoyoA = 0
   end
 
   # GET /acts/1/edit
   def edit
 	@invitations = Invitation.where(:specification_id => session[:specification_sel_id]).all
+    @doc = @act.docencia
+    @inv = @act.investigacion
+    @ext = @act.extension
+    @apoyoA = @act.apoyo
   end
 
   # POST /acts

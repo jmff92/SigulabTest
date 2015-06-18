@@ -70,6 +70,10 @@ es:
         responsible: "Responsable"
         dependency: "Dependencia"
         location: "Ubicación Física"
+        last_calibration: "Última fecha de calibración"
+        calibrated: "Calibración"
+        adquisition_date: "Fecha de Adquisición"
+        FechaDonacion: "Fecha de Donación"
       instrument:
         name: "Nombre"
         measurement_unit: "Unidad de Medida"
