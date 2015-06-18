@@ -289,9 +289,6 @@
   <%= link_to @loan, method: :delete, data: { confirm: '¿Estás seguro?' }  do %>
     <button type="button" class="btn btn-danger"><span class="fa fa-times"></span>&nbsp;&nbsp;Eliminar</button>
   <% end %>
-  <%= link_to loan_path(@loan, :format => 'pdf') do %>
-    <button type="button" class="btn btn-info"><span class="fa fa-download"></span>&nbsp;&nbsp;Descargar Planilla</button>
-  <% end %>
 <br><br><br><br>
 </div>
 
