@@ -721,9 +721,9 @@ ActiveRecord::Schema.define(version: 20150618042224) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_id"
-    t.string   "attachment"
     t.integer  "specification_id"
     t.string   "numero"
+    t.string   "attachment"
   end
 
   create_table "servicerequests", force: true do |t|

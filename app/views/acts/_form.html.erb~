@@ -18,11 +18,11 @@
        <span class="red">*</span>
        <%= f.label "Será usado en:" %><br>
       <table style="width: 100%;">
-            <tr><td><input type="checkbox" id="doc" name="docencia" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Docencia</td>
-                <td><input type="checkbox" id="inv" name="investigacion" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Investigacion</td>
-                <td><input type="checkbox" id="ext" name="extension" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Extensión</td>
-                <td><input type="checkbox" id="apoyoA" name="apoyoAdm" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Apoyo Administrativo</td>
-</table>  
+            <tr><td><input type="checkbox" id="doc" name="doc" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Docencia</td></tr>
+                <tr><td><input type="checkbox" id="inv" name="inv" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Investigación</td></tr>
+                <tr><td><input type="checkbox" id="ext" name="ext" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Extensión</td></tr>
+                <tr><td><input type="checkbox" id="apoyoA" name="apoyoA" value="1" style="margin-right: 5px; margin-bottom: 5px;" />Apoyo Administrativo</td>
+</tr></table>  
 </td></tr><tr><td style="padding-top:10px;">
        
        <span class="red">*</span>
@@ -42,7 +42,25 @@
    </div>
 </div>
 
+<script>
+document.forms[0].onsubmit = function () {
+	if (!document.getElementById("doc").checked && !document.getElementById("inv").checked && !document.getElementById("ext").checked && !document.getElementById("apoyoA").checked) {
+		alert("Debe seleccionar al menos un área en la cual será utilizada su solicitud.");
+		return false;
+	}
+}
 
+$(document).ready(function() {
+	if (<%= @doc %> == 1)
+		   document.getElementById("doc").checked = true;
+	if (<%= @inv %> == 1)
+		   document.getElementById("inv").checked = true;
+	if (<%= @ext %> == 1)
+		   document.getElementById("ext").checked = true;
+	if (<%= @apoyaA %> == 1)
+		   document.getElementById("apoyaA").checked = true;
+});
+</script>
 <style>
 input[type="submit"] {
 
