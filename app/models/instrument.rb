@@ -9,6 +9,40 @@ class Instrument < ActiveRecord::Base
 	before_save :uppercase_fields
 	before_update :uppercase_fields
 	has_many :table_items_solicitud
+
+	validate :fechas
+
+	def fechas
+		if origen == "Donado"
+			if !FechaDonacion
+				errors.add(:FechaDonacion,"No puede ser vacio para una ítem donado")
+			end
+			if !NumDonacion
+				errors.add(:NumDonacion,"No puede ser vacio para una ítem donado")
+			end
+			if !PJDonacion
+				errors.add(:PJDonacion,"No puede ser vacio para una ítem donado")
+			end
+			if !PersonaContactoDonacion
+				errors.add(:PersonaContactoDonacion,"No puede ser vacio para una ítem donado")
+			end
+		end
+	    if adquisition_date != nil
+		    if adquisition_date > Date.today
+		    	errors.add(:adquisition_date,"no puede ser posterior a la fecha actual.")
+		    end
+		end
+		if FechaDonacion
+		    if FechaDonacion > Date.today
+		    	errors.add(:FechaDonacion,"no puede ser posterior a la fecha actual.")
+		    end
+		end
+		if last_calibration
+			if last_calibration > Date.today
+		      errors.add(:last_calibration, "no puede ser posterior a la fecha de actual.")
+		    end
+		end
+	end
 	
 	def self.search(query)
 		query=UnicodeUtils.upcase(query, :es)
