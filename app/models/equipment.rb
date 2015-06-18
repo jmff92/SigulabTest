@@ -31,16 +31,16 @@ class Equipment < ActiveRecord::Base
 		    end
 		end
 		if origen == "Donado"
-			if !fechaDonacion
+			if fechaDonacion == nil
 				errors.add(:fechaDonacion,"No puede ser vacio para una ítem donado")
 			end
-			if !numDonacion
+			if numDonacion == nil
 				errors.add(:numDonacion,"No puede ser vacio para una ítem donado")
 			end
-			if !pJDonacion
+			if pJDonacion == nil
 				errors.add(:pJDonacion,"No puede ser vacio para una ítem donado")
 			end
-			if !personaContactoDonacion
+			if personaContactoDonacion == nil
 				errors.add(:personaContactoDonacion,"No puede ser vacio para una ítem donado")
 			end
 		end
