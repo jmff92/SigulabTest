@@ -10,6 +10,7 @@ class Donation < ActiveRecord::Base
 
 	
 	validates :estimado, :presence => {:message => "no puede ser blanco"}
+	validates :estimado, numericality: { greater_than: 0 }, if: "!estimado.blank?"
 	validates :numDocumento, :presence => {:message => "no puede ser blanco"}
 end
 
