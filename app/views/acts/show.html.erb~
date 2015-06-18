@@ -29,6 +29,8 @@
      </tr>
        <tr>
        <td class="col-xs-5 text-right">Será usado en:</td>
+	 <td  class="col-xs-7">
+
 		<%
 		uso = ""
 		if @act.docencia== 1 
@@ -44,8 +46,8 @@
 			uso = uso + "Apoyo Administrativo. "
 		end				
    		%>
-<tr><td class="col-xs-5 text-right"></td><td class="col-xs-7"><%= uso %></td></tr>
-
+<%= uso %>
+</td>
 
      </tr>
      <tr>
