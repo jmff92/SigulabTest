@@ -16,14 +16,28 @@ class Consumable < ActiveRecord::Base
 	validate :fechas
 
 	def fechas
+		if origen == "Donado"
+			if !fechaDonacion
+				errors.add(:fechaDonacion,"No puede ser vacio para una ítem donado")
+			end
+			if !NumDonacion
+				errors.add(:NumDonacion,"No puede ser vacio para una ítem donado")
+			end
+			if !PJDonacion
+				errors.add(:PJDonacion,"No puede ser vacio para una ítem donado")
+			end
+			if !PersonaContactoDonacion
+				errors.add(:PersonaContactoDonacion,"No puede ser vacio para una ítem donado")
+			end
+		end
 	    if adquisition_date != nil
 		    if adquisition_date > Date.today
 		    	errors.add(:adquisition_date,"no puede ser posterior a la fecha actual.")
 		    end
 		end
-		if FechaDonacion
-		    if FechaDonacion > Date.today
-		    	errors.add(:FechaDonacion,"no puede ser posterior a la fecha actual.")
+		if fechaDonacion
+		    if fechaDonacion > Date.today
+		    	errors.add(:fechaDonacion,"no puede ser posterior a la fecha actual.")
 		    end
 		end
 
