@@ -52,11 +52,13 @@ es:
       loans:
         ubicacion: "Ubicación"
         condiciones: "Condiciones"
-        fechaEntrega: "Fecha de Entrega"
-        fechaTope: "Fecha Tope"
         medida: "Cantidad"
-        condiciones: "Condiciones"
-        
+        maxDevolucion: "Fecha Máxima de Devolución"
+        cedula: "Cédula"
+        persona: "Persona"
+        periodo: "Período"
+        inicio: "Inicio"
+        hasta: "Hasta"
       applications:
         fechaRequerida: "Fecha Requerida"
         descripcion: "Descripción"
