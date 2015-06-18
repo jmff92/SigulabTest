@@ -148,7 +148,7 @@
 
           <tr>
             <td class="hidden_option1 col-xs-5 text-right"><strong>Costo</strong></td>
-            <td class="hidden_option1 col-xs-7" >Bs.<%= @consumable.cost %></td> 
+            <td class="hidden_option1 col-xs-7" >Bs.<%= number_to_currency(@consumable.cost, format: "%n", delimiter: ".", separator: ",", precision: 2) %></td> 
           </tr>
 
           <tr>
@@ -172,7 +172,7 @@
             </tr>
 
               <tr>
-            <td class="hidden_option2 col-xs-5 text-right"><strong> PJ Donación</strong></td>
+            <td class="hidden_option2 col-xs-5 text-right"><strong> Persona Juridica Donación</strong></td>
             <td class="hidden_option2 col-xs-7 text-left"><%= @consumable.PJDonacion %></td>
             </tr>
 

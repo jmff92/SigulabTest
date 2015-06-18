@@ -182,7 +182,7 @@
               <td class="hidden_option1 col-xs-7" >
                 <div class="input-group">
                   <span class="input-group-addon">Bs.</span>
-                  <%= f.text_field(:cost, min: 0, :step => 'any') %>
+                  <%= f.text_field :cost, :onblur => "setCost();", placeholder: '0.000,00'%>
                 </div>
               </td> 
 
@@ -197,7 +197,7 @@
 
                   <tr class="hidden_option2">
             <td class="hidden_option2 col-xs-5 text-right"><strong>Numero de Donación</strong></td>
-            <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :NumDonacion %></td>
+            <td class="hidden_option2 col-xs-7 text-left"><%= f.text_field :NumDonacion, min: 0 %></td>
             </tr>
 
             <tr class="hidden_option2">
@@ -320,6 +320,55 @@ function changeOrigen() {
     $(".hidden_option2").fadeOut('fast');   
   }
 
+}
+
+function setCost() {
+  if (!isNaN(parseFloat($('#equipment_cost').val()))) {
+    $('#equipment_cost').val(formatAmount($('#equipment_cost').val()));
+  }   
+}
+
+function formatAmount(n){
+  if (n.toString().indexOf(",") == -1) {
+    n = n.concat(",00");
+  } 
+  if (n.toString().indexOf(",") == n.toString().length-2) {
+    n = n.concat("0");
+  }   
+  return addPeriods(n);
+}
+
+function formatAmountI(n){
+  if (n.toString().indexOf(",") == n.toString().length-2) {
+    n = n.concat("0");
+  }   
+  return addPeriodsI(n);
+}
+
+function addPeriods(n){
+    var rx=  /(\d+)(\d{3})/;
+  var split = String(n).split(',');
+  var integer = split[0];
+  var decimals = split[1];
+    return integer.replace(/^\d+/, function(w){
+        while(rx.test(w)){
+            w= w.replace(rx, '$1.$2');
+        }
+      return w;
+    }).concat(",".concat(decimals));
+}
+
+function addPeriodsI(n){
+    var rx=  /(\d+)(\d{3})/;
+  var split = String(n).split(',');
+  var integer = split[0];
+  var decimals = split[1];
+    return integer.replace(/^\d+/, function(w){
+        while(rx.test(w)){
+            w= w.replace(rx, '$1.$2');
+        }
+      return w;
+    });
 }
   </script>
   

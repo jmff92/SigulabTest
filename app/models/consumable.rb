@@ -5,6 +5,8 @@ class Consumable < ActiveRecord::Base
 	validates :location, :presence => {:message => "no puede ser blanco"}
 	validates :responsible, :presence => {:message => "no puede ser blanco"}
 	has_many :table_items_solicitud
+	attr_localized :cost
+	validates :cost, numericality: { greater_than: 0 }, if: "!cost.blank?"
 	
 	def self.search(query)
 		query=UnicodeUtils.upcase(query, :es)
