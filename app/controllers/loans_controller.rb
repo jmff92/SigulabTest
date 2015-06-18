@@ -20,11 +20,26 @@ class LoansController < ApplicationController
     @tools = Tool.where(id2: @relation_loan)
     @consumables = Consumable.where(id2: @relation_loan)
     @sustancias = ChemicalSubstance.where(id2: @relation_loan)
+    if @equipment
+      @parametro = @equipment
+    end
+    if @instruments
+      @parametro = @instruments
+    end
+    if @tools
+      @parametro = @tools
+    end
+    if @sustancias
+      @parametro = @sustancias
+    end
+    if @consumables
+      @parametro = @consumables
+    end
 
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = SolicitudPrestamo.new(@loan)
+        pdf = SolicitudPrestamo.new(@parametro,@loan)
         send_data pdf.render, filename: 'SolicitudPrestamo.pdf', type: 'application/pdf'
       end
     end

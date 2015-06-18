@@ -1,9 +1,10 @@
 # encoding: utf-8
 class SolicitudPrestamo < Prawn::Document
 
-def initialize(equipos)
+def initialize(parametro,prestamo)
 		super()
-		@equipos = equipos
+		@parametro = parametro
+    @loan = prestamo
 		repeat :all do
 			header
 			pie_de_pagina
@@ -34,7 +35,7 @@ end
    def tittle 
       [[{:content => "Solicitud De Prestamos", :rowspan => 2, :size => 20, :background_color => "DDDDDD"  },
         {:content => "Registro No.", :background_color => "DDDDDD"}],
-        [{:content => "0001", :background_color => "FFFFFF", :align => :center}]]
+        [{:content => "00#{@loan.id}", :background_color => "FFFFFF", :align => :center}]]
    end
 
 
@@ -50,7 +51,10 @@ end
   end
  
   def equipos_rows
-    [['Nombre','Número de Bien']] 
+    [['ID-Ítem','Nombre del Bien']] + 
+    @parametro.map do |parametro|
+      [parametro.id2, parametro.name.upcase]
+    end
 end
 
   def pie_de_pagina
